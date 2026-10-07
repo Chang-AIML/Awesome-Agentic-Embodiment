@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+"""Merge stage-2 (fine) judgments from shard outputs into data/core/fine_labels.csv.
+
+Each shard output line: id|verdict|seat|seat2|carrier|sub|interface|topo|closure|body|rep|conf|reason
+Validates enums and completeness against data/core/pool.jsonl, and joins pool metadata plus the
+definition test-set placement (matched by arXiv id) for comparison.
+
+Usage: python3 scripts/merge_fine_labels.py <dir with *.txt shard outputs>
+"""
+import csv, glob, json, os, re, sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FIELDS = ["id", "verdict", "seat", "seat2", "carrier", "sub", "interface", "topo", "closure", "body", "rep", "conf",
+          "reason"]
+ENUM = dict(verdict={"core", "precursor", "boundary", "resource", "out"},
+            seat={"Controller", "Supervisor", "Teacher", "Designer", "Developer", "-"},
+            carrier={"G", "C", "H", "I", "-"},
+            sub={"orchestrator", "direct", "lifelong", "trained", "-"},
+            rep={"1", "2", "3", "4", "5", "-"},
+            conf={"high", "med", "low"})
+
+
+def norm_arxiv(a):
+    return re.sub(r"v\d+$", "", (a or "").strip().lower().replace("arxiv:", ""))
+
+
+def main():
+    pool = {o["id"]: o for o in map(json.loads, open(os.path.join(ROOT, "data/core/pool.jsonl")))}
+    ts = {norm_arxiv(r["arxiv_id"]): r for r in
+          csv.DictReader(open(os.path.join(ROOT, "docs/definition_testset_placements.csv")))}
+    got, bad = {}, []
+    for path in sorted(glob.glob(os.path.join(sys.argv[1], "*.txt"))):
+        for line in open(path):
+            parts = [p.strip() for p in line.rstrip("\n").split("|")]
+            if len(parts) < 13 or parts[0] not in pool:
+                if line.strip():
+                    bad.append((os.path.basename(path), line.strip()[:80]))
+                continue
+            row = dict(zip(FIELDS, parts[:12] + ["|".join(parts[12:])]))
+            row["verdict"] = row["verdict"].lower()
+            row["seat"] = row["seat"].capitalize() if row["seat"] != "-" else "-"
+            row["conf"] = row["conf"].lower().replace("medium", "med")
+            errs = [k for k, ok in ENUM.items() if row[k] not in ok]
+            if errs:
+                bad.append((os.path.basename(path), f"{row['id']} bad {errs}: " + "|".join(row[k] for k in errs)))
+            got[row["id"]] = row  # last judgment wins (re-runs append)
+    missing = sorted(set(pool) - set(got))
+    out = []
+    for i, row in sorted(got.items()):
+        p = pool[i]
+        t = ts.get(norm_arxiv(p["arxiv"]), {})
+        out.append(dict(row, title=p["title"], date=p["date"], citations=p["citations"], arxiv=p["arxiv"],
+                        source=p["source"], coarse=p["coarse"], testset_tier=t.get("in_scope", ""),
+                        testset_primary=t.get("primary", "")))
+    path = os.path.join(ROOT, "data/core/fine_labels.csv")
+    with open(path, "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=list(out[0].keys()))
+        w.writeheader()
+        w.writerows(out)
+    print(f"judged {len(got)} / pool {len(pool)}; missing {len(missing)}; malformed {len(bad)} -> {path}")
+    for b in bad[:30]:
+        print("  bad:", *b)
+    if missing:
+        print("  missing:", " ".join(missing[:60]))
+
+
+if __name__ == "__main__":
+    main()

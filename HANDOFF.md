@@ -1,7 +1,7 @@
 # 交接文档：Agentic Embodiment Survey
 
-> 写给接手的 agent。最后更新：2026-10-07。
-> 工作分支：`claude/kind-ritchie-tyei7j`。
+> 写给接手的 agent。最后更新：2026-10-07（第二轮）。
+> 工作分支：`claude/compassionate-sagan-wklsz6`（已合并第一轮的 `claude/kind-ritchie-tyei7j`）。
 
 ---
 
@@ -36,10 +36,16 @@
           └─ Haiku 粗筛（标题+摘要）+ Sonnet 复核全部"无关"
              relevant 6,046 / maybe 2,236 / irrelevant 758   data/screening/coarse_labels.csv
               └─ 按影响力与新兴度取短名单 → 626 篇（含 14 篇种子）  data/core/shortlist.jsonl
-                  └─ 【下一步】按定义挑出约 60 篇核心论文   （未开始）
+                  └─ + 稀有 seat 补充 621 篇 + 测试集 159 篇 → 判定池 1,406 篇   data/core/pool.jsonl
+                      └─ Sonnet 逐篇判定（15 个 agent）                     data/core/fine_labels.csv
+                         core 214 / precursor 155 / boundary 59 / resource 42 / out 936
+                          └─ 人工挑选（+ 联网补漏）→ 核心表                  data/core/core_table.csv
+                              └─ arXiv 核验 + S2 元数据                     data/core/core_meta.json
+                                  └─ awesome list                           README.md
 ```
 
-- 定义与分类已经出了**草稿**，见 `docs/definition_draft.md`。用户还**没有确认**，见 §5。
+- 用户已确认四项框架决策（§5），正文版定义见 `docs/definition.md`；`docs/definition_draft.md` 降为附录和标注指南。
+- **Sonnet 判定与测试集判定的一致性**：测试集 CORE 的 68 篇中，66 篇被 Sonnet 判为 core；其中 64 篇主 seat 一致。Sonnet 对 CORE-P 和 B-loop 偏宽（CORE-P 50 篇中 40 篇判 core，B-loop 中 11 篇判 core），人工挑选时已按定义纠正。
 
 ---
 
@@ -58,6 +64,17 @@
 | `docs/definition_chosen_basis.md` | 为什么选了这个方案，以及从另外两个方案嫁接了什么 |
 | `docs/definition_open_decisions.md` | 草稿列出的 13 个细节决策，各带推荐 |
 | `docs/definition_testset_placements.csv` | 草稿规则在 353 篇测试集上的逐篇判定 |
+| `docs/definition.md` | **正文版定义**（简化）：三条 agent 判定、5 Seat × 4 Carrier、Controller 四个子章、层级（CORE / PRECURSOR / BOUNDARY / RESOURCE / OUT）、anatomy 列、主线 |
+| `screening/criteria_fine.md` | stage-2 细判 rubric（英文），供 Sonnet 子 agent 使用 |
+| `scripts/build_pool.py` | 生成判定池：短名单 + 稀有 seat 补充（monitor/teacher/developer/self-evolving/multi-agent 的门槛更低）+ 测试集非 OUT 论文。短名单按影响力取样，会漏掉 Code-as-Monitor 这类中等被引的小 seat 论文，所以要补 |
+| `data/core/pool.jsonl` | 1,406 篇判定池。id：`c#####` 为 candidates 行号，`t###` 为测试集中不在 candidates 的论文，`seed:<key>` 为种子 |
+| `scripts/merge_fine_labels.py` | 合并分片判定输出、校验枚举和完整性，并附上测试集判定以便对照 |
+| `data/core/fine_labels.csv` | 1,406 篇的 stage-2 判定：verdict、seat、seat2、carrier、sub、interface、topo、closure、body、rep（1–5 代表性）、conf、reason |
+| `data/core/gap_candidates.jsonl` | 联网补漏 agent 找到的、不在判定池中的公认工作（均经 arXiv API 核验） |
+| `data/core/core_selection.csv` | **人工挑选的核心表输入**：id、key（短名）、tier、seat、sub、carrier、why（中文入选理由）、arxiv（可选覆盖）。改核心表就改这个文件 |
+| `scripts/build_core_table.py` | selection + fine_labels + gap → `data/core/core_table.csv`，检查重复和未知 id |
+| `scripts/fetch_metadata.py` | 用 arXiv API 核验每个 id 并取标题、v1 日期、作者、comment；用 S2 batch 取 venue 和被引数 → `data/core/core_meta.json` |
+| `scripts/build_readme.py` | 从 core_table + core_meta 生成 `README.md`（awesome list，英文），按 Seat 分节 |
 | `data/definition/testset_papers.json` | 测试集论文（由 11 个方向的 agent 搜集），带 timing、role、locus 等工作标签 |
 | `data/definition/exemplar_research.json` | 对 GUAVA、ENPIRE、CaM、harness 的深入调研 |
 
