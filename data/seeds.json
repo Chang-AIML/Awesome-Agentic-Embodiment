@@ -1,0 +1,19 @@
+{
+  "_comment": "Seed papers for forward-citation snowballing. tier=core: LLM/VLM-agent-for-robotics lineage (every runtime agent paper is expected to cite at least one). tier=extend: seeds that cover lines the core lineage misses (reasoning VLAs, agents that design rewards/policies, multi-agent, lifelong). tier=broad: very widely cited general seeds; their citers are only kept if they pass the embodiment keyword filter.",
+  "seeds": [
+    {"key": "code-as-policies", "title": "Code as Policies: Language Model Programs for Embodied Control", "arxiv": "2209.07753", "tier": "core"},
+    {"key": "saycan", "title": "Do As I Can, Not As I Say: Grounding Language in Robotic Affordances", "arxiv": "2204.01691", "tier": "core"},
+    {"key": "inner-monologue", "title": "Inner Monologue: Embodied Reasoning through Planning with Language Models", "arxiv": "2207.05608", "tier": "core"},
+    {"key": "zero-shot-planners", "title": "Language Models as Zero-Shot Planners: Extracting Actionable Knowledge for Embodied Agents", "arxiv": "2201.07207", "tier": "core"},
+    {"key": "socratic-models", "title": "Socratic Models: Composing Zero-Shot Multimodal Reasoning with Language", "arxiv": "2204.00598", "tier": "core"},
+    {"key": "progprompt", "title": "ProgPrompt: Generating Situated Robot Task Plans using Large Language Models", "arxiv": "2209.11302", "tier": "core"},
+    {"key": "voxposer", "title": "VoxPoser: Composable 3D Value Maps for Robotic Manipulation with Language Models", "arxiv": "2307.05973", "tier": "core"},
+    {"key": "ecot", "title": "Robotic Control via Embodied Chain-of-Thought Reasoning", "arxiv": "2407.08693", "tier": "extend"},
+    {"key": "eureka", "title": "Eureka: Human-Level Reward Design via Coding Large Language Models", "arxiv": "2310.12931", "tier": "extend"},
+    {"key": "roco", "title": "RoCo: Dialectic Multi-Robot Collaboration with Large Language Models", "arxiv": "2307.04738", "tier": "extend"},
+    {"key": "voyager", "title": "Voyager: An Open-Ended Embodied Agent with Large Language Models", "arxiv": "2305.16291", "tier": "extend"},
+    {"key": "palm-e", "title": "PaLM-E: An Embodied Multimodal Language Model", "arxiv": "2303.03378", "tier": "extend"},
+    {"key": "rt-2", "title": "RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control", "arxiv": "2307.15818", "tier": "broad"},
+    {"key": "react", "title": "ReAct: Synergizing Reasoning and Acting in Language Models", "arxiv": "2210.03629", "tier": "broad"}
+  ]
+}

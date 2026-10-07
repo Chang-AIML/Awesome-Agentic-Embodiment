@@ -1,0 +1,354 @@
+paper,year,arxiv_id,in_scope,primary,secondary,note
+[0] GUAVA,2026,2606.18363,CORE,Teacher,Controller-C | residual=A,按 v3 headline（distillation）定主 seat。GPT-5.4 ReAct teacher 在仿真中行动（Λ3，E），其执行轨迹（含 6 类注入失败后的恢复分支）经仿真结果标签、自动一致性检查和人工目视复核后，只作为 SFT 目标；GRPO 是另行的 RL 后训练（两个任务）。部署时 Guava-4B 在同一 harness 中运行，记为 Controller-C 次 seat。G→C；F2+F3
+[1] Show-Harness,2026,2609.10522,CORE,Controller-G,Teacher | residual=A,headline 为 zero-shot：前沿 VLM 输出 semantic micro-actions，由确定性 interpreter 经阻抗/关节控制执行（F2/F3）。GUMI 中由 GUI agent 采集的数据记为次 Teacher 边（G→I）。微调后的单 token 模式若单独评估，属 B-loop Controller-I（Λ1）
+[2] LocalNav,2026,2606.27871,CORE-P (provisional),Teacher,Controller-C | residual=A,待审计：Claude teacher 是否依据自身目标历史和观测结果再决策。若 teacher 只是在手写循环中给 frontier 打分，而学生沿用同一循环，则两者都不满足 A2，整篇判 B-auth（而不是 Controller-C）
+[3] BLAZER,2025,2510.08572,BOUNDARY (B-loop),Teacher (nominal),Controller-C,teacher 属 Λ1' filtered generator：成功过滤由管线完成，LLM 不会因结果被重新调用；自举的各轮属于 self-teacher（训练自己的后继）
+[4] Octopus,2023,2310.08588,BOUNDARY (B-world),Teacher (nominal),Controller-C,GPT-4 explorer 依据环境反馈写计划和代码，满足 agent 判定；但 OctoVerse 使用 OmniGibson symbolic primitives 和 GTA，保真度只有 F1
+[5] DEDER,2024,2412.11499,BOUNDARY (B-world),Controller-C (nominal),—,headline 耦合是 rationale 蒸馏，属 annotator 而非 agent，按 fallback 规则改按部署端 agent 定位：两层 sLM 运行在 ALFRED（F1）
+[6] Robo-Instruct,2024,2405.20179,OUT,n/a,history-only,一次生成后用符号仿真器 RoboSim 验证，F0 且不是 agent，判 OUT，仅作历史引用
+[7] SmallPlan,2025,2505.00831,UNRESOLVED (audit queue),Teacher (nominal),Controller-C,待审计两点：LLM teacher 是单次调用的 on-policy labeler（即 annotator）还是 T-correct agent；场景图仿真的保真度
+[8] StageGuard,2026,2609.20791,BOUNDARY (B-loop),"Supervisor (nominal, carrier C)",—,teacher 只为已有示范生成解释，属 annotator，不构成 Teacher；部署的紧凑 monitor 是单次调用的 stage-transition judge，作为器官在环内门控层级控制器
+[9] LEAP,2024,2410.05434,OUT,n/a,no-robot-body,ALFWorld 文本世界，没有机器人身体；作为 T-correct（特权 teacher 纠正）谱系的历史引用
+[10] ME-VLM,2026,2609.24526,UNRESOLVED (audit queue),Teacher (nominal),—,适用 embodied-brain 规则：尚未确认它能因果地作用到执行器（C5），待审计
+[11] Scaling-Up-Distilling-Down,2023,2307.14535,BOUNDARY (B-loop),Teacher (nominal),—,LLM 只写一次 success checker，重试由管线完成（Λ1'）；residual = weights-only；属于 agent→policy 蒸馏的奠基谱系
+[12] Manipulate-Anything,2024,2406.18915,CORE-P (provisional),Controller-G,Teacher | residual=A+W,dual-seat：zero-shot 控制和 BC 数据都是 headline。待审计：verifier 判失败后，是否带着失败上下文重新调用 VLM（若否则为 Λ1'，判 B-loop）
+[13] RoboTwin 2.0,2025,2506.18088,CORE,Teacher,Designer; RESOURCE-role | residual=W,代码 MLLM 为每个任务写专家程序，VLM observer 给出 verdict 后重写（Λ3）。论文自带的 agent 满足 C1–C7，因此 CORE 优先于 RESOURCE；domain randomization 记为 Designer 次 seat
+[14] EmbodiedSWE,2026,2609.27308,CORE,Teacher,residual=W,逐任务调试出的解题程序只用于产出示范，因此判 Teacher 而非 Developer；G→∅；residual = weights-only（VLA）
+[15] FAEA,2026,2601.20334,CORE-P (provisional),Controller-G,residual=A,迭代式 coding agent；待审计：privileged-state API 下的原语是否在物理上实现（F2 判据）
+[16] Frontier-to-Local Bridge,2026,2610.03615,CORE-P (provisional),Teacher,Controller-G | residual=A,标题 headline 是自主示范生成；运行时由前沿模型作高层向本地策略下指令；生成器是否闭环待审计
+[17] AutoRT,2024,2401.12963,BOUNDARY (B-loop),Designer (nominal),—,按场景重新提出任务，没有自身决策记录（Λ1）；采集 episode 属于训练阶段，由策略或遥操作执行
+[18] SOAR,2024,2407.20635,BOUNDARY (B-loop),Designer (nominal),—,任务提议者无记忆（Λ1）；VLM success detector 是器官
+[19] FIND,2026,2609.32069,CORE,Designer,residual=W,依据自身历史成功率挑选薄弱任务（Λ2，E）；在真机上做 RL；是干净的 data-flywheel Designer
+[20] Zero2Skill,2026,2607.14047,CORE-P (provisional),Designer,Teacher | residual=W,verifier 与纠正记忆共同编排采集（+h）；采集、训练、部署交错进行，阶段划分待审计
+[21] RoboClaw,2026,2603.11558,CORE-P (provisional),Controller-G,Designer | residual=A,dual-seat。采集的数据是策略的执行轨迹，agent 只决定执行顺序，因此次 seat 是 Designer 而非 Teacher；VLM 身份未核实
+[22] HERO,2026,2607.26809,CORE,Teacher,Controller-G | residual=A+W,practice 阶段（独立阶段）VLM 的执行行为被固化为 reflex 策略（self-consolidation）；遇到新任务时仍由 VLM 运行时处理
+[23] RoboGen,2023,2311.01455,BOUNDARY (B-loop),Designer (nominal),—,逐耦合检查：承担 Designer 角色的耦合是前馈生成，唯一的 retry 只出现在资产验证环节
+[24] GenSim,2023,2310.01361,BOUNDARY (B-loop),Designer (nominal),—,LLM 写任务代码，示范来自内置 oracle；生成结果只被过滤，不经反思修订
+[25] GenSim2,2024,2410.03645,BOUNDARY (B-loop),Teacher (nominal),Designer,LLM 写求解代码并经验证管线检查；没有证据表明 LLM 会带失败信息被重新调用（Λ1'）
+[26] Agentic Skill Discovery,2024,2405.15019,CORE-P (provisional),Designer,residual=W,生成任务、奖励和成功函数，经 VLM 验证后存入技能库；待审计：失败的奖励是否依据训练统计修订
+[27] BOSS,2023,2310.10021,CORE-P (provisional),Designer,residual=W,LLM 根据已完成的技能链提出下一个要练习的技能（Λ2）；有真机实验，ALFRED 部分为 F1
+[28] ECoT,2024,2407.08693,BOUNDARY (B-loop),Controller-I (nominal),—,每一步都从当前观测重新生成推理（Λ1）；标注管线是 annotator
+[29] Hi Robot,2025,2502.19417,CORE-P (provisional),Controller-H,residual=A,与 ThinkAct 同一审计问题：高层输入里是否包含它自己之前发出的指令；若不包含，判 B-loop。生成合成数据的 VLM 是 annotator
+[30] RACER,2024,2409.14674,BOUNDARY (B-loop),Controller-H (nominal),—,supervisor 每一步向 actor 下语言指令，按 counterfactual 判据属名义输出，归 Controller；每步重新预测（Λ1）；生成数据的 LLM 是 annotator
+[31] EmbodiedGPT,2023,2305.15021,BOUNDARY (B-loop),Controller-H (nominal),—,每个任务只出一次计划（Λ0），以特征形式交给执行器；teacher 是 annotator
+[32] TaPA,2023,2307.01848,BOUNDARY (B-loop),Controller-C (nominal),—,开环规划者（Λ0），运行在 AI2-THOR（F1）；数据来自 annotator
+[33] LangNav,2023,2310.07889,BOUNDARY (B-world),Controller-C (nominal),—,想象出的轨迹属 annotator 产物；学生 agent 在 R2R 上依据自身动作历史决策（Λ2），但离散导航图只算 F1
+[34] VLM-HER distillation,2023,2301.12507,OUT,n/a,annotator,只做重标注，属 annotator
+[35] DIAL,2022,2211.11736,OUT,n/a,annotator,只做重标注，属 annotator
+[36] SPRINT,2023,2306.11886,OUT,n/a,annotator,只做指令聚合，属 annotator
+[37] CAST,2025,2508.13446,OUT,n/a,annotator,生成反事实标签，从不行动、也不观察结果
+[38] ICAL,2024,2406.14596,BOUNDARY (B-world),"Teacher (nominal, self/in-context)",Controller-G,自身执行过、经人类反馈校正的轨迹在独立阶段被抽象为 memory 程序，测试时冻结使用；TEACh 为 F1
+[39] Harness-Zero,2026,2609.24974,OUT,n/a,digital-only,纯数字世界，用作 harness 蒸馏的类比
+[40] ENPIRE,2026,2606.19980,CORE,Developer,Designer (Examiner) | residual=P+W,评测 episode 中不调用 agent（Q1 否）。agent 修改会被执行的 CaP 程序、技能库和 PLD 训练代码，并依据真机试验结果用 git 保留或回滚（Q3 是）。第一阶段搭建 reset/verify/safety，记为 Designer（Examiner）次 seat。G ×O(8:8:1)+h，经实验级 cadence 闭环
+[41] HARBOR,2026,2606.08610,CORE,Developer,Designer | residual=W,由多个 coding agent 分阶段工作（×R）：算法和超参属 solution 侧，记 Developer；环境与奖励属 problem 侧，记 Designer
+[42] Agent-Driven Autonomous RL Research (quadruped),2026,2603.27416,CORE-P (provisional),Developer,residual=W,+h；待审计：是否至少有一个 campaign 由 agent 自主选择下一个实验，而不是由人选
+[43] SimEX,2026,2609.38982,CORE,Developer,Designer (sim calibration) | residual=P,toolbox 代码属 solution 侧，记 Developer；仿真器与真机试验的协同校准属 problem 侧，记 Designer
+[44] RLE-Bench,2026,2609.34210,RESOURCE,evaluated seat: Developer,F2,评测第三方 coding agent 作为机器人学习工程师的 benchmark
+[45] Eureka,2023,2310.12931,CORE,Designer,residual=W,基于训练统计做 reward reflection（closure≥2，E），cadence 为每次训练；脚手架固定；fitness 冻结
+[46] DrEureka,2024,2406.01967,CORE,Designer,residual=W,奖励和 DR 先验都属 problem 侧；有真机部署
+[47] Text2Reward,2023,2309.11489,BOUNDARY (B-loop),Designer (nominal),—,主结果来自单次生成；带人类反馈的变体为 Λ2(H)，但不属于主评测设置
+[48] Language to Rewards,2023,2306.08647,CORE-P (provisional),Controller-G,residual=A,运行时 reward 始终作用于 MPC，按 counterfactual 判据归 Controller；整合用户对执行结果的纠正（H）；待审计：主评测是否包含多轮交互
+[49] Self-Refined LLM reward designer,2023,n/a,CORE-P (provisional),Designer,residual=W,基于训练反馈自我修订奖励；arXiv ID 尚未确认
+[50] CurricuLLM,2024,2409.18382,CORE,Designer,residual=W,课程与奖励代码由 rollout evaluator 反馈驱动；人形机器人 sim-to-real
+[51] Eurekaverse,2024,2411.01775,CORE,Designer,residual=W,环境代码按评估结果迭代；真机四足
+[52] AnyBipe,2024,2409.08904,CORE,Designer,residual=W,设计奖励并整合部署反馈；真机双足
+[53] ARCHIE,2025,2503.04280,BOUNDARY (B-loop),Designer (nominal),—,奖励与成功判据基本一次生成
+[54] RDA,2026,2606.01672,CORE,Designer,residual=W,VLM 分析轨迹，用进化方式修订奖励
+[55] Video2Policy,2025,2502.09886,CORE-P (provisional),Designer,residual=W,任务与奖励代码按训练反馈迭代；细节待审计
+[56] MobiAgent,2026,2610.03476,CORE-P (provisional),Controller-H,Designer | residual=A,外环 curator 是否为 agent 未经核实，因此按 fallback 规则取内环 VLM planner/reflector；carrier 待核
+[57] AutoEval,2025,2503.24278,OUT,n/a,infrastructure (no agent),没有 agent 的 reset/verify 基础设施，作为 anatomy 引用
+[58] RoboFuME,2023,2310.15145,OUT,n/a,organ,VLM 只作奖励分类器
+[59] ASPIRE,2026,2607.00272,CORE-P (provisional),Developer,Controller-G | residual=A,显式的外环技能发现，加上内环运行时的 CaP；待审计：发现阶段是否与报告的评测分开
+[60] RHO,2026,2606.16458,CORE,Developer,residual=A,训练期由 coding agent 优化 harness；部署端是单轮 LLM（compressed）
+[61] Encore,2026,2609.37359,UNRESOLVED (audit queue),Developer (nominal),—,只有 curated list 级证据
+[62] Coding Agents for Generalized TAMP,2026,2609.30233,UNRESOLVED (audit queue),Developer (nominal),—,只有 curated list 级证据；保真度未知
+[63] Revisiting Push-T with Agentic Robotics,2026,2608.18227,CORE,Developer,residual=P,Claude Code 编写算法策略；满足机器人抽象条款（平面末端推杆，并有 3D Franka/UR5 仿真，F2）
+[64] RAPID,2026,2609.30249,CORE,Developer,Designer | residual=P,评测前经 generate-verify-refine 生成程序，冻结后在多次试验中复用；同时自建 verifier 和环境（Designer 次 seat）
+[65] MEMENTO,2026,2607.22832,CORE,Developer,Designer | residual=P,做策略程序进化，evaluator 本身也被进化（verifier 属 agent-mutable）
+[66] Code Evolution for Control,2026,2601.06845,OUT,n/a,non-robot body,LunarLander 不满足机器人形态条款
+[67] HarnessPAI,2026,2609.29166,CORE,Developer,residual=P,运行时不调用 LLM，可见 harness 的进化发生在评测之前；residual 为 compiled，可选再溶解进 π0.5
+[68] RegenHarness,2026,2609.27612,CORE-P (provisional),Developer,Controller-G | residual=A,自我改进经证据门控和回归检查；待审计：RSI 是否发生在与评测分开的阶段
+[69] Recursive Harness Distillation,2026,2609.33378,CORE,Teacher,Controller-G | residual=A,强 agent 的执行经验在独立阶段被写成 playbook，由另一个更轻的 agent 在上下文中读取（in-context Teacher，不涉及权重更新）
+[70] EXIMO,2026,2608.19891,CORE-P (provisional),Teacher,Designer | residual=W,VLM 的编排选择经 VLA 执行后被内化进 VLA（G→I）；VLM 自身闭环待审计
+[71] RoboMorph,2024,2407.08626,CORE,Developer,residual=W,LLM 进化循环修改身体形态，带 fitness 反馈（Λ2）；仿真 F2
+[72] Text2Robot,2024,2406.19963,OUT,n/a,no FM agent,生成式设计，没有 agent 闭环
+[73] Project Fetch,2025,n/a,RESOURCE,evaluated seat: Developer (+h),F3,能力评测，不是方法；第一阶段由人主导
+[74] Coscientist precursor,2023,2304.05332,OUT,n/a,C6 (robot as instrument),改进对象是化学实验，不是机器人身体的能力
+[75] Generalizing Manipulation Skills with a Local Coding Agent,2026,2609.26499,CORE-P (provisional),Controller-G,residual=A,运行时 coding agent，使用 prompted 开源权重模型（carrier 判 G）；闭环细节待审计
+[76] CaP-X,2026,2603.22435,CORE,Controller-C,Controller-G; RESOURCE-role | residual=A,论文自有方法 CaP-RL 经 GRPO 训练，满足 C1–C7，因此 CORE 优先；benchmark 部分属次要
+[77] Code-as-Monitor,2024,2412.04455,CORE,Supervisor,Controller-G | residual=A+P,monitor 代码只在违例或预测违例时生效（counterfactual 判否），事件触发后重新调用 VLM（Λ3）；年份取 arXiv v1（2024），会议为 CVPR 2025
+[78] DoReMi,2023,2307.00329,CORE,Supervisor,Controller-G | residual=A,LLM 写约束，VLM 作器官逐步检查，失配时 LLM 重新规划；headline 是检测与恢复
+[79] Inner Monologue,2022,2207.05608,CORE,Controller-G,residual=A,典型的 Λ3 闭环规划者；success detector 是器官
+[80] REFLECT,2023,2306.15724,CORE,Supervisor,Controller-G | residual=A,只在失败事件上做多步失败推理，然后产出纠正计划；包含真机实验
+[81] LLM semantic anomaly monitor,2023,2305.11307,OUT,n/a,organ (offline judge),单次调用的检测器，没有恢复动作，也不影响执行
+[82] AESOP,2024,2407.08735,BOUNDARY (B-loop),Supervisor (nominal),—,每个异常调用一次 LLM 选择 fallback，不会因结果再次调用（Λ0/1）；本体为四旋翼和车辆
+[83] KnowNo,2023,2307.01928,BOUNDARY (B-loop),Controller-G (nominal),—,LLM 生成选项，满足 A2；但人类在选项中挑选等于替代了该步决策，之后的再决策没有执行证据，A3 不成立。属于 ask-for-help 谱系
+[84] SuccessVQA,2023,2303.07280,OUT,n/a,organ,单次调用的 success 分类器
+[85] AHA,2024,2410.00371,OUT,n/a,organ,主要以离线方式评测的失败推理器；用在宿主环中时按宿主论文定位
+[86] Sentinel,2024,2410.04640,OUT,n/a,organ,统计检测器加 VLM 进度判断；只标记失败，不改变执行
+[87] FOREWARN,2025,2502.01828,BOUNDARY (B-auth),Controller-C (nominal),—,在策略采样出的候选中做选择，没有控制行为；world-model foresight 是器官
+[88] V-GPS,2024,2410.13816,OUT,n/a,organ,值函数重排序器
+[89] RoboMonkey,2025,2506.17811,OUT,n/a,organ (scalar scorer),输出是标量分数，由代码取 argmax，属于器官
+[90] RoVer,2025,2510.10975,OUT,n/a,organ,PRM verifier
+[91] RoboFAC,2025,2505.12224,BOUNDARY (B-loop),"Supervisor (nominal, carrier C)",—,单次调用的失败分析器加纠正指令，没有自身决策记录（Λ1）
+[92] FailSafe,2025,2510.01642,BOUNDARY (B-loop),"Supervisor (nominal, carrier C)",—,单次调用的恢复建议器；失败数据由脚本注入
+[93] FPC-VLA,2025,2509.04018,BOUNDARY (B-loop),"Supervisor (nominal, carrier C)",—,在关键帧触发、单次调用的 supervisor
+[94] Agentic Robot,2025,2505.23450,CORE,Controller-G,Supervisor | residual=A,planner 与 verifier 协议包裹 VLA，按子目标验证（Λ3）；LIBERO F2
+[95] VLAs-as-Tools,2026,2605.13119,CORE-P (provisional),Controller (carrier G/H unverified),residual=A,执行端的 VLA 为配合 agent 做了后训练（co-designed executor）；决策者是否经过训练未报告
+[96] Harness VLA,2026,2607.08448,CORE,Controller-G,residual=A,冻结的 VLA 作为 VLA_ACT 工具调用，和解析式原语并列；每次原语调用后闭环（Λ3）；improvement locus = memory；VLA 冻结且未与 agent 协同设计，因此判 G 而非 H
+[97] MotorMind,2026,2609.38078,CORE,Controller-G,Supervisor | residual=A,一个冻结 VLM 扮演五个角色；monitor 只是同一模型的一个角色（次 seat），headline 是 zero-shot 操控
+[98] DynaHarness,2026,2609.40306,CORE-P (provisional),Controller-G,Developer | residual=A,阶段划分未报告，按默认规则判运行时，主 seat 为 Controller（lifelong，locus = harness）；若审计确认有独立的进化阶段，则改为 Developer
+[99] CommitFlow,2026,2609.21908,UNRESOLVED (audit queue),Supervisor (nominal),—,commitment monitor 是否为 FM agent 尚未确认
+[100] VLA-Corrector,2026,2609.06508,BOUNDARY (B-auth),Supervisor (nominal),—,学习到的 verifier 只给出 verdict，re-prompt 由规则决定，不满足 A2
+[101] FRAMES,2026,2609.22538,CORE,Supervisor,Controller-G | residual=A,monitor 与 recovery agent 分工（×R），headline 是监测与恢复
+[102] Recova,2026,2610.01178,CORE,Supervisor,Developer | residual=A+P,运行时恢复只在失败事件上生效；recovery 程序库在孪生环境中构建（Developer 次 seat）
+[103] FLARE,2026,2608.26645,BOUNDARY (B-loop),Supervisor (nominal),Designer,在线 arbiter 只有单次仲裁，没有再决策环
+[104] SafeHarness,2026,2609.20822,CORE,Controller-G,residual=A,执行前做路线规划、验证、必要时重规划，最后执行；SafeLIBERO F2
+[105] RoboGuard,2025,2503.07885,BOUNDARY (B-loop),Supervisor (nominal),—,LTL shield 在无违例时不改变名义动作，按 counterfactual 判 Supervisor；规格由 LLM 一次写成，没有证据表明会因后果被重新调用（Λ1'）
+[106] PROTEA,2026,2601.07186,BOUNDARY (B-loop),Supervisor (nominal),—,对计划做单次 LLM 判断（Λ0）
+[107] VLS,2026,2602.03973,CORE-P (provisional),Controller-G,residual=A,guidance 一直注入 sampler，按 counterfactual 判 Controller；待审计：是否会依据结果重新调用 VLM（若否则同 ReKep，判 B-loop）
+[108] GVL,2024,2411.04549,OUT,n/a,organ,进度估计器
+[109] VLAC,2025,2509.15937,OUT,n/a,organ,critic 或 PRM
+[110] COME-robot,2024,2404.10220,CORE,Controller-G,residual=A,ReAct 式闭环，自带监测与恢复；真机
+[111] RECOVER,2024,2404.00756,BOUNDARY (B-world),Supervisor (nominal),—,LLM 恢复规划只在失败事件上触发（Λ3），但运行在 AI2-THOR（F1）
+[112] AIC MLLM,2024,2406.11548,CORE-P (provisional),Controller-I,residual=A,同一模型带着失败反馈和先前失败的位姿重新预测（Λ3）；待审计：反馈中是否包含自身先前的动作
+[113] SC-VLA,2024,2405.17418,CORE-P (provisional),Controller-I,residual=A,失败触发同一模型进入反思模式；待审计：触发器归谁所有，以及是否带自身记录
+[114] Phoenix,2025,2504.14588,CORE,Supervisor,Controller-H | residual=A,运动纠正模块只在失败时生效（与名义运动预测是分开的调用）；diffusion 策略在同一论文中按运动指令词表训练，属于协同设计（H）
+[115] Guardian,2025,2512.01946,OUT,n/a,organ,以检测器方式做 benchmark
+[116] SAFE,2025,2506.09937,OUT,n/a,organ,模型内部的检测器
+[117] Sentinel-VLA,2026,2605.01191,UNRESOLVED (audit queue),Controller-I (nominal),—,只有 awesome-list 级证据
+[118] ReCoVLA,2026,2606.09630,BOUNDARY (B-loop),Designer (nominal),—,VLM 一次性选择奖励，属训练期产出
+[119] No Free Checker (survey),2026,2609.09250,OUT,n/a,survey,只用于和本文作区分
+[120] Robo-Harness K1,2026,2609.29389,CORE,Controller-G,Teacher | residual=A,对观测侧 harness 做消融；另有小规模蒸馏到 Qwen3.5-9B（次 Teacher）
+[121] RoboHarness / SOMA,2026,2603.24060,CORE,Supervisor,residual=A,对冻结 VLA 做失败归因，并以事件触发 MCP 干预（Λ3）
+[122] RoboHarness (orchestration),2026,2607.18060,CORE,Controller-G,residual=A,带执行记忆，在异构策略之间路由调用
+[123] AdaHVLA,2026,2609.29204,CORE-P (provisional),Developer,Controller-G | residual=A,显式的多 agent 适配阶段（×R）先修订 harness，再交给运行时 agent；待审计：适配阶段是否与评测分开
+[124] Thea,2026,2608.11246,CORE,Controller-G,residual=A,coding-agent 式工具循环，真机长程任务
+[125] Harness Engineering for Physical AI,2026,2606.09416,OUT,n/a,infrastructure (no decider),有 harness，但没有决策者
+[126] VIA,2026,2607.11119,CORE,Controller-G,residual=A,computer-use agent 通过 GUI 设定路点来控制机器人
+[127] AGP,2026,2609.12541,CORE,Controller-G,residual=A,agent 直接作为策略，输出 native commands；真机
+[128] OpenRUA,2026,2610.02459,CORE,Controller-G,residual=A,在测试时自建 harness，属运行时耦合；所写程序当场执行
+[129] OpenETA,2026,2608.03924,CORE,Controller-G,residual=A,标准化的 Planner/Interface/World 工具循环
+[130] PyRUA-Lean,2026,2610.01939,CORE,Controller-G,residual=A,在固定模型下对接口形式（code cell 与 tool call）做受控消融
+[131] LIBERO-Agent,2026,2609.39507,RESOURCE,evaluated seat: Controller-G,F2,评测通用 agent 的 benchmark
+[132] ART,2026,2608.14047,CORE-P (provisional),Controller-I,residual=A,VLA 运行时自行调用工具，工具返回进入再决策；属于 list 级审计项
+[133] ROSClaw,2026,2603.26997,CORE-P (provisional),Controller-G,residual=A,agent runtime 规则：控制路径上有决策 agent 且有任务评测则判 CORE；评测深度待审计
+[134] Claude Plays Robotics,2026,n/a,RESOURCE,evaluated seat: Controller-G,F3,厂商模型的接口粒度能力研究，不是方法，也未经同行评审
+[135] VLA^2,2025,2510.14902,UNRESOLVED (audit queue),Controller-G (nominal),—,待审计：是每任务一次的预处理（Λ0），还是会被重新调用
+[136] Maestro,2025,2511.00917,UNRESOLVED (audit queue),Controller-G (nominal),—,只有 list 级证据
+[137] RoboOS,2025,2505.03673,CORE-P (provisional),Controller-C,residual=A,RoboBrain 级大脑（训练过的决策权重）；技能库另行训练，不算协同设计；拓扑 1:N；机制描述来自记忆
+[138] ChatGPT for Robotics,2023,2306.17582,CORE-P (provisional),Controller-G,residual=A,在对话中整合人类对执行结果的反馈（H）；评测以演示为主
+[139] Code as Policies,2022,2209.07753,BOUNDARY (B-loop),Controller-G (nominal),—,只写一次闭环程序，作者此后不再被调用（Λ1'）
+[140] Gemini Robotics 1.5,2025,n/a,CORE-P (provisional),Controller-H,residual=A,厂商自己的论文：ER 1.5 经过训练，VLA 协同设计，判 H；第三方直接调用同一 checkpoint 时判 G 并加 vendor 标；尚未检索核实
+[141] HarnessVLN,2026,2609.15195,UNRESOLVED (audit queue),Controller-G (nominal),—,只有 curated list 级证据
+[142] ZSP,2022,2201.07207,BOUNDARY (B-loop),Controller-G (nominal),—,Λ0；VirtualHome 有类人身体但动作为脚本化（F1）
+[143] SayCan,2022,2204.01691,CORE,Controller-G,residual=A,满足 A2(b)：在异构技能中选择，并以 'done' 选项掌握终止。affordance 在执行后的新状态上计算（组合决策者，E），skill 历史写在 prompt 中，构成 Λ2（weak）
+[144] Socratic Models,2022,2204.00598,BOUNDARY (B-loop),Controller-G (nominal),—,Λ0 的组合式计划
+[145] LM-Nav,2022,2207.04429,BOUNDARY (B-loop),Controller-G (nominal),—,Λ0 的解析器
+[146] ProgPrompt,2022,2209.11302,BOUNDARY (B-loop),Controller-G (nominal),—,程序里的断言由模型写好，模型之后不再被调用（Λ1'）
+[147] LLM-Planner,2022,2212.04088,BOUNDARY (B-world),Controller-G (nominal),—,动态重规划（Λ2），但运行在 ALFRED（F1）
+[148] Text2Motion,2023,2303.12153,BOUNDARY (B-loop),Controller-G (nominal),—,闭环只靠模型预测（M-only：基于 Q-function 的可行性），执行后的重规划待审计
+[149] LLM+P,2023,2304.11477,OUT,n/a,F0 / history-only,PDDL 符号域，Λ0
+[150] Instruct2Act,2023,2305.11176,BOUNDARY (B-loop),Controller-G (nominal),—,一次性生成代码（Λ0/1'）
+[151] VoxPoser,2023,2307.05973,BOUNDARY (B-loop),Controller-G (nominal),—,只写一次目标函数，快环由 MPC 闭合（Λ1'）
+[152] SayPlan,2023,2307.06135,CORE,Controller-G,residual=A,在由感知构建的 3DSG 上做 expand/contract 工具检索，工具返回构成 E closure；场景图模拟器验证记为 M closure
+[153] RoboTool,2023,2310.13065,BOUNDARY (B-loop),Controller-G (nominal),—,一次性代码生成
+[154] ViLa,2023,2311.17842,CORE,Controller-G,residual=A,带视觉反馈的闭环重规划
+[155] CoPAL,2023,2310.07263,CORE,Controller-G,residual=A,多层纠正式重规划
+[156] PIVOT,2024,2402.07872,BOUNDARY (B-auth),Controller-G (nominal),—,在代码采样出的候选点之间选择，CEM 迭代次数固定，模型没有任何控制行为
+[157] MOKA,2024,2403.03174,BOUNDARY (B-loop),Controller-G (nominal),Teacher,每个子任务从当前图像选关键点，没有结果检查（Λ1）
+[158] LLM3,2024,2403.11552,BOUNDARY (B-loop),Controller-G (nominal),—,motion planner 的失败反馈属规划期预测（M-only），待审计
+[159] PRoC3S,2024,2406.05572,BOUNDARY (B-loop),Controller-G (nominal),—,约束采样器的反馈属规划期预测（M-only）
+[160] ReKep,2024,2409.01652,BOUNDARY (B-loop),Controller-G (nominal),—,约束一次写成；回溯由求解器完成，VLM 不再被调用（Λ1'）
+[161] OK-Robot,2024,2401.12202,OUT,n/a,fixed FM pipeline,模块化不等于 agency
+[162] ELLMER,2025,n/a,BOUNDARY (B-loop),Controller-G (nominal),—,生成的代码自带传感反馈闭环（Λ1'），待审计
+[163] Being-0,2025,2503.12533,CORE-P (provisional),Controller-G,residual=A,最顶层决策者是 prompted VLM；connector 是经训练的 VLM（标记）
+[164] What Matters in Orchestrating Robot Policies,2026,2606.10267,UNRESOLVED (audit queue),RESOURCE-study (nominal),—,只有标题级证据
+[165] GPT-Policy,2026,2609.19138,CORE,Controller-G,residual=A,in-context 学习，improvement locus = context
+[166] URAI,2026,2609.39018,CORE-P (provisional),Developer,Controller-G | residual=A,programming agent 构建工具库（×R），execution agent 在运行时调用；待审计：进化是否发生在评测期内
+[167] PaLM-E,2023,2303.03378,CORE,Controller-C,residual=A,规划器经微调；低层技能来自先前工作、单独训练，不算协同设计，因此判 C；闭环重规划
+[168] HiP,2023,2309.08587,OUT,n/a,WAM (foresight),执行器消费的是视频子目标；只在预测上做 refine（M-only）
+[169] RT-H,2024,2403.01823,BOUNDARY (B-loop),Controller-I (nominal),—,Λ1；人类直接覆盖输出属于人的 agency
+[170] YAY Robot,2024,2403.12910,BOUNDARY (B-loop),Controller-H (nominal),—,Λ1；人类纠正替代了模型输出
+[171] LCB,2024,n/a,OUT,n/a,latent coupling,潜变量交接
+[172] HiRT,2024,2410.05273,OUT,n/a,latent coupling,潜变量交接
+[173] RoboDual,2024,2410.08001,OUT,n/a,latent coupling,没有决策环
+[174] RoboMatrix,2024,2412.00171,CORE-P (provisional),Controller-G,residual=A,LLM 调度 VLA 元技能；闭环验证程度待审计
+[175] NaVILA,2024,2412.04453,BOUNDARY (B-loop),Controller-C (nominal),—,Λ1（只有观测历史）；执行器跟踪通用速度接口，不算协同设计
+[176] HAMSTER,2025,2502.05485,BOUNDARY (B-loop),Controller-H (nominal),—,每个 episode 只出一次路径（Λ0）
+[177] DexVLA,2025,2502.05855,BOUNDARY (B-loop),Controller-I (nominal),—,Λ1
+[178] Helix,2025,n/a,OUT,n/a,latent coupling,System 1/2 只是术语
+[179] DexGraspVLA,2025,2502.20900,CORE,Controller-G,residual=A,prompted Qwen-VL 规划，执行后做成功检查并重试（Λ3）；执行器协同设计（标记）
+[180] Gemini Robotics 1.0 / ER,2025,2503.20020,BOUNDARY (B-loop),Controller-C (nominal),—,ER 写代码基本一次完成（Λ1'）
+[181] GR00T N1,2025,2503.14734,OUT,n/a,latent coupling,没有可检查的决策
+[182] π0.5,2025,2504.16054,BOUNDARY (B-loop),Controller-I (nominal),—,无记忆的子任务调度（Λ1）；也是 Harness VLA 所包装的底座
+[183] OpenHelix,2025,2505.03912,OUT,n/a,latent coupling,潜变量交接
+[184] OneTwoVLA,2025,2505.11917,CORE,Controller-I,residual=A,自己决定何时思考，维护历史摘要，从错误中恢复（Λ3）
+[185] Hume,2025,2505.21432,OUT,n/a,search without FM decision,值引导的搜索，没有可检查的 FM 决策
+[186] KI-VLA,2025,2505.23705,OUT,n/a,training recipe,训练方法
+[187] LoHoVLA,2025,2506.00411,CORE-P (provisional),Controller-I,residual=A,失败时重新生成子任务；细节待审计
+[188] Fast-in-Slow,2025,2506.01953,OUT,n/a,latent coupling,架构层面的双系统
+[189] RationalVLA,2025,2506.10826,BOUNDARY (B-loop),Controller-I (nominal),—,对每条指令给一次接受/拒绝 verdict（Λ0）
+[190] LeVERB,2025,2506.13751,OUT,n/a,latent coupling,潜变量交接
+[191] TriVLA,2025,2507.01424,OUT,n/a,latent coupling,潜变量交接
+[192] ThinkAct,2025,2507.16815,CORE-P (provisional),Controller-H,residual=A,与 Hi Robot 同一审计问题：推理器能否读到自己之前的计划；若不能，判 B-loop
+[193] Robix,2025,n/a,CORE-P (provisional),Controller-C,residual=A,GR VLA 单独训练，不算协同设计；交互式重规划；细节来自记忆
+[194] G0 (Galaxea),2025,2509.00576,UNRESOLVED (audit queue),Controller-H (nominal),—,闭环未经核实
+[195] WALL-OSS,2025,n/a,BOUNDARY (B-loop),Controller-I (nominal),—,Λ1；与 [218] 重复
+[196] DualVLA,2025,2511.22134,UNRESOLVED (audit queue),Controller (nominal),—,只有标题级证据
+[197] DualVLN,2025,2512.08186,BOUNDARY (B-loop),Controller-H (nominal),—,Λ1
+[198] Libra-VLA,2026,2604.24921,UNRESOLVED (audit queue),n/a (nominal latent),—,只有标题级证据
+[199] DSWAM,2026,2607.04927,BOUNDARY (B-loop),Controller-H (nominal),—,Λ1（只有观测历史）；高层按门控启用
+[200] DuoMind,2026,2610.02161,CORE-P (provisional),Controller (×N; carrier unverified),residual=A,每个机器人一个 VLM 编排者，彼此通信；VLA 是否协同设计尚未确认
+[201] HiMoE-VLA,2025,2512.05693,OUT,n/a,false friend,这里的 hierarchical 指网络结构
+[202] Reactive Diffusion Policy,2025,2503.02881,OUT,n/a,false friend,slow/fast 只是控制频率
+[203] ECoT-Lite,2025,2505.08243,OUT,n/a,no runtime decision,作为内化论点的证据引用
+[204] Fast ECoT,2025,2506.07639,BOUNDARY (B-loop),Controller-I (nominal),—,状态按调度刷新而非由结果驱动（Λ1s）
+[205] RAD,2025,n/a,UNRESOLVED (audit queue),Controller-I (nominal),—,描述来自记忆
+[206] Emma-X,2024,2412.11974,BOUNDARY (B-loop),Controller-I (nominal),—,Λ1；标注管线是 annotator
+[207] CoA-VLA,2024,n/a,UNRESOLVED (audit queue),Controller-I (nominal),—,描述来自记忆
+[208] CoT-VLA,2025,2503.22020,OUT,n/a,WAM (foresight),中间表示是对世界的预测
+[209] FlowVLA,2025,2508.18269,OUT,n/a,WAM (foresight),中间表示是 foresight
+[210] DreamVLA,2025,2507.04447,OUT,n/a,WAM (foresight),潜变量 foresight
+[211] MolmoAct,2025,2508.07917,BOUNDARY (B-loop),Controller-I (nominal),—,Λ1
+[212] MolmoAct2,2026,2605.02881,BOUNDARY (B-loop),Controller-I (nominal),—,能自己决定 think 还是 act，满足 A2；但没有自身决策记录（Λ1）；证据仅来自 README
+[213] DiVLA,2024,2412.03293,BOUNDARY (B-loop),Controller-I (nominal),—,Λ1
+[214] InstructVLA,2025,2507.17520,BOUNDARY (B-loop),Controller-I (nominal),—,Λ1
+[215] ChatVLA-2,2025,n/a,UNRESOLVED (audit queue),Controller-I (nominal),—,描述来自记忆
+[216] InSpire,2025,2505.13888,BOUNDARY (B-loop),Controller-I (nominal),—,Λ1
+[217] EO-1,2025,2508.21112,BOUNDARY (B-loop),Controller-I (nominal),—,Λ1
+[218] WALL-OSS,2025,2509.11766,BOUNDARY (B-loop),Controller-I (nominal),—,重复条目，同 [195]，判定相同，不重复计数。Λ1
+[219] GigaBrain-0,2025,2510.19430,BOUNDARY (B-loop),Controller-I (nominal),—,Λ1；world model 作为非 agent 的数据引擎
+[220] WLA,2026,2606.05979,UNRESOLVED (audit queue),Controller-I (nominal),—,只有标题级证据
+[221] RT-2,2023,2307.15818,OUT,n/a,executor substrate (C7),CoT 变体在论文中只是边缘条件
+[222] Fast-ThinkAct,2026,2601.09708,OUT,n/a,latent at runtime,执行器在运行时接收的是 latent；可解码不等于被消费
+[223] DeepThinkVLA,2025,2511.15669,BOUNDARY (B-loop),Controller-I (nominal),—,Λ1
+[224] VLA-R1,2025,2510.01623,BOUNDARY (B-loop),Controller-C (nominal),—,每次查询单轮输出，执行器是规划器，没有协同设计
+[225] Embodied-R1,2025,2508.13998,BOUNDARY (B-loop),Controller-C (nominal),—,单轮输出点，交给规划器
+[226] ReFineVLA,2025,n/a,UNRESOLVED (audit queue),Controller-I (nominal),—,描述来自记忆
+[227] Embodied-Reasoner,2025,2503.21696,BOUNDARY (B-world),Controller-C (nominal),—,多轮 think-act 并带反思，但使用 AI2-THOR 宏动作（F1）
+[228] Embodied-Navigator,2026,2608.17512,CORE,Controller-C,residual=A,多轮 RL，带记忆，自适应思考；输出路点交给 SLAM 控制器（不算协同设计）
+[229] Embodied Planner-R1,2025,n/a,OUT,n/a,no-robot-body,文本世界
+[230] AutoVLA,2025,2506.13757,BOUNDARY (B-loop),Controller-I (nominal),—,驾驶领域，按相同规则判；有 CARLA 闭环评测（F2），属 Λ1
+[231] Alpamayo-R1,2025,2511.00088,BOUNDARY (B-loop),Controller-I (nominal),—,驾驶领域，Λ1；闭环评测待审计
+[232] TrackVLA++,2025,2510.07134,BOUNDARY (B-loop),Controller-I (nominal),—,Λ1；记忆是架构内部的
+[233] MemoryVLA,2025,2508.19236,OUT,n/a,latent memory,memory 不等于 agency
+[234] ReMem-VLA,2026,2603.12942,UNRESOLVED (audit queue),n/a (nominal latent memory),—,只有标题级证据
+[235] MemER,2025,2510.20328,CORE-P (provisional),Controller-H,residual=A,保存关键帧属于观测，不算自身决策记录；只有当先前的子任务输出也在上下文中时才是 Λ2，否则判 B-loop
+[236] SAM2Act,2025,2501.18564,OUT,n/a,architectural memory,架构内部的 memory
+[237] Recursive Belief VLA,2026,2602.20659,UNRESOLVED (audit queue),n/a,—,只有标题级证据
+[238] CycleVLA,2026,2601.02295,CORE-P (provisional),Supervisor,residual=A,在子任务切换点预测失败并回溯（Λ3）；VLM 身份未经核实
+[239] SC-VLA,2024,n/a,CORE-P (provisional),Controller-I,residual=A,重复条目，同 [113]，判定相同，不重复计数
+[240] VLA-Reasoner,2025,2509.22643,OUT,n/a,search without FM decision,MCTS 在 world model 上搜索
+[241] EVOLVE-VLA,2025,2512.14666,OUT,n/a,RL≠agency,没有 agent 的自我改进
+[242] VLA-OS,2025,2506.17561,RESOURCE,controlled-study (H vs I),F2,设计空间研究，是本分类的直接证据
+[243] World-Value-Action,2026,2604.14732,UNRESOLVED (audit queue),n/a (nominal latent),—,只有标题级证据
+[244] SimpleVLA-RL,2025,2509.09674,OUT,n/a,RL≠agency,反应式策略
+[245] RoCo,2023,2307.04738,CORE,Controller-G,residual=A,每个机械臂一个 agent，彼此对话（×N）；执行后在新观测上进入下一轮（E）
+[246] CoELA,2023,2307.02485,BOUNDARY (B-world),Controller-G (nominal),—,TDW transport 和 VirtualHome 都只有 F1；拓扑 ×N
+[247] SMART-LLM,2023,2309.10062,BOUNDARY (B-loop),Controller-G (nominal),—,一次生成计划程序；拓扑 1:N
+[248] HMAS-2,2023,n/a,OUT,n/a,F0 grid / history-only,网格世界没有度量空间具身；作为“以 topology 为变量”的谱系引用
+[249] COHERENT,2024,2409.15146,BOUNDARY (B-world),Controller-G (nominal),—,闭环反馈，但使用 symbolic primitives（F1）
+[250] LaMMA-P,2024,2409.20560,BOUNDARY (B-loop),Controller-G (nominal),—,一遍式管线，运行在 AI2-THOR（F1）
+[251] EMOS,2024,2410.22662,BOUNDARY (B-world),Controller-G (nominal),—,Habitat 上的 oracle 技能（F1）；拓扑 ×N
+[252] ABot-Claw,2026,2604.10096,CORE-P (provisional),Controller-G,residual=A,agent runtime 规则；拓扑 1:N；主干模型未经核实
+[253] ReAd,2024,2405.14314,CORE-P (provisional),Controller-G,residual=A,critic 评估优势（M）后执行（E）；拓扑 ×N；部分环境为 Overcooked
+[254] COMBO,2024,2404.10775,BOUNDARY (B-auth),Controller-G (nominal),—,VLM 模块位于手写的 MCTS 中；TDW 为 F1
+[255] EmbodiedAgent,2025,2504.10030,UNRESOLVED (audit queue),Controller (nominal),—,细节来自记忆
+[256] AeroWeaver,2026,2609.18520,CORE-P (provisional),Controller-G,residual=A,UAV 编队 harness（×N）；仿真保真度待审计
+[257] AgenticSwarmCtx,2026,2610.01569,UNRESOLVED (audit queue),Controller-G (nominal),—,只有 list 级证据
+[258] MAVLN/TRISS,2026,2609.35965,UNRESOLVED (audit queue),Controller-G (nominal),—,只有 list 级证据
+[259] ORCH,2026,2609.11737,UNRESOLVED (audit queue),Controller (nominal),—,只有标题级证据
+[260] AGOS,2026,2609.08402,UNRESOLVED (audit queue),Controller (nominal),RESOURCE-role,证据不足
+[261] Co-NavGPT,2023,n/a,BOUNDARY (B-auth),Controller-G (nominal),—,frontier 分配，没有控制行为
+[262] MADRA,2025,2511.21460,UNRESOLVED (audit queue),Supervisor (nominal),—,执行环节未经核实；同伴辩论的消息本身不构成 A3 证据
+[263] SAMALM,2025,2503.09758,CORE-P (provisional),Controller-G,residual=A,actor-critic 组织（×R）；机制描述来自记忆
+[264] MistyPilot,2026,2608.15549,CORE-P (provisional),Controller-G,residual=A,社交机器人，×R；闭环细节待审计
+[265] Mono2MultiAgent-HRC,2025,2512.00797,UNRESOLVED (audit queue),Controller (nominal),—,只有标题级证据
+[266] RoboFind,2026,2609.20330,UNRESOLVED (audit queue),Controller (nominal),—,只有标题级证据
+[267] IntroPlan,2024,2402.06529,BOUNDARY (B-loop),Controller-G (nominal),—,与 KnowNo 理由相同
+[268] Ask-to-Act RL,2025,2504.00907,BOUNDARY (B-world),Controller-C (nominal),—,整合人类回答（H），属 Λ2；但使用高层技能（F1）
+[269] CLUE,2026,2609.30428,CORE,Controller-G,residual=A,基于在线语义地图的闭环；Spot 真机
+[270] WhenToAsk,2026,2609.21942,CORE-P (provisional),Supervisor,residual=A,在 act / sense / ask 之间仲裁；底层模型未经核实
+[271] DROC,2023,2311.10678,CORE,Controller-G,residual=A,整合人类纠正（H），improvement locus = memory
+[272] TidyBot,2023,2305.05658,BOUNDARY (B-loop),Controller-G (nominal),—,Λ0
+[273] LLM-Personalize,2024,2404.14285,BOUNDARY (B-world),"Teacher (nominal, self)",Controller-C,reinforced self-training；Housekeep 为 F1
+[274] MOSAIC,2024,2402.18796,CORE,Controller-G,residual=A,人作为队友（+h），机器人 1:2
+[275] Attentive Support,2024,2403.12533,CORE,Controller-G,residual=A,决定何时介入：不行动也是一个决策
+[276] NIABench,2026,2605.01368,UNRESOLVED (audit queue),Controller (nominal),RESOURCE-role,只有标题级证据
+[277] CognitiveReality,2026,2609.31418,CORE-P (provisional),Controller-G,residual=A,执行前需操作员确认（+h）
+[278] Auto-HSI,2026,2609.16346,BOUNDARY (B-loop),Controller-G (nominal),—,运行时按请求一次生成代码（+h）
+[279] PARTNR,2024,2411.00081,RESOURCE,evaluated seat: Controller (×N),F1,benchmark
+[280] Habitat 3.0,2023,2310.13724,OUT,n/a,infrastructure,没有 agent
+[281] Virtual Community,2025,2508.14893,RESOURCE,evaluated seat: Controller (×N),F1,testbed
+[282] RoboFactory,2025,2503.16408,UNRESOLVED (audit queue),n/a,—,agent 式数据引擎尚未确认
+[283] GauDP,2025,2511.00998,OUT,n/a,no deliberation,属 MARL 意义上的 multi-agent
+[284] Interactive Language,2022,2210.06407,OUT,n/a,human-only agency,agency 只在人这一侧
+[285] Voyager,2023,2305.16291,OUT,n/a,no-robot-body / history-only,Minecraft；skill-library 谱系的历史引用
+[286] JARVIS-1,2023,n/a,OUT,n/a,no-robot-body / history-only,Minecraft
+[287] HELPER,2023,2310.15127,BOUNDARY (B-world),Controller-G (nominal),—,带 memory 的程序生成；TEACh 为 F1
+[288] LRLL,2024,2406.18746,CORE-P (provisional),Controller-G,Developer | residual=A,属 lifelong 评测协议，按默认规则判 Controller（locus = code library）；细节来自记忆
+[289] ReMEmbR,2024,n/a,CORE-P (provisional),Controller-G,residual=A,对由感知构建的记忆做工具检索（E-tool）；待审计 C5：headline 是离线 QA；与 [322] 重复
+[290] RAEA,2024,n/a,OUT,n/a,no FM agent,学习得到的检索器
+[291] ReflectVLM,2025,2502.16707,BOUNDARY (B-loop),Controller-C (nominal),—,步内的 imagination 只构成 M-only 闭环；跨步为 Λ1，有无自身记录待审计
+[292] ExpTeach,2025,2507.16713,CORE-P (provisional),Controller-G,residual=A,memory 在评测期间累积，属 lifelong，improvement locus = memory
+[293] RoboCat,2023,2306.11706,OUT,n/a,RL≠agency,没有 agent 的数据飞轮
+[294] SimpleARM,2026,2609.36595,CORE,Controller-G,residual=A,决定哪些记忆和指令送达冻结的 VLA
+[295] 2AM,2026,2609.11308,UNRESOLVED (audit queue),Controller-G (nominal),—,只有标题级证据
+[296] MessyMem,2026,2609.15976,CORE,Controller-G,residual=A,跨 episode 的交互记忆，属 lifelong
+[297] Robo-Cortex,2026,2605.18729,CORE,Controller-G,residual=A,语言 memory 中的策略不断进化；world-model 验证记为 M closure
+[298] NavHarness (lifelong),2026,2609.34276,CORE-P (provisional),Controller-G,residual=A,lifelong memory；使用哪个仿真器待审计
+[299] RoboHarn-Evo,2026,2609.37583,CORE-P (provisional),Controller-G,Developer | residual=A,阶段划分未报告，按默认规则判 Controller（lifelong）
+[300] RoboSkill,2026,2609.37810,CORE-P (provisional),Controller-G,Developer | residual=A,Explore→Execute→Evolve 在评测期间进行，属 lifelong
+[301] RoboFoundry,2026,2609.32862,CORE-P (provisional),Controller-G,Developer | residual=A,editor agent（×R）与冻结的运行时 agent 配合；按默认规则判 lifelong
+[302] RoboRSI,2026,n/a,UNRESOLVED (audit queue),Developer (nominal),—,只有博客，没有论文
+[303] SHAPER,2026,2608.11350,UNRESOLVED (audit queue),Developer (nominal),—,只有一行描述
+[304] Skill2Real,2026,2610.02788,CORE,Developer,Controller-G | residual=A,技能在仿真中练习并冻结（有独立阶段），然后在真机上运行
+[305] RPG,2026,2610.02204,CORE-P (provisional),Developer,Designer (twin) | residual=A,孪生环境重建属 Designer，技能改进属 Developer
+[306] RoboBridge,2026,2610.02717,CORE-P (provisional),Developer,Controller-G | residual=A,技能先在仿真中进化，再迁移到真机
+[307] Capability Evolution (AEROS),2026,2604.07799,OUT,n/a,governance (no agent decider),作为 permission-surface 的 anatomy 引用
+[308] GSMem,2026,2603.19137,UNRESOLVED (audit queue),Controller-G (nominal),—,agent 闭环尚未核实
+[309] Self-evolving Embodied AI (survey),2026,2602.04411,OUT,n/a,survey,只用于和本文作区分
+[310] NavGPT,2023,2305.16986,BOUNDARY (B-world),Controller-G (nominal),—,R2R 离散导航图（F1）
+[311] DiscussNav,2023,2309.11382,BOUNDARY (B-world),Controller-G (nominal),—,R2R 离散导航图（F1）；拓扑 ×R
+[312] MapGPT,2024,2401.07314,BOUNDARY (B-world),Controller-G (nominal),—,R2R 离散导航图（F1）
+[313] InstructNav,2024,2406.04882,CORE,Controller-G,residual=A,在连续 Habitat 中反复重规划（F2）
+[314] SG-Nav,2024,2410.08189,BOUNDARY (B-auth),Controller-G (nominal),—,对代码生成的 frontier 打分，没有控制行为
+[315] UniGoal,2025,2503.10630,BOUNDARY (B-auth),Controller-G (nominal),—,阶段由代码控制
+[316] VLFM,2023,2312.03275,OUT,n/a,organ,只是 value map
+[317] Mobility VLA,2024,2407.07775,BOUNDARY (B-loop),Controller-G (nominal),—,每次查询只调用一次（Λ0）
+[318] NavCoT,2024,2403.07376,BOUNDARY (B-world),Controller-C (nominal),—,带动作历史（Λ2），但 R2R 离散图为 F1
+[319] AgenticNav,2026,2606.10577,CORE,Controller-G,residual=A,工具调用式 harness，在连续仿真和真机上运行
+[320] NavHarness (adaptive goals),2026,2609.39915,CORE,Controller-G,residual=A,角色化 agent（×R）；VLN-CE 中会发生碰撞阻挡，计为 F2；另有真机实验
+[321] ASENA,2026,2609.39207,UNRESOLVED (audit queue),Controller-G (nominal),Developer,只有 list 级证据
+[322] ReMEmbR,2024,2409.13682,CORE-P (provisional),Controller-G,residual=A,重复条目，同 [289]，判定相同，不重复计数
+[323] MoMa-LLM,2024,2403.08605,CORE,Controller-G,residual=A,基于场景图状态的闭环
+[324] CheckVLA,2026,2607.26789,UNRESOLVED (audit queue),Supervisor (nominal),—,只有标题级证据，可能根本没有 agent
+[325] Trinity,2025,2503.08338,UNRESOLVED (audit queue),Controller (nominal),—,细节来自记忆
+[326] KPI,2026,2609.36151,CORE-P (provisional),Controller-G,residual=A,输出 contract 级程序，交给学习得到的控制器
+[327] InterEvolve,2026,2610.02196,CORE,Designer,residual=W,在仿真中对每个任务进化奖励程序，再部署到 G1 真机；打 test-time 标
+[328] AllDayNav,2026,2606.10927,BOUNDARY (B-loop),Designer (nominal),—,自生成课程，agency 较弱
+[329] LOVON,2025,2507.06747,UNRESOLVED (audit queue),Controller (nominal),—,细节来自记忆
+[330] Gen2Sim,2023,2310.18308,BOUNDARY (B-loop),Designer (nominal),—,单次 builder
+[331] Holodeck,2023,2312.09067,BOUNDARY (B-loop),Designer (nominal),—,单次 builder；下游学习者在 AI2-THOR（F1）
+[332] RoboCasa,2024,n/a,OUT,n/a,human-authored infrastructure,LLM 只辅助人类编写，不是决策者
+[333] GenManip,2025,2506.10966,BOUNDARY (B-loop),"Designer (nominal, Examiner)",—,单次评测任务 builder
+[334] EmbodiedGen V2,2026,2607.07459,CORE,Designer,residual=W,coding agent 带工具构建训练世界；下游 VLA 部署到真机
+[335] SceneWeaver,2025,2509.20414,OUT,n/a,no embodied consumer (C5),若接上学习者即可判 Designer
+[336] OMNI-EPIC,2024,2405.15568,CORE,Designer,residual=W,带存档的开放式循环，依据学习进度反馈
+[337] REvolve,2024,2406.01309,CORE,Designer,residual=W,以人类 fitness 作为反馈（H）
+[338] ELLM,2023,2302.06692,BOUNDARY (B-loop),Designer (nominal),—,Housekeep（F1）中的目标 oracle（Λ1）；Crafter 部分没有机器人身体
+[339] OMNI,2023,2306.01711,OUT,n/a,no-robot-body / history-only,网格和游戏世界
+[340] RL-VLM-F,2024,2402.03681,OUT,n/a,organ,偏好评判器
+[341] GRAPE,2024,2411.19309,BOUNDARY (B-loop),Designer (nominal),—,一次写出可执行的 cost 规格
+[342] Pairwise Progress Critic,2026,2607.09776,OUT,n/a,organ,奖励模型
+[343] Robo-Dopamine,2025,2512.23703,OUT,n/a,organ,PRM
+[344] Robometer,2026,2603.02115,OUT,n/a,organ,奖励模型
+[345] ReWiND,2025,2505.10911,OUT,n/a,organ,奖励模型
+[346] RoboCLIP,2023,2310.07899,OUT,n/a,organ,奖励函数
+[347] VLM-RMs,2023,n/a,OUT,n/a,organ,奖励函数
+[348] World-Env,2025,2509.24948,OUT,n/a,organ + WAM,VLM 在 learned simulator 中只作判断
+[349] VLA-RFT,2025,2510.00406,OUT,n/a,WAM,world-model RL
+[350] WMPO,2025,2511.09515,OUT,n/a,WAM,world-model RL
+[351] DreamGen,2025,2505.12705,OUT,n/a,WAM / non-agent data,生成式数据
+[352] LucidSim,2024,2411.00083,OUT,n/a,annotator-type (prompts),为生成模型写 prompt，按 artifact 类型划为 OUT
