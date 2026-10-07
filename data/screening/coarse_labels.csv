@@ -659,7 +659,7 @@ c00656,Real-Time Anomaly Detection and Reactive Planning with Large Language Mod
 c00657,Plan-Seq-Learn: Language Model Guided RL for Solving Long Horizon Robotics Tasks,2024,2405.01534,10.48550/arXiv.2405.01534,107,4,4,relevant,method,hierarchical,LLM guides RL for long-horizon robot tasks
 c00658,Guiding Long-Horizon Task and Motion Planning with Vision Language Models,2024,2410.02193,10.1109/ICRA55743.2025.11128705,100,4,4,relevant,method,hierarchical,VLM guides task and motion planning
 c00659,Robotic Skill Acquisition via Instruction Augmentation with Vision-Language Models,2022,2211.11736,10.48550/arXiv.2211.11736,92,4,4,relevant,method,teacher,VLM augments robot instruction data
-c00660,Plan4MC: Skill Reinforcement Learning and Planning for Open-World Minecraft Tasks,2023,,10.48550/arXiv.2303.16563,92,4,4,irrelevant,method,other,Minecraft skill reinforcement learning
+c00660,Plan4MC: Skill Reinforcement Learning and Planning for Open-World Minecraft Tasks,2023,,10.48550/arXiv.2303.16563,92,4,4,maybe,method,other,"recheck: Minecraft skill RL plus LLM planning, weak embodiment"
 c00661,Integrating action knowledge and LLMs for task planning and situation handling in open worlds,2023,2305.17590,10.1007/s10514-023-10133-5,92,4,4,relevant,method,controller,LLM augments action knowledge for open-world planning
 c00662,Move to Understand a 3D Scene: Bridging Visual Grounding and Exploration for Efficient and Versatile Embodied Navigation,2025,2507.04047,10.1109/ICCV51701.2025.00761,86,4,4,relevant,method,navigation,3D vision-language learning for embodied exploration
 c00663,Towards A Unified Agent with Foundation Models,2023,2307.09668,10.48550/arXiv.2307.09668,78,4,4,relevant,method,developer,Unified agent with foundation models for RL
@@ -800,7 +800,7 @@ c00797,Beyond Sight: Finetuning Generalist Robot Policies with Heterogeneous Sen
 c00798,ManipVQA: Injecting Robotic Affordance and Physically Grounded Information into Multi-Modal Large Language Models,2024,2403.11289,10.1109/IROS58592.2024.10801993,56,3,6,relevant,method,teacher,Robotic affordance knowledge in MLLMs
 c00799,COMBO: Compositional World Models for Embodied Multi-Agent Cooperation,2024,2404.10775,10.48550/arXiv.2404.10775,56,3,6,relevant,method,multi-agent,Compositional world models multi-agent cooperation
 c00800,Autonomous Improvement of Instruction Following Skills via Foundation Models,2024,2407.20635,10.48550/arXiv.2407.20635,44,3,6,relevant,method,self-evolving,Autonomous improvement from self-collected data
-c00801,Towards General Computer Control: A Multimodal Agent for Red Dead Redemption II as a Case Study,2024,,10.48550/arXiv.2403.03186,43,3,6,irrelevant,method,other,Computer control in video game simulation
+c00801,Towards General Computer Control: A Multimodal Agent for Red Dead Redemption II as a Case Study,2024,,10.48550/arXiv.2403.03186,43,3,6,maybe,method,other,recheck: multimodal game agent for Red Dead Redemption II
 c00802,ENPIRE: Agentic Robot Policy Self-Improvement in the Real World,2026,2606.19980,10.48550/arXiv.2606.19980,39,3,6,relevant,method,self-evolving,ENPIRE agentic real-world policy improvement
 c00803,"Visual Embodied Brain: Let Multimodal Large Language Models See, Think, and Control in Spaces",2025,2506.00123,10.48550/arXiv.2506.00123,39,3,6,relevant,method,hierarchical,Visual embodied brain multimodal reasoning
 c00804,3D CAVLA: Leveraging Depth and 3D Context to Generalize Vision Language Action Models for Unseen Tasks,2025,2505.05800,10.48550/arXiv.2505.05800,35,3,6,relevant,method,reasoning-vla,3D context depth-aware VLA generalization
@@ -928,7 +928,7 @@ c00925,Assessing the Value of Visual Input: A Benchmark of Multimodal Large Lang
 c00926,"RAG-Modulo: Solving Sequential Tasks using Experience, Critics, and Language Models",2024,2409.12294,10.48550/arXiv.2409.12294,4,3,5,relevant,method,self-evolving,LLM agents with memory and execution critics
 c00927,Semantically Guided Task Planning: Supervised Vision-Language-Action Model by Large Language Models,2026,,10.1109/TCSVT.2025.3642702,4,3,5,relevant,method,hierarchical,Semantically supervised vision-language-action model
 c00928,Cortex: A Bidirectionally Aligned Embodied Agent Framework for Long-horizon Manipulation,2026,2607.05377,10.48550/arXiv.2607.05377,3,3,5,relevant,method,hierarchical,Bidirectional embodied agent for long-horizon manipulation
-c00929,Improving the Data-efficiency of Reinforcement Learning by Warm-starting with LLM,2025,2505.10861,10.48550/arXiv.2505.10861,3,3,5,irrelevant,method,other,LLM warm-start for RL in simple control tasks
+c00929,Improving the Data-efficiency of Reinforcement Learning by Warm-starting with LLM,2025,2505.10861,10.48550/arXiv.2505.10861,3,3,5,maybe,method,other,recheck: LLM data warm-starts RL on Gym control tasks
 c00930,Automated Hybrid Reward Scheduling Via Large Language Models for Robotic Skill Learning,2025,2505.02483,10.1109/ICRA55743.2025.11127726,3,3,5,relevant,method,developer,Automated reward scheduling via LLMs for robot learning
 c00931,LUOR: A Framework for Language Understanding in Object Retrieval and Grasping,2025,,10.1007/s12555-024-0527-7,3,3,5,relevant,method,controller,Language understanding for object retrieval and grasping
 c00932,DexDiff: Towards Extrinsic Dexterity Manipulation of Ungraspable Objects in Unrestricted Environments,2024,2409.05493,10.48550/arXiv.2409.05493,3,3,5,relevant,method,controller,Extrinsic dexterity manipulation with VLM planning
@@ -1755,19 +1755,19 @@ c01752,Prompt-Responsive Object Retrieval with Memory-Augmented Student-Teacher 
 c01753,TaMMa: Target-driven Multi-subscene Mobile Manipulation,2024,,,3,2,4,maybe,method,controller,target-driven mobile manipulation task
 c01754,RESOURCE2SKILL: Distilling Executable Agent Skills from Human-Created Multimodal Resources,2026,2606.29538,10.48550/arXiv.2606.29538,2,2,4,irrelevant,method,other,software agents not embodied systems
 c01755,CANINE: Coaching Visually Impaired Users for Interactive Navigation with a Robot Guide Dog,2026,2605.19501,10.48550/arXiv.2605.19501,2,2,4,relevant,method,monitor,robot guide dog coaching with adaptive feedback
-c01756,EmbodiedClaw: Conversational Workflow Execution for Embodied AI Development,2026,2604.13800,10.48550/arXiv.2604.13800,2,2,4,irrelevant,method,other,meta tool for embodied AI development
+c01756,EmbodiedClaw: Conversational Workflow Execution for Embodied AI Development,2026,2604.13800,10.48550/arXiv.2604.13800,2,2,4,relevant,method,other,"recheck: conversational agent building embodied environments, trajectories, evaluation as skills"
 c01757,ROSClaw: A Hierarchical Semantic-Physical Framework for Heterogeneous Multi-Agent Collaboration,2026,2604.04664,10.48550/arXiv.2604.04664,2,2,4,relevant,method,hierarchical,LLM controller for multi-robot coordination
 c01758,TATIC: Task-Aware Temporal Learning for Human Intent Inference from Physical Corrections in Human-Robot Collaboration,2026,2603.11077,10.48550/arXiv.2603.11077,2,2,4,relevant,method,hierarchical,foundation models inferring task-level intent
 c01759,CoFL: Continuous Flow Fields for Language-Conditioned Navigation,2026,2603.02854,10.48550/arXiv.2603.02854,2,2,4,relevant,method,controller,language-conditioned navigation via flow fields
 c01760,MemCtrl: Using MLLMs as Active Memory Controllers on Embodied Agents,2026,2601.20831,10.48550/arXiv.2601.20831,2,2,4,relevant,method,controller,MLLMs pruning memory for embodied agents
 c01761,RoboPilot: Generalizable Dynamic Robotic Manipulation with Dual-thinking Modes,2025,2510.00154,10.48550/arXiv.2510.00154,2,2,4,relevant,method,controller,reasoning-based robotic manipulation framework
 c01762,Text2Touch: Tactile In-Hand Manipulation with LLM-Designed Reward Functions,2025,2509.07445,10.48550/arXiv.2509.07445,2,2,4,relevant,method,developer,LLM-designed rewards for dexterous hand
-c01763,Camera Control at the Edge with Language Models for Scene Understanding,2025,2505.06402,10.1109/ICCAR64901.2025.11073044,2,2,4,irrelevant,method,other,surveillance camera control not embodiment
+c01763,Camera Control at the Edge with Language Models for Scene Understanding,2025,2505.06402,10.1109/ICCAR64901.2025.11073044,2,2,4,maybe,method,other,recheck: LLM controls physical PTZ cameras via API
 c01764,STEER: Bridging VLMs and Low-Level Control for Adaptable Robotic Manipulation,,,,2,2,4,relevant,method,controller,VLMs bridging to low-level robot control
 c01765,CLOSER-VLN: Closed-Loop Self-Verified Retrieval-Augmented Reasoning for Aerial Vision-Language Navigation,2026,2606.28397,10.48550/arXiv.2606.28397,2,2,4,relevant,method,controller,aerial robot vision-language navigation
 c01766,SPIKE: An Adaptive Dual Controller Framework for Cost-Efficient Long-Horizon Game Agents,2026,2605.18636,10.48550/arXiv.2605.18636,2,2,4,maybe,method,controller,long-horizon game agents cost efficiency
 c01767,ST-VLA: Enabling 4D-Aware Spatiotemporal Understanding for General Robot Manipulation,2026,2603.13788,10.48550/arXiv.2603.13788,2,2,4,relevant,method,hierarchical,ST-VLA for humanoid robot manipulation
-c01768,AIvilization v0: Toward Large-Scale Artificial Social Simulation with a Unified Agent Architecture and Adaptive Agent Profiles,2026,2602.10429,10.48550/arXiv.2602.10429,2,2,4,irrelevant,method,other,artificial social simulation not embodied
+c01768,AIvilization v0: Toward Large-Scale Artificial Social Simulation with a Unified Agent Architecture and Adaptive Agent Profiles,2026,2602.10429,10.48550/arXiv.2602.10429,2,2,4,maybe,method,other,"recheck: LLM agent society in sandbox world, weak embodiment"
 c01769,A Modern System Recipe for Situated Embodied Human-Robot Conversation with Real-Time Multimodal LLMs and Tool-Calling,2026,2602.04157,10.48550/arXiv.2602.04157,2,2,4,relevant,method,controller,embodied human-robot conversation multimodal
 c01770,Adapting Like Humans: A Metacognitive Agent with Test-time Reasoning,2025,2511.23262,10.48550/arXiv.2511.23262,2,2,4,maybe,method,other,metacognitive test-time reasoning for VLMs
 c01771,Implicit instruction reasoning by fine-tuning VLM for robotic manipulation,2025,,10.1108/ir-05-2025-0175,2,2,4,relevant,method,controller,fine-tuned VLM for robotic manipulation
@@ -2065,7 +2065,7 @@ c02062,Task Decomposition and Self-Evaluation Mechanisms for Home Healthcare Rob
 c02063,Language Models Speed Up Local Search for Finding Programmatic Policies,2024,,,4,2,3,maybe,method,other,Language models for policy search
 c02064,A Systematic Approach to Multi-Agent AI from Advanced Regulatory Control Theory: Safe and Auditable LLM Operator Agents for Process Control,2026,2606.30877,10.48550/arXiv.2606.30877,4,2,3,maybe,method,controller,Multi-agent LLM process control framework
 c02065,Ella: Embodied Social Agents with Lifelong Memory,2025,2506.24019,10.48550/arXiv.2506.24019,4,2,3,maybe,method,self-evolving,Embodied social agent with lifelong memory
-c02066,PCGRLLM: Large Language Model-Driven Reward Design for Procedural Content Generation Reinforcement Learning,2025,2502.10906,10.1109/TG.2026.3695197,4,2,3,irrelevant,method,other,LLM-driven reward design for game AI
+c02066,PCGRLLM: Large Language Model-Driven Reward Design for Procedural Content Generation Reinforcement Learning,2025,2502.10906,10.1109/TG.2026.3695197,4,2,3,maybe,method,other,recheck: LLM reward design for RL agents in 2D environment
 c02067,BMW Agents - A Framework For Task Automation Through Multi-Agent Collaboration,2024,2406.20041,10.48550/arXiv.2406.20041,4,2,3,maybe,method,multi-agent,Multi-agent LLM framework for task automation
 c02068,Agents Trainer: Automatically Training Multi-Agent Reinforcement Learning Models for Drone Swarm Using Language Model-Based Agents,2026,,10.1109/TASE.2026.3689345,4,2,3,relevant,method,multi-agent,LLM-based training for drone swarm agents
 c02069,Dynamic Test-Time Compute Scaling in Control Policy: Difficulty-Aware Stochastic Interpolant Policy,2025,,10.48550/arXiv.2511.20906,4,2,3,maybe,method,other,Adaptive inference for diffusion-based robot control
@@ -2361,7 +2361,7 @@ c02358,A Zero-Shot Language Agent for Computer Control with Structured Reflectio
 c02359,LLMs Killed the Script Kiddie: How Agents Supported by Large Language Models Change the Landscape of Network Threat Testing,2023,2310.06936,10.48550/arXiv.2310.06936,40,2,2,irrelevant,other,other,cyber threat agents no physical embodiment
 c02360,eP-ALM: Efficient Perceptual Augmentation of Language Models,2023,2303.11403,10.1109/ICCV51070.2023.02016,40,2,2,irrelevant,method,other,multimodal LLM augmentation no embodiment
 c02361,Reconstructing Action-Conditioned Human-Object Interactions Using Commonsense Knowledge Priors,2022,2209.02485,10.1109/3DV57658.2022.00047,38,2,2,maybe,method,other,3D interaction perception weak embodiment
-c02362,A Large Language Model-based multi-agent manufacturing system for intelligent shopfloor,2024,2405.16887,10.1016/j.aei.2025.103888,37,2,2,irrelevant,method,other,manufacturing coordination LLMs not robot
+c02362,A Large Language Model-based multi-agent manufacturing system for intelligent shopfloor,2024,2405.16887,10.1016/j.aei.2025.103888,37,2,2,maybe,method,other,"recheck: LLM multi-agent manufacturing shopfloor, physical system unclear"
 c02363,Pretraining in Deep Reinforcement Learning: A Survey,2022,2211.03959,10.48550/arXiv.2211.03959,37,2,2,maybe,survey,other,RL pretraining survey mentions robotics
 c02364,ModelScope-Agent: Building Your Customizable Agent System with Open-source Large Language Models,2023,2309.00986,10.48550/arXiv.2309.00986,36,2,2,irrelevant,method,other,LLM agent framework generic tool-use
 c02365,SCHEMA: State CHangEs MAtter for Procedure Planning in Instructional Videos,2024,2403.01599,10.48550/arXiv.2403.01599,35,2,2,irrelevant,method,other,video procedure planning no robot embodiment
@@ -2489,7 +2489,7 @@ c02486,Towards Human Awareness in Robot Task Planning with Large Language Models
 c02487,NOD-TAMP: Generalizable Long-Horizon Planning with Neural Object Descriptors,2023,2311.01530,,10,2,2,relevant,method,controller,NOD-TAMP long-horizon manipulation skills
 c02488,Learning modular language-conditioned robot policies through attention,2023,,10.1007/s10514-023-10129-1,10,2,2,relevant,method,controller,modular language-conditioned policy transfer
 c02489,A Data Source for Reasoning Embodied Agents,2023,2309.07974,10.1609/aaai.v37i7.26017,10,2,2,relevant,dataset,other,embodied agent reasoning dataset generator
-c02490,LLMind: Orchestrating AI and IoT with LLMs for Complex Task Execution,2023,,10.48550/arXiv.2312.09007,10,2,2,irrelevant,method,other,LLM IoT orchestration not robot
+c02490,LLMind: Orchestrating AI and IoT with LLMs for Complex Task Execution,2023,,10.48550/arXiv.2312.09007,10,2,2,maybe,method,other,"recheck: LLM orchestrates IoT devices, possibly robots"
 c02491,PartInstruct: Part-level Instruction Following for Fine-grained Robot Manipulation,2025,2505.21652,10.48550/arXiv.2505.21652,9,2,2,relevant,dataset,controller,part-level fine-grained manipulation benchmark
 c02492,NeBuLa: A discourse aware Minecraft Builder,2024,2406.18164,10.48550/arXiv.2406.18164,9,2,2,maybe,method,other,minecraft builder discourse LLM weak embodiment
 c02493,Integrating ChatGPT with Blockly for End-User Development of Robot Tasks,2024,,10.1145/3610978.3640653,9,2,2,relevant,method,controller,ChatGPT Blockly end-user robot programming
@@ -2522,14 +2522,14 @@ c02519,WebWISE: Unlocking Web Interface Control for LLMs via Sequential Explorat
 c02520,Reducing Latency in LLM-Based Natural Language Commands Processing for Robot Navigation,2025,2506.00075,10.1109/ICAR65334.2025.11338698,6,2,2,relevant,method,navigation,latency LLM robot navigation ROS2
 c02521,R1-Code-Interpreter: LLMs Reason with Code via Supervised and Multi-stage Reinforcement Learning,2025,2505.21668,,6,2,2,irrelevant,method,other,code reasoning LLMs not embodied
 c02522,Leveraging Semantic and Geometric Information for Zero-Shot Robot-to-Human Handover,2024,2409.17621,10.1109/ICRA55743.2025.11128058,6,2,2,relevant,method,controller,handover grasping semantic-geometric VLM
-c02523,Creative Problem Solving in Large Language and Vision Models - What Would it Take?,2024,2405.01453,10.48550/arXiv.2405.01453,6,2,2,irrelevant,position,other,creative problem solving LLMs no embodiment
+c02523,Creative Problem Solving in Large Language and Vision Models - What Would it Take?,2024,2405.01453,10.48550/arXiv.2405.01453,6,2,2,maybe,position,other,"recheck: creative problem solving in LLVMs, possibly tool-use robotics"
 c02524,GS-Agent: Creating 4D Physical Worlds With Generative Simulation,2026,2607.21522,10.48550/arXiv.2607.21522,6,2,2,maybe,method,developer,4D world generation simulation weak embodiment
 c02525,Cognition to Control - Multi-Agent Learning for Human-Humanoid Collaborative Transport,2026,2603.03768,10.48550/arXiv.2603.03768,6,2,2,relevant,method,multi-agent,humanoid collaborative transport C2C
 c02526,LLM-Guided Reinforcement Learning: Addressing Training Bottlenecks through Policy Modulation,2025,2505.20671,10.48550/arXiv.2505.20671,6,2,2,maybe,method,developer,LLM-guided RL policy training unclear
 c02527,GAT-Grasp: Gesture-Driven Affordance Transfer for Task-Aware Robotic Grasping,2025,2503.06227,10.1109/IROS60139.2025.11246111,6,2,2,relevant,method,controller,gesture-driven grasping task-aware affordance
 c02528,A Structured Prompting based on Belief-Desire-Intention Model for Proactive and Explainable Task Planning,2023,,10.1145/3623809.3623930,6,2,2,maybe,method,controller,BDI-based task planning prompting
 c02529,Improving Knowledge Extraction from LLMs for Robotic Task Learning through Agent Analysis,2023,,10.48550/arXiv.2306.06770,6,2,2,maybe,method,developer,knowledge extraction LLM robot learning
-c02530,Vygotskian Autotelic Artificial Intelligence: Language and Culture Internalization for Human-Like AI,2022,,10.48550/arXiv.2206.01134,6,2,2,irrelevant,position,other,autotelic AI language internalization philosophy
+c02530,Vygotskian Autotelic Artificial Intelligence: Language and Culture Internalization for Human-Like AI,2022,,10.48550/arXiv.2206.01134,6,2,2,maybe,position,other,"recheck: autotelic AI position paper, possible embodied agents"
 c02531,Is GPT Powerful Enough to Analyze the Emotions of Memes?,2023,2311.00223,10.1109/ICMLA58977.2023.00202,6,2,2,irrelevant,method,other,meme emotion analysis LLMs not embodied
 c02532,N0-TWAM: Scaling Tactile-Native World-Action Model for Contact-Rich Manipulation,2026,2607.23783,10.48550/arXiv.2607.23783,5,2,2,relevant,method,teacher,tactile world-action model contact manipulation
 c02533,Latency-Aware Benchmarking of Large Language Models for Natural-Language Robot Navigation in ROS 2,2026,,10.3390/s26020608,5,2,2,relevant,method,navigation,latency-aware LLM robot navigation benchmarking
@@ -4160,7 +4160,7 @@ c04987,ComAI: The Convergence of Communication and Artificial Intelligence,2026,
 c04989,X-LeBench: A Benchmark for Extremely Long Egocentric Video Understanding,2025,2501.06835,10.18653/v1/2025.findings-emnlp.822,18,1,1,maybe,benchmark,other,egocentric video understanding for embodied intelligence
 c04996,The Developments and Challenges towards Dexterous and Embodied Robotic Manipulation: A Survey,2025,2507.11840,10.48550/arXiv.2507.11840,18,1,1,maybe,survey,other,embodied dexterous manipulation development survey
 c04997,Bilevel Learning for Bilevel Planning,2025,2502.08697,10.48550/arXiv.2502.08697,18,1,1,relevant,method,hierarchical,neuro-symbolic bilevel learning for planning
-c05001,"DeepSeek-V3, GPT-4, Phi-4, and LLaMA-3.3 generate correct code for LoRaWAN-related engineering tasks",2025,2502.14926,10.3390/electronics14071428,17,1,1,irrelevant,other,other,LLM code generation for LoRaWAN engineering
+c05001,"DeepSeek-V3, GPT-4, Phi-4, and LLaMA-3.3 generate correct code for LoRaWAN-related engineering tasks",2025,2502.14926,10.3390/electronics14071428,17,1,1,maybe,other,other,recheck: LLM code for drone placement network engineering
 c05003,"Large Language Models for Autonomous Driving (LLM4AD): Concept, Benchmark, Experiments, and Challenges",,,,17,1,1,maybe,benchmark,other,LLM benchmark and concept for autonomous driving
 c05005,An Autonomous Network Orchestration Framework Integrating Large Language Models with Continual Reinforcement Learning,2025,2502.16198,10.1109/MCOM.001.2400526,17,1,1,irrelevant,other,other,LLM-based network orchestration framework
 c05006,Asynchronous multi-agent deep reinforcement learning under partial observability,2025,,10.1177/02783649241306124,17,1,1,maybe,method,multi-agent,multi-agent RL for asynchronous robot control
@@ -4182,7 +4182,7 @@ c05057,pySpatial: Generating 3D Visual Programs for Zero-Shot Spatial Reasoning,
 c05066,Generating Contextually-Relevant Navigation Instructions for Blind and Low Vision People,2024,2407.08219,10.48550/arXiv.2407.08219,15,1,1,maybe,method,other,LLM-based navigation instruction generation
 c05074,OpenVLN: Open-world aerial Vision-Language Navigation,2025,2511.06182,10.48550/arXiv.2511.06182,14,1,1,relevant,method,navigation,reinforcement learning VLM for drone navigation
 c05075,Masked Point-Entity Contrast for Open-Vocabulary 3D Scene Understanding,2025,2504.19500,10.1109/CVPR52734.2025.01318,14,1,1,relevant,method,reasoning-vla,open-vocabulary 3D scene understanding
-c05076,Beyond Vacuuming: How Can We Exploit Domestic Robots' Idle Time?,2025,,10.1145/3706598.3714266,14,1,1,irrelevant,other,other,domestic robot use case expansion HCI study
+c05076,Beyond Vacuuming: How Can We Exploit Domestic Robots' Idle Time?,2025,,10.1145/3706598.3714266,14,1,1,maybe,other,other,"recheck: domestic robot use-case HCI study, no foundation model"
 c05078,GRACE: Generating Socially Appropriate Robot Actions Leveraging LLMs and Human Explanations,2024,2409.16879,10.1109/ICRA55743.2025.11127826,14,1,1,relevant,method,controller,LLM for socially appropriate robot actions
 c05079,A framework for training larger networks for deep Reinforcement learning,2024,,10.1007/s10994-024-06547-6,14,1,1,irrelevant,other,other,deep reinforcement learning training framework
 c05080,VANP: Learning Where to See for Navigation with Self-Supervised Vision-Action Pre-Training,2024,2403.08109,10.1109/IROS58592.2024.10802451,14,1,1,relevant,method,navigation,self-supervised vision-action navigation pre-training
@@ -4281,7 +4281,7 @@ c05312,Human-in-the-loop Robotic Grasping Using BERT Scene Representation,2022,2
 c05313,LLM-Guided Distributed Model Predictive Control for Decentralized UAV Formations,2026,,10.1109/ACCESS.2025.3642325,8,1,1,relevant,method,multi-agent,LLM-guided drone swarm formation control
 c05314,Hierarchical Rule-Base Reduction-Based ANFIS With Online Optimization Through DDPG,2024,,10.1109/TFUZZ.2024.3449147,8,1,1,maybe,method,controller,deep RL for fuzzy controller optimization
 c05315,Sparkybot:An Embodied AI Agent-Powered Robot with Customizable Characters andInteraction Behavior for Children,2023,,10.1145/3586182.3615804,8,1,1,relevant,method,multi-agent,embodied AI agent-powered child robot
-c05322,Will GPT-4 Run DOOM?,2024,2403.05468,10.1109/TG.2024.3497601,8,1,1,irrelevant,other,other,GPT-4 video game playing without embodiment
+c05322,Will GPT-4 Run DOOM?,2024,2403.05468,10.1109/TG.2024.3497601,8,1,1,maybe,other,other,recheck: GPT-4 plays Doom as video game agent
 c05325,Benchmarking Egocentric Multimodal Goal Inference for Assistive Wearable Agents,2025,2510.22443,10.48550/arXiv.2510.22443,8,1,1,relevant,benchmark,multi-agent,multimodal goal inference for wearable agents
 c05328,Integrative AI framework for robotics: LLM-enabled reinforcement learning in object manipulation and task planning,2026,,10.1016/j.robot.2025.105197,8,1,1,relevant,method,controller,LLM-enabled reinforcement learning for manipulation
 c05329,TRIFFID: Autonomous Robotic Aid For Increasing First Responders Efficiency,2025,2502.09379,10.1109/EEITE65381.2025.11166443,8,1,1,relevant,method,multi-agent,multimodal autonomous robot disaster response
@@ -4964,7 +4964,7 @@ c06678,MARLIN: Multi-Agent Reinforcement Learning Guided by Language-Based Inter
 c06679,Embodied Agents Take Control: Minimal-Interface Zero-Shot Agents Rival Industrial-Scale Policies in Vision-and-Language Navigation,2026,2607.26148,10.48550/arXiv.2607.26148,5,0,4,relevant,method,controller,minimal-interface zero-shot agentic embodied control
 c06680,Agentic AI: Autonomous Intelligence for Complex Goals—A Comprehensive Survey,2025,,10.1109/ACCESS.2025.3532853,761,0,3,relevant,survey,other,comprehensive survey of agentic AI
 c06681,"AI Agents vs. Agentic AI: A Conceptual Taxonomy, Applications and Challenges",2025,2505.10468,10.1016/j.inffus.2025.103599,584,0,3,irrelevant,survey,other,survey of agents without physical embodiment
-c06682,Group-in-Group Policy Optimization for LLM Agent Training,2025,2505.10978,10.48550/arXiv.2505.10978,489,0,3,irrelevant,method,other,RL for LLM agents without embodiment
+c06682,Group-in-Group Policy Optimization for LLM Agent Training,2025,2505.10978,10.48550/arXiv.2505.10978,489,0,3,maybe,method,other,"recheck: LLM agent RL, likely evaluated on ALFWorld"
 c06683,Automated Design of Agentic Systems,2024,2408.08435,10.48550/arXiv.2408.08435,395,0,3,maybe,method,other,automated design of agentic systems
 c06684,OS-Copilot: Towards Generalist Computer Agents with Self-Improvement,2024,2402.07456,10.48550/arXiv.2402.07456,220,0,3,irrelevant,method,other,computer agents without embodiment
 c06685,VLP: Vision Language Planning for Autonomous Driving,2024,2401.05577,10.1109/CVPR52733.2024.01398,200,0,3,maybe,method,controller,vision-language planning for autonomous vehicles
@@ -4984,10 +4984,10 @@ c06698,A Survey of Embodied Learning for Object-centric Robotic Manipulation,202
 c06699,Breaking the Exploration Bottleneck: Rubric-Scaffolded Reinforcement Learning for General LLM Reasoning,2025,2508.16949,10.48550/arXiv.2508.16949,55,0,3,irrelevant,method,other,RL for LLM reasoning without embodiment
 c06700,Delving Into Multi-Modal Multi-Task Foundation Models for Road Scene Understanding: From Learning Paradigm Perspectives,2024,2402.02968,10.1109/TIV.2024.3406372,48,0,3,maybe,survey,controller,foundation models for autonomous driving
 c06701,CEED-VLA: Consistency Vision-Language-Action Model with Early-Exit Decoding,2025,2506.13725,10.48550/arXiv.2506.13725,44,0,3,maybe,method,reasoning-vla,VLA with early-exit decoding for dexterous manipulation
-c06702,Hierarchy-of-Groups Policy Optimization for Long-Horizon Agentic Tasks,2026,2602.22817,10.48550/arXiv.2602.22817,42,0,3,irrelevant,method,other,group-based RL for long-horizon LLM tasks
+c06702,Hierarchy-of-Groups Policy Optimization for Long-Horizon Agentic Tasks,2026,2602.22817,10.48550/arXiv.2602.22817,42,0,3,maybe,method,other,"recheck: long-horizon agentic RL, likely ALFWorld evaluation"
 c06703,OctoNav: Towards Generalist Embodied Navigation,2025,2506.09839,10.48550/arXiv.2506.09839,42,0,3,relevant,method,navigation,embodied navigation agent combining multiple capabilities
 c06704,Self-Improving Embodied Foundation Models,2025,2509.15155,10.48550/arXiv.2509.15155,39,0,3,relevant,method,self-evolving,embodied foundation models with self-improvement
-c06705,General agents need world models,2025,,10.48550/arXiv.2506.01622,36,0,3,irrelevant,other,other,no abstract available
+c06705,General agents need world models,2025,,10.48550/arXiv.2506.01622,36,0,3,maybe,other,other,"recheck: world models for general agents position, no abstract"
 c06706,Hierarchical Auto-Organizing System for Open-Ended Multi-Agent Navigation,2024,2403.08282,10.48550/arXiv.2403.08282,32,0,3,maybe,method,multi-agent,multi-agent navigation in Minecraft
 c06707,LLaDA-VLA: Vision Language Diffusion Action Models,2025,2509.06932,10.48550/arXiv.2509.06932,31,0,3,relevant,method,reasoning-vla,diffusion-based VLA for robotic manipulation
 c06708,AgentStore: Scalable Integration of Heterogeneous Agents As Specialized Generalist Computer Assistant,2024,2410.18603,10.48550/arXiv.2410.18603,28,0,3,irrelevant,method,other,agent platform for computer automation
@@ -5132,14 +5132,14 @@ c06887,LLM-BRAIn: AI-driven Fast Generation of Robot Behaviour Tree based on Lar
 c06890,Parkour in the Wild: Learning a General and Extensible Agile Locomotion Policy Using Multi-expert Distillation and RL Fine-tuning,2025,2505.11164,10.48550/arXiv.2505.11164,61,0,2,relevant,method,controller,multi-expert distillation for legged robot locomotion
 c06891,Generative AI for Autonomous Driving: Frontiers and Opportunities,2026,,10.1145/3838726,61,0,2,maybe,survey,other,survey of generative AI for autonomous driving
 c06892,MineDreamer: Learning to Follow Instructions via Chain-of-Imagination for Simulated-World Control,2024,2403.12037,10.48550/arXiv.2403.12037,60,0,2,maybe,method,hierarchical,embodied agent in Minecraft with chain-of-imagination
-c06893,Urban Generative Intelligence (UGI): A Foundational Platform for Agents in Embodied City Environment,2023,2312.11813,10.48550/arXiv.2312.11813,60,0,2,irrelevant,method,other,LLM platform for urban systems without embodiment
+c06893,Urban Generative Intelligence (UGI): A Foundational Platform for Agents in Embodied City Environment,2023,2312.11813,10.48550/arXiv.2312.11813,60,0,2,maybe,method,other,"recheck: LLM agents in embodied city environment platform, weak embodiment"
 c06894,R+X: Retrieval and Execution from Everyday Human Videos,2024,2407.12957,10.1109/ICRA55743.2025.11128322,60,0,2,relevant,method,teacher,robot skill learning from human videos
 c06897,EmbodiedEval: Evaluate Multimodal LLMs as Embodied Agents,2025,2501.11858,10.48550/arXiv.2501.11858,58,0,2,relevant,benchmark,other,benchmark for embodied multimodal LLMs
 c06898,TAIL: Task-specific Adapters for Imitation Learning with Large Pretrained Models,2023,2310.05905,10.48550/arXiv.2310.05905,58,0,2,relevant,method,teacher,efficient fine-tuning for robot imitation learning
 c06901,Controlling Large Language Model-based Agents for Large-Scale Decision-Making: An Actor-Critic Approach,2023,2311.13884,10.48550/arXiv.2311.13884,54,0,2,maybe,method,multi-agent,LLM-based multi-agent coordination for planning
 c06903,HAMLET: Switch your Vision-Language-Action Model into a History-Aware Policy,2025,2510.00695,10.48550/arXiv.2510.00695,54,0,2,relevant,method,self-evolving,VLA with history-aware memory for manipulation
 c06904,A Survey on Imitation Learning for Contact-Rich Tasks in Robotics,2025,2506.13498,10.48550/arXiv.2506.13498,54,0,2,relevant,survey,other,survey on imitation learning for contact-rich tasks
-c06906,A foundational architecture for AI agents in healthcare,2025,,10.1016/j.xcrm.2025.102374,53,0,2,irrelevant,survey,other,survey of medical AI agents without embodiment
+c06906,A foundational architecture for AI agents in healthcare,2025,,10.1016/j.xcrm.2025.102374,53,0,2,maybe,survey,other,"recheck: medical agent survey touching robotic surgery, weak embodiment"
 c06907,Emergence of Human to Robot Transfer in Vision-Language-Action Models,2025,2512.22414,10.48550/arXiv.2512.22414,53,0,2,relevant,method,teacher,human-to-robot transfer in VLA models
 c06908,Learning Manipulation by Predicting Interaction,2024,2406.00439,10.48550/arXiv.2406.00439,53,0,2,relevant,method,reasoning-vla,learning manipulation via interaction prediction
 c06909,FlowVLA: Visual Chain of Thought-Based Motion Reasoning for Vision-Language-Action Models,2025,2508.18269,10.1109/tro.2026.3732824,51,0,2,relevant,method,reasoning-vla,VLA with visual chain-of-thought motion reasoning
@@ -5337,7 +5337,7 @@ c07297,Reinforcement Learning in the Real World: A Survey of Statistical Challen
 c07298,ADPro: a Test-time Adaptive Diffusion Policy via Manifold-constrained Denoising and Task-aware Initialization for Robotic Manipulation,2025,2508.06266,,5,0,2,relevant,method,controller,adaptive diffusion policy for robot manipulation
 c07303,SimWorlds: A Multi-Agent System for Dynamic 3D Scene Creation,2026,2607.01766,10.48550/arXiv.2607.01766,5,0,2,maybe,method,developer,multi-agent dynamic 4D scene generation
 c07310,MemGym: a Long-Horizon Memory Environment for LLM Agents,2026,2605.20833,10.48550/arXiv.2605.20833,5,0,2,maybe,method,developer,memory benchmark for LLM agents and reasoning
-c07317,Towards a foundational platform for generative agents in simulated city environment,2026,,10.1371/journal.pcsy.0000093,5,0,2,irrelevant,method,multi-agent,generative agents in simulated urban city
+c07317,Towards a foundational platform for generative agents in simulated city environment,2026,,10.1371/journal.pcsy.0000093,5,0,2,maybe,method,multi-agent,"recheck: generative LLM agents in simulated city environment, weak embodiment"
 c07324,MCP4IFC: IFC-Based Building Design Using Large Language Models,2025,2511.05533,10.48550/arXiv.2511.05533,5,0,2,irrelevant,method,other,LLM framework for building information models
 c07326,EvoEmpirBench: Dynamic Spatial Reasoning with Agent-ExpVer,2025,2509.12718,10.48550/arXiv.2509.12718,5,0,2,maybe,method,reasoning-vla,dynamic spatial reasoning with agent experience
 c07329,Sari Sandbox: A Virtual Retail Store Environment for Embodied AI Agents,2025,2508.00400,10.1109/ICCVW69036.2025.00249,5,0,2,relevant,benchmark,controller,photorealistic retail environment for embodied agents
@@ -5710,7 +5710,7 @@ c08226,BrowseComp: A Simple Yet Challenging Benchmark for Browsing Agents,2025,2
 c08229,SmolVLA: A Vision-Language-Action Model for Affordable and Efficient Robotics,2025,2506.01844,10.48550/arXiv.2506.01844,614,0,1,relevant,method,controller,Efficient compact VLA robotics
 c08230,SpatialVLA: Exploring Spatial Representations for Visual-Language-Action Model,2025,2501.15830,10.48550/arXiv.2501.15830,585,0,1,relevant,method,controller,Spatial representations VLA manipulation
 c08231,RoboTwin 2.0: A Scalable Data Generator and Benchmark with Strong Domain Randomization for Robust Bimanual Robotic Manipulation,2025,2506.18088,10.48550/arXiv.2506.18088,571,0,1,relevant,dataset,other,RoboTwin bimanual manipulation platform
-c08234,AgentPoison: Red-teaming LLM Agents via Poisoning Memory or Knowledge Bases,2024,2407.12784,10.48550/arXiv.2407.12784,538,0,1,irrelevant,other,other,Backdoor attacks LLM agents memory
+c08234,AgentPoison: Red-teaming LLM Agents via Poisoning Memory or Knowledge Bases,2024,2407.12784,10.48550/arXiv.2407.12784,538,0,1,maybe,other,other,recheck: memory poisoning attack on agents incl. driving agent
 c08237,AgiBot World Colosseo: A Large-Scale Manipulation Platform for Scalable and Intelligent Embodied Systems,2025,2503.06669,10.1109/IROS60139.2025.11247088,496,0,1,relevant,dataset,other,AgiBot World large-scale manipulation
 c08240,CogACT: A Foundational Vision-Language-Action Model for Synergizing Cognition and Action in Robotic Manipulation,2024,2411.19650,10.48550/arXiv.2411.19650,476,0,1,relevant,method,controller,VLA architecture cognition action synergy
 c08241,UniVLA: Learning to Act Anywhere with Task-centric Latent Actions,2025,2505.06111,10.48550/arXiv.2505.06111,475,0,1,relevant,method,developer,Cross-embodiment VLA task-centric actions
@@ -5970,7 +5970,7 @@ c08778,ReinboT: Amplifying Robot Visual-Language Manipulation with Reinforcement
 c08779,Toward Automated Algorithm Design: A Survey and Practical Guide to Meta-Black-Box-Optimization,2024,2411.00625,10.1109/TEVC.2025.3568053,50,0,1,irrelevant,survey,other,algorithm design survey
 c08785,"Qwen-VLA: Unifying Vision-Language-Action Modeling across Tasks, Environments, and Robot Embodiments",2026,2605.30280,10.48550/arXiv.2605.30280,50,0,1,relevant,method,controller,unified VLA across tasks
 c08786,DepthVLA: Enhancing Vision-Language-Action Models with Depth-Aware Spatial Reasoning,2025,2510.13375,10.1109/ICRA57385.2026.11696926,50,0,1,relevant,method,controller,spatial reasoning with depth
-c08787,BadVLA: Towards Backdoor Attacks on Vision-Language-Action Models via Objective-Decoupled Optimization,2025,2505.16640,10.48550/arXiv.2505.16640,50,0,1,irrelevant,method,other,security analysis of VLA
+c08787,BadVLA: Towards Backdoor Attacks on Vision-Language-Action Models via Objective-Decoupled Optimization,2025,2505.16640,10.48550/arXiv.2505.16640,50,0,1,maybe,method,other,"recheck: backdoor attack on VLA robot models, safety study"
 c08788,Active Vision Might Be All You Need: Exploring Active Vision in Bimanual Robotic Manipulation,2024,2409.17435,10.1109/ICRA55743.2025.11128253,50,0,1,relevant,method,controller,active camera control
 c08789,SkyRL-Agent: Efficient RL Training for Multi-turn LLM Agent,2025,2511.16108,10.48550/arXiv.2511.16108,50,0,1,maybe,method,controller,RL training for software agents
 c08792,Multi-Task Interactive Robot Fleet Learning with Visual World Models,2024,2410.22689,10.48550/arXiv.2410.22689,49,0,1,relevant,method,multi-agent,fleet learning with world models
@@ -6020,7 +6020,7 @@ c08873,GeRM: A Generalist Robotic Model with Mixture-of-experts for Quadruped Ro
 c08874,GAMap: Zero-Shot Object Goal Navigation with Multi-Scale Geometric-Affordance Guidance,2024,2410.23978,10.48550/arXiv.2410.23978,42,0,1,relevant,method,navigation,multi-scale navigation guidance
 c08879,Interactive World Simulator for Robot Policy Training and Evaluation,2026,2603.08546,10.48550/arXiv.2603.08546,41,0,1,relevant,method,hierarchical,consistency-based world model
 c08880,AVID: Adapting Video Diffusion Models to World Models,2024,2410.12822,10.48550/arXiv.2410.12822,41,0,1,relevant,method,hierarchical,action-conditioned video diffusion
-c08881,Physical Backdoor Attack can Jeopardize Driving with Vision-Large-Language Models,2024,2404.12916,10.48550/arXiv.2404.12916,41,0,1,irrelevant,method,other,security analysis of VLM
+c08881,Physical Backdoor Attack can Jeopardize Driving with Vision-Large-Language Models,2024,2404.12916,10.48550/arXiv.2404.12916,41,0,1,maybe,method,other,"recheck: backdoor attack on VLM driving systems, weak embodiment"
 c08882,Offline Actor-Critic Reinforcement Learning Scales to Large Models,2024,2402.05546,10.48550/arXiv.2402.05546,41,0,1,relevant,method,controller,scaled offline RL for robots
 c08889,VLSA: Vision-Language-Action Models with Plug-and-Play Safety Constraint Layer,2025,2512.11891,10.48550/arXiv.2512.11891,40,0,1,relevant,method,monitor,safety-constrained VLA
 c08890,SimScale: Learning to Drive via Real-World Simulation at Scale,2025,2511.23369,10.48550/arXiv.2511.23369,40,0,1,maybe,method,controller,simulation-based autonomous driving
@@ -6190,7 +6190,7 @@ c09188,PWM: Policy Learning with Multi-Task World Models,2024,2407.02466,,24,0,1
 c09189,Large and small-scale models' fusion-driven proactive robotic manipulation control for human-robot collaborative assembly in industry 5.0,,,10.1016/j.rcim.2025.103078,24,0,1,relevant,method,controller,fusion of models for robotic manipulation
 c09190,Automatic Red Teaming LLM-Based Agents With Model Context Protocol Tools,2025,2509.21011,10.1109/TIFS.2026.3691201,24,0,1,irrelevant,method,other,"LLM agent security testing, not embodied"
 c09191,Mitigating spatial hallucination in large language models for path planning via prompt engineering,2025,,10.1038/s41598-025-93601-5,24,0,1,maybe,method,controller,LLM path planning in mazes with reasoning
-c09192,Better than Your Teacher: LLM Agents that learn from Privileged AI Feedback,2024,2410.05434,10.48550/arXiv.2410.05434,24,0,1,irrelevant,method,other,"LLM agents learning from feedback, not embodied"
+c09192,Better than Your Teacher: LLM Agents that learn from Privileged AI Feedback,2024,2410.05434,10.48550/arXiv.2410.05434,24,0,1,maybe,method,other,recheck: LLM agent self-improvement evaluated on ALFWorld household text game
 c09193,DSDrive: Distilling Large Language Model for Lightweight End-to-End Autonomous Driving with Unified Reasoning and Planning,2025,2505.05360,10.48550/arXiv.2505.05360,23,0,1,maybe,method,controller,distilled LLM for autonomous driving
 c09194,Pretrained Optimization Model for Zero-Shot Black Box Optimization,2024,2405.03728,10.52202/079017-0456,23,0,1,relevant,method,other,optimization includes robot control tasks
 c09196,"LLM2Swarm: Robot Swarms that Responsively Reason, Plan, and Collaborate through LLMs",2024,2410.11387,10.48550/arXiv.2410.11387,23,0,1,relevant,method,multi-agent,LLM-guided robot swarm control
@@ -6473,7 +6473,7 @@ c09694,Omni-SimpleMem: Autoresearch-Guided Discovery of Lifelong Multimodal Agen
 c09695,Why Do LLM-based Web Agents Fail? A Hierarchical Planning Perspective,2026,2603.14248,10.48550/arXiv.2603.14248,12,0,1,irrelevant,other,other,LLM web agents for navigation tasks
 c09696,Beyond IVR: Benchmarking Customer Support LLM Agents for Business-Adherence,2026,2601.00596,10.48550/arXiv.2601.00596,12,0,1,irrelevant,other,other,Customer support LLM agents
 c09697,GTM: Simulating the World of Tools for AI Agents,2025,2512.04535,10.48550/arXiv.2512.04535,12,0,1,irrelevant,other,other,Tool simulation for LLM agents
-c09698,ReCAP: Recursive Context-Aware Reasoning and Planning for Large Language Model Agents,2025,2510.23822,10.48550/arXiv.2510.23822,12,0,1,irrelevant,other,other,Recursive context-aware reasoning for LLM agents
+c09698,ReCAP: Recursive Context-Aware Reasoning and Planning for Large Language Model Agents,2025,2510.23822,10.48550/arXiv.2510.23822,12,0,1,maybe,other,other,recheck: LLM agent planning likely evaluated on Robotouille and ALFWorld
 c09699,GRASP: Generic Reasoning And SPARQL Generation across Knowledge Graphs - Demo System,2025,2507.08107,10.1007/978-3-032-09527-5_15,12,0,1,irrelevant,other,other,SPARQL query generation from knowledge graphs
 c09700,Effective Red-Teaming of Policy-Adherent Agents,2025,2506.09600,10.48550/arXiv.2506.09600,12,0,1,irrelevant,other,other,Red-teaming policy-adherent LLM agents
 c09701,EPO: Explicit Policy Optimization for Strategic Reasoning in LLMs via Reinforcement Learning,2025,2502.12486,10.48550/arXiv.2502.12486,12,0,1,irrelevant,other,other,Explicit policy optimization for strategic reasoning
@@ -6518,7 +6518,7 @@ c09776,Unifying Foundation Models with Quadrotor Control for Visual Tracking Bey
 c09777,GRASP: Gated Regression-Aware Skill Proposer for Self-Improving LLM Agents,2026,2605.29668,10.48550/arXiv.2605.29668,11,0,1,relevant,method,self-evolving,Gated regression-aware skill proposer for agents
 c09778,A Subgoal-driven Framework for Improving Long-Horizon LLM Agents,2026,2603.19685,10.48550/arXiv.2603.19685,11,0,1,relevant,method,controller,Subgoal-driven framework for long-horizon agent planning
 c09779,Coding Agents are Effective Long-Context Processors,2026,2603.20432,10.48550/arXiv.2603.20432,11,0,1,irrelevant,other,other,LLMs as long-context processors for code
-c09780,Sample-Efficient Online Learning in LM Agents via Hindsight Trajectory Rewriting,2025,2510.10304,10.48550/arXiv.2510.10304,11,0,1,irrelevant,other,other,Sample-efficient online learning for LM agents
+c09780,Sample-Efficient Online Learning in LM Agents via Hindsight Trajectory Rewriting,2025,2510.10304,10.48550/arXiv.2510.10304,11,0,1,maybe,other,other,"recheck: LM agent hindsight learning, gridworld environments, physical reset motivation"
 c09781,PAL-UI: Planning with Active Look-back for Vision-Based GUI Agents,2025,2510.00413,10.48550/arXiv.2510.00413,11,0,1,irrelevant,other,other,GUI agents with active look-back planning
 c09782,Thinking with Sound: Audio Chain-of-Thought Enables Multimodal Reasoning in Large Audio-Language Models,2025,2509.21749,10.48550/arXiv.2509.21749,11,0,1,irrelevant,other,other,Audio chain-of-thought for multimodal reasoning
 c09783,KubeIntellect: A Modular LLM-Orchestrated Agent Framework for End-to-End Kubernetes Management,2025,2509.02449,10.1007/s10723-026-09837-6,11,0,1,irrelevant,other,other,LLM-orchestrated Kubernetes management system
@@ -6640,7 +6640,7 @@ c09973,Surfer-H Meets Holo1: Cost-Efficient Web Agent Powered by Open Weights,20
 c09974,WorkForceAgent-R1: Incentivizing Reasoning Capability in LLM-based Web Agents via Reinforcement Learning,2025,2505.22942,10.48550/arXiv.2505.22942,9,0,1,irrelevant,other,other,Web agent with reinforcement learning fine-tuning
 c09975,SynWorld: Virtual Scenario Synthesis for Agentic Action Knowledge Refinement,2025,2504.03561,10.48550/arXiv.2504.03561,9,0,1,maybe,method,self-evolving,Virtual scenario synthesis for agent action refinement
 c09976,"A Survey of Large Language Models in Discipline-specific Research: Challenges, Methods and Opportunities",2025,2507.08425,10.24846/v34i1y202501,9,0,1,irrelevant,other,other,LLMs in discipline-specific research survey
-c09977,Understanding and Optimizing Agentic Workflows via Shapley value,2025,2502.00510,,9,0,1,irrelevant,other,other,Agentic workflow analysis via Shapley value
+c09977,Understanding and Optimizing Agentic Workflows via Shapley value,2025,2502.00510,,9,0,1,maybe,other,other,"recheck: agentic workflow analysis with navigation scenarios, ambiguous embodiment"
 c09978,AddrLLM: Address Rewriting via Large Language Model on Nationwide Logistics Data,2024,2411.13584,10.1145/3690624.3709425,9,0,1,irrelevant,other,other,Address rewriting via LLM
 c09979,MSI-Agent: Incorporating Multi-Scale Insight into Embodied Agents for Superior Planning and Decision-Making,2024,2409.16686,10.48550/arXiv.2409.16686,9,0,1,relevant,method,self-evolving,Multi-scale insight for embodied agent planning
 c09980,"A1: A Fully Transparent Open-Source, Adaptive and Efficient Truncated Vision-Language-Action Model",2026,2604.05672,10.48550/arXiv.2604.05672,8,0,1,relevant,method,controller,Efficient truncated VLA model for manipulation
@@ -6653,7 +6653,7 @@ c09988,Soft Robotic Dynamic in-Hand Pen Spinning,2024,2411.12734,10.1109/ICRA557
 c09989,Sampling-Based Model Predictive Control for Dexterous Manipulation on a Biomimetic Tendon-Driven Hand,2024,2411.06183,10.1109/IROS60139.2025.11246473,8,0,1,relevant,method,controller,Model predictive control for dexterous manipulation
 c09991,Auxiliary Reward Generation With Transition Distance Representation Learning,2025,,10.1109/TASE.2025.3554861,8,0,1,relevant,method,teacher,Auxiliary reward generation via transition distance learning
 c09997,Self-Refining Vision Language Model for Robotic Failure Detection and Reasoning,2026,2602.12405,10.48550/arXiv.2602.12405,8,0,1,relevant,method,monitor,Self-refining VLM for robotic failure detection
-c10002,Among Them: A game-based framework for assessing persuasion capabilities of LLMs,2025,2502.20426,10.1007/978-981-96-8186-0_15,8,0,1,irrelevant,other,other,Game-based assessment of LLM persuasion
+c10002,Among Them: A game-based framework for assessing persuasion capabilities of LLMs,2025,2502.20426,10.1007/978-981-96-8186-0_15,8,0,1,maybe,other,other,"recheck: LLM agents in Among Us-style game, weak embodiment"
 c10006,Automatic Control With Human-Like Reasoning: Exploring Language Model Embodied Air Traffic Agents,2024,2409.09717,10.48550/arXiv.2409.09717,8,0,1,relevant,method,controller,LLM embodied agent for air traffic control
 c10011,Cook and Clean Together: Teaching Embodied Agents for Parallel Task Execution,2025,2511.19430,10.48550/arXiv.2511.19430,8,0,1,relevant,method,controller,Task scheduling for embodied agents in 3D spaces
 c10017,cVLA: Towards Efficient Camera-Space VLAs,2025,2507.02190,10.48550/arXiv.2507.02190,8,0,1,relevant,method,controller,Camera-space VLA for efficient training
@@ -6898,7 +6898,7 @@ c10381,SynthWorlds: Controlled Parallel Worlds for Disentangling Reasoning and K
 c10382,WebATLAS: An LLM Agent with Experience-Driven Memory and Action Simulation,2025,2510.22732,,6,0,1,irrelevant,method,other,LLM web agent with memory
 c10383,UAV Accident Forensics via HFACS-LLM Reasoning: Low-Altitude Safety Insights,2025,,10.3390/drones9100704,6,0,1,maybe,method,other,LLM-based UAV accident analysis
 c10384,PEAR: Planner-Executor Agent Robustness Benchmark,2025,2510.07505,10.48550/arXiv.2510.07505,6,0,1,irrelevant,method,other,multi-agent planner-executor robustness
-c10385,Fine-tuning with RAG for Improving LLM Learning of New Skills,2025,2510.01375,10.48550/arXiv.2510.01375,6,0,1,irrelevant,method,other,RAG for LLM skill learning
+c10385,Fine-tuning with RAG for Improving LLM Learning of New Skills,2025,2510.01375,10.48550/arXiv.2510.01375,6,0,1,maybe,method,other,recheck: agent failure-hint distillation evaluated on ALFWorld household tasks
 c10386,Agentic Search Engine for Real-Time Internet of Things Data,2025,,10.3390/s25195995,6,0,1,irrelevant,method,other,agentic search for IoT data
 c10387,FaMA: LLM-Empowered Agentic Assistant for Consumer-to-Consumer Marketplace,2025,2509.03890,10.48550/arXiv.2509.03890,6,0,1,irrelevant,method,other,LLM assistant for marketplace GUI
 c10388,"When AIOps Become ""AI Oops"": Subverting LLM-driven IT Operations via Telemetry Manipulation",2025,2508.06394,10.48550/arXiv.2508.06394,6,0,1,irrelevant,method,other,telemetry manipulation of AIOps
@@ -7575,7 +7575,7 @@ c11431,PEAM: Parametric Embodied Agent Memory through Contrastive Internalizatio
 c11432,A hierarchical multi-agent reinforcement learning framework with high-level guidance from large language models,2026,,10.1038/s41598-026-54971-6,2,0,1,maybe,method,multi-agent,hierarchical multi-agent RL guidance
 c11433,FactoryBench: Evaluating Industrial Machine Understanding,2026,2605.07675,10.48550/arXiv.2605.07675,2,0,1,relevant,benchmark,other,industrial machine understanding factory
 c11434,Empowering Autonomous Debugging Agents with Efficient Dynamic Analysis,2026,2604.24212,10.1145/3797126,2,0,1,irrelevant,method,other,autonomous debugging agent interface
-c11435,"Integrating Graphs, Large Language Models, and Agents: Reasoning and Retrieval",2026,2604.15951,10.48550/arXiv.2604.15951,2,0,1,irrelevant,survey,other,graphs LLM agent integration survey
+c11435,"Integrating Graphs, Large Language Models, and Agents: Reasoning and Retrieval",2026,2604.15951,10.48550/arXiv.2604.15951,2,0,1,maybe,survey,other,recheck: graph-LLM-agent survey mentions robotics and multimodal environments
 c11436,Don't Overthink It: Inter-Rollout Action Agreement as a Free Adaptive-Compute Signal for LLM Agents,2026,2604.08369,10.48550/arXiv.2604.08369,2,0,1,irrelevant,method,other,adaptive compute LLM agents
 c11437,EpiBench: Benchmarking Multi-turn Research Workflows for Multimodal Agents,2026,2604.05557,10.48550/arXiv.2604.05557,2,0,1,irrelevant,benchmark,other,multi-turn research workflow benchmark
 c11438,LUDOBENCH: Evaluating LLM Behavioural Decision-Making Through Spot-Based Board Game Scenarios in Ludo,2026,2604.05681,10.48550/arXiv.2604.05681,2,0,1,maybe,benchmark,other,LLM strategic reasoning board game
@@ -7591,7 +7591,7 @@ c11447,Security Risks of AI Agents Hiring Humans: An Empirical Marketplace Study
 c11448,Prompting for LLM Security and RAG: A Survey from Zero-Shot to Automatic Prompt Optimization (APO) and Prompt-Injection Defenses,2026,,10.1109/ICAIC67076.2026.11395889,2,0,1,irrelevant,survey,other,prompting LLM security RAG survey
 c11449,Integrated Exploration and Sequential Manipulation on Scene Graph with LLM-based Situated Replanning,2026,2602.04419,10.1109/ICRA57385.2026.11696456,2,0,1,relevant,method,hierarchical,exploration manipulation scene graphs
 c11450,ContextEvolve: Multi-Agent Context Compression for Systems Code Optimization,2026,2602.02597,10.48550/arXiv.2602.02597,2,0,1,irrelevant,method,other,multi-agent systems code optimization
-c11451,Localizing and Correcting Errors for LLM-based Planners,2026,2602.00276,10.48550/arXiv.2602.00276,2,0,1,irrelevant,method,other,"LLM planning on gridworlds, weak embodiment"
+c11451,Localizing and Correcting Errors for LLM-based Planners,2026,2602.00276,10.48550/arXiv.2602.00276,2,0,1,maybe,method,other,recheck: LLM planner error correction on 2D gridworld
 c11452,RAGShaper: Eliciting Sophisticated Agentic RAG Skills via Automated Data Synthesis,2026,2601.08699,10.48550/arXiv.2601.08699,2,0,1,irrelevant,method,other,agentic RAG for language models only
 c11453,From natural language to control signals: a conceptual framework for semantic channel finding in complex experimental infrastructure,2025,2512.18779,10.1088/2632-2153/ae8219,2,0,1,irrelevant,method,other,control signals mapping without physical embodiment
 c11454,Multi-Agent LLM Committees for Autonomous Software Beta Testing,2025,2512.21352,10.48550/arXiv.2512.21352,2,0,1,irrelevant,method,other,"LLM agents for software testing, no embodiment"
@@ -7952,7 +7952,7 @@ c11983,How Agents Represent Humans: Human-Directed Stereotypes in an Open Agent 
 c11984,Wuying-Browser-Agent: Real-World Centric Fundamental Long-Horizon Browser Agents,2026,2608.17319,,1,0,1,irrelevant,other,other,browser agent framework
 c11985,Rethinking Agent Security as a Networking Problem,2026,2608.12172,,1,0,1,irrelevant,other,other,agent security as networking
 c11986,Scaling Automatic Research Agents via World Models,2026,2608.12564,,1,0,1,irrelevant,other,other,automatic research agent framework
-c11987,A YANG-Grounded LLM Agent Supporting Multi-Vendor OpenROADM Optical Transport Networks,2026,,10.1145/3789240.3822606,1,0,1,irrelevant,other,other,network configuration agent
+c11987,A YANG-Grounded LLM Agent Supporting Multi-Vendor OpenROADM Optical Transport Networks,2026,,10.1145/3789240.3822606,1,0,1,maybe,other,other,recheck: LLM agent on Robotic Automation Platform for optical network config
 c11988,CEAA: A Cognitive Embodied Agents Architecture for Interactive Computing Systems,2026,2608.09848,,1,0,1,maybe,method,other,virtual embodied agent architecture
 c11989,Improving Auto-Design of Neural PDE Solvers with a Domain-Specific Language,2026,2608.04384,,1,0,1,irrelevant,other,other,neural PDE solver auto-design
 c11990,ParticleGen: A Multi-Agent System for Particle Effects Generation,2026,2608.00629,,1,0,1,irrelevant,other,other,particle effects generation system
@@ -7963,7 +7963,7 @@ c11994,CanvasAgent: Enabling Complex Image Creation and Editing via Visual Tool 
 c11995,KidnapRAG: A Black-Box Attack for Hijacking Reasoning in Agentic Retrieval-Augmented Generation Systems,2026,2607.00422,10.48550/arXiv.2607.00422,1,0,1,irrelevant,other,other,RAG system poisoning attack
 c11996,Managed Autonomy at Runtime: Gear-Based Safety and Governance for Single- and Multi-Agent Cyber-Physical Systems,2026,2607.00334,10.48550/arXiv.2607.00334,1,0,1,relevant,method,monitor,safety framework for cyber-physical systems
 c11997,A Conversational Agentic Interface to Physics-Based Household Digital Twins for Residential Energy Decision Support,2026,2606.31744,10.48550/arXiv.2606.31744,1,0,1,maybe,method,other,digital twin for building energy
-c11998,Theory of Mind and Persuasion Beyond Conversation: Assessing the Capacity of LLMs to Induce Belief States via Planning and Action,2026,2606.31916,10.48550/arXiv.2606.31916,1,0,1,irrelevant,other,other,LLM theory of mind evaluation
+c11998,Theory of Mind and Persuasion Beyond Conversation: Assessing the Capacity of LLMs to Induce Belief States via Planning and Action,2026,2606.31916,10.48550/arXiv.2606.31916,1,0,1,maybe,other,other,"recheck: LLM planning actions moving objects between rooms, text ToM"
 c11999,DuoMem: Towards Capable On-Device Memory Agents via Dual-Space Distillation,2026,2606.29961,10.48550/arXiv.2606.29961,1,0,1,maybe,benchmark,controller,memory-augmented agents on text simulation
 c12000,BrickQA: Bridging the Semantic Gap in Building Operations with Dynamic Graph Exploration,2026,,10.1145/3744256.3812570,1,0,1,irrelevant,other,other,building automation query system
 c12001,"Emergence of Agentic AI: A Review on Evolution, Background, Working Principles, Applications, Adoption Factors, and Future Research Directions",2026,2608.18110,10.32604/cmc.2026.079525,1,0,1,maybe,survey,other,survey on emergence of agentic AI
@@ -7993,7 +7993,7 @@ c12024,Hierarchical Attacks for Multi-Modal Multi-Agent Reasoning,2026,2605.1321
 c12025,Embodied Multi-Agent Coordination by Aligning World Models Through Dialogue,2026,2605.12920,10.48550/arXiv.2605.12920,1,0,1,relevant,method,multi-agent,embodied agents coordinating via dialogue
 c12026,Metacognition Should Be the Scientific Framework for Bounded and Effective Self-Governance in Generative AI,2026,2605.23981,10.48550/arXiv.2605.23981,1,0,1,irrelevant,other,other,metacognition in generative AI
 c12027,Zero-Shot Satellite Image Retrieval through Joint Embeddings: Application to Crisis Response,2026,2605.05405,10.56272/a2c9ee39,1,0,1,irrelevant,other,other,satellite image retrieval system
-c12028,Planner Matters! An Efficient and Unbalanced Multi-agent Collaboration Framework for Long-horizon Planning,2026,2605.02168,10.48550/arXiv.2605.02168,1,0,1,irrelevant,other,other,multi-agent collaboration planning
+c12028,Planner Matters! An Efficient and Unbalanced Multi-agent Collaboration Framework for Long-horizon Planning,2026,2605.02168,10.48550/arXiv.2605.02168,1,0,1,maybe,other,other,"recheck: long-horizon planner-actor-memory agents, benchmark embodiment unclear"
 c12029,XMedFusion: A Knowledge-Guided Multimodal Perception and Reasoning Framework for Autonomous Medical Systems,2026,2606.14766,10.1109/ICRAI70912.2026.11551956,1,0,1,maybe,method,controller,multimodal framework for medical systems
 c12030,GA-VisAgent: A Multi-agent Application for Code Generation and Visualization in Interactive Learning,2026,2605.01299,10.1007/978-3-032-22539-9_6,1,0,1,irrelevant,other,other,code generation visualization agent
 c12031,Figures as Interfaces: Toward LLM-Native Artifacts for Scientific Discovery,2026,2604.08491,10.48550/arXiv.2604.08491,1,0,1,irrelevant,other,other,LLM-native artifacts for science
@@ -8001,7 +8001,7 @@ c12032,Stop Fixating on Prompts: Reasoning Hijacking and Constraint Tightening f
 c12033,AutoMS: Multi-Agent Evolutionary Search for Cross-Physics Inverse Microstructure Design,2026,2603.27195,10.48550/arXiv.2603.27195,1,0,1,irrelevant,other,other,multi-agent materials design
 c12034,Proactive Rejection and Grounded Execution: A Dual-Stage Intent Analysis Paradigm for Safe and Efficient AIoT Smart Homes,2026,2603.16207,10.48550/arXiv.2603.16207,1,0,1,maybe,method,controller,LLM agent for smart home IoT
 c12035,SciNav: A General Agent Framework for Scientific Coding Tasks,2026,2603.20256,10.48550/arXiv.2603.20256,1,0,1,irrelevant,other,other,scientific coding agent framework
-c12036,From Thinker to Society: Security in Hierarchical Autonomy Evolution of AI Agents,2026,2603.07496,10.48550/arXiv.2603.07496,1,0,1,irrelevant,other,other,autonomous agent security
+c12036,From Thinker to Society: Security in Hierarchical Autonomy Evolution of AI Agents,2026,2603.07496,10.48550/arXiv.2603.07496,1,0,1,maybe,other,other,recheck: agent security survey mentioning physical environment disruption
 c12037,AegisUI: Behavioral Anomaly Detection for Structured User Interface Protocols in AI Agent Systems,2026,2603.05031,10.48550/arXiv.2603.05031,1,0,1,irrelevant,other,other,UI security for agents
 c12038,EchoGuard: An Agentic Framework with Knowledge-Graph Memory for Detecting Manipulative Communication in Longitudinal Dialogue,2026,2603.04815,10.48550/arXiv.2603.04815,1,0,1,irrelevant,other,other,dialogue analysis agent
 c12039,Caesar: Deep Agentic Web Exploration for Creative Answer Synthesis,2026,2604.20855,10.48550/arXiv.2604.20855,1,0,1,irrelevant,other,other,web exploration agent
@@ -8144,9 +8144,9 @@ c12399,LaGO: Latent Action Guidance for Online Reinforcement Learning,2026,2606.
 c12405,Can In-Context Learning Support Intrinsic Curiosity?,2026,2606.19476,10.48550/arXiv.2606.19476,0,0,1,irrelevant,other,other,in-context learning for exploration
 c12408,WISE: A Long-Horizon Agent in Minecraft with Why-Which Reasoning,2026,2606.12852,10.48550/arXiv.2606.12852,0,0,1,relevant,method,controller,long-horizon agent in Minecraft
 c12414,AgenticDiffusion: Multi-View Reasoning with View-Conditioned Diffusion Planning for Vision-Based UAV Navigation,2026,2606.04111,,0,0,1,relevant,method,controller,agentic UAV multi-view navigation
-c12417,"Do AI agents have free will, really?",2026,,10.1007/s43681-026-01125-z,0,0,1,irrelevant,other,other,AI agent free will philosophy
+c12417,"Do AI agents have free will, really?",2026,,10.1007/s43681-026-01125-z,0,0,1,maybe,other,other,"recheck: position paper on LLM agent free will, Voyager and drone"
 c12420,Libra: Training the Environment for Agentic Information Retrieval,2026,2607.00016,10.48550/arXiv.2607.00016,0,0,1,irrelevant,other,other,LLM agent information retrieval
-c12424,Trusted but not trustworthy: a conceptual analysis of AI agent risks in the metaverse and EU policy responses,2026,,10.3389/frvir.2026.1813331,0,0,1,irrelevant,other,other,AI agents in metaverse policy
+c12424,Trusted but not trustworthy: a conceptual analysis of AI agent risks in the metaverse and EU policy responses,2026,,10.3389/frvir.2026.1813331,0,0,1,maybe,other,other,recheck: AI agents in metaverse virtual environments policy analysis
 c12425,Robo-Cortex: A Self-Evolving Embodied Agent via Dual-Grain Cognitive Memory and Autonomous Knowledge Induction,2026,2605.18729,10.48550/arXiv.2605.18729,0,0,1,relevant,method,self-evolving,self-evolving embodied navigation agent
 c12441,SocialGrid: A Benchmark for Planning and Social Reasoning in Embodied Multi-Agent Systems,2026,2604.16022,10.48550/arXiv.2604.16022,0,0,1,relevant,benchmark,other,embodied multi-agent social reasoning
 c12442,Path decision-making via deep Monte Carlo tree search integrated with large models,2026,,10.1117/12.3116010,0,0,1,relevant,method,controller,LLM with MCTS for navigation
@@ -8181,7 +8181,7 @@ c12604,Coherent Off-Policy Improvement of Large Behavior Models with Learned Rew
 c12607,Towards Large-Model-Guided UAV Navigation in Complex Environments,2026,,10.1109/AIEA70743.2026.11632594,0,0,1,relevant,method,controller,large-model-guided UAV navigation
 c12608,Bridge Sim to Real Robot Manipulation: A Tri Level Hybrid Framework Combining Vision Language Models & RL with Deterministic Control,2026,,10.1109/NeuroNT71829.2026.11651405,0,0,1,relevant,method,hierarchical,VLM perception guides RL policy learning
 c12609,Safety-Prioritised Multimodal Navigation for Edge Smart Glasses with Constrained on-Device Language Models,2026,,10.1109/DPH70309.2026.11650519,0,0,1,maybe,method,monitor,edge LLM for assistive navigation
-c12612,VSCD: Video-based Scene Change Detection in Unaligned Scenes,2026,2605.20821,10.48550/arXiv.2605.20821,0,0,1,irrelevant,other,other,video change detection no embodiment
+c12612,VSCD: Video-based Scene Change Detection in Unaligned Scenes,2026,2605.20821,10.48550/arXiv.2605.20821,0,0,1,maybe,other,other,recheck: indoor scene change detection benchmark for long-term autonomy
 c12617,Creative Robot Tool Use by Counterfactual Reasoning,2026,2605.05411,10.48550/arXiv.2605.05411,0,0,1,relevant,method,controller,causal reasoning for robot tool use
 c12619,mCoT-VLA: Towards Robust Vision-Language-Action Models via Multimodal Chain-of-Thought,2026,,10.1109/icassp55912.2026.11462586,0,0,1,maybe,method,reasoning-vla,VLA for robotic actions no abstract
 c12621,"It's All in the Personality: A Comparative Study of Real, Ideal, and Customized Virtual Instructors for AR Assembly Tasks",2026,,10.1109/TVCG.2026.3680646,0,0,1,maybe,position,other,LLM personality in AR assembly instruction
@@ -8491,8 +8491,8 @@ c13027,JEPA-WAM: Connecting Generated Visual Instructions to World Action Models
 c13028,Grounded Semantic Re-Binding for Robust Instruction Generalization in Vision-Language-Action Models,2026,2608.02497,,0,0,1,relevant,method,controller,semantic grounding for robust VLA generalization
 c13029,VLAGuard: A Framework for Evaluating and Mitigating Physical Attention Hijacking in Vision-Language-Action Robots within Wireless Sensor Networks,2026,2608.01028,,0,0,1,relevant,method,monitor,security framework for VLA robot safety
 c13030,STAR-VLM: Spatiotemporal Grounding Vision-Language Models for Motion and Velocity Estimation via Automotive Radar Supervision,2026,2608.01535,,0,0,1,maybe,method,controller,automotive radar supervision for spatiotemporal VLM
-c13031,Multimodal Fusion for Complete Motion Trajectory Reasoning in Articulated Object Manipulation,2026,,10.1016/j.inffus.2026.104659,0,0,1,irrelevant,other,other,no abstract provided
-c13032,Dual-modal chain-of-thought reasoning for continuous vision-language navigation,2026,,10.1016/j.robot.2026.105699,0,0,1,irrelevant,other,other,no abstract provided
+c13031,Multimodal Fusion for Complete Motion Trajectory Reasoning in Articulated Object Manipulation,2026,,10.1016/j.inffus.2026.104659,0,0,1,maybe,other,other,"recheck: articulated object manipulation trajectory reasoning, no abstract"
+c13032,Dual-modal chain-of-thought reasoning for continuous vision-language navigation,2026,,10.1016/j.robot.2026.105699,0,0,1,relevant,other,other,recheck: title: chain-of-thought reasoning for continuous VLN
 c13033,Poster: SAF: Semantic-Aware Flushing for Latency and Jitter Suppression in Continuous VLA Inference on Edge Devices,2026,,10.1109/NVMSA71223.2026.11658877,0,0,1,maybe,method,controller,semantic-aware flushing for VLA edge inference
 c13034,Poster: Task-Aware Dynamic Visual Token Pruning for Efficient Vision-Language-Action Inference,2026,,10.1109/RTCSA71153.2026.00040,0,0,1,maybe,method,controller,task-aware token pruning for VLA efficiency
 c13035,Tool-Action Comprehension: A Cross-Morphology Imitation Learning Framework for Bimanual Manipulation,2026,,10.1109/TMECH.2026.3713779,0,0,1,relevant,method,controller,cross-morphology learning for bimanual manipulation
@@ -8506,7 +8506,7 @@ c13042,MiniUAV-VLA: A Compact Vision–Language–Action Model for Cooperative M
 c13043,ROEP: A Robotics-Oriented Evaluation Protocol for Deployment-Facing Vision–Language–Action Manipulation Policies,2026,,10.3390/s26154757,0,0,1,maybe,position,other,robotics-oriented VLA evaluation protocol
 c13044,LabRobFail: A Benchmark for Robotic Failure Analysis in Chemical Self-driving Laboratory,2026,2607.23704,10.48550/arXiv.2607.23704,0,0,1,relevant,benchmark,monitor,failure analysis benchmark for embodied agents
 c13045,MulRobBench: A Decision-Level Benchmark for Safe and Security-Policy-Compliant Multimodal UAV Agents,2026,2607.23870,10.48550/arXiv.2607.23870,0,0,1,relevant,benchmark,controller,benchmark for security-compliant VLA UAV agents
-c13046,An Interactive Vision Language Platform for Cognitive Remediation in Schizophrenia,2026,2607.22721,10.48550/arXiv.2607.22721,0,0,1,irrelevant,method,other,VLM for cognitive remediation in schizophrenia
+c13046,An Interactive Vision Language Platform for Cognitive Remediation in Schizophrenia,2026,2607.22721,10.48550/arXiv.2607.22721,0,0,1,maybe,method,other,"recheck: VLM verifies physical tabletop actions, weak embodiment"
 c13047,System-Level Design and Integration of Dexterous Robotic Hands for Complex Manipulation,2026,,10.34133/research.1388,0,0,1,maybe,survey,controller,design and integration of dexterous robot hands
 c13048,Exo2EgoPose: Leveraging Exocentric Demonstrations for Vision-Language guided Egocentric 3D Hand Pose Forecasting,2026,2607.15890,10.48550/arXiv.2607.15890,0,0,1,relevant,method,controller,egocentric hand pose forecasting with vision-language
 c13049,Semantic Anchoring for Robotic Action Representations,2026,2607.13597,10.48550/arXiv.2607.13597,0,0,1,relevant,method,controller,semantic anchoring for robot action representations
@@ -8562,7 +8562,7 @@ c13098,Beyond One-Size-Fits-All: Diagnosis-Driven Online Reinforcement Learning 
 c13099,Event-Adaptive Motion Planning with Distilled Vision-Language Model in Safety-Critical Situations,2026,2606.25629,10.48550/arXiv.2606.25629,0,0,1,relevant,method,controller,event-adaptive motion planning with distilled VLM
 c13100,SPACE: Enabling Learning from Cross-Robot Data Toward Generalist Policies,2026,2606.24049,10.48550/arXiv.2606.24049,0,0,1,relevant,method,controller,learning from cross-robot data for generalization
 c13101,MANGO: Automated Multi-Agent Test Oracle Generation for Vision-Language-Action Models,2026,2606.24815,10.48550/arXiv.2606.24815,0,0,1,relevant,method,monitor,automated test oracle generation for VLA
-c13102,Applications of Neural Networks in Robot Control,2026,,10.3390/robotics15070117,0,0,1,irrelevant,position,other,editorial introduction to neural networks in robotics
+c13102,Applications of Neural Networks in Robot Control,2026,,10.3390/robotics15070117,0,0,1,maybe,position,other,recheck: editorial on neural networks for robot control
 c13103,IOI: Decoupling Kinematics and Physics for Interactive World Models,2026,2606.23296,10.48550/arXiv.2606.23296,0,0,1,relevant,method,reasoning-vla,interactive world models with kinematics priors
 c13104,Energy and Carbon Footprint of Vision-Language-Action Model Inference for Edge Robotic Systems,2026,,10.1145/3797248.3815411,0,0,1,maybe,position,other,energy and carbon footprint of VLA inference
 c13105,FlowDec: Temporal Conditional Flow Decorruptor for Robust Continuous Vision-Language Navigation,2026,2606.22424,10.48550/arXiv.2606.22424,0,0,1,relevant,method,controller,temporal conditional flow for robust navigation
@@ -8598,11 +8598,11 @@ c13134,Co-training with Ego-centric Video and Demonstration for Robot Navigation
 c13135,The Lie We Tell: Correcting the Euclidean Fallacy in Vision Language Action Policies via Score Matching on Tangent Space,2026,2606.01847,10.48550/arXiv.2606.01847,0,0,1,relevant,method,controller,Lie diffuser actor operating on SE(3)
 c13136,Learning Task Constraints and Robot Motion From Unreliable Human Skeleton Data Using Human Action Recognition Algorithm,2026,,10.1109/TCDS.2025.3643804,0,0,1,maybe,method,teacher,learning constraints from unreliable skeleton data
 c13137,Combining Data Distribution and Adaptive Inference for Robotic Grasping in Vision-Language-Action,2026,,10.1109/ICCA69928.2026.11618094,0,0,1,relevant,method,controller,data distribution and adaptive inference for grasping
-c13138,From Dream to Action: Hierarchical Policy Learning with 3D World Imagination for Robotic Manipulation,2026,,10.1109/ICRA57385.2026.11697202,0,0,1,irrelevant,other,other,no abstract provided
-c13139,"Seeing Motion, Generating Action: Explicit Motion-Aware Policy for Robotic Action Generation",2026,,10.1109/ICRA57385.2026.11697271,0,0,1,irrelevant,other,other,no abstract provided
-c13140,NeuroVLA: Surgical Scenario-Aware Learning of Debulking Skills in Endoscopic Robotic Neurosurgery via Vision-Language-Action Model,2026,,10.1109/ICRA57385.2026.11697569,0,0,1,irrelevant,other,other,no abstract provided
+c13138,From Dream to Action: Hierarchical Policy Learning with 3D World Imagination for Robotic Manipulation,2026,,10.1109/ICRA57385.2026.11697202,0,0,1,maybe,other,other,recheck: hierarchical manipulation policy with 3D world imagination
+c13139,"Seeing Motion, Generating Action: Explicit Motion-Aware Policy for Robotic Action Generation",2026,,10.1109/ICRA57385.2026.11697271,0,0,1,maybe,other,other,recheck: motion-aware robotic action generation policy
+c13140,NeuroVLA: Surgical Scenario-Aware Learning of Debulking Skills in Endoscopic Robotic Neurosurgery via Vision-Language-Action Model,2026,,10.1109/ICRA57385.2026.11697569,0,0,1,maybe,other,other,recheck: surgical robot VLA policy
 c13141,Exploiting Vulnerabilities: Universal Adversarial Attacks on Vision-Language-Action Models in Robotics,2026,2609.39178,10.1109/ICRA57385.2026.11696897,0,0,1,relevant,method,monitor,universal adversarial attacks on VLA in robotics
-c13142,Learning End-to-End Dexterous Arm-Hand VLA Policies with Shared Autonomy: DexGrasp AI Copilot for Efficient Teleoperation,2026,,10.1109/ICRA57385.2026.11697534,0,0,1,irrelevant,other,other,no abstract provided
+c13142,Learning End-to-End Dexterous Arm-Hand VLA Policies with Shared Autonomy: DexGrasp AI Copilot for Efficient Teleoperation,2026,,10.1109/ICRA57385.2026.11697534,0,0,1,maybe,other,other,recheck: dexterous arm-hand VLA with shared autonomy teleoperation
 c13143,Performance Analysis of the ACT-1 Model for Sweep Actions in Industrial Surface Cleaning: A Physical AI Approach,2026,,10.1109/ASCC70886.2026.11702438,0,0,1,relevant,method,controller,ACT model for industrial surface cleaning task
 c13144,An Adaptive Visual–Tactile Fusion Reinforcement Learning Method for Underwater Manipulator Grasping,2026,,10.3390/jmse14111027,0,0,1,relevant,method,controller,visual-tactile fusion RL for underwater grasping
 c13145,Feat2Go: Visual Feature-Grounded Value Estimation for Embodied Reinforcement Learning,2026,2605.30795,10.48550/arXiv.2605.30795,0,0,1,relevant,method,controller,visual feature-grounded value estimation for RL
@@ -8639,11 +8639,11 @@ c13175,ATAAT: Adaptive Threat-Aware Adversarial Tuning Framework against Backdoo
 c13176,VECTOR-Drive: Tightly Coupled Vision-Language and Trajectory Expert Routing for End-to-End Autonomous Driving,2026,2605.08830,10.48550/arXiv.2605.08830,0,0,1,relevant,method,controller,tightly coupled vision-language routing for driving
 c13177,ElasticFlow: One-Step Physics-Consistent Policy with Elastic Time Horizons for Language-Guided Manipulation,2026,2605.08799,10.18653/v1/2026.findings-acl.1186,0,0,1,relevant,method,controller,physics-consistent one-step policy with elastic horizons
 c13178,EggHand: A Multimodal Foundation Model for Egocentric Hand Pose Forecasting,2026,2605.07642,10.48550/arXiv.2605.07642,0,0,1,relevant,method,controller,multimodal foundation model for egocentric hand forecasting
-c13179,A Memory-Augmented Dual-Stream Framework to Achieve Long-Horizon Generalization In Robotic Manipulation,2026,,10.1109/icassp55912.2026.11462031,0,0,1,irrelevant,other,other,no abstract provided
+c13179,A Memory-Augmented Dual-Stream Framework to Achieve Long-Horizon Generalization In Robotic Manipulation,2026,,10.1109/icassp55912.2026.11462031,0,0,1,relevant,other,other,recheck: title: memory-augmented long-horizon robotic manipulation
 c13180,VILAS: A VLA-Integrated Low-cost Architecture with Soft Grasping for Robotic Manipulation,2026,2605.02037,10.48550/arXiv.2605.02037,0,0,1,relevant,method,controller,low-cost VLA platform with soft compliant gripper
 c13181,MSACT: Multistage Spatial Alignment for Stable Low-Latency Fine Manipulation,2026,2605.00475,10.48550/arXiv.2605.00475,0,0,1,relevant,method,controller,multistage spatial alignment for fine manipulation
 c13182,MiniVLA-Nav v1: A Multi-Scene Simulation Dataset for Language-Conditioned Robot Navigation,2026,2605.00397,10.48550/arXiv.2605.00397,0,0,1,relevant,dataset,controller,simulation dataset for language-conditioned navigation
-c13183,HiQST: A unified hierarchical quantized skill framework for multitask and few-shot robotic manipulation,2026,,10.1016/j.eswa.2026.132833,0,0,1,irrelevant,other,other,no abstract provided
+c13183,HiQST: A unified hierarchical quantized skill framework for multitask and few-shot robotic manipulation,2026,,10.1016/j.eswa.2026.132833,0,0,1,maybe,other,other,recheck: hierarchical skill framework for robotic manipulation
 c13184,A Semantic‐to‐Motion Digital Twin Framework for Expressive Industrial Avatars in Telepresence,2026,,10.1002/cav.70122,0,0,1,maybe,method,controller,semantic-to-motion digital twin for robot telepresence
 c13185,Depth Matters: Language-Guided Spatial Representation Learning for Robot Manipulation,2026,,10.1109/YAC71005.2026.11616559,0,0,1,relevant,method,controller,language-guided spatial representation for manipulation
 c13186,Uncertainty-Gated Dual-path Probabilistic Depth Fusion for Robot Manipulation,2026,,10.1109/YAC71005.2026.11616164,0,0,1,relevant,method,controller,uncertainty-gated depth fusion for robot manipulation
@@ -8729,7 +8729,7 @@ c13265,Sensor-Driven Dialogue System for Collecting Community-Specific Knowledge
 c13266,Enhancing robot reinforcement learning with experience-acquirer-aided training method,2026,,10.1108/ria-03-2025-0097,0,0,1,relevant,method,controller,experience-acquirer-aided training for sparse rewards
 c13267,On-Device Small Language Model Inference Acceleration for Real-Time Robotics: A Survey,2026,,10.1109/CCWC67433.2026.11393726,0,0,1,relevant,survey,other,on-device small language model inference acceleration
 c13268,Large Action Models: A Unified Smart Framework for Autonomous Intelligent Systems,2026,,10.1109/ICSFT66733.2026.11506682,0,0,1,relevant,survey,other,large action models systematic survey and taxonomy
-c13269,A self-supervised learning approach to acquire representation of concave object manipulation with sparse tactile sensing,2026,,10.1016/j.robot.2025.105319,0,0,1,irrelevant,other,other,no abstract provided
+c13269,A self-supervised learning approach to acquire representation of concave object manipulation with sparse tactile sensing,2026,,10.1016/j.robot.2025.105319,0,0,1,maybe,other,other,"recheck: tactile representation for manipulation, no abstract"
 c13270,Lang2Vision Diffusion: Language-Driven Diffusion for Robotic Action Frame Prediction,2025,,10.54097/pw7r5392,0,0,1,relevant,method,reasoning-vla,language-driven diffusion for action frame prediction
 c13271,Eyes on Me: Decoupling Perception from Action in Robotic Manipulation with an Active Observer,2025,,10.1109/RoboticCC68732.2025.00012,0,0,1,relevant,method,controller,decoupled perception-action with active observer
 c13272,Evaluating Forgetting in Pretrained Robotic Policy Networks: A Continual Learning Study with Octo,2025,,10.1109/DICTA68720.2025.11302428,0,0,1,maybe,method,other,continual learning study on pretrained policy networks
@@ -8754,8 +8754,8 @@ c13290,ALOHA2 Robot Kitchen Application Scenario Reproduction Report,2025,2510.1
 c13291,Align2Act: Instruction-Tuned Models for Human-Aligned Autonomous Driving,2025,2510.10503,10.48550/arXiv.2510.10503,0,0,1,relevant,method,controller,instruction-tuned models for human-aligned driving
 c13292,GLUE: Global-Local Unified Encoding for Imitation Learning via Key-Patch Tracking,2025,2509.23220,10.48550/arXiv.2509.23220,0,0,1,relevant,method,controller,global-local unified encoding for imitation learning
 c13293,Safe End-to-End Autonomous Navigation for UAVs via Constrained Reinforcement Learning,2025,,10.1109/CAC67268.2025.11487328,0,0,1,irrelevant,other,other,no abstract provided
-c13294,Dynamic Selection of Multi-Modal Fusion Decoder for Language-Conditioned Segmentation and Grasping,2025,,10.1109/CAC67268.2025.11487275,0,0,1,irrelevant,other,other,no abstract provided
-c13295,Robotic Motion Planning Based with Visual Dynamics Models,2025,,10.1109/CAC67268.2025.11487510,0,0,1,irrelevant,other,other,no abstract provided
+c13294,Dynamic Selection of Multi-Modal Fusion Decoder for Language-Conditioned Segmentation and Grasping,2025,,10.1109/CAC67268.2025.11487275,0,0,1,maybe,other,other,recheck: language-conditioned grasping segmentation model
+c13295,Robotic Motion Planning Based with Visual Dynamics Models,2025,,10.1109/CAC67268.2025.11487510,0,0,1,maybe,other,other,recheck: robot motion planning with visual dynamics models
 c13296,A Tactile-based Interactive Motion Planner for Robots in Unknown Cluttered Environments,2025,2509.16963,,0,0,1,relevant,method,controller,tactile-based motion planning in cluttered environments
 c13297,Multimodal Monocular 3D Object Localization for Human-Robot Interaction,2025,,10.1109/ICIPW68931.2025.11386296,0,0,1,relevant,method,controller,multimodal monocular 3D object localization
 c13298,LHM-Humanoid: Long-Horizon Human Motion Control for Continuous Object Transport in Cluttered Scenes,2025,2508.16943,,0,0,1,relevant,method,controller,long-horizon humanoid control for object transport
@@ -8783,7 +8783,7 @@ c13319,Cross-Behavior Learning With Object Flow Prediction for Robotic Manipulat
 c13320,DEFLECT: Delay-Robust Execution via Flow-matching Likelihood-Estimated Counterfactual Tuning for VLA Policies,2026,,10.48550/arXiv.2605.19294,0,0,1,relevant,method,controller,DEFLECT delay-robust VLA policy execution
 c13321,A Survey of Vision and Force Guidance in Robot Manipulation,2026,,10.1109/ACCESS.2026.3712732,0,0,1,relevant,survey,controller,Survey of vision and force guidance in manipulation
 c13322,Bridging the Morphology Gap: Adapting VLA Models to Dexterous Manipulation via Intent-Conditioned Fine-Tuning,2026,,10.48550/arXiv.2606.12109,0,0,1,relevant,method,controller,Adapting VLA models to dexterous manipulation
-c13323,A Lightweight Identity Authentication and Trust Evaluation for Embodied Intelligence,2026,,10.1109/TCCN.2026.3717992,0,0,1,irrelevant,method,other,Security authentication for embodied intelligence systems
+c13323,A Lightweight Identity Authentication and Trust Evaluation for Embodied Intelligence,2026,,10.1109/TCCN.2026.3717992,0,0,1,maybe,method,other,recheck: security and trust for embodied intelligence systems
 c13324,Enfold: Folding World-Generator Computation into Predictive Representations for Efficient Embodied Control,2026,,10.48550/arXiv.2607.26657,0,0,1,maybe,method,controller,Efficient embodied control with world model computation
 c13325,Training-Free Acceleration for Vision-Language-Action Models with Action Caching and Refinement,2026,,10.48550/arXiv.2607.06370,0,0,1,relevant,method,controller,Training-free acceleration for VLA models
 c13326,Digital Twin of Skills (DToS): A Semantic Framework for Deterministic Human–Robot Orchestration in Industry 5.0,2026,,10.1109/ACCESS.2026.3731512,0,0,1,maybe,method,developer,Digital Twin framework for human-robot orchestration
@@ -8797,7 +8797,7 @@ c13333,Real-Time Legged Locomotion Control with Diffusion from Offline Datasets,
 c13334,Dialog-based Skill and Task Learning for Robot,,,,0,0,1,relevant,method,controller,Dialog-based skill and task learning for robot
 c13335,A LLM AN: A German Vision-Language-Action Model,,,,0,0,1,relevant,method,controller,LLAMAN German vision-language-action model
 c13336,Learning Bimanual Manipulation,,,,0,0,1,relevant,method,controller,Learning bimanual robot manipulation
-c13337,C HALLENGES AND SOLUTIONS OF AUTONOMOUS DRIVING APPROACHES : A REVIEW,,,,0,0,1,irrelevant,survey,other,Autonomous driving review not embodied agentic
+c13337,C HALLENGES AND SOLUTIONS OF AUTONOMOUS DRIVING APPROACHES : A REVIEW,,,,0,0,1,maybe,survey,other,"recheck: autonomous driving review, no abstract"
 c13338,Vision-Guided Outdoor Obstacle Evasion for UAVs via Reinforcement Learning,,,,0,0,1,relevant,method,controller,UAV obstacle evasion with vision and reinforcement learning
 c13339,R OBO V ERSE : A Unified Benchmark for Scalable and Generalizable Vision-Language Robotic Manipulation,,,,0,0,1,relevant,benchmark,other,RoboVerse benchmark for VLA robotic manipulation
 c13340,Multi-constrained robot motion generation,,,,0,0,1,maybe,method,controller,Multi-constrained robot motion generation
@@ -8947,7 +8947,7 @@ c13483,DragOn: A Benchmark and Dataset for Drag-Based GUI Interactions,2026,2606
 c13484,Personal AI Agent for Camera Roll VQA,2026,2606.05275,10.48550/arXiv.2606.05275,0,0,1,maybe,method,controller,Personal camera roll conversational agent
 c13485,Computer Use Beyond Clicks,2026,,10.1109/ISADES69945.2026.11608162,0,0,1,maybe,method,controller,Computer use control abstraction framework
 c13486,Visual Dialogue System with Self-Verification Pipeline for Hallucination Mitigation,2026,,10.1109/Rev-AI70456.2026.11622166,0,0,1,maybe,method,monitor,Visual dialogue hallucination self-verification
-c13487,Prompt Injection Through Operational Data Feeds: A Structural Governance Gap in OT-Connected Agentic AI Systems,2026,,10.1109/ICCSDFAI70505.2026.11647859,0,0,1,irrelevant,position,other,SCADA security agentic systems OT
+c13487,Prompt Injection Through Operational Data Feeds: A Structural Governance Gap in OT-Connected Agentic AI Systems,2026,,10.1109/ICCSDFAI70505.2026.11647859,0,0,1,maybe,position,other,"recheck: agentic AI acting on smart grid OT systems, security"
 c13488,A Lightweight Agentic Multimodal Framework for Scene Understanding in Healthcare Robotics,2026,,10.1109/ICRA57385.2026.11696530,0,0,1,relevant,method,controller,Lightweight multimodal healthcare robotics
 c13489,Deconstructing Spatial Complexity: Hierarchical Decomposition for LLM Spatial Reasoning,2026,2605.28144,10.48550/arXiv.2605.28144,0,0,1,relevant,method,controller,Hierarchical spatial reasoning LLM embodied
 c13490,UAM-MARL: Uncertainty-Aware Modality-Enhanced Multi-Agent Reinforcement Learning with LLM-Guided Graph Policies,2026,,10.65109/FHAS5003,0,0,1,relevant,method,controller,Multi-agent RL uncertainty modality embodied
