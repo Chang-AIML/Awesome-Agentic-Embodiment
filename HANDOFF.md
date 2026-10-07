@@ -39,7 +39,7 @@
                   └─ + 稀有 seat 补充 621 篇 + 测试集 159 篇 → 判定池 1,406 篇   data/core/pool.jsonl
                       └─ Sonnet 逐篇判定（15 个 agent）                     data/core/fine_labels.csv
                          core 214 / precursor 155 / boundary 59 / resource 42 / out 936
-                          └─ 人工挑选（+ 联网补漏）→ 核心表                  data/core/core_table.csv
+                          └─ 人工挑选（+ 联网补漏 50 篇）→ core 57 + precursor 8 + 资源 14   data/core/core_table.csv
                               └─ arXiv 核验 + S2 元数据                     data/core/core_meta.json
                                   └─ awesome list                           README.md
 ```
@@ -117,12 +117,15 @@
   - 中间表示是世界预测的系统（归 WAM）。
 - **主线草案**："Agency spreads around the body — and loop closure, not weights, makes a carrier an agent."
 
-**草稿的问题（接手时要处理）**
+**草稿的问题（第二轮已处理）**
 
-1. **太复杂**：A0–A3、Λ0–Λ3、E/H/M closure、8 个 tier 等细则不适合放正文。建议正文只保留 5 Seat × 4 Carrier 和上面三条 agent 判定，其余移到附录，作为标注指南。
-2. **严格闭环会把奠基作降为 boundary**：受影响的有 CaP、VoxPoser、ReKep、π0.5、ECoT、KnowNo、AutoRT，与用户的直觉冲突，需用户拍板，见 §5。
-3. **Controller 占比过大**：约 55% 以上，需要再拆成子章节：编排型（skill / tool / VLA 调用）、直接驱动型（micro-actions / code）、lifelong/memory 型、训练过的 carrier（C/H/I）。
-4. **趋势数字来自有偏的测试集**：测试集按方向搜集，2026 年占比偏高。必须在最终核心集上重算。
+1. **太复杂** → 已写 `docs/definition.md`：正文只保留三条 agent 判定、5 Seat × 4 Carrier、五个层级；细则留在 `definition_draft.md` 作附录。
+2. **严格闭环把奠基作降为 boundary** → 用户选 A：CaP、ZS-Planners、ProgPrompt、VoxPoser、KnowNo、ECoT、π0.5、SUDD 作为 precursor 进核心表。
+3. **Controller 占比过大** → 核心表中 Controller 拆为四个子章：编排型 11、直接驱动型 6、lifelong 4、训练过的 carrier 5。
+4. **趋势数字来自有偏的测试集** → 已在 214 篇 stage-2 core 上重算，见 `docs/core_stats.md` A 部分。主线的两个支撑仍然成立：
+   - **seat 增加**：有效 seat 数 1.00（2022）→ 2.67（2023）→ 3.14（2024、2025）→ 3.60（2026）；2026 年含 Developer 的论文占 25%（all-seat，27/108），2024 年以前为 0–5%。
+   - **没有迁移**：含 Controller coupling 的论文占比 2023–2026 年稳定在 71%–78%。
+   - **注意**：判定池按影响力和新兴度取样，2026 年占一半，所以这仍不是独立随机样本。投稿前应按 `definition_draft.md` §10 的方案做分层随机抽样验证。
 
 ---
 
@@ -146,22 +149,47 @@
 
 ---
 
-## 6. 下一步建议
+## 6. 第二轮完成的工作与下一步
 
-1. **确认 §5 的决策**，把简化版定义写成 `docs/definition.md`，作为正文版。
-2. **从 626 篇短名单中挑核心论文**：
-   - **逐篇判定**：Sonnet 读标题和摘要，判断是否满足 agent 判定、Seat、Carrier、子类、代表性（1–5 分），并写一句理由。
-     - 规模建议：每个 agent 处理约 100 篇，共 6–7 个 agent。
-   - **按类挑选**：每个 Seat 内按代表性与影响力排序，再由一个更强的模型兼顾覆盖面，选出约 60 篇，每篇附入选理由。
-     - 必须包含用户点名的 5 篇和 14 篇种子中的关键作。
-   - **补漏**：让一个 agent 联网（WebSearch + arXiv API）查找缺失的公认工作。
-     - 已知缺口：EmbodiedBench、Embodied Agent Interface 不在引用收割结果中。
-     - 补漏结果单独标注，交用户决定是否收入。
-3. **为核心集补全元数据**：arXiv 首版日期、venue、代码链接、最新被引数。可直接调用 arXiv API 和 S2 API。
-4. **做 awesome list**：从核心表生成 README，按 Seat 分节，带 Carrier、Interface 等标签列。可选地做一个类似 WAM 的 GitHub Pages 浏览器。
-5. **可选：补充检索**，提高查全率：
-   - 对已有 survey 和高被引核心论文做反向滚雪球，即抓它们的参考文献；
-   - 用 arXiv 或 S2 按关键词检索，如 harness、agentic robot、embodied agent。
+**已完成**
+1. 四项决策已确认，并写成 `docs/definition.md`。
+2. 判定池 1,406 篇，Sonnet 逐篇判定，结果在 `data/core/fine_labels.csv`。
+3. 联网补漏 50 篇，均经 arXiv 核验，结果在 `data/core/gap_candidates.jsonl`。EmbodiedBench、Embodied Agent Interface 等 benchmark 已补进资源表；BUMBLE、VLM-PC、RATs 已进核心表。
+4. 人工挑选核心表 `data/core/core_selection.csv`：
+   - core 57 篇：Controller 26、Supervisor 8、Teacher 6、Designer 8、Developer 9；
+   - precursor 8 篇；
+   - 资源 14 篇。
+   - 用户点名的 5 篇和种子中的 5 篇 core、5 篇 precursor 都在表内。Voyager、RT-2、ReAct 判 OUT，只在谱系叙事中引用。
+   - 每篇都写了中文入选理由。审阅清单见 `docs/core_review.md`。
+5. 79 篇全部经 arXiv API 核验，标题全部一致；S2 venue 与被引数在 `data/core/core_meta.json`。
+6. `README.md` 已生成 awesome list：按 Seat 分节，Controller 拆四个子章，带 Carrier、Interface、Topology、Closure、Body 列。
+
+**重新生成的命令**（改 `core_selection.csv` 之后依次运行）
+
+```
+python3 scripts/build_core_table.py      # selection → core_table.csv + docs/core_review.md
+python3 scripts/fetch_metadata.py data/core/core_table.csv   # 新增 id 时运行（约 1–2 分钟）
+python3 scripts/build_core_table.py      # 再跑一次，填入 v1 日期与被引数
+python3 scripts/build_readme.py          # → README.md
+python3 scripts/core_stats.py > docs/core_stats.md
+```
+
+**待用户审阅**
+- `docs/core_review.md` 中的人工取舍。备选、但因配额未收的论文：
+  - Controller：Look Before You Leap（GPT-4V）、MoMa-LLM（动态场景图）、Robix、AgenticNav、MALMM、REAL（无人机）；
+  - Developer：HarnessPAI、RAPID、AdaHVLA；
+  - Designer：Embodied Red Teaming（Examiner 子型）、RDA、SAGE；
+  - Teacher：CAPEX；
+  - Supervisor：Zetta。
+- 规模：core + precursor 共 65 篇，略多于约定的 60 篇。如需压到 60，建议先去掉 Agent as Policy、VIA、VLMgineer、Skill2Real、SUDD。
+
+**下一步建议**
+1. 用户审阅核心表后，冻结 `core_selection.csv`。
+2. 补全代码与项目链接：目前只有 27/79 篇能从 arXiv comment 中提取到链接。可让 agent 联网逐篇查 GitHub。
+3. 对 26 篇 2026 年、证据只到摘要级的核心论文做全文审计，确认 seat 与闭环判定。审计重点：Agent as Policy、VIA、FAEA、Thea、RATs、Skill2Real。
+4. 写 survey 正文：按 `definition.md` §3–§5 组织章节，用 `docs/core_stats.md` A 部分作趋势证据。
+5. 可选：做类似 WAM 的 GitHub Pages 浏览器，数据源直接用 `core_table.csv` + `core_meta.json`。
+6. 可选：反向滚雪球，抓已有 survey 和核心论文的参考文献，进一步提高查全率。
 
 ---
 
@@ -181,6 +209,9 @@
 - **Sonnet 复核结果**：对 812 篇「irrelevant」全量复核，只有 3 篇升为 relevant、51 篇升为 maybe。可以认为 Haiku 漏掉真正相关论文的比例约 0.4%。
 - **种子本身不在候选表中**：收割时排除了种子；短名单中以 `seed:<key>` 的形式补回。
 - **核实**：定义草稿中部分数字和 arXiv 编号来自搜索摘要，草稿中已标注「未核实」。用户点名的 6 个编号已用 arXiv API 核对无误：GUAVA、ENPIRE、Show-Harness、Harness VLA、AdaHVLA、CaM。
+
+- **stage-2 细判**：15 个 Sonnet 子 agent 并行，每个处理约 94 篇，每个约 2.5–3.5 分钟跑完，没有漏标。分片输入按固定种子打乱，避免难度集中。prompt 见下方模板的变体：输出 13 个 `|` 分隔字段，合并用 `scripts/merge_fine_labels.py`。
+- **联网补漏 agent** 跑了约 17 分钟。它发现 42/50 篇其实在 candidates 中，只是没进判定池：这些论文被引中等，而粗标签的 role 是 controller 一类常见角色，门槛较高。若再补漏，可先放低 `build_pool.py` 的 BAR。
 
 ### 粗筛使用的 Haiku prompt 模板（可复用）
 

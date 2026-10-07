@@ -48,9 +48,20 @@ def venue_of(r, m):
                  "IEEE International Conference on Robotics and Automation": "ICRA",
                  "IEEE/RJS International Conference on Intelligent RObots and Systems": "IROS",
                  "Robotics: Science and Systems": "RSS", "International Conference on Computer Vision": "ICCV",
-                 "European Conference on Computer Vision": "ECCV"}
+                 "European Conference on Computer Vision": "ECCV",
+                 "Robotics: Science and Systems Conference": "RSS", "IEEE International Conference on Computer Vision": "ICCV",
+                 "AAAI Conference on Artificial Intelligence": "AAAI", "IEEE Robotics and Automation Letters": "RA-L",
+                 "Conference on Empirical Methods in Natural Language Processing": "EMNLP"}
         return short.get(v, v)
     return "arXiv"
+
+
+def links(r, m):
+    """Project / code links: explicit columns win, else URLs from the arXiv comment."""
+    urls = [u.rstrip(".") for u in re.findall(r"https?://[^\s,;)]+", m.get("comment", ""))]
+    pj = r.get("project") or next((u for u in urls if "github.com" not in u), "")
+    cd = r.get("code") or next((u for u in urls if "github.com" in u), "")
+    return (f" [[project]]({pj})" if pj else ""), (f" [[code]]({cd})" if cd else "")
 
 
 def row_md(r, meta):
@@ -60,8 +71,7 @@ def row_md(r, meta):
     title = m.get("arxiv_title") or r["title"]
     link = f"https://arxiv.org/abs/{a}" if a else (r.get("url") or "")
     name = f"[{title}]({link})" if link else title
-    proj = f" [[project]]({r['project']})" if r.get("project") else ""
-    code = f" [[code]]({r['code']})" if r.get("code") else ""
+    proj, code = links(r, m)
     topo = r["topo"].replace("x", "×") if r["topo"] not in ("", "-") else "–"
     seat2 = r.get("seat2") if r.get("seat2") not in (None, "", "-") else "–"
     return (f"| **{r['key']}** | {name}{proj}{code} | {year} | {venue_of(r, m)} | {r['carrier']} | {r['interface']} | "
@@ -120,7 +130,8 @@ def main():
         a = norm_arxiv(r["arxiv"])
         m = meta.get(a, {})
         title = m.get("arxiv_title") or r["title"]
-        out.append(f"| **{r['key']}** | [{title}](https://arxiv.org/abs/{a}) | {(m.get('published') or r.get('date') or '')[:4]} | "
+        pj, cd = links(r, m)
+        out.append(f"| **{r['key']}** | [{title}](https://arxiv.org/abs/{a}){pj}{cd} | {(m.get('published') or r.get('date') or '')[:4]} | "
                    f"{venue_of(r, m)} | {r['seat']} | {r['body']} |")
     out += ["", "---", "", "Selection pipeline, labels and scripts: see [HANDOFF.md](HANDOFF.md) and `data/core/`.", ""]
     open(os.path.join(ROOT, "README.md"), "w").write("\n".join(out))
