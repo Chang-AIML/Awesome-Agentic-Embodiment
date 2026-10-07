@@ -130,14 +130,19 @@ def oa_arxiv_id(work):
 
 
 def oa_citations(arxiv_id):
-    seed = http_get_json(f"{OA_API}/works/https://doi.org/10.48550/arXiv.{arxiv_id}")
+    # Without a key, OpenAlex bills a daily budget shared by everyone on this IP.
+    # The key can come from OPENALEX_API_KEY or be injected by the environment's proxy.
+    headers = {}
+    if os.environ.get("OPENALEX_API_KEY"):
+        headers["Authorization"] = f"Bearer {os.environ['OPENALEX_API_KEY']}"
+    seed = http_get_json(f"{OA_API}/works/https://doi.org/10.48550/arXiv.{arxiv_id}", headers)
     seed_id = seed["id"].rsplit("/", 1)[-1]
     cursor = "*"
     while cursor:
         url = (f"{OA_API}/works?"
                + urllib.parse.urlencode({"filter": f"cites:{seed_id}", "per-page": 200,
                                          "cursor": cursor, "select": OA_SELECT}))
-        page = http_get_json(url)
+        page = http_get_json(url, headers)
         for w in page.get("results", []):
             if not w.get("title"):
                 continue
