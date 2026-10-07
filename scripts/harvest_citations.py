@@ -84,8 +84,12 @@ def s2_citations(arxiv_id):
         try:
             page = http_get_json(url, headers)
         except urllib.error.HTTPError as e:
-            # The citations endpoint caps offset+limit; report and stop rather than fail.
-            print(f"  ! S2 stopped at offset {offset}: HTTP {e.code}", file=sys.stderr)
+            # The citations endpoint rejects offset+limit > 9999; take the last partial page.
+            if e.code == 400 and offset + limit > 9999 and offset < 9999:
+                limit = 9999 - offset
+                continue
+            print(f"  ! S2 stopped at offset {offset}: HTTP {e.code} "
+                  f"(citers beyond this are not reachable without the bulk API)", file=sys.stderr)
             return
         for row in page.get("data", []):
             p = row.get("citingPaper") or {}
