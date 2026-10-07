@@ -45,7 +45,8 @@ EMBODIED_RE = re.compile(
 )
 
 
-def http_get_json(url, headers=None, retries=6):
+def http_get_json(url, headers=None, retries=12):
+    # Keyless Semantic Scholar shares one global rate-limit pool, so 429s are routine.
     delay = 2.0
     for attempt in range(retries):
         req = urllib.request.Request(url, headers=headers or {})
@@ -55,13 +56,13 @@ def http_get_json(url, headers=None, retries=6):
         except urllib.error.HTTPError as e:
             if e.code in (429, 500, 502, 503, 504) and attempt < retries - 1:
                 time.sleep(delay)
-                delay *= 2
+                delay = min(delay * 2, 30)
                 continue
             raise
         except urllib.error.URLError:
             if attempt < retries - 1:
                 time.sleep(delay)
-                delay *= 2
+                delay = min(delay * 2, 30)
                 continue
             raise
 
