@@ -46,7 +46,8 @@ def norm_arxiv(a):
     return re.sub(r"v\d+$", "", (a or "").strip().lower().replace("arxiv:", ""))
 
 
-STRONG = {"out", "recheck", "verify", "verify_s2", "recheck_r3b", "recheck_scope"}  # judging passes run with the strong model (see build_extended.py)
+STRONG = {"out", "recheck", "verify", "verify_s2", "recheck_r3b", "recheck_scope", "verify_pre", "verify_pf", "audit_out",
+          "recheck_direct"}  # judging passes run with the strong model (see build_extended.py)
 
 
 def year_of(r):
@@ -66,7 +67,7 @@ def load():
     meta = json.load(open(p("data/core/core_meta.json")))
     fine = list(csv.DictReader(open(p("data/core/fine_labels.csv"))))
     gaps = {}
-    for name in ("gap_candidates.jsonl", "gap2_candidates.jsonl"):
+    for name in ("gap_candidates.jsonl", "gap2_candidates.jsonl", "gap3_candidates.jsonl"):
         if os.path.exists(p("data/core", name)):
             gaps[name] = {"gap:" + norm_arxiv(o["arxiv"]): o for o in map(json.loads, open(p("data/core", name)))}
     gap = {k: v for g in gaps.values() for k, v in g.items()}
@@ -109,6 +110,7 @@ def load():
              recheck=len(re_rows), recheck_core=len(re_core),
              recheck_authored=sum(1 for r in re_core if r["pass"] == "recheck" and r["loop"] == "authored"),
              gap1=len(gaps.get("gap_candidates.jsonl", {})), gap2=len(gaps.get("gap2_candidates.jsonl", {})),
+             gap3=len(gaps.get("gap3_candidates.jsonl", {})),
              tier=Counter(r["tier"] for r in rows), seat=Counter(r["seat"] for r in rows if r["tier"] == "core"),
              verified=sum(1 for r in rows if meta.get(r["arxiv"], {}).get("verified")),
              links=sum(1 for r in rows if re.search(r"https?://", meta.get(r["arxiv"], {}).get("comment", ""))),
@@ -256,8 +258,9 @@ def fig_pipeline(c):
         (f"{c['scope']:,}", "篇按范围重判",
          f"只收通用大模型做具身任务：训练过的决策者与涉及 VLA / WAM 的论文由 Sonnet 重判，{c['scope_out']} 篇判为具身大模型等而排除",
          "Sonnet"),
-        (f"{c['gap1'] + c['gap2']}", "篇联网补漏",
-         f"公认工作 {c['gap1']} 篇；2026 年少见身体形态、小 seat 与 Real2Sim {c['gap2']} 篇；全部经 arXiv 核验", "联网 agent"),
+        (f"{c['gap1'] + c['gap2'] + c['gap3']}", "篇联网补漏",
+         f"公认工作 {c['gap1']} 篇；2026 年少见身体形态、小 seat 与 Real2Sim {c['gap2']} 篇；"
+         f"2022–2025 年先驱 {c['gap3']} 篇；全部经 arXiv 核验", "联网 agent"),
         (f"{c['strong26']}", "篇 2026 年 core",
          f"经 Sonnet 判定或复核为 core 的 2026 年论文；{t['core']} 篇进核心表，其余 {c['ext']} 篇列入 README 的扩展列表",
          "Sonnet"),
@@ -731,7 +734,8 @@ def build_html(fontdir):
       f'Sonnet 不看初判结果从头重判（{c["ver"]:,} 篇）；Haiku 的 core 有 {round(100 * c["ver_core_kept"] / max(c["ver_core"], 1))}% 被 Sonnet 维持。'
       '统计和扩展列表只用 Sonnet 的判定。</li>'
       f'<li><b>联网补漏</b>：第一轮找公认工作（{c["gap1"]} 篇，如 EmbodiedBench、BUMBLE）；第二轮专找 2026 年、'
-      f'Real2Sim / Sim2Real 和少见的身体形态（{c["gap2"]} 篇）。</li>'
+      f'Real2Sim / Sim2Real 和少见的身体形态（{c["gap2"]} 篇）；第三轮按十条脉络均衡地找没有引用种子论文的 2022–2025 年先驱'
+      f'（{c["gap3"]} 篇）。</li>'
       '<li><b>人工挑选</b>：每个 seat 内按代表性和影响力排序，兼顾子类、身体形态和 carrier 的覆盖；每篇写了中文入选理由。</li></ul>')
     a('</div>')
 
@@ -895,7 +899,7 @@ def build_html(fontdir):
       f'<tr><td>data/core/fine_labels.csv</td><td>{c["judged"]:,} 篇的逐篇判定（pass 列标出判定轮次，prev 列保留被复核前的判定）</td></tr>'
       '<tr><td>data/core/extended_2026.csv</td><td>核心表之外、满足定义的 2026 年论文（README 扩展列表）</td></tr>'
       '<tr><td>data/candidates/s2_sweep_2026.jsonl、s2_coarse_2026.csv</td><td>2026 年关键词检索结果与粗筛标签</td></tr>'
-      '<tr><td>data/core/gap_candidates.jsonl、gap2_candidates.jsonl</td><td>两轮联网补漏的结果</td></tr>'
+      '<tr><td>data/core/gap_candidates.jsonl、gap2_ / gap3_candidates.jsonl</td><td>三轮联网补漏的结果</td></tr>'
       '<tr><td>docs/core_review.md</td><td>中文审阅清单</td></tr>'
       '<tr><td>docs/core_stats.md</td><td>按年份统计 seat 的全部数字</td></tr>'
       '<tr><td>README.md</td><td>awesome list（英文）</td></tr>'

@@ -12,7 +12,8 @@ Usage: python3 scripts/build_extended.py   -> data/core/extended_2026.csv
 import csv, json, os, re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STRONG = {"out", "recheck", "verify", "verify_s2", "recheck_r3b", "recheck_scope"}  # merge_fine_labels.py `pass` = shard directory name
+STRONG = {"out", "recheck", "verify", "verify_s2", "recheck_r3b", "recheck_scope", "verify_pre", "verify_pf", "audit_out",
+          "recheck_direct"}  # merge_fine_labels.py `pass` = shard directory name
 COLS = ["id", "arxiv", "title", "date", "seat", "seat2", "sub", "carrier", "loop", "topo", "body", "rep", "conf",
         "theme", "reason", "pass"]
 
@@ -43,7 +44,7 @@ def main():
     for r in csv.DictReader(open(os.path.join(ROOT, "data/core/fine_labels.csv"))):
         if r["verdict"] == "core" and r["pass"] in STRONG:
             rows.append(dict(r, theme=theme_of(r["reason"])))
-    for name in ("gap_candidates.jsonl", "gap2_candidates.jsonl"):
+    for name in ("gap_candidates.jsonl", "gap2_candidates.jsonl", "gap3_candidates.jsonl"):
         p = os.path.join(ROOT, "data/core", name)
         if os.path.exists(p):
             for o in map(json.loads, open(p)):

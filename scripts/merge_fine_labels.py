@@ -38,7 +38,8 @@ def norm_arxiv(a):
 
 def main():
     pool = {}
-    for name in ("pool.jsonl", "pool_bulk.jsonl", "pool_s2.jsonl", "pool_pre2026.jsonl"):  # first, bulk, S2 sweep, pre-2026 completion
+    for name in ("pool.jsonl", "pool_bulk.jsonl", "pool_s2.jsonl", "pool_pre2026.jsonl", "pool_prefilter.jsonl"):
+        # first, bulk, S2 sweep, pre-2026 completion, never-screened candidates (coarse pass added in round 3)
         path = os.path.join(ROOT, "data/core", name)
         if os.path.exists(path):
             pool.update({o["id"]: o for o in map(json.loads, open(path))})

@@ -59,7 +59,7 @@ def write_review(rows):
 def main():
     fine = {r["id"]: r for r in csv.DictReader(open(os.path.join(ROOT, "data/core/fine_labels.csv")))}
     gap = {}
-    for name in ("gap_candidates.jsonl", "gap2_candidates.jsonl"):
+    for name in ("gap_candidates.jsonl", "gap2_candidates.jsonl", "gap3_candidates.jsonl"):
         gp = os.path.join(ROOT, "data/core", name)
         if os.path.exists(gp):
             for o in map(json.loads, open(gp)):
