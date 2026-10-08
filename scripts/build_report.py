@@ -104,6 +104,8 @@ def load():
     strong26 = [r for r in fine if r["verdict"] == "core" and r.get("pass") in STRONG and year_of(r) == "2026"]
     ep = p("data/core/extended_2026.csv")
     n_ext = sum(1 for _ in csv.DictReader(open(ep))) if os.path.exists(ep) else 0
+    ep = p("data/core/extended_2022_2025.csv")
+    n_ext_pre = sum(1 for _ in csv.DictReader(open(ep))) if os.path.exists(ep) else 0
     c = dict(records=CITATION_RECORDS, cand=n_cand, prefilter=sum(coarse.values()), relevant=coarse["relevant"],
              maybe=coarse["maybe"], pool=len(pool), shortlist=len(pool) - src["supplement"] - src["testset"],
              supplement=src["supplement"], testset=src["testset"], verdict=Counter(r["verdict"] for r in fine),
@@ -117,7 +119,7 @@ def load():
              new=sum(1 for r in rows if r["new"]), bulk=n_bulk, s2=s2_rows, s2_screen=sum(s2_lab.values()),
              s2_keep=s2_lab["relevant"] + s2_lab["maybe"], s2_pool=n_s2pool, judged=len(fine),
              ver=len(ver), ver_core=ver_core, ver_core_kept=ver_core_kept,
-             strong26=len(strong26), ext=n_ext, r3b=len(r3b), r3b_core=sum(1 for r in r3b if r["verdict"] == "core"),
+             strong26=len(strong26), ext=n_ext, ext_pre=n_ext_pre, r3b=len(r3b), r3b_core=sum(1 for r in r3b if r["verdict"] == "core"),
              scope=len(scope), scope_out=sum(1 for r in scope if r["verdict"] == "out"),
              scope_core_out=sum(1 for r in scope if r["verdict"] == "out" and len(hist(r)) > 1 and hist(r)[-2][1] == "core"),
              r3b_con=sum(1 for r in r3b if r["verdict"] == "core" and r["interface"] == "constraint"),
@@ -897,7 +899,7 @@ def build_html(fontdir):
       '<tr><td>data/core/core_selection.csv</td><td>人工挑选的核心表输入；增删论文改这个文件</td></tr>'
       '<tr><td>data/core/core_table.csv</td><td>生成的核心表（含全部标签）</td></tr>'
       f'<tr><td>data/core/fine_labels.csv</td><td>{c["judged"]:,} 篇的逐篇判定（pass 列标出判定轮次，prev 列保留被复核前的判定）</td></tr>'
-      '<tr><td>data/core/extended_2026.csv</td><td>核心表之外、满足定义的 2026 年论文（README 扩展列表）</td></tr>'
+      '<tr><td>data/core/extended_2026.csv、extended_2022_2025.csv</td><td>核心表之外、满足定义的 2026 年与 2022–2025 年论文（README 扩展列表）</td></tr>'
       '<tr><td>data/candidates/s2_sweep_2026.jsonl、s2_coarse_2026.csv</td><td>2026 年关键词检索结果与粗筛标签</td></tr>'
       '<tr><td>data/core/gap_candidates.jsonl、gap2_ / gap3_candidates.jsonl</td><td>三轮联网补漏的结果</td></tr>'
       '<tr><td>docs/core_review.md</td><td>中文审阅清单</td></tr>'

@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-"""Extended 2026 list: every 2026 paper a strong-model pass judged `core` that is not in the curated table.
+"""Extended lists: every paper a strong-model pass judged `core` that is not in the curated table,
+one file for 2026 and one for the pioneer years 2022-2025.
 
 The curated table (core_table.csv) is quota-driven (~100 rows). The awesome list also shows the rest
-of the 2026 papers that meet the definition, so coverage of the year does not depend on the quota.
+of the papers that meet the definition, so coverage of a year does not depend on the quota.
 Only judgments from strong-model passes count (Sonnet stage 2, re-checks and verification passes,
 and the gap-fill agents); cheap first-pass (Haiku) core verdicts that were never verified do not.
 Year = arXiv v1 year from the id (YYMM.nnnnn) when there is one, else the Semantic Scholar date.
 
-Usage: python3 scripts/build_extended.py   -> data/core/extended_2026.csv
+Usage: python3 scripts/build_extended.py   -> data/core/extended_2026.csv, data/core/extended_2022_2025.csv
 """
 import csv, json, os, re
 
@@ -51,23 +52,24 @@ def main():
                 if o.get("verdict") == "core":
                     rows.append(dict(o, id="gap:" + norm_arxiv(o["arxiv"]), theme=(o.get("theme") or "").strip("-"),
                                      **{"pass": name.split("_")[0]}))
-    out, seen = [], set()
-    for r in rows:
-        a, t = norm_arxiv(r.get("arxiv")), norm_title(r.get("title"))
-        if year_of(a, r.get("date")) != "2026" or r["id"] in taken or (a and a in taken) or t in taken:
-            continue
-        k = a or t
-        if k in seen:
-            continue
-        seen.add(k)
-        out.append({c: r.get(c, "") for c in COLS} | {"arxiv": a})
-    out.sort(key=lambda r: (r["seat"], r["sub"], r["date"], r["title"]))
-    with open(os.path.join(ROOT, "data/core/extended_2026.csv"), "w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=COLS)
-        w.writeheader()
-        w.writerows(out)
     from collections import Counter
-    print(f"extended_2026.csv: {len(out)} rows;", dict(Counter(r["seat"] for r in out)))
+    for name, years in (("extended_2026.csv", {"2026"}), ("extended_2022_2025.csv", {"2022", "2023", "2024", "2025"})):
+        out, seen = [], set()
+        for r in rows:
+            a, t = norm_arxiv(r.get("arxiv")), norm_title(r.get("title"))
+            if year_of(a, r.get("date")) not in years or r["id"] in taken or (a and a in taken) or t in taken:
+                continue
+            k = a or t
+            if k in seen:
+                continue
+            seen.add(k)
+            out.append({c: r.get(c, "") for c in COLS} | {"arxiv": a})
+        out.sort(key=lambda r: (r["seat"], r["sub"], r["date"], r["title"]))
+        with open(os.path.join(ROOT, "data/core", name), "w", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=COLS)
+            w.writeheader()
+            w.writerows(out)
+        print(f"{name}: {len(out)} rows;", dict(Counter(r["seat"] for r in out)))
 
 
 if __name__ == "__main__":
