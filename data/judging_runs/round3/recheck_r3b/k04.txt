@@ -1,0 +1,94 @@
+s06851|out|-|-|-|-|-|-|-|-|-|high|-|Online Gaussian-splatting panoptic mapping with VLM features; a perception pipeline with no model decisions, robot actions or loop, so out.
+s04914|out|-|-|-|-|-|-|-|-|-|med|-|[real2sim] VLM only grounds part segmentation inside a fixed mesh-to-articulation optimisation pipeline; no agent loop or robot use shown, so out.
+c04173|out|-|-|-|-|-|-|-|-|-|high|-|VLA policy with triadic object-hand-task relational representations; reactive visuomotor model emitting actions directly, so out.
+s08526|precursor|Controller|-|G|orchestrator|problem-spec|1:N|none|multi-robot/sim|2|low|none|LLM filters actions and objects into a compact PDDL problem for a symbolic multi-robot planner; one-shot, no re-decision, so precursor.
+c13136|out|-|-|-|-|-|-|-|-|-|high|-|Human-skeleton action recognition extracts task constraints for classical motion planning; no foundation-model decision, so out.
+s00530|out|-|-|-|-|-|-|-|-|-|med|-|Task-driven 3D scene-graph mapping from geometry foundation models such as VGGT; perception and mapping only, no model decisions or loop, so out.
+s06563|boundary|Controller|-|G|direct|constraint|x1|none|nav/sim|2|low|none|LLM writes DSL route, waypoint and constraint hints that bias a kinodynamic planner, solved once; only 2D planning-level experiments, so boundary.
+c11325|out|-|-|-|-|-|-|-|-|-|high|-|Training scheme adding robot keypoint-track supervision to a VLA; reactive policy without explicit decisions, so out.
+s00347|out|-|-|-|-|-|-|-|-|-|high|-|Colonoscopy 3D reconstruction by adapting a geometry foundation model; perception only, no decisions or robot loop, so out.
+s00333|out|-|-|-|-|-|-|-|-|-|high|-|LLM supplies a friction scalar per terrain segment for an analytic traversability cost map; estimator inside a perception pipeline, so out.
+s11349|out|-|-|-|-|-|-|-|-|-|med|-|VLM assesses an occlusion-bone-airway triad on patient data; offline clinical evaluation without a robot decision loop, so out.
+c01605|out|-|-|-|-|-|-|-|-|-|med|-|RL-trained LLM policy conditioned on a serialized scene graph; outputs actions directly as a reactive policy, so out.
+c12176|out|-|-|-|-|-|-|-|-|-|low|-|[sim2real] LLM selects task-invariant properties once as auxiliary world-model targets for quadruped transfer; no loop, contribution is Dreamer adaptation, so out.
+s06281|out|-|-|-|-|-|-|-|-|-|med|-|Research-through-design study of an ambiguous embodied LLM artefact; qualitative HCI with no robot decision loop, so out.
+c03344|precursor|Controller|-|G|orchestrator|skill-call|x1|none|manip/real|2|low|none|GPT-4o decomposes instructions and extracts affordance cues that guide GraspNet grasping; plan not revised from outcomes, so precursor.
+s05835|out|-|-|-|-|-|-|-|-|-|med|-|[real2sim] Trained unified transformer reconstructs layout and simulation-ready assets from one image; fixed generative model, no foundation-model agent or robot use, so out.
+c05555|out|-|-|-|-|-|-|-|-|-|high|-|[sim2real] RL steers a diffusion-policy prior in simulation for sim-to-real transfer; LLM demonstrations incidental, no agent decisions, so out.
+c03546|out|-|-|-|-|-|-|-|-|-|high|-|Gaussian-splatting object reconstruction with zero-shot physical-property prediction; perception model evaluated offline, so out.
+c12647|out|-|-|-|-|-|-|-|-|-|med|-|General survey of multimodal foundation models for decisions in high-stakes domains; not about embodied agents specifically, so out.
+c00523|out|-|-|-|-|-|-|-|-|-|med|-|Fine-tuned VLM predicts affordance points directly; a grounding model whose points feed fixed planners, no constraints or loop, so out.
+s01639|out|-|-|-|-|-|-|-|-|-|low|-|LLM proposes numeric policy parameters from encoded reward history; privacy transform is the contribution and numeric proposals are not inspectable decisions, so out.
+c08707|out|-|-|-|-|-|-|-|-|-|high|-|[sim2real] RL assembly policies trained in simulation with zero-shot transfer; no foundation-model decisions, so out.
+c04693|out|-|-|-|-|-|-|-|-|-|high|-|Affordance learning from egocentric video with foundation-model annotation; offline perception model, no decisions, so out.
+c08611|precursor|Controller|-|H|trained|skill-call|x1|none|driving/real|1|low|none|LVLM Decision-Maker emits per-frame driving instructions to a learned executor; no own-history loop and driving domain, so precursor.
+c12643|out|-|-|-|-|-|-|-|-|-|high|-|Offline 3D affordance grounding network using LLM-generated part descriptions; perception model without decisions, so out.
+s05091|out|-|-|-|-|-|-|-|-|-|high|-|VLA with affordance-forecasting intermediate representations; trained policy emitting actions, no explicit model decisions, so out.
+s02968|out|-|-|-|-|-|-|-|-|-|high|-|Neurosymbolic question answering over industrial telemetry and a failure-mode knowledge graph; no robot body or control, so out.
+s00162|resource|Controller|-|-|-|micro-action|x1|E|aerial/sim+real|2|low|none|[sim2real] UAV vision-language navigation dataset benchmarking MLLM navigators plus an RL-tuned baseline; subject is embodied aerial agents, method secondary, so resource.
+c12899|out|-|-|-|-|-|-|-|-|-|high|-|[real2sim] Fixed RGB-D-to-tetrahedral tissue reconstruction and contact-stable simulation for surgical policy evaluation; no foundation-model decider, so out.
+s10703|out|-|-|-|-|-|-|-|-|-|low|-|[real2sim] Debate-driven VLM agents reconstruct articulated objects from text or image; no robot or physics-simulation use shown, so out despite agentic design.
+s08489|precursor|Controller|-|G|orchestrator|skill-call|x1|none|mobile-manip/real|1|low|none|VLM decomposes instructions into navigation subgoals and refines the base pose before an imitation policy; no evident re-decision loop, so precursor.
+s04385|out|-|-|-|-|-|-|-|-|-|high|-|Decentralised multi-UAV exploration with SAM3 detection and Bayesian value-map fusion; fixed perception and mapping pipeline, no model decisions, so out.
+s01359|out|-|-|-|-|-|-|-|-|-|med|-|Trained affordance model predicts a functional mask and 3D motion curve directly; no constraints or solver, evaluated as perception, so out.
+c11970|out|-|-|-|-|-|-|-|-|-|high|-|Graph-attention tool-grasp detection with VLM segmentation and GraspNet candidates, evaluated offline on TaskGrasp; no decisions or loop, so out.
+s02824|out|-|-|-|-|-|-|-|-|-|med|-|[sim2real] Video-foundation-model generation and optimisation pipeline synthesizing humanoid interaction data in simulation; video generators are not deciders, so out.
+c01530|out|-|-|-|-|-|-|-|-|-|low|-|[real2sim] Single-image refinement into physics-stable scenes; an agentic workflow turns goals into rollouts, but no robot or robot-learning use shown, so out.
+c01215|out|-|-|-|-|-|-|-|-|-|low|-|No abstract; title alone does not show an explicit foundation-model decision, closed loop or robot experiment, so out.
+s07897|out|-|-|-|-|-|-|-|-|-|med|-|VLM and LLM build open-relationship 3D scene-graph forests; perception and representation only, no control decisions, so out.
+s04135|out|-|-|-|-|-|-|-|-|-|med|-|[real2sim] VLM-guided refinement assigns material properties in a fixed mesh-to-physics pipeline evaluated on property benchmarks; no robot use, so out.
+s07389|out|-|-|-|-|-|-|-|-|-|high|-|Conceptual trust architecture for AI systems; no robot experiments or agent loop, so out.
+s00926|out|-|-|-|-|-|-|-|-|-|med|-|Review of digital-twin human-robot collaborative assembly; broad HRC scope with LLM-assisted allocation a minor topic, so out.
+s01498|out|-|-|-|-|-|-|-|-|-|high|-|[sim2real] Protocol replaying simulated expert trajectories on a real arm to collect VLA training data; no foundation-model decisions, so out.
+c01319|out|-|-|-|-|-|-|-|-|-|high|-|Survey of 3D scene representations for robotics; not about foundation-model decision agents, so out.
+s00411|out|-|-|-|-|-|-|-|-|-|med|-|Offline benchmark of MLLM spatiotemporal video reasoning; perception and question answering without robot actions, so out.
+c00362|core|Controller|-|G|lifelong|code|x1|E|mobile-manip/sim+real|3|med|re-decide|[sim2real] GPT agent writes control programs executed on the robot, reusing experience, body knowledge and skills across episodes; sim and real trials, so core.
+s11272|out|-|-|-|-|-|-|-|-|-|high|-|Geometry-supervised streaming Video-LLM navigation policy; reactive end-to-end action model, so out.
+c03020|out|-|-|-|-|-|-|-|-|-|low|-|LLM coding agent writes and validates asset-building programs with harness feedback; synthetic articulated-asset dataset with no robot or physics-simulation use, so out.
+s11388|out|-|-|-|-|-|-|-|-|-|low|-|[real2sim2real] Fixed single-image twin-building pipeline; the VLM only infers physical parameters, a minor estimator not an agent, so out.
+s01141|out|-|-|-|-|-|-|-|-|-|high|-|PPO agent with deterministic safety shield inside a UAV digital twin; no foundation-model decisions, so out.
+c02178|out|-|-|-|-|-|-|-|-|-|low|-|LLM only seeds numeric MPPI cost weights once and CEM does the refinement; no authored cost code or model re-decision, so out.
+c06329|out|-|-|-|-|-|-|-|-|-|med|-|LLM outputs used to build an affordance symbol network; knowledge acquisition without robot control or closed-loop experiments, so out.
+c12578|precursor|Controller|-|G|direct|code|x1|M|manip/real|1|low|none|LLM writes structured drawing scenes, a VLM critiques renders and the LLM edits before deterministic robot execution; pre-execution check only, so precursor.
+c11850|out|-|-|-|-|-|-|-|-|-|med|-|[real2sim] Humanoid imitates a generated video with contact constraints derived from video analysis; the video generator is not a decider, so out.
+s04795|out|-|-|-|-|-|-|-|-|-|low|-|No abstract; title suggests LLM-evolved clustering heuristics for truck-drone routing, an operations-research problem without embodied robot experiments, so out.
+s11387|out|-|-|-|-|-|-|-|-|-|high|-|VLM localizes 3D human keypoints for HRI perception; offline perception model without decisions, so out.
+c13465|out|-|-|-|-|-|-|-|-|-|high|-|Web VR platform with Gaussian splatting and an MCP agent operating a virtual scene; no robot body, so out.
+c11301|out|-|-|-|-|-|-|-|-|-|med|-|VLA infers system dynamics implicitly from interaction history in context; latent adaptation without explicit decisions, so out.
+s06135|out|-|-|-|-|-|-|-|-|-|high|-|Hardware profiling and acceleration of VLA inference; systems study with no agent decisions, so out.
+s06766|out|-|-|-|-|-|-|-|-|-|low|-|No abstract; title suggests agentic digital-twin optimisation for UAV communication networks, with no evidence of foundation-model robot control, so out.
+c04388|out|-|-|-|-|-|-|-|-|-|med|-|Offline situated question-answering benchmark for 3D scene understanding; no actions or robot experiments, so out.
+c00364|precursor|Designer|-|G|-|problem-spec|x1|none|manip/sim|4|high|none|[sim2real] LLM proposes tasks, scenes and reward supervision for simulated skill learning; generated once without re-design from outcomes, so precursor.
+c01309|out|-|-|-|-|-|-|-|-|-|high|-|LLM translates travel queries into satisfiability problems for solvers; text planning benchmark, not embodied, so out.
+c11206|out|-|-|-|-|-|-|-|-|-|high|-|Diffusion imitation policy with triadic pose constraints for bimanual manipulation; learned policy, no foundation-model decisions, so out.
+c06807|out|-|-|-|-|-|-|-|-|-|low|-|Human-written DSL rules enforced at runtime on LLM agents; mostly code and discrete embodied evaluations, not foundation-model-authored checks, so out.
+c12892|out|-|-|-|-|-|-|-|-|-|high|-|Real-world RL on a frozen VLA with human-correction-derived constraints; RL-finetuned policy, no explicit decisions, so out.
+c04565|out|-|-|-|-|-|-|-|-|-|med|-|Embedding-based retrieval and correspondence transfer of affordances from a memory; no foundation-model constraint authoring or loop, so out.
+c01924|out|-|-|-|-|-|-|-|-|-|high|-|Distills foundation-model affordance annotations into a decoder used as policy input; offline annotator and perception model, so out.
+s04941|out|-|-|-|-|-|-|-|-|-|high|-|LLM-agent swarm acts as a function optimizer and in a Schelling simulation; no robot body, so out.
+c03177|core|Designer|-|G|-|problem-spec|x1|none|manip/sim|3|low|none|[real2sim] VLM chooses and places task objects from one real RGB image to build an interactive robot simulation; one-shot, so core.
+c06881|precursor|Controller|-|G|orchestrator|skill-call|x1|none|mobile-manip/real|2|low|none|LLM plans subtasks over a dynamic scene graph for real mobile manipulation; graph is the main contribution, no re-decision evident, so precursor.
+c08469|out|-|-|-|-|-|-|-|-|-|high|-|[sim2real] RL plus trajectory optimisation for humanoid whole-body control; no foundation-model decisions, so out.
+c02855|core|Controller|-|G|direct|code|1:N|E|multi-robot/sim+real|3|med|re-decide|[real2sim2real] Reconstructs workspace in simulation; VLM writes plans and trajectory code validated with collision feedback, then deploys on real multi-arm robots, so core.
+c08149|out|-|-|-|-|-|-|-|-|-|low|-|No abstract; title alone does not show explicit foundation-model decisions, a closed loop or robot experiments, so out.
+s05074|out|-|-|-|-|-|-|-|-|-|high|-|Latent action model for VLA pretraining; learned representation without explicit decisions, so out.
+s08718|out|-|-|-|-|-|-|-|-|-|high|-|Scene-graph-backed open-set semantic mapping architecture; perception and mapping without model decisions, so out.
+s03529|out|-|-|-|-|-|-|-|-|-|med|-|Symbolic states reconstructed from demonstration videos feed learned POMDP domains for classical belief-space planning; model learning, no foundation-model decision loop, so out.
+c01439|precursor|Controller|-|G|orchestrator|skill-call|x1|none|manip/sim|2|low|none|No abstract; from title, LLM produces ontology-informed task plans for a TAMP motion planner; loop unknown, assumed open-loop, so precursor.
+s03113|out|-|-|-|-|-|-|-|-|-|high|-|VLM-based BEV affordance heatmap for local navigation targets; scoring model evaluated offline on Habitat data, so out.
+c06154|out|-|-|-|-|-|-|-|-|-|high|-|One-shot 3D affordance learning lifted into Gaussian splats; perception model without foundation-model decision loop, so out.
+s01242|out|-|-|-|-|-|-|-|-|-|high|-|Consistency-regularised VLA training for robustness; reactive policy, so out.
+s03412|out|-|-|-|-|-|-|-|-|-|med|-|Simulation benchmark analysing generalist VLA policies with optional LLM scene and task generation; subject is reactive policies, not agents, so out.
+c02226|core|Controller|-|G|direct|constraint|x1|none|manip/sim+real|2|low|none|VLM instantiates executable blueprints of primitives, affordances and manipulation constraints that drive precise manipulation; constraint-programming family, solved once, so core.
+c10977|out|-|-|-|-|-|-|-|-|-|high|-|VLA with internal affordance-mask tokens conditioning action generation; reactive policy, so out.
+s01989|out|-|-|-|-|-|-|-|-|-|low|-|VLM infers object properties and a task-force profile feeding a fixed trajectory-optimiser objective; numeric estimates, headline is the optimisation, so out.
+c00018|precursor|Controller|-|G|orchestrator|skill-call|x1|none|manip/real|3|med|none|GPT-4V and GPT-4 turn a human demonstration video into a symbolic task plan with affordances for real robots; open-loop, so precursor.
+c02366|precursor|Controller|-|G|orchestrator|skill-call|x1|none|humanoid/sim|2|low|none|LLM infers grasp functionality from language, conditioning a synergy-based dexterous grasp synthesizer; one-shot, mostly simulation, so precursor.
+c11048|out|-|-|-|-|-|-|-|-|-|low|-|[real2sim2real] No abstract; title indicates digital-twin-driven RL of a VLA, an RL-finetuned policy without explicit model decisions, so out.
+c01899|out|-|-|-|-|-|-|-|-|-|med|-|Benchmark for language-conditioned manipulation policy learning with continuous states; subject is reactive policies, not foundation-model agents, so out.
+s10119|out|-|-|-|-|-|-|-|-|-|high|-|Field report analysing 3D scene-graph components and VLM embeddings on outdoor datasets; perception analysis without decisions, so out.
+s11673|out|-|-|-|-|-|-|-|-|-|high|-|MLLM multi-round inference yields semantic probabilities for single-view Gaussian querying; perception evaluated offline, so out.
+s11150|out|-|-|-|-|-|-|-|-|-|high|-|Semi-autonomous prosthesis control with AR display and user study; no foundation-model decisions, so out.
+c03251|out|-|-|-|-|-|-|-|-|-|high|-|LLM and formal verification for web-service composition; no robot body, so out.
+s04888|out|-|-|-|-|-|-|-|-|-|med|-|[sim2real] Fixed pipeline using 3D generative models and vision foundation models to synthesize demonstrations for visuomotor policies; no model decisions or loop, so out.
+s04510|out|-|-|-|-|-|-|-|-|-|med|-|Fatigue-aware cobot adaptation with MediaPipe, random forest and pupillometry in a digital twin; no foundation-model decisions evident, so out.

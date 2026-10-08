@@ -1,0 +1,69 @@
+id,key,seat,why
+c01114,VoLo,Controller,VLM 把 VLA / WAM 当可中断工具编排；与 Tool-Aligned VLA、Physical Agency 同类
+c00145,ETA,Controller,逐次工具调用并核验的编排范式；与已收的编排型论文重合
+c01012,HODAgent,Controller,人形按需响应的 System-2 agent；人形已有 Cybo-Waiter、KPI、FRAMES
+c03135,BioProVLA-Agent,Controller,实验室自动化的协议驱动 VLA agent
+c00466,ROSClaw,Controller,OpenClaw 的 ROS 2 运行时，跨三种平台；Claw 系列已收 RoboClaw、ABot-Claw、AerialClaw
+c02168,MotorMind,Controller,通用 VLM 出中层动作、确定性控制执行；与 Agent as Policy、OpenRUA 同类
+c00342,STeP,Controller,VLM 写 STL 规格并在执行中监测（编写闭环）；约束编程类已收 VLS、GTA-2 等
+c01804,CoRAL,Controller,LLM 为 MPPI 写并迭代代价函数（约束编程类）
+c01464,ManiSkillFormer,Controller,LLM agent 写几何契约组合技能（约束编程，开环）
+c02094,EmboAlign,Controller,VLM 写组合约束筛选视频生成的 rollout（约束编程，开环）
+c03118,BATON,Controller,coding agent 子任务探索与转移感知 memory
+c00969,RobotUse,Controller,计算、上下文与决策的分配；playbook 依经验更新
+c01487,Local Recovery Supervision,Teacher,教师 agent 在失败状态生成恢复示范
+c00123,Agent-Guided RL,Teacher,多模态 agent 代替人类监督真机 RL
+s07174,EmbodiRSI,Teacher,递归自改进的纠正轨迹生成（Real2Sim2Real）
+s06252,DeformSmith,Designer,可变形资产的几何与物理参数生成
+c10169,EmbodiedGen V2,Designer,agentic 仿真 3D 世界引擎
+c07486,Agentic Robotics Loop,Developer,训练-评测-改进事务循环
+c10799,Autonomous RL Research,Developer,coding agent 做四足 RL 研究迭代
+c00976,123 Rounds of RSI,Developer,123 轮递归自改进的经验总结
+s02818,EMHO,Developer,依执行轨迹优化具身 harness
+c00954,RAPID,Developer,从示范生成、验证并精炼机器人程序
+c01195,HarnessPAI,Developer,代码 harness 跨 rollout 进化
+c07739,Active-Perception Real2Sim,Controller,VLM 生成行为树主动感知补全仿真参数（Real2Sim）
+c06163,EMPIRIC,Controller,LLM 设计实验学习残差世界模型（Real2Sim）
+s00423,GenPHRI,Designer,agentic 物理人机交互仿真生成（Sim2Real）
+c02855,CoEnv,Controller,重建工作区仿真驱动多臂协作（Real2Sim2Real）
+c04301,PerceptTwin,Controller,感知地图重建仿真供 LLM 迭代规划（Real2Sim2Real）
+s06573,LiteReality-Agent,Designer,coding agent 重建可交互室内场景（Real2Sim）
+s01084,DiagGen,Designer,仿真诊断驱动的可变形资产生成
+c09424,SimFoundry,Designer,自动化数字孪生场景生成；摘要未写明基础模型的决策角色
+t298,NavHarness,Controller,终身导航 harness
+c07802,Contextual Uncertainty,Controller,Spot 上主动消解模糊任务的 LLM 策略
+s03025,EvolveNav,Controller,ObjectNav 的自进化 memory
+c01072,Being-0,Controller,人形 agent 先驱（2025）
+gap:2610.10498,EmbodiedRSI,Developer,自进化 harness 按信息价值选择物理实验并修改代码与技能（10 月 7 日新论文）
+gap:2605.09494,LASSA,Controller,LLM 在故障时为 AUV 重规划，求解器否决不可行输出；湖上试验，覆盖水下
+gap:2609.37067,FACT,Designer,agent 用证据-诊断-修订循环构建铰接孪生（Real2Sim，未涉及机器人策略）
+gap:2608.24212,NeoWorld-Pro,Designer,MLLM 从单张图像写场景程序并依 Isaac Sim 任务结果修正（Real2Sim，仅仿真）
+gap:2609.39579,AVERT-VLN,Supervisor,微调 VLM 监控 VLN-CE 执行并在迷路时求助（仅仿真）
+gap:2602.05467,MerNav,Controller,记忆-执行-复查的零样本导航框架（Habitat 与人形）
+gap:2603.07997,CMMR-VLN,Controller,GPT-4o 导航 agent 的持续多模态记忆（主要在离散 R2R）
+gap:2610.10388,RoboQuest,Controller,RoboCasa365 上需要搜索与检查的移动操作 benchmark
+gap:2610.09764,AeroEval,Supervisor,LLM 验证者检查无人机任务代码与轨迹（仅仿真）
+gap:2610.09588,Adaptive Code Generation,Controller,LLM 写机器人程序，运行时触发器重新调用（Gazebo 四足）
+c10995,QD Red-Teaming,Designer,VLM 只是固定质量多样性搜索里的变异算子，范围重判后降为前驱
+t328,AllDayNav,Designer,主体是用离线 RL 精调 VLA 导航策略，VLM 只写 memory 与自提任务；范围重判后降为前驱
+s08218,F4R,Designer,Real2Sim2Real：诊断真机失败、在重建的仿真中修正后重新部署；Real2Sim 子方向只保留代表作
+s04709,DexAgent,Teacher,从人类视频重建仿真并生成灵巧操作数据（Real2Sim2Real）
+c01004,Scene2Demo,Teacher,单张真实图像生成仿真场景与示范（Real2Sim）
+c00282,SUN,Designer,修复带类型的任务程序训练可迁移策略（Sim2Real）
+c02028,MotionDisco,Teacher,LLM 引导的进化搜索为人形极限动作生成参考（Sim2Real）
+s08303,Lucida,Designer,VLM 经 GUI 操作组合出真实场景的仿真复本（Real2Sim）
+s01997,DREAM,Designer,部署时 real-to-sim 生成示范微调真机 VLA（Real2Sim2Real）
+s09723,GaP,Developer,多 agent 把策略写成计算图，仿真自学习后上真机（Real2Sim2Real）
+c02290,MoMa-LLM,Controller,2022–2025 候补先驱：动态场景图上 LLM 交互式搜索物体的移动操作 agent（真机，141 引）；与 SayPlan 同属场景图一支
+c00419,COHERENT,Controller,2022–2025 候补先驱：异构多机器人（机械臂、四足、无人机）由 LLM 分配并依反馈调整任务；多机器人已有 SMART-LLM、RoCo
+c00098,PRoC3S,Controller,2022–2025 候补先驱：LLM 写约束满足程序、无解时重提示；与 AutoTAMP、LLM3 同属 TAMP 一支
+c00299,LLM-GROP,Controller,2022–2025 候补先驱：LLM 给出物体摆放常识、TAMP 求解的移动操作重排（264 引，开环）
+c00051,Zero-Shot Trajectory Generators,Controller,2022–2025 候补先驱：GPT-4 一次写出末端轨迹（开环）；直接出动作一支已收 Prompt a Robot to Walk
+c00075,RoboTool,Controller,2022–2025 候补先驱：LLM 为创造性工具使用写计划与代码（开环）
+c00645,NLMap,Controller,2022–2025 候补先驱：可查询场景表示 + LLM 规划（2022，开环，269 引）
+c00669,GraphEQA,Controller,2022–2025 候补先驱：3D 场景图上实时具身问答（真机）；VLN 章已有 7 篇先驱
+gap:2412.10439,CogNav,Controller,2022–2025 候补先驱（第三轮补漏）：LLM 在认知状态间切换做物体目标导航，轮式与四足真机
+gap:2503.15202,Real-Time Failure Handling (VLM + BT),Supervisor,2022–2025 候补先驱（第三轮补漏）：GPT-4o 在行为树执行前后核验条件、失败时补前提与技能代码（真机）
+gap:2410.07408,Digital Cousins,Designer,2022–2025 候补先驱（第三轮补漏）：自动构建数字表亲做鲁棒策略学习；Real2Sim 只是子方向，先驱已收 3 篇
+gap:2502.04692,STRIDE,Designer,2022–2025 候补先驱（第三轮补漏）：LLM 自动设计奖励、训练与反馈的人形机器人流水线；Designer 先驱已有 Eureka 一支
+c03459,Reflective Planning,Controller,2022–2025 候补先驱：VLM 结合动力学模型反思式多阶段规划（2025，真机，60 引）

@@ -1,5 +1,7 @@
 # Agentic Embodiment：定义与分类（修订终稿）
 
+> **2026-10-08 更新**：用户决定承认「编写闭环」（本稿的 Λ1'）。Code as Policies、VoxPoser、ReKep 等不再判 B-loop，而判 CORE。正文版规则见 `definition.md` §2 第 3 条；本稿其余细则仍作为附录和标注指南。
+
 > **主线不变**：问的仍是「agency 在哪里」。本稿把它落成一个可以逐条核对的坐标 **(Seat, Carrier)**：
 > - **Seat**：agent 相对于目标策略，闭合的是哪一个环。
 > - **Carrier**：决策由哪一类权重承载。

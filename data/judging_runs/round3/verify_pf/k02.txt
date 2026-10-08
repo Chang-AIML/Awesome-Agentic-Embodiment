@@ -1,0 +1,11 @@
+c06168|resource|Controller|-|G|direct|code|x1|E|nav/sim|2|low|re-decide|Benchmark for language-grounded route planning on semantic maps; LLM code-as-grounding with verification-guided repair; map-level evaluation, no robot execution; benchmark is headline.
+c05916|core|Developer|-|G|-|code|x1|E|manip/sim|4|med|re-decide|Coding agents write and refine generalized TAMP programs from simulator feedback; frozen program then evaluated on held-out instances. Developer of planner code, simulation evaluation.
+c07009|out|-|-|-|-|-|-|-|-|-|high|-|ALFWorld text game, Wordcraft and SQL; self-generated in-context example database for LLM agents, no robot body or physical simulation.
+c07666|out|-|-|-|-|-|-|-|-|-|high|-|Self-evolving workflow and skill bank evaluated on text ALFWorld and code/math benchmarks; no robot body or physical simulation.
+c12297|out|-|-|-|-|-|-|-|-|-|high|-|Test-time learning of knowledge hypotheses for LLM agents on WebArena-Lite and text ALFWorld; web and text-world agents, no robot body.
+c09448|out|-|-|-|-|-|-|-|-|-|med|-|RL plus VLM dual system in Crafter, Housekeep, AI2-THOR game-like sims; RL agent acts, VLM guidance shows no explicit decision loop or robot body.
+c12166|out|-|-|-|-|-|-|-|-|-|low|-|LLM generates behavior-tree reward and action-mask functions, SMT-verified, for RL training; no robot body or physics simulation evident, likely grid or game tasks.
+c07610|out|-|-|-|-|-|-|-|-|-|high|-|RL training algorithm for LLM agents evaluated on ALFWorld, WebShop and SearchQA; text and web tasks, no robot body.
+c04271|out|-|-|-|-|-|-|-|-|-|med|-|LLM translates traffic regulations into signal temporal logic with verification and refinement; evaluated offline on translation accuracy, no driving agent experiment.
+c08908|out|-|-|-|-|-|-|-|-|-|low|-|User study of novices prompting ChatGPT for state and reward design in RL traffic control; human-driven assistance in traffic simulation, not an embodied agent.
+c11110|core|Designer|-|G|-|problem-spec|x1|E|other/sim|2|low|re-decide|LLM generates reward function candidates, derives its own metrics, and evaluates them via RL training, Eureka-style; Designer of reward code in control-task simulation.

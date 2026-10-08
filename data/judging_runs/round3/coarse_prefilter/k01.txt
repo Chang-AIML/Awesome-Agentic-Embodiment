@@ -1,0 +1,292 @@
+c12334|irrelevant|method|-|LLM agent preprocesses software environments; no physical embodiment
+c09005|irrelevant|position|-|AI governance essay on compute thresholds; no embodiment
+c08650|irrelevant|other|-|Theory of softmax attention token selection; no agents or embodiment
+c09592|irrelevant|benchmark|-|Atari RL benchmark with C51 and PPO; no foundation model or embodiment
+c10606|irrelevant|method|-|LLM-evolved heuristics for network aggregation placement; no embodiment
+c08949|irrelevant|method|-|LLM agent for urban knowledge graph construction; no embodiment
+c04898|irrelevant|benchmark|-|Multimodal math reasoning benchmark for MLLMs; no embodiment
+c06034|irrelevant|method|-|LLM pseudo-label refinement for text classification; no embodiment
+c07142|irrelevant|method|-|Self-evolving tool-use agents with API environments; no physical embodiment
+c07202|irrelevant|method|-|Vision-language architecture for long-context efficiency; no embodiment
+c05380|irrelevant|benchmark|-|Multimodal intent disambiguation benchmark; no agentic process or embodiment
+c11133|irrelevant|method|-|Multi-agent LLM architectural design system; no physical embodiment
+c04049|irrelevant|method|-|Aviation software test-case agent; no abstract, no embodiment
+c09724|irrelevant|survey|-|General AI long-term memory survey; no embodiment mentioned
+c04760|irrelevant|method|-|LoRA module composition for hateful meme detection; no embodiment
+c08199|irrelevant|benchmark|-|Video understanding benchmark for MLLMs; no embodiment
+c08264|irrelevant|method|-|Vision-language model for image-text composition; no embodiment
+c10424|maybe|benchmark|multi-agent|LLM multi-agent team benchmark in Minecraft; weak embodiment
+c04743|irrelevant|survey|-|Survey of post-training scaling for LLMs; no embodiment
+c11518|irrelevant|method|-|LLM evolutionary search for RISC-V kernel code; no embodiment
+c09602|irrelevant|benchmark|-|Retrieval benchmark on perspective awareness; no embodiment
+c07503|irrelevant|method|-|Supervisor-worker self-improvement for long-horizon agents; no embodiment evident
+c07871|irrelevant|method|-|Incremental re-execution for LLM and API workflows; no embodiment
+c08716|irrelevant|survey|-|Survey of efficient VLM fine-tuning; no embodiment, no abstract
+c04935|irrelevant|method|-|Natural-language data table synthesis; no embodiment
+c03585|irrelevant|method|-|LLM tool-grounding for downstream NLP tasks; no embodiment
+c07145|irrelevant|survey|-|Survey of multi-tool LLM agents in digital environments; no embodiment
+c10160|irrelevant|method|-|Subgoal search completeness for discrete planning; no embodiment
+c12340|irrelevant|method|-|Test-time adaptation from human-agent interaction for open-ended tasks; no embodiment
+c11226|irrelevant|benchmark|-|Object hallucination probing benchmark for LVLMs; no embodiment
+c05700|irrelevant|method|-|Capability-collaboration LLM agent architecture; no embodiment visible
+c09457|maybe|method|other|LLM for light-based localization and solar sensing; no agentic process
+c06100|maybe|method|multi-agent|LLM reward decomposition for dialogue agents; embodiment unclear
+c08007|irrelevant|method|-|Tool-augmented LM skill library over code DAGs; no embodiment
+c12710|irrelevant|method|-|Depression detection from social media posts; no embodiment
+c11706|irrelevant|method|-|Federated LLM disease progression prediction; no embodiment
+c06299|maybe|method|multi-agent|LLM policy for offline multi-agent decisions; embodiment unclear
+c07192|irrelevant|method|-|Memory management for long-horizon LLM agent reasoning; no embodiment
+c07416|irrelevant|survey|-|Overview of LLMs for open-ended implementation generation; no embodiment
+c08008|irrelevant|other|-|Policy-carriage safety study on coding and tool agents; no embodiment
+c03642|irrelevant|benchmark|-|Benchmark for AI co-scientist data analysis; no embodiment
+c10420|irrelevant|method|-|LLM serving system for multi-agent simulations; no embodiment
+c05673|maybe|method|teacher|VLM world model via inverse dynamics; embodiment unclear
+c09673|irrelevant|method|-|Generative API method recommendation for code; no embodiment
+c03707|irrelevant|method|-|Concept bottleneck models for spurious correlations in images; no embodiment
+c10158|irrelevant|method|-|Self-truthifying preference optimization for LLM truthfulness; no embodiment
+c07246|irrelevant|position|-|Position paper on agentic AI theory; no embodiment
+c07694|irrelevant|method|-|REST API orchestration by multi-agent LLM system; no embodiment
+c08923|irrelevant|method|-|Distributed multimodal training systems; no embodiment, no abstract
+c12462|irrelevant|method|-|Clinical workflow orchestration with tool-using agents; no embodiment
+c08939|irrelevant|method|-|LLM interprets sequential recommender representations; no embodiment
+c04005|maybe|method|self-evolving|LLM knowledge base adaptation on ScienceWorld text environment; weak embodiment
+c07630|irrelevant|other|-|Memory-consumption diagnosis for web and software agents; no embodiment
+c03970|maybe|survey|other|LLM agentic tutorial for smart-grid control; physical embodiment unclear
+c10848|irrelevant|method|-|Agentic framework for updating survey papers; no embodiment
+c08013|irrelevant|method|-|LLM context augmentation via agentic reflection; no embodiment visible
+c07031|irrelevant|method|-|VLM object localisation via frozen-model spatial prompt; no embodiment
+c04526|irrelevant|survey|-|Survey of LLM agent tool use, planning, feedback; no embodiment
+c06913|irrelevant|method|-|Generic LLM agent skill learning from experience; no embodiment named
+c04798|irrelevant|method|-|LLM code generation for table question answering; no embodiment
+c07873|irrelevant|method|-|Evolutionary optimization of graph-structured LLM agent skills; no embodiment
+c04229|irrelevant|method|-|Uncertainty modeling for LLM agent reliability; no abstract, no embodiment
+c12313|irrelevant|method|-|Read-time memory curation for LLM agents; no embodiment
+c08878|irrelevant|method|-|In-context operator learning for PDEs; no agents or embodiment
+c04671|irrelevant|method|-|Offline RL sequence model; no foundation model or agentic process
+c12403|irrelevant|method|-|Trajectory memory organization for LLM agents; no embodiment
+c05025|irrelevant|benchmark|-|LLM code simulation benchmarks; no embodiment
+c05264|irrelevant|method|-|Paper-to-video LLM agent system; no embodiment
+c04670|irrelevant|method|-|LLM-guided 4D scene generation; graphics, not embodied agents
+c09825|maybe|method|other|Egocentric instruction tuning for MLLM object orientation; embodiment unclear
+c09336|irrelevant|method|-|LLM data extraction for systematic reviews; no embodiment
+c08678|irrelevant|method|-|Multimodal RAG reranking for MLLMs; no embodiment
+c12468|irrelevant|method|-|OS sandbox infrastructure for GUI computer-use agents; no embodiment
+c03365|irrelevant|benchmark|-|Diagnostic benchmark for LVLM hallucination and visual illusion; no embodiment
+c08344|maybe|survey|other|Survey of LLM roles in games; game environments, weak embodiment
+c12293|irrelevant|benchmark|-|Benchmark on misalignment in self-evolving personal-assistant agents; no embodiment
+c09056|irrelevant|method|-|Platform for tool-augmented LLM agents; no embodiment
+c11560|irrelevant|benchmark|-|Benchmark for agent self-evolution on enterprise workflows; no embodiment
+c10907|irrelevant|benchmark|-|Benchmark rendering text into pixels for perception; no embodiment
+c08968|irrelevant|method|-|Recursive theorem proving in Isabelle; no embodiment
+c08625|irrelevant|method|-|Multimodal retriever for knowledge-based VQA; no embodiment
+c05233|irrelevant|other|-|Analysis of machine-generated prompts in language models; no embodiment
+c08175|irrelevant|method|-|VLM spatial reasoning distillation; no abstract, no embodiment cue
+c08951|irrelevant|method|-|LLM knowledge graph construction for heart failure; no embodiment
+c07178|maybe|benchmark|other|Benchmarks pretrained visual representations for model-based RL control; no agents
+c08417|irrelevant|survey|-|Survey of LLM applications in medicine; no embodiment, no abstract
+c07939|irrelevant|method|-|Bayesian inference over natural-language prompts; no embodiment
+c09373|irrelevant|method|-|LLM self-teaching via chain-of-thought for arithmetic; no embodiment
+c09332|irrelevant|method|-|Inference-time safety steering for MLLMs; no embodiment
+c04547|irrelevant|method|-|Unified multi-modal representation network; no embodiment or agents
+c05170|irrelevant|survey|-|Survey of persuasive dialogue agents; no embodiment
+c04075|maybe|method|monitor|LLM workflow revision and recovery; ALFWorld household plus filesystem tasks
+c10018|irrelevant|position|-|Envisions recommender systems on LLM agent platforms; no embodiment
+c04784|irrelevant|method|-|Prompting LLMs with answer heuristics for knowledge VQA; no embodiment
+c03966|irrelevant|method|-|Text-based world model for product/web states; no embodiment
+c03800|irrelevant|other|-|Naming-game simulations of LLM agent consensus; no embodiment
+c09150|irrelevant|method|-|Generative retrieval for knowledge-based VQA; no embodiment
+c09324|irrelevant|method|-|Genetic algorithm prompt optimization for LLMs; no embodiment
+c09715|irrelevant|survey|-|Survey of agentic AI in healthcare; no embodiment
+c03727|maybe|method|other|LLM agent for 3D storytelling visualization; embodiment unclear
+c04913|irrelevant|benchmark|-|Image-to-web code benchmark for LMMs; no embodiment
+c09652|irrelevant|method|-|Memory poisoning attack on LLM agents; no embodiment
+c04993|irrelevant|method|-|VLM zero-shot classification with LLM-written descriptions; no embodiment
+c06564|irrelevant|method|-|Training-free video action and goal inference; no embodiment
+c09790|irrelevant|other|-|Empirical study of code evolution baselines; no embodiment
+c07886|irrelevant|position|-|Position paper on enterprise agent substrates; no embodiment
+c04744|maybe|method|other|LLM narrative generation with memory for RPG games; weak embodiment
+c04517|irrelevant|benchmark|-|Dynamic reasoning benchmark for LLMs; no embodiment
+c03412|irrelevant|method|-|RL-trained orchestrator for LLM multi-agent reasoning; no embodiment
+c07646|irrelevant|method|-|Knowledge-graph debugging of multi-agent LLM traces; no embodiment
+c03844|irrelevant|method|-|Decision trees for role-playing agent behavior profiles; no embodiment
+c09710|maybe|method|developer|LLM reward design for game content generation; weak embodiment
+c08765|irrelevant|survey|-|Literature review of LLMs in digital forensics; no embodiment
+c06451|maybe|method|controller|LLM controls traffic speed limits from sensor data; weak embodiment
+c10598|maybe|method|developer|LLM-generated intrinsic rewards for RL in MiniGrid gridworld; weak embodiment
+c10680|irrelevant|method|-|Knowledge distillation for LLM-based speech recognition; no embodiment
+c12289|irrelevant|method|-|Self-evolving skills for multimodal reasoning agents; no embodiment
+c03731|maybe|benchmark|multi-agent|Multimodal LLM activity assistant with camera and user-in-loop replanning; embodiment weak
+c09998|irrelevant|other|-|Theory of RL for LLM graph planning; no embodiment
+c09009|irrelevant|method|-|LLM proactive questioning for knowledge-based VQA; no embodiment
+c05515|irrelevant|survey|-|Survey of LLM and text-attributed graph integration; no embodiment
+c08144|irrelevant|survey|-|Review of multimodal large models and applications; no embodiment
+c10898|irrelevant|method|-|Video anomaly detection with synthetic motion fusion; no embodiment
+c10808|relevant|method|developer|LLM chain-of-thought reward code for simulated Bipedal Walker
+c07543|irrelevant|benchmark|-|Benchmark for LLM spatial drawing via dot matrices; no embodiment
+c11569|irrelevant|method|-|Longitudinal personal health agent memory; no embodiment
+c05641|relevant|method|controller|LLM agents plan motion of tabletop swarm robot gadgets
+c06565|irrelevant|method|-|CLIP-based cooking video caption generation; no embodiment
+c11654|irrelevant|method|-|Temporal answer grounding in instructional videos; no embodiment
+c09667|irrelevant|other|-|Neuroscience study of concept encoding during movies; no embodiment
+c09329|irrelevant|method|-|Autonomous annotation of language agent trajectories; no embodiment visible
+c04659|irrelevant|survey|-|Opportunities of LLMs in building energy; no abstract, no agents
+c10893|irrelevant|method|-|MLLM jailbreak evaluation framework; no embodiment
+c05695|irrelevant|other|-|Grammar induction from pixels; no abstract, no embodiment
+c10872|irrelevant|method|-|Agent-based LLM math reasoning framework; no embodiment
+c08540|irrelevant|benchmark|-|Smartphone GUI agent benchmark; GUI agents excluded
+c06922|irrelevant|method|-|Infrastructure for creating and evaluating AI skills; no embodiment
+c03808|irrelevant|method|-|LLM agents on multi-armed bandit problems; no embodiment
+c10433|irrelevant|survey|-|Thematic synthesis on productionizing foundation-model software; no embodiment
+c04618|irrelevant|dataset|-|LLM script distillation for constrained text planning; no embodiment
+c10483|irrelevant|method|-|Multimodal transformer pretraining across image, text, audio; no embodiment
+c05404|irrelevant|method|-|LLM question answering system for factory knowledge; no embodiment
+c11672|maybe|method|other|LLM situation awareness from real-time environment data; no abstract
+c08022|irrelevant|method|-|Conversational knowledge crystallization for domain-expert chat agents; no embodiment
+c07427|irrelevant|method|-|LLM judge thresholds for skill retirement on coding tasks; no embodiment
+c07359|irrelevant|method|-|Learned memory management for LLM agents; no embodiment
+c12264|irrelevant|method|-|Source-specific competence learning for LLM agents; no embodiment
+c05346|irrelevant|benchmark|-|Text-based puzzle benchmark for LLM reasoning; no embodiment
+c09803|irrelevant|method|-|Thought retrieval for memory-augmented LLM agents; no embodiment
+c07749|maybe|position|other|Position paper: train embodied agents like LLMs; 3D game proof-of-concept
+c07842|irrelevant|method|-|Agentic interpretation of sparse autoencoder features; no embodiment
+c04498|irrelevant|method|-|Chain-of-thought prompting for text-to-SQL parsing; no embodiment
+c07325|maybe|method|multi-agent|Theory-of-mind LLM reasoning for multi-agent RL; embodiment unclear, no abstract
+c03662|irrelevant|method|-|LLM recommendation with graph-aware learning; no embodiment
+c03822|maybe|method|other|Multimodal-instruction decision transformer for game agents; weak embodiment
+c03512|maybe|method|other|LLM agents build 3D meshes by trial and error; no physical embodiment
+c11188|irrelevant|benchmark|-|Offline RL benchmarks with imperfect simulators; no foundation model
+c12349|irrelevant|method|-|Self-evolving LLM agent framework for video production; no embodiment
+c05569|irrelevant|method|-|LLM-guided deep RL for urban planning; no embodiment
+c07784|irrelevant|other|-|Audit of LM agent self-reports in word-guessing search; no embodiment
+c09263|irrelevant|method|-|Food-domain LLM for dietary and chef tasks; no embodiment
+c10886|maybe|method|other|MLLM active viewpoint requests for video spatial reasoning; embodiment unclear
+c06917|irrelevant|method|-|Skill retrieval for LLM agents over large corpora; no embodiment
+c03563|irrelevant|benchmark|-|Fraud robustness of LLM multi-agent travel planning; no embodiment
+c05442|irrelevant|survey|-|Secondary study of LLM-native software verification patterns; no embodiment
+c08970|irrelevant|method|-|Training-free keyframe selection for long-video MLLMs; no embodiment
+c05088|irrelevant|method|-|Natural-language programming; no abstract, no embodiment cue
+c09360|irrelevant|method|-|Skill optimization for autonomous coding agents; no embodiment
+c09494|maybe|benchmark|multi-agent|LLM agent cooperation in Melting Pot 2D gridworlds; weak embodiment
+c09506|irrelevant|survey|-|Survey of causal inference with latent variables; no embodiment
+c12493|irrelevant|method|-|Memory pipeline for disaggregated LLM inference; no embodiment
+c12591|irrelevant|survey|-|Survey of transformers by input modality; no embodiment
+c05279|irrelevant|method|-|Visual analytics for multimodal LLM prompt engineering; no embodiment
+c10094|irrelevant|method|-|LLM evolutionary optimization of cosmology algorithms; no embodiment
+c07820|irrelevant|method|-|Training-free anticipatory computation for streaming VLMs; no embodiment
+c07275|irrelevant|method|-|Agentic RL for travel planning with LLMs; no embodiment
+c08973|irrelevant|method|-|Multi-level preference alignment to reduce MLLM hallucination; no embodiment
+c05126|irrelevant|method|-|Selective pruning for LLM unlearning; no embodiment
+c04756|irrelevant|method|-|Text-to-SQL error correction with code language models; no embodiment
+c09892|maybe|method|hierarchical|LLM subgoal hints for model-based RL; embodiment unclear
+c03728|maybe|method|developer|Multi-agent LLM generates symbolic world models; embodiment unclear
+c04122|maybe|other|multi-agent|Instruction inference in human-agent collaboration; embodiment unclear, no abstract
+c11609|irrelevant|survey|-|Survey of math word problem solving from cognition view; no embodiment
+c10835|irrelevant|method|-|Experience-based agentic text-to-image generation; no embodiment
+c06340|maybe|method|other|Knowledge-based task planning for long-horizon cooking tasks; no abstract
+c12356|maybe|method|other|LLM persona agents simulate museum visitor movement and gaze; weak embodiment
+c05111|irrelevant|method|-|LLM user-agents for dialogue system evaluation; no embodiment
+c05832|irrelevant|method|-|RL from multiple sensors; no abstract, no foundation model
+c04741|irrelevant|method|-|Symbolic LLM reasoning for visual activity recognition; no embodiment
+c12699|irrelevant|method|-|Multimodal LLM for chest X-ray diagnosis; no embodiment
+c08310|irrelevant|method|-|LLM-agent team optimization for collaboration; no abstract
+c08692|irrelevant|method|-|Medical vision-language learning; no abstract, no embodiment
+c03511|irrelevant|position|-|Decision-theory shutdown problem for artificial agents; no embodiment
+c07314|irrelevant|method|-|Self-evolving agentic reward model for image edits; no embodiment
+c12406|irrelevant|method|-|Context-aware RL for coding and multimodal LLM agents; no embodiment
+c04813|irrelevant|method|-|Vision-foundation and LLM captioning of images; no embodiment
+c03936|maybe|benchmark|other|Oracle counterfactual study on game-like multi-turn agent tasks; weak embodiment
+c05033|irrelevant|survey|-|Review of AI agent architectures and paradigms; no embodiment named
+c12252|irrelevant|method|-|Memory governance in LLM multi-agent systems; no embodiment
+c07919|irrelevant|method|-|Skills protocol for coding agents; no embodiment
+c05618|irrelevant|method|-|Zero-shot image classification via logical reasoning on explanations; no embodiment
+c05162|irrelevant|method|-|CLIP-based zero-shot image captioning; no embodiment
+c07506|irrelevant|method|-|LLM agent drives Bayesian optimization loop; no embodiment
+c03953|irrelevant|method|-|Finite-state machines for role-playing character consistency; no embodiment
+c03935|irrelevant|method|-|Adapter-based co-evolution of multi-agent LLM systems; no embodiment
+c09174|irrelevant|method|-|In-context learning for web agents; no embodiment
+c05745|irrelevant|method|-|Memory tiering for CPU-based DNN training; no embodiment
+c11722|irrelevant|method|-|Radiology image-description LLM framework; no embodiment
+c06798|irrelevant|method|-|LLM agent for long-form video question answering; no embodiment
+c10929|irrelevant|benchmark|-|Confidentiality-aware LLM agents in access-control tasks; no embodiment
+c06970|irrelevant|position|-|Philosophy of consciousness in conversational agents; no embodiment
+c08030|irrelevant|position|-|AI research and engineering roles framework; no embodiment
+c03991|irrelevant|survey|-|Literature review of LLMs as cognitive agents; no abstract
+c07507|irrelevant|method|-|Persistent workspace for Claude Code agent teams; no embodiment
+c08020|irrelevant|other|-|Conceptual staging of LLM agent evolution; no embodiment
+c06366|irrelevant|method|-|RAG and chain-of-thought advisory for maize farming; no embodiment
+c03564|irrelevant|method|-|Adaptive communication topology for LLM multi-agent systems; no embodiment
+c05087|irrelevant|method|-|Adaptive subgoal search on puzzles like Sokoban; no foundation model
+c08002|irrelevant|method|-|Self-distillation for LLM web agents; no embodiment
+c11164|irrelevant|method|-|LLM inference request scheduling; no embodiment
+c12419|irrelevant|benchmark|-|Procedural Unix capture-the-flag tasks for shell agents; no embodiment
+c08446|irrelevant|other|-|Case study of LLM-generated social botnet content; no embodiment
+c05086|maybe|method|other|LLM prompting for agent task learning; performance environment unclear
+c10150|irrelevant|method|-|Continual learning benchmark for multimodal LLMs; no embodiment
+c08989|irrelevant|benchmark|-|Face-understanding benchmark for multimodal LLMs; no embodiment
+c04037|irrelevant|method|-|LLM infeasibility detection for combinatorial optimization; no embodiment
+c08599|maybe|method|developer|VLM-derived rewards train RL agents for visual language goals; embodiment unclear
+c07612|irrelevant|method|-|Autonomous research agents for recommender model experiments; no embodiment
+c10634|irrelevant|benchmark|-|LLM agent choices between survival and human harm; no embodiment
+c11558|irrelevant|benchmark|-|Longitudinal benchmark for self-evolving financial agents; no embodiment
+c05375|irrelevant|method|-|Text-to-JSON LLM calls for custom APIs; no abstract
+c08340|irrelevant|survey|-|Tutorial on building vision-language models; no embodiment
+c12279|irrelevant|method|-|Reusable learner-simulation skills for LLMs; no embodiment
+c11639|irrelevant|benchmark|-|Temporal logic reasoning benchmark for LLMs; no abstract
+c07207|maybe|method|other|LLM agents ground hand gestures for interaction; AR/VR-style, no abstract
+c12389|irrelevant|method|-|Agentic RAG pipeline for runtime tool generation; no embodiment
+c10113|irrelevant|method|-|Self-evolving multi-agent VLM collaboration topology; no embodiment
+c05852|irrelevant|method|-|LLM-guided MARL for cellular network base stations; no embodiment
+c04266|maybe|method|developer|LLM generates RL cost functions for safety scenarios; embodiment unclear
+c03995|maybe|method|developer|LLM generates MARL reward functions for multi-agent formation control; platform unclear
+c11718|irrelevant|method|-|Legal document generation with fine-tuned LLMs; no embodiment
+c10099|irrelevant|survey|-|Survey of evolutionary computation for general-purpose AI systems; no embodiment
+c04295|irrelevant|method|-|Skeptical reasoning framework against visual deceptions; no embodiment
+c09654|irrelevant|method|-|Computer-use agent for BIM GUI operations; GUI agents excluded
+c05919|irrelevant|method|-|VLM code synthesis for 3D Blender reconstruction; no embodiment
+c05446|irrelevant|other|-|Multi-stage AI inference pipeline study; no abstract
+c12186|irrelevant|method|-|LLM reward design for clinical offline RL; no embodiment
+c12507|irrelevant|method|-|LLM agent for clustering; no abstract
+c09039|relevant|method|controller|LLM agents run closed-loop quantum lab experiments with instruments
+c12503|irrelevant|method|-|RL exploration for 3D game testing; no foundation model
+c06191|irrelevant|method|-|Multi-agent LLM workflows for genomic breeding analysis; no embodiment
+c03507|irrelevant|dataset|-|4D panoptic scene graph dataset and model; no agents or embodiment
+c03850|maybe|method|hierarchical|Hierarchical LLM sub-goals with RL executor; embodiment unclear
+c07816|irrelevant|benchmark|-|LLM multi-agent collaboration benchmark under partial observability; no embodiment
+c10694|irrelevant|method|-|Counterfactual reasoning for vision-language models; no abstract
+c10001|irrelevant|method|-|Generative agents for communication protocol design; no embodiment
+c05628|irrelevant|method|-|Outlier detection for multimodal analysis; no abstract
+c04712|irrelevant|method|-|Vision tasks learned from text-only supervision; no embodiment
+c10823|maybe|benchmark|multi-agent|LLM benchmark on multi-agent path finding grids; weak embodiment
+c06503|irrelevant|method|-|LLM script extraction from documents; no abstract
+c04362|irrelevant|other|-|Open-source 20B language model release; no embodiment
+c04642|irrelevant|method|-|IMU-based contrastive motion representation; no agentic embodiment
+c04672|maybe|method|other|Frozen language transformer as RL memory; Minigrid gridworlds, weak embodiment
+c07164|irrelevant|method|-|Skill lifecycle management for generic agentic RL; no embodiment
+c05482|maybe|method|multi-agent|VLM prompts predict human intention for manufacturing human-machine collaboration
+c10109|irrelevant|method|-|Self-evolving LLM agent skills from open-world resources; no embodiment
+c07127|irrelevant|method|-|Online RL for LLM agents with retrospective feedback; no embodiment
+c11739|irrelevant|method|-|Compressed image latents bridged to MLLMs; no abstract
+c06515|irrelevant|dataset|-|Dataset for autism evidence-based practice recommendation; no embodiment
+c09672|irrelevant|method|-|Prompt captions for knowledge-based VQA; no embodiment
+c07574|maybe|method|controller|Agentic control strategies for reactor validated in physics simulator
+c10846|maybe|method|multi-agent|LLM agent with human expert feedback in Minecraft tasks; weak embodiment
+c08946|irrelevant|survey|-|Survey of LLM-driven intent-aware wireless networking; no embodiment
+c08465|irrelevant|method|-|Failure attribution for multi-agent LLM traces; no embodiment
+c05570|irrelevant|method|-|LLM-driven PDDL planning with verifier agents; no embodiment
+c07487|maybe|benchmark|developer|Coding agents evolve RL policies in compact interactive environments; weak embodiment
+c08032|irrelevant|method|-|LLM agents for interactive explainable AI dialogue; no embodiment
+c05944|irrelevant|method|-|Programmatic RL with state-machine policies; no foundation model
+c08389|irrelevant|method|-|Mixture-of-encoders design study for MLLMs; no embodiment
+c07999|maybe|method|multi-agent|LLM multi-agent operational planning and adversarial simulation; embodiment unclear
+c05294|irrelevant|method|-|Viewpoint-invariant vision-language pretraining; no embodiment
+c04406|irrelevant|method|-|Multi-persona self-collaboration prompting for LLMs; no embodiment
+c11551|irrelevant|method|-|Research agent distilling repositories into skills; no embodiment
+c07277|irrelevant|method|-|Self-guided LLM search for reasoning tasks; no embodiment
+c12488|irrelevant|position|-|Architecture proposal for autonomous LLM agents; no embodiment
+c10097|maybe|method|developer|LLM reward design and explanations for RL agent actions; embodiment unclear
+c06548|irrelevant|method|-|Object box injection for video MLLM fine-tuning; no embodiment
+c11583|irrelevant|method|-|Multi-persona LLM agents for investment research; no embodiment
+c06512|irrelevant|method|-|Task partitioning for human-machine collaboration; no foundation model
+c04390|irrelevant|survey|-|Perspectives on LLMs for personalization; no embodiment
+c04609|irrelevant|method|-|LLM and MCTS for optimization model formulation; no embodiment
+c07539|maybe|method|other|MLLM XR collaboration with privacy filtering; AR/VR embodiment weak

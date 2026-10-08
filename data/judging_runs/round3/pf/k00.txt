@@ -1,0 +1,88 @@
+c11184|out|-|-|-|-|-|-|-|-|-|high|-|Position report on game-AI research directions; games and non-embodied, no robot agent.
+c09608|out|-|-|-|-|-|-|-|-|-|high|-|Review of 3D object detection with vision-language models; perception survey, no agent making embodied decisions.
+c03391|boundary|Controller|-|C|direct|micro-action|x1|E|other/sim|3|med|re-decide|VLM fine-tuned by RL emits CoT then text actions in simulated decision tasks; no robot body, so not core.
+c03747|core|Designer|-|G|-|code|x1|E|manip/sim|3|med|re-decide|LLM evolves reward observation space and writes reward code from success-rate tables; RL trains policies in simulation.
+c06533|out|-|-|-|-|-|-|-|-|-|low|-|Title only; multi-task policy learning from minimal supervision, no evident foundation-model agent.
+c12742|out|-|-|-|-|-|-|-|-|-|med|-|Title only; body-size affordance metric for object perception, no foundation-model agent.
+c06120|out|-|-|-|-|-|-|-|-|-|high|-|Video procedure planning with VLM text descriptions and diffusion planner; offline video benchmark, no embodied agent.
+c12167|out|-|-|-|-|-|-|-|-|-|low|-|Title only; foundation-model guidance for policy learning, no evidence of inspectable agent decisions.
+c06509|out|-|-|-|-|-|-|-|-|-|high|-|3D visual grounding network for keypoint and size regression; perception model, no foundation-model agent decisions.
+c03715|out|-|-|-|-|-|-|-|-|-|high|-|Text-conditioned offline meta-RL policy with contrastive embeddings on MuJoCo; no general foundation model emitting decisions.
+c05811|out|-|-|-|-|-|-|-|-|-|high|-|Visual adapter for 3D object language grounding on SNARE; perception model, no agent deciding actions.
+c05638|out|-|-|-|-|-|-|-|-|-|high|-|Attentive pooling for pre-trained visual features in reactive visuomotor policies; no foundation-model agent decisions.
+c11515|core|Designer|-|G|-|code|x1|E|loco/sim|3|med|re-decide|LLM evolves reward-assignment code for adversarial imitation, selected by policy performance; code trains simulated policies.
+c05447|out|-|-|-|-|-|-|-|-|-|low|-|Title only; ReAct-style LLM planning, likely text or web benchmarks rather than embodied robots.
+c09877|out|-|-|-|-|-|-|-|-|-|med|-|GPT-4 agents control smart streetlights in an IoT setting; no robot body, not embodied tasks.
+c12146|out|-|-|-|-|-|-|-|-|-|high|-|LLM emits scalar reward-shaping weights for cooperative MARL, an organ rather than decisions; no robot body.
+c04279|out|-|-|-|-|-|-|-|-|-|high|-|LLM supplies semantic features to hierarchical MARL for UAV edge resource allocation; no discrete LLM decisions and no embodied task.
+c06407|out|-|-|-|-|-|-|-|-|-|low|-|Title only; formal specification of LLM-agent behaviour, likely text or tool agents rather than embodied.
+c05474|out|-|-|-|-|-|-|-|-|-|high|-|LLM predicts continuous dynamics in context; numeric next-state predictions form a world model, not inspectable decisions.
+c08969|out|-|-|-|-|-|-|-|-|-|high|-|Text-adventure game with GPT-4 NPCs studying player-driven narrative; games and text worlds are out of scope.
+c06197|out|-|-|-|-|-|-|-|-|-|high|-|SBERT cosine similarity serves as reward for fluid-control RL; scalar reward organ, no LLM making decisions.
+c03792|out|-|-|-|-|-|-|-|-|-|med|-|Skill-library self-evolution for LLM agents evaluated on ALFWorld, WebShop, ScienceWorld; text and web worlds, no embodied robot.
+c03535|out|-|-|-|-|-|-|-|-|-|high|-|Survey of foundation models and LLM agents for materials science; subject is materials research, not embodied agents.
+c05931|core|Controller|-|G|orchestrator|skill-call|xR|H|manip/real|2|med|re-decide|Multi-agent LLM system writes gantry pick-and-place plans, refined with humans, executed on real hardware; human feedback closes loop.
+c07675|out|-|-|-|-|-|-|-|-|-|high|-|LLM agents with textual world model refine StarCraft II policies; games fall outside the embodied scope.
+c11661|out|-|-|-|-|-|-|-|-|-|med|-|MLLM infers spatial relations for 3D scene layout generation with imagine-and-revise loop; static layout synthesis, no embodied agent.
+c12385|out|-|-|-|-|-|-|-|-|-|med|-|VLM watches SMAC policy videos and recommends curricula; StarCraft game setting, games are out of scope.
+c09992|boundary|Controller|-|G|orchestrator|skill-call|xN|E|multi-robot/sim|2|low|re-decide|Title only; LLM agents plan and coordinate manufacturing tasks adaptively, likely discrete simulated production.
+c03928|out|-|-|-|-|-|-|-|-|-|low|-|VLM (Idefics-9B) trained as PPO policy in simulated visual-text environments, likely game or grid worlds; no robot body.
+c04299|out|-|-|-|-|-|-|-|-|-|med|-|LLM agents share intentions for cooperative MARL in simulated network domains; no robot body or physical embodiment.
+c09810|out|-|-|-|-|-|-|-|-|-|high|-|Minecraft human-demonstration dataset for fuzzy-task agents; Minecraft is a game, so out of scope.
+c05744|out|-|-|-|-|-|-|-|-|-|high|-|Active learning with reannotation for 3D VQA training; perception-level data selection, no agent acting in embodied tasks.
+c04828|out|-|-|-|-|-|-|-|-|-|med|-|Procedurally generated social-cognition environments for RL agents and LLMs; game-like testbed, no robot body.
+c04588|out|-|-|-|-|-|-|-|-|-|high|-|Philosophical argument on whether LLM-type models have semantic understanding; no agent or embodied task.
+c05994|out|-|-|-|-|-|-|-|-|-|high|-|Affordance-ranking perception model and dataset; no foundation-model agent making embodied decisions.
+c04397|out|-|-|-|-|-|-|-|-|-|med|-|Text-based science benchmark where agents act in an interactive text world; text worlds are out of scope.
+c06593|precursor|Controller|-|G|orchestrator|skill-call|x1|none|nav/sim|2|low|none|Title only; LLM chain-of-thought planner over a knowledge graph for rover operations, likely open-loop.
+c04602|out|-|-|-|-|-|-|-|-|-|med|-|LLM plans checked by formal methods with iterative prompting; automated-planning tasks, no embodied robot or simulator.
+c05971|out|-|-|-|-|-|-|-|-|-|med|-|LLM proposes barrier certificates refined by SMT verification; formal verification benchmark of dynamical systems, no embodied agent.
+c08602|out|-|-|-|-|-|-|-|-|-|med|-|[embodied-FM] CoT-reasoning driving model emitting control decisions end-to-end; reasoning VLA-style, action-producing.
+c03573|out|-|-|-|-|-|-|-|-|-|med|-|Real-time human-AI collaboration LLM agent with FSM code policies, in an Overcooked-style cooking game; out of scope.
+c10831|out|-|-|-|-|-|-|-|-|-|high|-|Self-evolving VLM agent for video QA and computer-use workspaces; no robot body or embodied control.
+c12091|out|-|-|-|-|-|-|-|-|-|med|-|Latent autoregressive reasoning policy for control; latent steps are not inspectable decisions, reactive-policy style.
+c10424|out|-|-|-|-|-|-|-|-|-|high|-|LLM agent teams in a competitive Minecraft benchmark; Minecraft is a game, so out of scope.
+c09457|out|-|-|-|-|-|-|-|-|-|high|-|Frozen LLM with sensor adapters for light-based localization and solar forecasting; numeric predictions, no agent decisions.
+c06100|out|-|-|-|-|-|-|-|-|-|high|-|LLM decomposes session feedback into scalar turn rewards for dialogue RL; organ-like reward model, non-embodied.
+c06299|out|-|-|-|-|-|-|-|-|-|low|-|Offline-trained LLM action generator for multi-agent decisions; closed-loop use not evident, benchmark domains unclear.
+c05673|out|-|-|-|-|-|-|-|-|-|high|-|VLM world-model image prediction and inverse-dynamics captioning for image editing; world-model scope, not an embodied agent.
+c04005|out|-|-|-|-|-|-|-|-|-|med|-|Knowledge-base adaptation for LLM agents evaluated on ScienceWorld text environment; text worlds are out of scope.
+c03970|out|-|-|-|-|-|-|-|-|-|high|-|Tutorial on LLM agents for smart-grid forecasting and optimization with solver grounding; power systems, no embodied robot.
+c09825|out|-|-|-|-|-|-|-|-|-|high|-|Instruction tuning MLLMs for object-orientation perception and a new benchmark; no agent or embodied action.
+c08344|out|-|-|-|-|-|-|-|-|-|high|-|Survey of LLMs in games; game domain is out of scope, not embodied robot agents.
+c07178|out|-|-|-|-|-|-|-|-|-|high|-|Benchmark of pre-trained visual representations for model-based RL; representation study, no foundation-model decisions.
+c04075|out|-|-|-|-|-|-|-|-|-|med|-|LLM workflow revision evaluated on filesystem, ALFWorld and AppWorld tasks; text and app environments, no robot body.
+c03727|out|-|-|-|-|-|-|-|-|-|med|-|LLM agent builds 3D story renderings via procedural modeling; graphics generation, no robot or embodied control.
+c04744|out|-|-|-|-|-|-|-|-|-|high|-|LLM narrative and NPC generation for role-playing video games; game domain, out of scope.
+c09710|out|-|-|-|-|-|-|-|-|-|high|-|LLM writes reward functions for game content-generation RL; game domain, out of scope.
+c06451|out|-|-|-|-|-|-|-|-|-|med|-|LLM sets highway variable speed limits from sensor data in traffic simulation; traffic control, not an embodied robot.
+c10598|out|-|-|-|-|-|-|-|-|-|high|-|LLM-generated intrinsic rewards with VAE novelty bonus in MiniGrid DoorKey; grid-world RL, out of scope.
+c03731|out|-|-|-|-|-|-|-|-|-|low|-|Egocentric multimodal LLM assistants instruct humans in cooking; wearable assistant, no robot body or agent-executed actions.
+c10808|precursor|Designer|-|G|-|code|x1|none|loco/sim|2|low|none|CoT LLM writes reward code for Bipedal Walker RL; abstract shows no iterative feedback, so loop open.
+c05641|precursor|Controller|-|G|orchestrator|skill-call|xN|none|multi-robot/real|2|low|none|LLM agents extend swarm-robot meta-actions for tabletop interaction; application demos, loop evidence not shown.
+c11672|out|-|-|-|-|-|-|-|-|-|low|-|Title only; LLM situation awareness from real-time environmental data, likely advisory, not embodied control.
+c07749|out|-|-|-|-|-|-|-|-|-|med|-|Position paper training pixel-based agents like LLMs in a 3D video game; game domain and reactive policy, out of scope.
+c07325|out|-|-|-|-|-|-|-|-|-|low|-|Title only; LLM reasoning for partner modelling in MARL, likely evaluated in game benchmarks, not embodied robots.
+c03822|out|-|-|-|-|-|-|-|-|-|high|-|Decision transformer with multimodal game instructions; small offline policy in game domains, out of scope.
+c03512|out|-|-|-|-|-|-|-|-|-|med|-|LLM agents build 3D meshes via Blender API trial-and-error; graphics asset generation, no robot or embodied control.
+c10886|out|-|-|-|-|-|-|-|-|-|med|-|MLLM spatial reasoning over video frames with BEV pose queries; VQA benchmarks, no robot body or physical action.
+c09494|out|-|-|-|-|-|-|-|-|-|med|-|LLM-augmented agents in Melting Pot multi-agent game scenarios; game and grid environments, out of scope.
+c09892|out|-|-|-|-|-|-|-|-|-|med|-|LLM subgoal hints shape model-based RL rollouts; HomeGrid, Crafter and Minecraft are grid or game environments.
+c03728|out|-|-|-|-|-|-|-|-|-|med|-|Multi-agent LLM generates symbolic world models checked by testing feedback; PDDL and code benchmarks, no embodied robot.
+c04122|out|-|-|-|-|-|-|-|-|-|low|-|Title only; theory-of-mind instruction inference in human-agent collaboration, likely game-based, not embodied robots.
+c06340|out|-|-|-|-|-|-|-|-|-|low|-|Title only; symbolic knowledge-based planning and object-oriented learning for cooking, no evident foundation model.
+c12356|out|-|-|-|-|-|-|-|-|-|med|-|LLM persona simulation of museum visitors for exhibition design; simulated audience, no robot body or physical embodiment.
+c03936|out|-|-|-|-|-|-|-|-|-|med|-|Oracle counterfactual study of LLM agents on procedurally generated game-like tasks; game and text environments, out of scope.
+c05086|out|-|-|-|-|-|-|-|-|-|low|-|LLM prompting for task knowledge given to an online task-learning agent; responses judged offline, no execution loop.
+c08599|out|-|-|-|-|-|-|-|-|-|high|-|CLIP-family scalar rewards train RL agents on visual goals; reward models are organs, not agent decisions.
+c07207|out|-|-|-|-|-|-|-|-|-|med|-|LLM agents interpret hand gestures for interaction and grounding; perception and HCI, no robot body or embodied control.
+c04266|core|Designer|-|G|-|code|x1|E|nav/sim|3|med|re-decide|LLM writes safety cost functions, iteratively refined from fast policy-performance evaluation; cost code trains safe RL policies in simulation.
+c03995|core|Designer|-|G|-|code|1:N|E|multi-robot/sim+real|2|med|re-decide|[sim2real] LLM writes and adjusts reward functions for MARL formation control; rewards train policies, validated in sim and real.
+c09039|out|-|-|-|-|-|-|-|-|-|low|-|LLM agents control quantum-processor lab instruments in closed loop; no robot body, so outside embodied scope.
+c03850|out|-|-|-|-|-|-|-|-|-|low|-|Hierarchical LLM subgoal generator with RL executor for multi-turn interactive tasks; no robot body, environments unclear.
+c10823|out|-|-|-|-|-|-|-|-|-|med|-|Title only; LLM benchmark on multi-agent path finding, an abstract planning problem rather than embodied control.
+c04672|out|-|-|-|-|-|-|-|-|-|high|-|Frozen language Transformer as RL history memory on Minigrid and Procgen; representation module, games and grids out of scope.
+c05482|out|-|-|-|-|-|-|-|-|-|med|-|VLM predicts human intention and motion for manufacturing digital twins; prediction only, no agent acting on a robot.
+c07574|out|-|-|-|-|-|-|-|-|-|med|-|[embodied-FM] domain-specific compact LM selects reactor actuation strategies via simulator closed loop; a control FM, not general-purpose.
+c10846|out|-|-|-|-|-|-|-|-|-|high|-|LLM agent learns when to ask human experts in Minecraft; Minecraft is a game, out of scope.
+c07487|resource|Developer|-|G|-|code|x1|E|other/sim|3|low|re-decide|Benchmark for LLM agents editing control-policy code under feedback budgets on compact RL environments; resource, not own method.

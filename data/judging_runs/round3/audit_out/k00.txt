@@ -1,0 +1,100 @@
+c03270|out|-|-|-|-|-|-|-|-|-|med|-|Taxonomy of Physical AI capability-formation sources across learning paradigms; not about general foundation-model agents acting in embodied tasks.
+c06717|out|-|-|-|-|-|-|-|-|-|high|-|Self-improving harness-and-weights loop evaluated on legal classification, GPU kernels and RNA denoising; no robot body or embodied task.
+c11658|out|-|-|-|-|-|-|-|-|-|high|-|Open-source robot I/O, teleoperation and data software framework for VLA deployment; no general foundation-model agent decisions.
+s03078|out|-|-|-|-|-|-|-|-|-|high|-|VLM fine-tuned to recognise assembly action elements from video, evaluated offline on VQA datasets; perception model, no agent or robot execution.
+s04621|out|-|-|-|-|-|-|-|-|-|high|-|LLM sportscaster generating match statistics and commentary from video; narration system, no robot control or embodied agent decisions.
+c02239|out|-|-|-|-|-|-|-|-|-|med|-|[embodied-FM] Foundation-model controller plus small verified safety module jointly producing robot actions; a policy architecture, not a general model acting through an agent interface.
+c02333|out|-|-|-|-|-|-|-|-|-|high|-|Minecraft multi-agent LLM framework and benchmark; game environment, not a robot body or physics-simulated embodied task.
+s06523|out|-|-|-|-|-|-|-|-|-|med|-|General survey of agentic AI foundations and taxonomy across domains; embodied agents are only one application, no embodied-agent subject or experiments.
+s07666|out|-|-|-|-|-|-|-|-|-|high|-|PEFT adaptation of SAM for robotic perception, evaluated mainly on segmentation benchmarks; perception model, no agentic decisions.
+s06504|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] VLA extension adding a tactile expert to pi0.5 for contact-rich manipulation; headline contribution is an action-producing embodied foundation model.
+c12909|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Force-aware VLA predicting motion goals and contact-force references for humanoid whole-body control; headline is an action-producing VLA.
+c11812|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Representation-steering method for flow-matching VLAs; headline contribution concerns controlling VLA behaviour, an embodied foundation model.
+c01708|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Dual-system 3D-aware VLA policy with point-action interaction evaluated on LIBERO and RLBench; headline is a VLA model.
+s03644|out|-|-|-|-|-|-|-|-|-|med|-|VLM refines open-vocabulary detection prompts for drone drop-zone safety maps; perception pipeline evaluated on a curated image dataset, not a closed-loop robot task.
+c08992|out|-|-|-|-|-|-|-|-|-|high|-|LLM code-synthesised abstract images and visual reasoning benchmark for multimodal models; no robot or embodied agent.
+c11278|out|-|-|-|-|-|-|-|-|-|high|-|VR-based humanoid teleoperation system with motion tracker and hand retargeter for demonstration collection; no foundation-model agent decisions.
+s00158|out|-|-|-|-|-|-|-|-|-|med|-|Conceptual residual-risk framework for agentic and embodied AI failure paths; analytical model with no foundation-model agent running on a robot.
+s07513|out|-|-|-|-|-|-|-|-|-|high|-|Latent world model forecasting future features for autonomous navigation; world model/prediction method, no agentic decisions.
+s06097|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Mask-prediction module providing auxiliary grounding while fine-tuning VLA and world-action models; headline concerns training robotic foundation models, no agent.
+c11787|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Skill-level episodic memory for diffusion-policy and VLA visuomotor models; headline is an action-producing embodied model with latent skills.
+c08960|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Video generative model and video-action model producing driving trajectories by imitation learning; world-model and embodied foundation model for driving.
+c09843|out|-|-|-|-|-|-|-|-|-|med|-|[embodied-FM] Safety benchmark and dataset evaluating eight VLAs and two embodied foundation models; subject is action-producing embodied models, not general-model agents.
+s01689|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] End-to-end VLA with keyframe evidence memory predicting keyframe probabilities from latents; a memory VLA, action-producing embodied model.
+s00134|out|-|-|-|-|-|-|-|-|-|high|-|Quantum-enhanced multi-agent RL for UAV swarm edge-inference routing; RL policies for network optimisation, no foundation-model agent controlling a robot.
+c03137|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Whole-body world-action model for legged mobile manipulation with video prediction and action heads; headline is a WAM.
+c09431|out|-|-|-|-|-|-|-|-|-|high|-|Object-centric point-tracking history representation for visuomotor manipulation policies; learned reactive policy, no foundation-model agent decisions.
+c07736|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Learned visual-token caching modules that accelerate VLA inference; headline contribution is an efficiency method for an action-producing embodied model.
+c07477|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Two-stage training that pretrains the VLA action module on motion priors for cross-embodiment manipulation; headline is VLA training.
+c10046|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] VLA foundation model with pruned flow-matching action expert for deformable-object folding; headline is an action-producing embodied foundation model.
+s10229|out|-|-|-|-|-|-|-|-|-|high|-|Survey of agentic AI for integrated sensing and communication networks; wireless-systems topic, no embodied foundation-model agent or robot experiments.
+s10804|out|-|-|-|-|-|-|-|-|-|high|-|Diffusion local navigation policy with visual history inside topological graph planning; trained visuomotor policy using only a VLM encoder, no agentic decisions.
+c09847|out|-|-|-|-|-|-|-|-|-|high|-|Action-conditioned discrete-diffusion world model with progress token as scalable robot-policy evaluation proxy; world model and scorer, no agent decisions.
+c11894|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Few-shot intent recognition for assistive teleoperation with intention expert and VLM-conditioned action expert; learned action-generating policy, no agent interface.
+s00057|out|-|-|-|-|-|-|-|-|-|high|-|General-purpose digital agent for an open agentic web; software and network collaboration, no robot body or embodied experiment.
+c12915|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] VLA with a compliance expert jointly predicting motion and stiffness for impedance control; headline is an action-producing VLA.
+c11266|out|-|-|-|-|-|-|-|-|-|high|-|Benchmark and training method for action-following in robotic world models; world-model and video-generation work, no foundation-model agent decisions.
+s00130|out|-|-|-|-|-|-|-|-|-|med|-|[embodied-FM] Deployment case study fine-tuning a pi0.5 VLA for a factory packaging task; subject is VLA data and fine-tuning workflow, not a general-model agent.
+s08449|out|-|-|-|-|-|-|-|-|-|high|-|Empirical behavioural-cloning study for connector insertion with force-torque and camera; small learned policy, no foundation-model agent.
+c03888|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Full-stack system pretraining a world-model-enhanced dexterous VLA from egocentric video; headline is an action-producing embodied foundation model.
+s05267|out|-|-|-|-|-|-|-|-|-|med|-|Object-path topological graph with fixed global planning and visual servoing for open-vocabulary navigation; representation and perception pipeline, no foundation-model decisions evident.
+c11923|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Value head guiding MCTS over VLA policy priors in LIBERO; the VLA acts and the value head is a scalar organ.
+c00532|out|-|-|-|-|-|-|-|-|-|high|-|LLM multi-agent coordination benchmark in cooking-game and Minecraft settings; game environments, not robots or physics-based embodied tasks.
+c03287|out|-|-|-|-|-|-|-|-|-|med|-|Assurance-oriented taxonomy and threat model for AI sandboxes across digital and cyber-physical systems; not about foundation-model agents acting on robots.
+c09388|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Dual-system video-diffusion policy with DiT action head conditioned on spatial-motion features; headline is an action-producing model.
+s06856|out|-|-|-|-|-|-|-|-|-|high|-|LLM drafts attack trees for security assessment of a healthcare quadruped; analysis aid, the LLM does not control the robot.
+s00592|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Compact VLA-style imitation policy (vision foundation model, VLM, DiT action expert) for laboratory tasks; headline is an action-producing model.
+s05050|out|-|-|-|-|-|-|-|-|-|high|-|Simulation-guided distillation of motion priors into action-conditioned robot world models; world-model learning, no agent decisions.
+c01558|out|-|-|-|-|-|-|-|-|-|med|-|Conceptual cognitive-architecture framework assigning event-dependent cognitive treatments; no foundation-model agent decisions or physical-robot headline experiment evident in the abstract.
+c03469|out|-|-|-|-|-|-|-|-|-|high|-|Position paper on out-of-distribution data in robot autonomy stacks; no foundation-model agent method or experiment.
+s09459|out|-|-|-|-|-|-|-|-|-|med|-|VLMs debate and arbitrate among code-enumerated candidate navigation actions for object navigation; candidate scoring with code-owned control flow, no closed loop on own decisions.
+c10935|out|-|-|-|-|-|-|-|-|-|high|-|Factorised action-camera-embodiment video world model that turns human egocentric clips into robot-domain rollouts; video generation, no foundation-model agent decisions.
+c04126|out|-|-|-|-|-|-|-|-|-|high|-|VLM-based egocentric hand-motion forecasting with an intermediate manipulation plan and motion generator; offline prediction on human video, no robot execution.
+s08739|out|-|-|-|-|-|-|-|-|-|med|-|Demo of a low-cost social robot whose LLM only drives conversation alongside touch-responsive movement and face tracking; no agentic robot decisions or experiment.
+s02261|out|-|-|-|-|-|-|-|-|-|high|-|Research statement on causal foundation world models; no specific embodied foundation-model agent method or experiment.
+c06268|out|-|-|-|-|-|-|-|-|-|med|-|ILP-based evolution of runtime safety rules for LLM tool-using agents; software-agent safety (commands, data leaks), no robot body evident.
+s08002|out|-|-|-|-|-|-|-|-|-|low|-|Generic decentralised LLM multi-agent communication protocol; embodied testbed is an apparently abstract drone search-and-rescue domain beside a non-embodied reasoning benchmark.
+s01348|out|-|-|-|-|-|-|-|-|-|high|-|LLM-backbone decision transformer fine-tuned with LoRA and critics to output UAV control actions; numeric offline-RL policy in a communication simulation, no agent interface.
+c11670|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Region-of-interest cropping pipeline giving egocentric hand-centric representations for VLA training data; headline concerns VLA inputs, no agent.
+s01698|out|-|-|-|-|-|-|-|-|-|med|-|Structured subtask-label representation with VLM-assisted rendering, rule checking and field completion for bimanual demonstrations; one-shot annotation and relabelling pipeline, not an acting agent.
+c01812|out|-|-|-|-|-|-|-|-|-|med|-|Optimistic bandit algorithm owns UAV viewpoint selection and treats VLM visibility verdicts and direction advice as a noisy expert; VLM holds no control authority.
+c12730|out|-|-|-|-|-|-|-|-|-|high|-|Causal-inference diagnostics plus hierarchical meta-RL for grasp failure recovery; learned policy with no foundation-model decision-maker.
+c02744|out|-|-|-|-|-|-|-|-|-|high|-|Graph-network semantic-geometric task representation forecasting future actions from bimanual demonstrations; learned representation model, no foundation-model agent.
+c00836|out|-|-|-|-|-|-|-|-|-|low|-|LLM multi-agent planner with tool calls and verification managing simulated agricultural tasks versus RL; no robot body, process simulation rather than embodied control.
+c04153|out|-|-|-|-|-|-|-|-|-|high|-|Control-sensitivity regularisation for latent dynamics models to improve OOD detection; world-model and failure-detector method with no foundation-model agent.
+c11410|out|-|-|-|-|-|-|-|-|-|med|-|[embodied-FM] No abstract; title indicates robot-centric pointmap input representation for VLAs, so headline is an action-producing embodied model.
+c04776|out|-|-|-|-|-|-|-|-|-|high|-|Stage-guided multi-sensory fusion for imitation-learned manipulation policies; reactive visuomotor policy with no foundation-model agent.
+c12896|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Latent-action pipeline for training annotation-efficient driving VLAs from unlabelled trajectories; headline is an action-producing driving VLA.
+c05923|out|-|-|-|-|-|-|-|-|-|high|-|LLM multi-agent code generation of traffic-prediction model architectures; software model design, not embodied robot control.
+c11824|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Staged training of a tiny 244M VLA with spatial distillation and demonstration-conditioned flow matching; headline is a compact action-producing VLA.
+s01728|out|-|-|-|-|-|-|-|-|-|med|-|World-model representation learning with agent-driven exploration and adaptive curriculum; latent task-sufficient states, no explicit foundation-model decisions or robot body evident.
+s09418|out|-|-|-|-|-|-|-|-|-|high|-|Routed MLLM reasoning pipeline for egocentric video question answering in a CVPR challenge; offline video understanding, no embodied acting.
+s02946|out|-|-|-|-|-|-|-|-|-|high|-|Auxiliary future-landmark tokens for data-efficient VLN policy training on R2R; trained observation-to-action navigation model, no agent decisions.
+s04280|out|-|-|-|-|-|-|-|-|-|med|-|Pilot user study of a home robot giving plant care and LLM-driven emotional-support dialogue to older adults; LLM only converses, no agentic robot decisions.
+c09961|out|-|-|-|-|-|-|-|-|-|med|-|Compliant end-effector-root whole-body controller distilled by teacher-student RL for humanoid loco-manipulation; low-level control interface, no foundation-model agent as headline.
+s07144|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Fine-tuned VLA with contact-aware tactile token gating for contact-rich manipulation; headline is an action-producing VLA.
+c01720|core|Controller|-|G|lifelong|skill-call|x1|E|manip/sim+real|3|med|re-decide|Training-free router selects among heterogeneous VLA, visuomotor and code policies from retrieved execution records, refined by structured feedback; sim and real manipulation.
+c12790|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Chunk-aware post-training quantisation of the diffusion action expert in pi0.5-style VLAs; headline is VLA compression, no agent.
+c07699|out|-|-|-|-|-|-|-|-|-|high|-|Theoretical essay on machine consciousness and the MEM cognitive architecture; conceptual comparison of LLMs, VLAs and embodied agents, no agent method or experiment.
+c06457|out|-|-|-|-|-|-|-|-|-|low|-|Literature review of NLP techniques for human-robot interaction (language interpretation, emotion detection); communication-focused survey, not about foundation-model agents acting in embodied tasks.
+s06671|out|-|-|-|-|-|-|-|-|-|high|-|Behavioural comparison of 18 VLMs with human scene descriptions testing the distributional hypothesis; offline scene-understanding study, no robot or agent.
+c03122|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] FiLM-based visual-tactile fusion fine-tuning for VLA policies; headline is an action-producing VLA extension.
+c12959|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Controlled study of VLA action-head design, scale and latency; subject is action-producing VLA architecture, not general-model agents.
+s07561|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Block-removal redundancy analysis of VLA models with a sensitivity metric; subject is VLA architecture, no agent.
+c08848|out|-|-|-|-|-|-|-|-|-|high|-|Hierarchical RL world model for visual whole-body humanoid control in simulation; trained control policy, no foundation-model agent.
+c02997|out|-|-|-|-|-|-|-|-|-|med|-|General survey of visual large language model applications across vision, action and language; not specific to embodied agents.
+c12592|out|-|-|-|-|-|-|-|-|-|med|-|Offline comparison of GraspMolmo and Gemini ER-1.5 grasp-point accuracy on an image dataset; grounding-model evaluation, no closed-loop robot execution.
+s00311|out|-|-|-|-|-|-|-|-|-|high|-|RAG-based health-education conversational agent for patients evaluated by usability study; no robot body or embodied control.
+c04907|out|-|-|-|-|-|-|-|-|-|med|-|VLM supplies terrain traversability estimates updated in-context from proprioception for planners on legged and wheeled robots; VLM acts as scorer, code planners decide.
+c12046|out|-|-|-|-|-|-|-|-|-|high|-|LLM-agent observe-reflect-decide-execute loop for age-of-information random access in wireless networks; network control, no robot body.
+s00325|out|-|-|-|-|-|-|-|-|-|high|-|Generative-AI-enhanced multi-agent DDPG for computation offloading in satellite-UAV 6G networks; resource orchestration, not embodied foundation-model agents.
+c02231|out|-|-|-|-|-|-|-|-|-|high|-|Two-level alignment to adapt diffusion policies to new environments without demonstrations; visuomotor policy adaptation, no foundation-model agent.
+s00547|out|-|-|-|-|-|-|-|-|-|low|-|Broad review of AI-assisted and autonomous surgical robotics; domain survey, not centred on general foundation-model agents acting in embodied tasks.
+c02964|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] MLLM plus diffusion world model that autoregressively predicts driving control signals and future frames; action-producing driving foundation model.
+c12877|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Simulation-trained residual RL on a frozen VLA's latents transferred to real robots; the VLA and RL residual policy act, no general-model agent.
+c06761|out|-|-|-|-|-|-|-|-|-|high|-|Self-evolving prompt agent optimising system prompts on math, reasoning and coding benchmarks; no robot body or embodied task.
+c06500|out|-|-|-|-|-|-|-|-|-|med|-|No abstract; title suggests a framework for spatially aware virtual embodied agents in XR, not a physical robot body.
+c13210|out|-|-|-|-|-|-|-|-|-|high|-|MCTS-based online POMDP solver with neural-process action filtering for mobile-robot object search; classical planning with no foundation-model decisions.
+s04616|out|-|-|-|-|-|-|-|-|-|med|-|Beam-search and Thompson-sampling framework for discovering interpretable VLM failure modes in driving and indoor robotics; red-teaming evaluation tool, not an embodied agent.
+c12621|out|-|-|-|-|-|-|-|-|-|high|-|User study of LLM-driven virtual instructor personalities in AR LEGO assembly; conversational AR agent, no robot body or embodied control.
+s10737|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Universal adversarial texture attack steering VLA action predictions across tasks; subject is VLA robustness, not general-model agents.

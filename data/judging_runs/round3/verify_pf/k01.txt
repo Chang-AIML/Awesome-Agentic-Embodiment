@@ -1,0 +1,24 @@
+c05893|boundary|Controller|-|G|orchestrator|skill-call|x1|E|mobile-manip/sim|2|high|re-decide|LLM decomposes instructions into behavior trees and repairs them on execution errors; evaluated only in AI2-THOR, a discrete simulator, so boundary.
+c10100|out|-|-|-|-|-|-|-|-|-|low|-|LLM-evolved reward functions for generic evolutionary RL; abstract names no robot body or embodied task, so not placed.
+c03994|precursor|Controller|Teacher|C|direct|micro-action|x1|M|aerial/sim+real|2|low|none|LLM generates AAV coverage paths, refined via MCTS with physics-informed rewards then distilled into Qwen3-4B; pre-execution checks only, no execution loop; precursor.
+c12198|out|-|-|-|-|-|-|-|-|-|med|-|LLM evolutionary search writes code rewards from expert trajectories for generic IRL on MuJoCo, BabyAI and AndroidWorld; not robot-focused, so out.
+c06519|boundary|Controller|-|G|direct|micro-action|xR|E|driving/sim|2|med|re-decide|Three LLM agents (enricher, driver, validator) generate and iteratively refine J-turn control parameters from CARLA outcomes; driving domain, so boundary.
+c07789|out|-|-|-|-|-|-|-|-|-|high|-|Evolves role prompts of LLM teams on ALFWorld and WebShop text environments; no robot body or physics, so out.
+c03490|out|-|-|-|-|-|-|-|-|-|med|-|LLM-written latent-reward code for credit assignment in generic episodic RL benchmarks; no robot body or embodied task in the abstract.
+c04434|out|-|-|-|-|-|-|-|-|-|high|-|Recursive LLM task decomposition evaluated on text-based ALFWorld, WebShop and TextCraft; text worlds and web tasks have no robot body, so out.
+c08304|out|-|-|-|-|-|-|-|-|-|high|-|Skill-library RL for LLM agents evaluated on ALFWorld, WebShop and search tasks; text and web environments without a robot body, so out.
+c05091|out|-|-|-|-|-|-|-|-|-|high|-|Question-answering belief construction for LLM agents on text-based AlfWorld and retrieval benchmarks; text world and RAG, no robot body, so out.
+c05246|out|-|-|-|-|-|-|-|-|-|med|-|MLLM orchestrates smart-home devices through MCP and REST APIs in a simulated home; API or tool agent without a robot body, so out.
+c06652|out|-|-|-|-|-|-|-|-|-|low|-|LLM agent with domain tools plans maglev train operation in a train-dynamics simulation; rail operations planning, not a robot body or embodied task.
+c12613|boundary|Controller|-|C|orchestrator|skill-call|1:N|E|multi-robot/sim|1|low|re-decide|LLM schedules multi-AUV data collection, iteratively refines solutions and re-plans on environment change; only abstract network simulation, so boundary.
+c04096|out|-|-|-|-|-|-|-|-|-|med|-|Few-shot LLM edits of ABB RAPID robot programs checked by a structural validator; no robot or physics execution and no closed loop, so out.
+c11233|resource|Controller|-|G|direct|micro-action|x1|E|driving/sim|1|low|none|Robustness study of black-box LLM planners in multi-agent driving; AST with MCTS searches prompt and sensor perturbations offline; testing method, planner is subject.
+c07264|out|-|-|-|-|-|-|-|-|-|low|-|LLM searches reward-function weights for a custom multi-objective RL task; abstract shows no robot body or physics simulation, so out.
+c12194|core|Designer|-|G|-|problem-spec|xR|E|manip/sim|2|high|re-decide|Ensemble of LLM oracles writes reward code, refined by in-context reflection on PPO training outcomes in Isaac Gym and Dexterity; Eureka-style Designer.
+c11116|out|-|-|-|-|-|-|-|-|-|low|-|LLM iteratively designs RL rewards for platoon coordination in a transportation-network simulation; network-level scheduling, not an embodied robot or vehicle-control experiment.
+c11592|precursor|Controller|-|C|direct|micro-action|xN|none|aerial/sim|1|low|none|Qwen-Math-7B fine-tuned with LoRA SFT and GRPO to output sUAS deconfliction maneuvers per step; reactive per-step decisions without own history; BlueSky air-traffic simulation.
+c06635|boundary|Controller|-|G|orchestrator|skill-call|x1|E|mobile-manip/sim|2|low|re-decide|No abstract; title implies LLM commonsense plus memory for object search in simulated interactive scenes; assumed agent loop in discrete simulator.
+c03884|out|-|-|-|-|-|-|-|-|-|med|-|Foundation models search reward functions for RL racing agents in the Gran Turismo 7 game; game environment, not a robot body, so out.
+c05146|out|-|-|-|-|-|-|-|-|-|high|-|RL credit-assignment method for language agents on ALFWorld, WebShop and ScienceWorld; text environments and a training algorithm, no robot body, so out.
+c05306|out|-|-|-|-|-|-|-|-|-|med|-|Bespoke trained encoder-predictor generates VirtualHome activity programs; not a general foundation-model agent and only a discrete simulator, so out.
+c05044|boundary|Developer|-|G|-|system-edit|x1|E|driving/sim|3|med|re-decide|LLM diagnoses and repairs motion-planner code from structured descriptions, iterating on evaluation of repaired planners; automated-vehicle simulation, so boundary.

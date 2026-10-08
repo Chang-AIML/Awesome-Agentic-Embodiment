@@ -1,0 +1,7 @@
+c00007|out|-|-|-|-|-|-|-|-|-|med|-|VLM only picks among code-sampled candidate actions marked on the image; code owns the refit loop; no authored options or control actions (authority fails).
+c00047|out|-|-|-|-|-|-|-|-|-|med|-|General sequence-completion capability study; robot parts are numeric trajectory extrapolation and CartPole, not inspectable agent decisions; embodied agency is not the headline.
+c00534|out|-|-|-|-|-|-|-|-|-|med|-|GPT-4 Turbo maps keypoint tokens to action sequences in context; direct waypoint/action-chunk output, an imitation policy with no discrete decisions or re-decision loop.
+c00368|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Frozen LLM with trained adapters, RL-trained to output environment actions directly: a visuomotor policy and benchmark, not an agent interface.
+s01639|core|Developer|-|G|-|system-edit|x1|E|other/sim|2|low|re-decide|LLM proposes policy parameters from its own history and episodic returns each iteration; privacy encoding wraps the API calls. Developer-style in-context policy search.
+c02731|out|-|-|-|-|-|-|-|-|-|low|-|[embodied-FM] Generalist hierarchical VLA system; contributions are multi-view reconstruction and governed memory for a planner emitting one-shot 3D end-effector paths, no re-decision loop.
+c06894|out|-|-|-|-|-|-|-|-|-|med|-|VLM retrieves clips from unlabelled human videos, then in-context KAT emits one-shot action trajectories; retrieval plus open-loop waypoint output, no feedback loop.
