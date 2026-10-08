@@ -6139,5 +6139,75 @@
   "citations": 14,
   "s2_date": "2025-08-02",
   "dblp": ""
+ },
+ "2412.10137": {
+  "arxiv_title": "Constraint-Aware Zero-Shot Vision-Language Navigation in Continuous Environments",
+  "published": "2024-12-13",
+  "updated": "2025-04-15",
+  "authors": [
+   "Kehan Chen",
+   "Dong An",
+   "Yan Huang",
+   "Rongtao Xu",
+   "Yifei Su",
+   "Yonggen Ling",
+   "Ian Reid",
+   "Liang Wang"
+  ],
+  "comment": "",
+  "journal_ref": "",
+  "primary_category": "cs.RO",
+  "verified": true,
+  "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+  "venue_name": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+  "citations": 77,
+  "s2_date": "2024-12-13",
+  "dblp": "journals/corr/abs-2412-10137"
+ },
+ "2506.14763": {
+  "arxiv_title": "RobotSmith: Generative Robotic Tool Design for Acquisition of Complex Manipulation Skills",
+  "published": "2025-06-17",
+  "updated": "2025-06-17",
+  "authors": [
+   "Chunru Lin",
+   "Haotian Yuan",
+   "Yian Wang",
+   "Xiaowen Qiu",
+   "Tsun-Hsuan Wang",
+   "Minghao Guo",
+   "Bohan Wang",
+   "Yashraj Narang",
+   "Dieter Fox",
+   "Chuang Gan"
+  ],
+  "comment": "",
+  "journal_ref": "",
+  "primary_category": "cs.RO",
+  "verified": true,
+  "venue": "Neural Information Processing Systems",
+  "venue_name": "Neural Information Processing Systems",
+  "citations": 10,
+  "s2_date": "2025-06-17",
+  "dblp": "conf/nips/LinYWQWGWNFG25"
+ },
+ "2507.16841": {
+  "arxiv_title": "AquaChat: An LLM-Guided ROV Framework for Adaptive Inspection of Aquaculture Net Pens",
+  "published": "2025-07-19",
+  "updated": "2025-07-19",
+  "authors": [
+   "Waseem Akram",
+   "Muhayy Ud Din",
+   "Abdelhaleem Saad",
+   "Irfan Hussain"
+  ],
+  "comment": "",
+  "journal_ref": "",
+  "primary_category": "cs.RO",
+  "verified": true,
+  "venue": "Aquacultural Engineering",
+  "venue_name": "Aquacultural Engineering",
+  "citations": 12,
+  "s2_date": "2025-07-19",
+  "dblp": "journals/corr/abs-2507-16841"
  }
 }

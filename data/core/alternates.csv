@@ -54,3 +54,16 @@ c02028,MotionDisco,Teacher,LLM 引导的进化搜索为人形极限动作生成�
 s08303,Lucida,Designer,VLM 经 GUI 操作组合出真实场景的仿真复本（Real2Sim）
 s01997,DREAM,Designer,部署时 real-to-sim 生成示范微调真机 VLA（Real2Sim2Real）
 s09723,GaP,Developer,多 agent 把策略写成计算图，仿真自学习后上真机（Real2Sim2Real）
+c02290,MoMa-LLM,Controller,2022–2025 候补先驱：动态场景图上 LLM 交互式搜索物体的移动操作 agent（真机，141 引）；与 SayPlan 同属场景图一支
+c00419,COHERENT,Controller,2022–2025 候补先驱：异构多机器人（机械臂、四足、无人机）由 LLM 分配并依反馈调整任务；多机器人已有 SMART-LLM、RoCo
+c00098,PRoC3S,Controller,2022–2025 候补先驱：LLM 写约束满足程序、无解时重提示；与 AutoTAMP、LLM3 同属 TAMP 一支
+c00299,LLM-GROP,Controller,2022–2025 候补先驱：LLM 给出物体摆放常识、TAMP 求解的移动操作重排（264 引，开环）
+c00051,Zero-Shot Trajectory Generators,Controller,2022–2025 候补先驱：GPT-4 一次写出末端轨迹（开环）；直接出动作一支已收 Prompt a Robot to Walk
+c00075,RoboTool,Controller,2022–2025 候补先驱：LLM 为创造性工具使用写计划与代码（开环）
+c00645,NLMap,Controller,2022–2025 候补先驱：可查询场景表示 + LLM 规划（2022，开环，269 引）
+c00669,GraphEQA,Controller,2022–2025 候补先驱：3D 场景图上实时具身问答（真机）；VLN 章已有 7 篇先驱
+gap:2412.10439,CogNav,Controller,2022–2025 候补先驱（第三轮补漏）：LLM 在认知状态间切换做物体目标导航，轮式与四足真机
+gap:2503.15202,Real-Time Failure Handling (VLM + BT),Supervisor,2022–2025 候补先驱（第三轮补漏）：GPT-4o 在行为树执行前后核验条件、失败时补前提与技能代码（真机）
+gap:2410.07408,Digital Cousins,Designer,2022–2025 候补先驱（第三轮补漏）：自动构建数字表亲做鲁棒策略学习；Real2Sim 只是子方向，先驱已收 3 篇
+gap:2502.04692,STRIDE,Designer,2022–2025 候补先驱（第三轮补漏）：LLM 自动设计奖励、训练与反馈的人形机器人流水线；Designer 先驱已有 Eureka 一支
+c03459,Reflective Planning,Controller,2022–2025 候补先驱：VLM 结合动力学模型反思式多阶段规划（2025，真机，60 引）

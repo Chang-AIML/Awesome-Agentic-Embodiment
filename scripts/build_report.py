@@ -926,6 +926,8 @@ def build_html(fontdir):
       f'<tr><td>data/core/fine_labels.csv</td><td>{c["judged"]:,} 篇的逐篇判定（pass 列标出判定轮次，prev 列保留被复核前的判定）</td></tr>'
       '<tr><td>data/core/extended_2026.csv、extended_2022_2025.csv</td><td>核心表之外、满足定义的 2026 年与 2022–2025 年论文（README 扩展列表）</td></tr>'
       '<tr><td>data/candidates/s2_sweep_2026.jsonl、s2_coarse_2026.csv</td><td>2026 年关键词检索结果与粗筛标签</td></tr>'
+      '<tr><td>data/core/pool_pre2026.jsonl、pool_prefilter.jsonl、data/screening/coarse_labels_completion.csv</td>'
+      '<td>覆盖补全的两个判定池与补粗筛标签（由 scripts/build_completion_pools.py 生成）</td></tr>'
       '<tr><td>data/core/gap_candidates.jsonl、gap2_ / gap3_candidates.jsonl</td><td>三轮联网补漏的结果</td></tr>'
       '<tr><td>docs/core_review.md</td><td>中文审阅清单</td></tr>'
       '<tr><td>docs/core_stats.md</td><td>按年份统计 seat 的全部数字</td></tr>'
