@@ -2,10 +2,14 @@
 """Merge stage-2 (fine) judgments from shard outputs into data/core/fine_labels.csv.
 
 Each shard output line: id|verdict|seat|seat2|carrier|sub|interface|topo|closure|body|rep|conf|reason
+Re-judging runs add a loop field before the reason (14 fields):
+    id|verdict|seat|seat2|carrier|sub|interface|topo|closure|body|rep|conf|loop|reason
+where loop is re-decide / authored / none (criteria_fine.md step A.3). Rows without it get
+re-decide for core and none for precursor (the strict first pass only admitted re-decision).
 Validates enums and completeness against data/core/pool.jsonl, and joins pool metadata plus the
 definition test-set placement (matched by arXiv id) for comparison.
 
-Usage: python3 scripts/merge_fine_labels.py <dir with *.txt shard outputs>
+Usage: python3 scripts/merge_fine_labels.py <dir> [<dir> ...]   (later dirs override earlier ones)
 """
 import csv, glob, json, os, re, sys
 
@@ -17,7 +21,9 @@ ENUM = dict(verdict={"core", "precursor", "boundary", "resource", "out"},
             carrier={"G", "C", "H", "I", "-"},
             sub={"orchestrator", "direct", "lifelong", "trained", "-"},
             rep={"1", "2", "3", "4", "5", "-"},
-            conf={"high", "med", "low"})
+            conf={"high", "med", "low"},
+            loop={"re-decide", "authored", "none", "-"})
+LOOPS = ENUM["loop"]
 
 
 def norm_arxiv(a):
@@ -29,14 +35,20 @@ def main():
     ts = {norm_arxiv(r["arxiv_id"]): r for r in
           csv.DictReader(open(os.path.join(ROOT, "docs/definition_testset_placements.csv")))}
     got, bad = {}, []
-    for path in sorted(glob.glob(os.path.join(sys.argv[1], "*.txt"))):
+    paths = [p for d in sys.argv[1:] for p in sorted(glob.glob(os.path.join(d, "*.txt")))]
+    for path in paths:
         for line in open(path):
             parts = [p.strip() for p in line.rstrip("\n").split("|")]
             if len(parts) < 13 or parts[0] not in pool:
                 if line.strip():
                     bad.append((os.path.basename(path), line.strip()[:80]))
                 continue
+            loop = None
+            if len(parts) >= 14 and parts[12] in LOOPS:
+                loop, parts = parts[12], parts[:12] + parts[13:]
             row = dict(zip(FIELDS, parts[:12] + ["|".join(parts[12:])]))
+            row["loop"] = loop or {"core": "re-decide", "precursor": "none"}.get(row["verdict"].lower(), "-")
+            row["pass"] = os.path.basename(os.path.dirname(path))  # which run produced this judgment
             row["verdict"] = row["verdict"].lower()
             row["seat"] = row["seat"].capitalize() if row["seat"] != "-" else "-"
             row["conf"] = row["conf"].lower().replace("medium", "med")

@@ -4,6 +4,9 @@ Main-text definition: `docs/definition.md`. This file is the compact rubric used
 from its title + abstract (+ your own knowledge of well-known papers). Judge what the abstract
 supports; when a detail is unclear, pick the most likely reading and lower `conf`.
 
+Revision 2026-10-08 (user decision): step A.3 accepts an **authored closed loop** as well as
+re-decision by the model. Papers first judged with the strict A.3 were re-judged with this version.
+
 ## Step A — is there an agent? (all three must hold)
 
 1. **Explicit decision**: the foundation model (LLM / VLM / VLA or a model trained from one) emits
@@ -15,11 +18,30 @@ supports; when a detail is unclear, pick the most likely reading and lower `conf
    options where at least one is a control action (stop / retry / replan / ask / keep-revert /
    switch between heterogeneous skills). Scoring code-enumerated candidates of one kind
    (frontiers, sampled points) while code owns the control flow does NOT count.
-3. **Closed loop**: within one run the model is called again with (i) its own earlier decisions and
-   (ii) evidence of their consequences from execution, tools, verifiers, training/eval stats, or a
-   human; and it can revise. Model-predicted consequences only (world-model imagination,
-   feasibility checks before execution) are not enough. One-shot plans or programs that are then
-   executed without re-calling the model fail this step.
+3. **Closed loop** — either form counts:
+   - **re-decide**: within one run the model is called again with (i) its own earlier decisions and
+     (ii) evidence of their consequences from execution, tools, verifiers, training/eval stats, or a
+     human; and it can revise.
+   - **authored**: the model writes an executable artifact (constraints, program, cost/objective for an
+     online optimizer, monitor conditions, success checks) that, while the body acts, reads live
+     perception and changes the behaviour according to the outcome — re-solving on tracked state,
+     moving to or backtracking between stages, recovery after a failed assertion, vetoing an unsafe
+     action, retrying after a failed success check. The outcome-dependent logic (conditions,
+     constraints, checks) must be written by the model; the trigger machinery (solver, backtracking,
+     retry loop) may be a fixed scaffold. Examples: ReKep (keypoint constraints re-solved at ~10 Hz,
+     backtracks when a path constraint breaks), VoxPoser (value maps drive closed-loop MPC robust to
+     perturbations), Code as Policies programs with perception feedback loops, ProgPrompt programs with
+     assertions and recovery actions, Language to Rewards (reward code optimised online by MPC),
+     OmniManip (constraints re-solved under 6D pose tracking), SUDD (LLM-written success checks trigger
+     retries while collecting data), RoboGuard-style LLM-written safety specs enforced at runtime.
+   - **Neither** (step fails): the artifact's content does not depend on the live state during
+     execution — a skill or landmark list, a one-shot grasp pose or waypoint sequence, a single plan
+     handed to skills that close their own loops (that loop is not authored by the model);
+     per-step reasoning that never sees its own earlier decisions (ECoT, pi0.5); consequences that are
+     only model-predicted before execution (world-model imagination, Text2Motion feasibility checks).
+   - For Designer and Developer the loop must still be closed by re-design / re-edit from training or
+     trial outcomes (Eureka iterates; one-shot reward or task code such as Text2Reward, RoboGen,
+     GenSim does not).
 
 ## Step B — verdict (pick one)
 
@@ -28,9 +50,9 @@ supports; when a detail is unclear, pick the most likely reading and lower `conf
   deviate for physical reasons (MuJoCo, Isaac, PyBullet, robosuite, LIBERO, ManiSkill, Habitat
   continuous nav, OmniGibson with motion-planned primitives); the agentic part is the paper's
   headline contribution.
-- **precursor**: Step A.1 and A.2 hold but A.3 fails (one-shot plan/program/constraint, per-step
-  decisions without own history, prediction-only checks), with a robot body. Typical: Code as
-  Policies, VoxPoser, ReKep, ProgPrompt, ZS-Planners, Socratic Models, ECoT, pi0.5, KnowNo, AutoRT,
+- **precursor**: Step A.1 and A.2 hold but A.3 fails (open-loop plan/program/constraint, per-step
+  decisions without own history, prediction-only checks), with a robot body. Typical: ZS-Planners,
+  Socratic Models, LM-Nav, TidyBot, CoPa, MOKA, Instruct2Act, SMART-LLM, ECoT, pi0.5, KnowNo, AutoRT,
   Text2Motion, Text2Reward, RoboGen, GenSim.
 - **boundary**: an agent holds but the best experiment is only in discrete/scripted simulation
   (ALFRED, AI2-THOR, VirtualHome, TEACh, TDW transport, R2R discrete graph, Habitat magic-grasp
@@ -71,6 +93,7 @@ supports; when a detail is unclear, pick the most likely reading and lower `conf
 - **topo**: `x1` single agent; `xR` several role agents on one task; `xN` one agent per robot;
   `1:N` one decider for many robots; `xO` many agents owning branches of a campaign.
 - **closure**: evidence the loop uses: `E` (execution), `H` (human), `E+H`, `M` (prediction only), `none`.
+- **loop** (only in re-judging runs): `re-decide`, `authored` or `none` (see step A.3); `-` for out.
 - **body**: `manip`, `mobile-manip`, `nav`, `loco`, `humanoid`, `aerial`, `multi-robot`, `driving`,
   `social`, `other`; append `/real`, `/sim` or `/sim+real`.
 - **rep** (1–5): how representative / important this paper is for its seat in a ~60-paper survey core
@@ -95,7 +118,8 @@ supports; when a detail is unclear, pick the most likely reading and lower `conf
 | GUAVA (frontier agent trajectories distilled into 4B agent) | core | Teacher (seat2 Controller) | G | - |
 | Eureka / DrEureka | core | Designer | G | - |
 | ENPIRE (coding agents edit robot policy code, keep/revert by real trials) | core | Developer | G | - |
-| Code as Policies / VoxPoser | precursor | Controller | G | direct |
+| Code as Policies / VoxPoser / ReKep (authored loop) | core | Controller | G | direct |
+| CoPa / MOKA (one-shot constraints or keypoints, open loop) | precursor | Controller | G | direct |
 | ECoT / pi0.5 | precursor | Controller | I | trained |
 | LLM-Planner on ALFRED, CoELA on TDW | boundary | Controller | G | - |
 | OpenVLA, pi0, RT-1, GR00T N1 | out | - | - | - |

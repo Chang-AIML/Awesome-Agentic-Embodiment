@@ -8,6 +8,11 @@
 > 2. 开环奠基作进入核心表，标为 **前驱（precursor）**；
 > 3. 核心集约 **60 篇**，benchmark 与资源另列一张表；
 > 4. 自动驾驶与离散仿真**不进核心**，只在边界一节讨论。
+>
+> 2026-10-08 用户追加的决策：
+> 5. 闭环判定（§2 第 3 条）承认**编写闭环**：模型写出的约束或程序在执行时读取实时感知、依据结果调整行为，即使模型不再被调用，也算 agent。ReKep、VoxPoser、Code as Policies 等因此进入核心。
+> 6. 核心表扩大到约 **100 篇**，并**聚焦 2026 年**：2026 年的论文进 CORE（约 75 篇）；2022–2025 年的代表作只简要提及，作为**先驱**（约 25 篇）。
+> 7. 新增 **Real2Sim / Sim2Real** 专题板块（§6.1），收 agent 搭建、校准、利用仿真并迁移到真机的工作。
 
 ---
 
@@ -35,8 +40,12 @@ carry it (**Carrier**).*
    - 备选项由模型自己生成，如计划、代码、调用参数。
    - 或者模型在选项中做选择，且其中至少有一个**控制行为**：stop、retry、replan、ask、keep / revert，或在异质 skill 之间切换。
    只在代码枚举的同类候选（哪个 frontier、哪个采样点）上打分，控制流归代码，不算。
-3. **闭环**：同一次运行中，模型至少被再次调用一次；再次调用时，输入里有它**自己先前的决策记录**和这些决策的**后果证据**，并且可以修订先前的决策。
-   后果证据须来自执行后的观测、工具返回、verifier 事件、训练或评测统计，或人类反馈。只来自模型自己的预测（world model、可行性检查）不够。
+3. **闭环**：满足下面两种形式之一。
+   - **再决策**（re-decide）：同一次运行中，模型至少被再次调用一次；再次调用时，输入里有它**自己先前的决策记录**和这些决策的**后果证据**，并且可以修订先前的决策。例：Inner Monologue、Code-as-Monitor。
+   - **编写闭环**（authored loop）：模型写出的可执行 artifact（约束、程序、在线优化的目标函数、监控条件、成功判据）在机器人执行时读取实时感知，并依据结果改变行为：重新求解、在阶段之间前进或回溯、断言失败后执行恢复动作、否决危险动作、检查失败后重试。随结果而变的那部分逻辑必须由模型写出；触发它的机制（求解器、回溯、重试循环）可以是固定框架。例：ReKep 的关键点约束以约 10 Hz 重新求解，路径约束被破坏时回溯到前一阶段；VoxPoser、Code as Policies（带感知反馈循环的程序）、ProgPrompt（带断言和恢复动作的程序）、Language to Rewards。
+   后果证据须来自执行后的观测、工具返回、verifier 事件、训练或评测统计，或人类反馈。只来自模型自己的预测（world model、执行前的可行性检查）不够。
+   **两种都不算**：artifact 的内容不随执行时的状态改变，例如一串技能名或地标、一次算出的抓取位姿或路点；一个计划交给各自闭环的技能去执行（那个环不是模型写的）；每步重新推理、但看不到自己先前决策的 VLA（ECoT、π0.5）。
+   Designer 和 Developer 的闭环仍要求依据训练或试验结果重新设计、重新修改（Eureka 迭代；一次写成的奖励或任务代码不算）。
 
 **三个常见误区**
 - RL 微调不等于 agency：SimpleVLA-RL 一类判 OUT。
@@ -93,7 +102,7 @@ carry it (**Carrier**).*
 Controller 在候选中占一半以上，正文按以下四类拆分：
 
 1. **编排型**（orchestrator）：调用 skill、tool 或 VLA-as-tool。例：SayCan、Harness VLA。
-2. **直接驱动型**（direct driver）：输出语义微动作、原生指令或当下执行的代码。例：Show-Harness、CaP-X。这一子章也承接 robot-use agent 社区的命名。
+2. **直接驱动型**（direct driver）：输出语义微动作、原生指令、当下执行的代码或约束。例：Show-Harness、CaP-X、ReKep。这一子章也承接 robot-use agent 社区的命名。子章内部按闭环形式再分两组：编写闭环（Code as Policies → VoxPoser → ReKep，模型写一次，程序或约束在执行中闭环）和再决策（CaP-X、Show-Harness，模型被反复调用）。
 3. **lifelong / memory 型**：评测期间写入并读取 memory、skill 库或 harness，越用越好。
 4. **训练过的 carrier**：Carrier 为 C / H / I。例：PaLM-E、Hi Robot、OneTwoVLA。
 
@@ -103,13 +112,25 @@ Controller 在候选中占一半以上，正文按以下四类拆分：
 
 | 层级 | 条件 | 去向 |
 |---|---|---|
-| **CORE** | 满足 §2 三条判定；有机器人身体；至少一个主要实验在真机或物理仿真中进行（失败可能由接触、滑动、碰撞等物理原因引起）；agentic 部分是论文 headline 的自变量 | 核心表 |
-| **PRECURSOR** | 奠基或高影响的工作，满足判定 1 和 2，但不满足闭环（判定 3）：一次写出程序或约束后模型不再被调用、每步决策但没有自身记录、或只有模型预测的后果 | 核心表，标 precursor，趋势统计时单列 |
+| **CORE** | arXiv 首版在 **2026 年**；满足 §2 三条判定；有机器人身体；至少一个主要实验在真机或物理仿真中进行（失败可能由接触、滑动、碰撞等物理原因引起）；agentic 部分是论文 headline 的自变量 | 核心表，按 Seat 分节 |
+| **先驱**（PIONEER） | arXiv 首版在 2022–2025 年的奠基作或代表作。满足 §2 三条判定的（如 SayCan、Code-as-Monitor、ReKep），和只满足判定 1、2 的开环工作（如 ZS-Planners、ECoT、π0.5）都可以收，用「闭环」一列区分 | 先驱表，按 Seat 简要列出 |
 | **BOUNDARY** | agent 成立，但只在离散或脚本化仿真中（ALFRED、AI2-THOR、VirtualHome、TDW、R2R 离散图、Habitat magic grasp）；或属于自动驾驶 | 边界一节讨论，lineage 表 |
 | **RESOURCE** | benchmark、testbed、能力研究，被测对象是 agent | 单独的资源表 |
 | **OUT** | 其余全部 | 不收录 |
 
-**PRECURSOR 的典型成员**：Code as Policies、VoxPoser、ReKep、ProgPrompt、Socratic Models、ZS-Planners（Language Models as Zero-Shot Planners）、ECoT、π0.5、KnowNo、AutoRT、Text2Motion。核心表只收其中约 6 篇最奠基的；其余不满足闭环的工作进入 lineage 表，或不收录。
+**先驱的典型成员**：满足闭环的有 SayCan、Inner Monologue、Code as Policies、VoxPoser、ReKep、PaLM-E、Eureka、Code-as-Monitor；不满足闭环、但开创了方向的有 ZS-Planners、Socratic Models、ECoT、π0.5、KnowNo。2026 年不满足闭环的论文不收录（或进 lineage 表）。
+
+### 6.1 Real2Sim / Sim2Real 专题板块
+
+agent 搭建、校准、利用仿真并把结果迁移到真机的工作，单独成节，但每篇仍标 Seat：
+
+| 方向 | 做什么 | 通常的 Seat |
+|---|---|---|
+| Real2Sim | 从真实视频、扫描或数据集构建可交互的仿真世界、资产、铰接结构与物理参数（system identification） | Designer（构建「题目」） |
+| Sim2Real | 设计 domain randomization、依据真机试验修正仿真器、把仿真中得到的技能或策略迁移并适配到真机 | Designer 或 Developer |
+| Real2Sim2Real | 在重建的仿真里练习、自我改进，再回到真机（如 RPG、SimEX） | Developer（修改「解法」），次 seat Designer |
+
+这类工作的评测（如 Video2World）进资源表，并在本节交叉引用。
 
 ---
 
@@ -136,7 +157,7 @@ Controller 在候选中占一半以上，正文按以下四类拆分：
 | Carrier | G / C / H / I；可用箭头表示迁移，如 GUAVA 记作 G→C |
 | Interface | skill-tool 调用 / VLA-as-tool / 微动作 / 代码 / 约束与 objective / verdict 与纠正 / 执行轨迹与 playbook / 问题规格（reward、env、task）/ 系统编辑 |
 | Topology | ×1 单 agent / ×R 多角色共享一个任务 / ×N 每个身体一个 agent / 1:N 一个决策者对多个身体 / ×O 多 agent 分头负责 |
-| Closure | 证据来源：E 执行观测、H 人类反馈；cadence：step / subgoal / episode / training-run / experiment |
+| Closure | 闭环形式：再决策 / 编写闭环；证据来源：E 执行观测、H 人类反馈；cadence：step / subgoal / episode / training-run / experiment |
 | Body | 形态与领域：manip / nav / mobile-manip / loco-humanoid / aerial / multi-robot；sim / real |
 
 harness 和 multi-agent 都不是类别：harness 属于 Interface，multi-agent 属于 Topology。
@@ -157,7 +178,7 @@ agency 没有从机器人身上迁走，而是在身体周围逐个占据新的 
 | 2025 | Teacher |
 | 2026 | 五个 seat 全部有人占据 |
 
-一个模型能不能坐进某个 seat，取决于它是否闭合了「带着自身记录、依据后果再决策」的环，与它是哪套权重、多大规模无关。
+一个模型能不能坐进某个 seat，取决于它的决策是否闭环：要么模型带着自身记录、依据后果再决策，要么它写出的约束或程序在执行时依据后果调整。这与它是哪套权重、多大规模无关。
 
 > 注：上述时间线与比例来自有偏的测试集（按方向搜集，2026 年偏多），**必须在最终核心集上重算**后才能写进正文。
 

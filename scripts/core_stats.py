@@ -3,7 +3,7 @@
 
 Counts core papers by arXiv v1 year, both by primary seat and all-seat (primary + secondary seats),
 plus carrier mix and the effective number of seats (exp of Shannon entropy of the all-seat counts).
-Precursors are reported separately and excluded from the core counts.
+Pioneers (2022-2025) are reported separately and excluded from the core counts.
 
 Usage: python3 scripts/core_stats.py   -> prints Markdown (redirect to docs/core_stats.md)
 """
@@ -43,14 +43,16 @@ def main():
     seat_table(fine, year)
     rows = list(csv.DictReader(open(os.path.join(ROOT, "data/core/core_table.csv"))))
     core = [r for r in rows if r["tier"] == "core"]
-    print(f"## B. Curated core table (n = {len(core)}; quota-driven, not trend evidence)\n")
+    print(f"## B. Curated core table (n = {len(core)}, all 2026; quota-driven, not trend evidence)\n")
     seat_table(core, year)
     car = Counter((r["seat"], r["carrier"].split("→")[0].strip()) for r in core)
     print("| Seat | " + " | ".join("GCHI") + " |\n|---|---|---|---|---|")
     for s in SEATS:
         print(f"| {s} | " + " | ".join(str(car[(s, k)] or "·") for k in "GCHI") + " |")
-    pre = Counter(year(r) for r in rows if r["tier"] == "precursor")
-    print("\nPrecursors by year: " + ", ".join(f"{y}: {n}" for y, n in sorted(pre.items())))
+    pre = Counter(year(r) for r in rows if r["tier"] == "pioneer")
+    print("\nPioneers by year: " + ", ".join(f"{y}: {n}" for y, n in sorted(pre.items())))
+    loop = Counter((r["tier"], r.get("loop", "")) for r in rows if r["tier"] in ("core", "pioneer"))
+    print("Loop form: " + ", ".join(f"{t}/{l}: {n}" for (t, l), n in sorted(loop.items())))
 
 
 if __name__ == "__main__":
