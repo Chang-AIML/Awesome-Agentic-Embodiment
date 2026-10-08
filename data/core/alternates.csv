@@ -1,7 +1,6 @@
 id,key,seat,why
 c01114,VoLo,Controller,VLM 把 VLA / WAM 当可中断工具编排；与 Tool-Aligned VLA、Physical Agency 同类
 c00145,ETA,Controller,逐次工具调用并核验的编排范式；与已收的编排型论文重合
-c00150,Astra Robot Agents,Controller,GPT-6 Astra 组合原语与 VLA 的 Python 单元；Astra 已有 XLeRobot 与 RoboDojo 两篇
 c01012,HODAgent,Controller,人形按需响应的 System-2 agent；人形已有 Cybo-Waiter、KPI、FRAMES
 c03135,BioProVLA-Agent,Controller,实验室自动化的协议驱动 VLA agent
 c00466,ROSClaw,Controller,OpenClaw 的 ROS 2 运行时，跨三种平台；Claw 系列已收 RoboClaw、ABot-Claw、AerialClaw
@@ -12,8 +11,6 @@ c01464,ManiSkillFormer,Controller,LLM agent 写几何契约组合技能（约束
 c02094,EmboAlign,Controller,VLM 写组合约束筛选视频生成的 rollout（约束编程，开环）
 c03118,BATON,Controller,coding agent 子任务探索与转移感知 memory
 c00969,RobotUse,Controller,计算、上下文与决策的分配；playbook 依经验更新
-c01196,Beyond Human Demos,Supervisor,LLM 写可执行护栏代码过滤危险指令（编写闭环）
-s07595,"When to Act, Ask, or Learn",Supervisor,VLM 验证者在动作样本中选择或请求澄清
 c01487,Local Recovery Supervision,Teacher,教师 agent 在失败状态生成恢复示范
 c00123,Agent-Guided RL,Teacher,多模态 agent 代替人类监督真机 RL
 s07174,EmbodiRSI,Teacher,递归自改进的纠正轨迹生成（Real2Sim2Real）
@@ -39,10 +36,6 @@ t298,NavHarness,Controller,终身导航 harness
 c07802,Contextual Uncertainty,Controller,Spot 上主动消解模糊任务的 LLM 策略
 s03025,EvolveNav,Controller,ObjectNav 的自进化 memory
 c01072,Being-0,Controller,人形 agent 先驱（2025）
-c04543,Open-Nav,Controller,开源 LLM 零样本 VLN-CE 先驱（2024）
-c00305,Safety Chip,Supervisor,LLM 把安全规范译为 LTL 约束运行时强制（2023）
-c00306,Manipulate-Anything,Teacher,VLM 验证的真机示范生成（2024）
-gap:2407.02666,VLM-PC,Controller,足式机器人技能重规划（2024）
 gap:2610.10498,EmbodiedRSI,Developer,自进化 harness 按信息价值选择物理实验并修改代码与技能（10 月 7 日新论文）
 gap:2605.09494,LASSA,Controller,LLM 在故障时为 AUV 重规划，求解器否决不可行输出；湖上试验，覆盖水下
 gap:2609.37067,FACT,Designer,agent 用证据-诊断-修订循环构建铰接孪生（Real2Sim，未涉及机器人策略）

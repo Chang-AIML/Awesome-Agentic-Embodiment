@@ -15,7 +15,8 @@
   3. 一张核心论文表，约 109 篇，每篇带结构化标签，见其 `assets/data/papers.json`；
   4. 一条主线，即 "dream less, act more"。
 - **用户的明确要求**：
-  - **聚焦 2026 年**：「很多范式在 2026 年都出来了」。2022–2025 年的奠基作与代表作作为先驱也要收。
+  - **研究对象是通用大模型做具身任务**：LLM / VLM（GPT、Gemini、Claude、Qwen-VL、GPT-6 Astra）作为 agent，可以出计划、调工具、写代码，也可以直接出动作。**具身大模型（VLA、分层 VLA、WAM、机器人基础模型）直接做动作的不收**，只能作为 agent 的工具出现。用户原话：「通用大模型做具身任务，而不是具身大模型直接做动作」；界线模糊时看模型是不是通用大模型，不看输出是计划还是动作。
+  - **故事不能只聚焦 2026**：2026 年论文最多，但 2022–2025 年的先驱非常重要，按 seat 讲「先驱 → 2026」的脉络。
   - **规模约 120 篇**，不是硬指标。不要把上万篇候选都细读，判定靠分批的子 agent。
   - 读摘要判相关性这类批量工作，用**最便宜的模型**（Haiku），否则太慢；凡是 Haiku 判为 core、前驱或边界的，再由 Sonnet 从头复核。
   - **拓宽眼界**：多收其他 agent 类型和身体形态（无人机、足式、人形、水下、太空、农业、手术、社交、多机器人）。
@@ -23,7 +24,7 @@
     - GUAVA（2606.18363）、Harness VLA（2607.08448）、Show-Harness（2609.10522）、ENPIRE（2606.19980）、Code-as-Monitor（2412.04455）；
     - ReKep（2409.01652）及「ReKep 这一类」；
     - Real2Sim 方向：RPG（2610.02204）、SimEX（2609.38982，robo-simex.github.io）、EmbodiedSmith（2610.07969）、Video2World（2610.04432，benchmark）；
-    - GPT-6 Astra 在 RoboDojo 上的评测（2609.24170）。
+    - GPT-6 Astra 在 RoboDojo 上直接当策略（2609.24170，Wenbo Zhang 等；用户举它说明「LLM 也可以直接做动作」）。
   - 用户认为 Code as Policies 是奠基作，「所有 agent 都得引它」。收集论文时，以它和其他奠基作的**被引列表**为主要来源。
 - 用户用中文交流，做 survey 的经验不多，需要给出明确建议，再请他们决策。
 
@@ -107,7 +108,9 @@
 
 **层级**：CORE（arXiv 首版 2026 年、满足判定、有身体、真机或物理仿真）、先驱（2022–2025 年的奠基作与代表作，开环的也收）、BOUNDARY（离散仿真、自动驾驶）、RESOURCE、OUT。VLN 章收以导航为主任务的 agent，2026 年须在连续环境或真机评测；R2R 离散图上的 NavGPT 一类只作先驱。
 
-**主线**：「Agency spreads around the body — and loop closure, not weights, makes a carrier an agent.」两个例外让少量开环论文进入核心（2026 年 2 篇：GTA-2、DREAM），主线措辞是否调整已在报告中询问用户（建议保留主线，把闭环一列当作 agency 的程度）。
+**范围（决策 12）**：先看模型是不是通用大模型。具身大模型直接出动作的不收：π0.5、ECoT、OneTwoVLA、MEM、Sentinel-VLA、Hi Robot、Steerable VLA、τ0-VLA、Gemini Robotics 1.5、PaLM-E、WAM 及其验证器（FAVOR）都已删除。调用冻结 VLA 的 agent（Harness VLA、Tool-Aligned VLA Agent、Robo-COP）保留。Carrier 因此只剩 G（原样使用）和 C（为 agent 角色微调，如 GUAVA 的学生、AgentVLN）；Controller 的「训练过的 carrier」子章取消。
+
+**主线**：原主线「…loop closure, not weights, makes a carrier an agent」随决策 12 失效，草案改为「Agency spreads around the body — general models, not embodied action models, fill seat after seat」，待用户确认。副轴是否从 Carrier 换成 Interface 也待用户决定。
 
 **趋势**（`docs/core_stats.md` A 部分，强模型判为 core 的 625 篇）：有效 seat 数 1.00（2022）→ 2.29（2023）→ 3.02（2024）→ 3.30（2025）→ 3.27（2026）；含 Controller 的论文占比 2023 年后在 65%–82%。2026 年是全量检索，2022–2025 年只含种子邻域与高被引论文，所以只比较各年内部结构。投稿前仍应按 `definition_draft.md` §10 做分层随机抽样验证。
 
@@ -136,7 +139,12 @@
 
 第 8 条有两种读法：只收执行中重解的（如 ReKep、OmniManip），或连一次求解的（CoPa、MOKA）也收。这里按后一种做，开环的用「闭环」一列标出，必要时可以按这一列筛掉。这一点已在报告里向用户说明。
 
-尚未回复的问题（见报告「需要你决定」）：主线措辞；是否收闭环驾驶 agent；是否开 PR 合并到 main。另有 13 个细节决策，见 `docs/definition_open_decisions.md`。
+**2026-10-08（第三轮，第三批）**
+
+12. **只收通用大模型做具身任务**：具身大模型（VLA、分层 VLA、WAM、机器人基础模型）直接出动作的工作全部删除；通用 LLM / VLM 直接出动作仍然算（如 2609.24170）。
+13. **故事不只聚焦 2026**：2022–2025 年的先驱非常重要，README、报告与正文都按 seat 先讲先驱再讲 2026。
+
+尚未回复的问题（见报告「需要你决定」）：主线措辞；副轴是否从 Carrier（只剩 G / C）换成 Interface；是否收闭环驾驶 agent；是否开 PR 合并到 main。另有 13 个细节决策，见 `docs/definition_open_decisions.md`。
 
 ---
 

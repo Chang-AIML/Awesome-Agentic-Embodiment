@@ -26,7 +26,7 @@ COLOR = {"Controller": "#2a78d6", "Supervisor": "#eb6834", "Teacher": "#1baf7a",
 INK, INK2, MUTED, GRID, BASE, SURFACE = "#0b0b0b", "#52514e", "#898781", "#e1e0d9", "#c3c2b7", "#fcfcfb"
 SEQ = ["#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5"]  # sequential blue steps 100/200/300/400
 NAMED = {"GUAVA", "Harness VLA", "Show-Harness", "ENPIRE", "Code-as-Monitor"}
-SUB_ZH = {"orchestrator": "编排型", "direct": "直接驱动型", "lifelong": "lifelong / memory 型", "trained": "训练过的 carrier"}
+SUB_ZH = {"orchestrator": "编排型", "direct": "直接驱动型", "lifelong": "lifelong / memory 型"}
 IFACE_ZH = {"skill-call": "技能调用", "vla-call": "VLA 调用", "micro-action": "语义微动作", "code": "代码",
             "constraint": "约束", "verdict": "裁决", "trace": "执行轨迹", "problem-spec": "问题规格",
             "system-edit": "系统编辑", "message": "消息", "-": "–", "": "–"}
@@ -46,7 +46,7 @@ def norm_arxiv(a):
     return re.sub(r"v\d+$", "", (a or "").strip().lower().replace("arxiv:", ""))
 
 
-STRONG = {"out", "recheck", "verify", "verify_s2", "recheck_r3b"}  # judging passes run with the strong model (see build_extended.py)
+STRONG = {"out", "recheck", "verify", "verify_s2", "recheck_r3b", "recheck_scope"}  # judging passes run with the strong model (see build_extended.py)
 
 
 def year_of(r):
@@ -99,6 +99,7 @@ def load():
             ver_core += h[k - 1][1] == "core"
             ver_core_kept += h[k - 1][1] == "core" and h[k][1] == "core"
     r3b = [r for r in fine if r.get("pass") == "recheck_r3b"]  # ReKep-type and agentic Real2Sim re-judged as agents
+    scope = [r for r in fine if any(p_ == "recheck_scope" for p_, _ in hist(r))]  # general vs embodied model (decision 12)
     strong26 = [r for r in fine if r["verdict"] == "core" and r.get("pass") in STRONG and year_of(r) == "2026"]
     ep = p("data/core/extended_2026.csv")
     n_ext = sum(1 for _ in csv.DictReader(open(ep))) if os.path.exists(ep) else 0
@@ -115,6 +116,8 @@ def load():
              s2_keep=s2_lab["relevant"] + s2_lab["maybe"], s2_pool=n_s2pool, judged=len(fine),
              ver=len(ver), ver_core=ver_core, ver_core_kept=ver_core_kept,
              strong26=len(strong26), ext=n_ext, r3b=len(r3b), r3b_core=sum(1 for r in r3b if r["verdict"] == "core"),
+             scope=len(scope), scope_out=sum(1 for r in scope if r["verdict"] == "out"),
+             scope_core_out=sum(1 for r in scope if r["verdict"] == "out" and len(hist(r)) > 1 and hist(r)[-2][1] == "core"),
              r3b_con=sum(1 for r in r3b if r["verdict"] == "core" and r["interface"] == "constraint"),
              r3b_r2s=sum(1 for r in r3b if r["verdict"] == "core" and re.match(r"\s*\[real2sim", r["reason"])))
     # trend corpus: every stage-2 core verdict in the judging pool
@@ -250,12 +253,15 @@ def fig_pipeline(c):
         (f"{c['r3b']:,}", "篇按新规则重判",
          f"「ReKep 这一类都算」和「agentic Real2Sim 都算」：命中约束 / 关键点或 Real2Sim 特征、之前未判 core 的论文由 Sonnet 重判，"
          f"{c['r3b_core']} 篇改判 core（约束编程 {c['r3b_con']}、Real2Sim {c['r3b_r2s']}）", "Sonnet"),
+        (f"{c['scope']:,}", "篇按范围重判",
+         f"只收通用大模型做具身任务：训练过的决策者与涉及 VLA / WAM 的论文由 Sonnet 重判，{c['scope_out']} 篇判为具身大模型等而排除",
+         "Sonnet"),
         (f"{c['gap1'] + c['gap2']}", "篇联网补漏",
          f"公认工作 {c['gap1']} 篇；2026 年少见身体形态、小 seat 与 Real2Sim {c['gap2']} 篇；全部经 arXiv 核验", "联网 agent"),
         (f"{c['strong26']}", "篇 2026 年 core",
          f"经 Sonnet 判定或复核为 core 的 2026 年论文；{t['core']} 篇进核心表，其余 {c['ext']} 篇列入 README 的扩展列表",
          "Sonnet"),
-        (f"{t['core']} + {t['pioneer']} + {t['resource']}", "2026 核心 + 先驱 + 资源",
+        (f"{t['pioneer']} + {t['core']} + {t['resource']}", "先驱 + 2026 + 资源",
          f"人工挑选；{c['verified']} 篇全部经 arXiv 核验，标题一致", "人工"),
     ]
     out = ['<div class="flow">']
@@ -273,13 +279,15 @@ def fig_flow():
     b = [box(20, 8, 330, 38, "一篇论文：标题 + 摘要", [], fill="#ffffff"),
          box(410, 8, 255, 38, "benchmark、数据集、能力研究 → 资源表", [], fill="#f4f3ef", title_size=10.5),
          arrow("M350,27 L407,27")]
-    qs = [("① 显式决策", ["输出可检查的离散决策：计划、技能 / 工具 / VLA", "调用、代码、约束、裁决、对系统的编辑"]),
+    qs = [("⓪ 通用大模型做具身任务", ["决策者是 LLM / VLM（GPT、Gemini、Claude、Astra），", "原样使用或为 agent 角色微调；直接出动作也算"]),
+          ("① 显式决策", ["输出可检查的决策：计划、技能 / 工具 / VLA", "调用、代码、约束、裁决、系统编辑或动作"]),
           ("② 决策权", ["自己写出选项；或在含 stop / retry / replan /", "ask 等控制行为的选项中做选择"]),
           ("③ 闭环（满足其一，或属两个例外）", ["再决策；或编写闭环（写的约束 / 程序依结果调整）。", "例外：约束编程、agentic Real2Sim 一次写成也收"]),
           ("④ 机器人身体与保真度", ["真机，或失败可能由物理原因引起的仿真", "（接触、滑动、碰撞）"])]
-    exits = [("OUT · 器官或执行器", ["反应式 VLA（OpenVLA、π0）、打分器 / 奖励", "模型、world model 预测（归 WAM）"], "#f4f3ef", BASE),
+    exits = [("OUT · 具身大模型", ["VLA、分层 VLA、WAM、机器人基础模型", "（π0.5、Hi Robot、MEM、PaLM-E）"], "#f4f3ef", BASE),
+             ("OUT · 器官", ["打分器、奖励 / 价值模型、一次性标注、", "world model 预测"], "#f4f3ef", BASE),
              ("OUT · 没有决策权", ["只给代码枚举的同类候选打分，", "控制流归代码（SG-Nav、PIVOT）"], "#f4f3ef", BASE),
-             ("先驱（若为 2025 年前的奠基作）", ["开环计划、无自身记录的逐步推理：", "ZS-Planners、Socratic、ECoT、π0.5"],
+             ("先驱（若为 2025 年前的奠基作）", ["开环计划、无自身记录的逐步推理：", "ZS-Planners、Socratic、KnowNo"],
               tint(MUTED, 0.16), MUTED),
              ("BOUNDARY · 边界", ["离散或脚本化仿真（ALFRED、AI2-THOR）、", "自动驾驶；进 lineage 表"], "#f4f3ef", BASE)]
     y = 66
@@ -290,7 +298,7 @@ def fig_flow():
         b.append(arrow(f"M350,{y + 32} L407,{y + 32}", "否", 372, y + 26))
         b.append(arrow(f"M185,{y + 64} L185,{y + 85}", "是", 193, y + 79))
         y += 88
-    b.append(box(20, y, 330, 64, "全部满足", ["arXiv 首版在 2026 年 → CORE（按 Seat 分节）", "2022–2025 年的代表作 → 先驱"],
+    b.append(box(20, y, 330, 64, "全部满足", ["2022–2025 年的代表作 → 先驱；2026 年 → 2026 论文", "两者按 Seat 一起讲「先驱 → 2026」"],
                  fill=tint(COLOR["Controller"], 0.12), stroke=COLOR["Controller"]))
     return svg(W, y + 70, "".join(b), "agent 判定流程图", width="88%")
 
@@ -328,42 +336,41 @@ def fig_seats(rows):
 
 
 def fig_grid(rows):
-    core = [r for r in rows if r["tier"] == "core"]
-    cells = defaultdict(list)
-    for r in core:
-        cells[(r["seat"], r["carrier"].split("→")[0].strip())].append(r)
-    heads = [("G", "作者未做具身训练的通用模型"), ("C", "训练过的决策者 + 通用执行器"),
-             ("H", "训练过的决策者 + 协同设计的执行器"), ("I", "同一个模型既决策又出动作")]
-    bins = [(1, 2, SEQ[0]), (3, 5, SEQ[1]), (6, 9, SEQ[2]), (10, 999, SEQ[3])]
+    """Seat x period: pioneers (2022-2025) next to 2026, with the strongest examples of each cell."""
+    heads = [("pioneer", "先驱 · 2022–2025", "每个 seat 的源头"), ("core", "2026", "范式铺开的一年")]
+    bins = [(1, 2, SEQ[0]), (3, 5, SEQ[1]), (6, 12, SEQ[2]), (13, 999, SEQ[3])]
     fill = lambda n: next(c for lo, hi, c in bins if lo <= n <= hi)
     out = ['<table class="grid"><tr><th class="seatcol">Seat</th>']
-    out += [f'<th><b>{k}</b><br><span>{esc(d)}</span></th>' for k, d in heads] + ['<th class="tot">合计</th></tr>']
+    out += [f'<th><b>{t}</b><br><span>{esc(d)}</span></th>' for _, t, d in heads] + ['<th class="tot">合计</th></tr>']
     for s in SEATS:
         out.append(f'<tr><td class="seatcol"><span class="sw" style="background:{COLOR[s]}"></span>'
                    f'<b>{s}</b><br><span class="zh">{SEAT_ZH[s]}</span></td>')
-        for k, _ in heads:
-            xs = sorted(cells[(s, k)], key=lambda r: (not r["named"], -(r["cites"] or 0)))
+        tot = 0
+        for tier, _, _ in heads:
+            xs = sorted([r for r in rows if r["tier"] == tier and r["seat"] == s],
+                        key=lambda r: (not r["named"], -(r["cites"] or 0)))
+            tot += len(xs)
             if not xs:
                 out.append('<td class="empty">·</td>')
                 continue
             f = fill(len(xs))
-            names = "、".join(r["key"] + (" ★" if r["named"] else "") for r in xs[:2]) + ("…" if len(xs) > 2 else "")
-            mig = sum(1 for r in xs if "→" in r["carrier"])
-            extra = f"<br>含 {mig} 篇 G→C 迁移" if mig else ""
+            names = "、".join(r["key"] + (" ★" if r["named"] else "") for r in xs[:3]) + ("…" if len(xs) > 3 else "")
+            ft = sum(1 for r in xs if r["carrier"].split("→")[-1].strip() == "C")
+            extra = f"<br>其中 {ft} 篇为微调过的通用模型（C）" if ft else ""
             out.append(f'<td style="background:{f};color:{on(f)}"><b class="n">{len(xs)}</b>'
                        f'<span class="ex">{esc(names)}{extra}</span></td>')
-        out.append(f'<td class="tot">{sum(len(cells[(s, k)]) for k, _ in heads)}</td></tr>')
+        out.append(f'<td class="tot">{tot}</td></tr>')
     out.append("</table>")
     out.append('<div class="binlegend">篇数：' + "".join(
         f'<span><i style="background:{c}"></i>{lo}–{hi}</span>' if hi < 999 else f'<span><i style="background:{c}"></i>≥{lo}</span>'
-        for lo, hi, c in bins) + '<span>★ 用户点名</span></div>')
+        for lo, hi, c in bins) + '<span>★ 用户点名；计数含 Real2Sim 与 VLN 两章</span></div>')
     return "".join(out)
 
 
 def lanes_core():
     lanes = [(("Controller", SUB_ZH[s].replace(" / memory", "")), "Controller",
               lambda r, s=s: r["tier"] == "core" and r["seat"] == "Controller" and r["sub"] == s)
-             for s in ("orchestrator", "direct", "lifelong", "trained")]
+             for s in ("orchestrator", "direct", "lifelong")]
     lanes += [((s, SEAT_ZH[s]), s, lambda r, s=s: r["tier"] == "core" and r["seat"] == s) for s in SEATS[1:]]
     return lanes
 
@@ -530,9 +537,11 @@ def table_core(rows, title, pred, show_seat=False):
     return "".join(out)
 
 
-def table_pioneers(rows):
-    xs = sorted([r for r in rows if r["tier"] == "pioneer"], key=lambda r: (SEATS.index(r["seat"]), r["date"]))
-    out = [f'<h3>先驱 · 2022–2025（{len(xs)}）</h3><table class="tbl"><colgroup><col style="width:17%"><col style="width:6%">'
+def table_pioneers(rows, title="先驱 · 2022–2025", pred=lambda r: True):
+    xs = sorted([r for r in rows if r["tier"] == "pioneer" and pred(r)], key=lambda r: (SEATS.index(r["seat"]), r["date"]))
+    if not xs:
+        return ""
+    out = [f'<h3>{esc(title)}（{len(xs)}）</h3><table class="tbl"><colgroup><col style="width:17%"><col style="width:6%">'
            '<col style="width:11%"><col style="width:8%"><col style="width:9%"><col></colgroup>'
            '<tr><th>短名</th><th>年份</th><th>Seat</th><th>Carrier</th><th>闭环</th><th>为什么列为先驱</th></tr>']
     for r in xs:
@@ -667,50 +676,57 @@ def build_html(fontdir):
     # ---------------------------------------------------------- page 1: summary
     a('<h1>Agentic Embodiment 综述 · 第三轮进展</h1>')
     a('<div class="sub">聚焦 2026：定义、分类与核心论文表 · 2026-10-08 · 分支 claude/jolly-thompson-g43dno</div>')
-    a('<div class="defn"><b>一句话定义</b>　Agentic Embodiment 研究由基础模型驱动、做出显式决策的过程：决策的后果作用到机器人身体上，'
-      '过程再依据后果的证据重新决策。全文围绕一个问题组织：这个过程相对于机器人部署的策略坐在哪里（<b>Seat</b>），'
-      '由哪类权重承载（<b>Carrier</b>）。'
-      '<div class="en">Agentic Embodiment studies foundation-model-driven processes that make explicit decisions whose consequences '
-      'reach a robot body, and that re-decide on evidence of those consequences. Its organizing question is where such a process '
-      'sits relative to the body\'s deployed policy — steering it, guarding it, teaching it, designing its learning problem, or '
-      'building its system (Seat) — and which weights carry it (Carrier).</div></div>')
-    a('<div class="thesis">主线：Agency spreads around the body — and loop closure, not weights, makes a carrier an agent.</div>')
-    a('<p class="note">agency 没有离开机器人，而是在身体周围占据越来越多的位置；一个模型算不算 agent，取决于它的决策是否闭环'
-      '（模型自己带着记录再决策，或它写出的约束、程序在执行时依据后果调整），而不是它用的是哪套权重。</p>')
-    kpis = [(f"{n_core}", "篇 2026 年<br>核心论文"), (f"{n_pio}", "篇先驱<br>（2022–2025）"),
+    a('<div class="defn"><b>一句话定义</b>　Agentic Embodiment 研究通用基础模型（LLM / VLM，而不是具身动作模型）作为 agent 做出的显式决策：'
+      '决策的后果作用到机器人身体上，agent 再依据后果的证据重新决策。全文围绕一个问题组织：这个 agent 相对于机器人部署的策略坐在哪里'
+      '（<b>Seat</b>）。'
+      '<div class="en">Agentic Embodiment studies general-purpose foundation models — LLMs and VLMs, not embodied action models — '
+      'acting as agents that make explicit decisions whose consequences reach a robot body, and that re-decide on evidence of those '
+      'consequences. Its organizing question is where such an agent sits relative to the body\'s deployed policy — steering it, '
+      'guarding it, teaching it, designing its learning problem, or building its system (Seat).</div></div>')
+    a('<div class="thesis">主线（草案，待你确认）：Agency spreads around the body — general models, not embodied action models, '
+      'fill seat after seat.</div>')
+    a('<p class="note">研究对象是通用大模型做具身任务；agency 没有离开机器人，而是从 2022 年的先驱开始，在身体周围逐个占据新的位置，'
+      '到 2026 年铺满五个 seat。具身大模型（VLA、WAM）直接出动作的路线不收，只作对照。</p>')
+    kpis = [(f"{n_pio}", "篇先驱<br>（2022–2025）"), (f"{n_core}", "篇 2026 年<br>论文"),
             (f"{len(r2s)}", "篇 Real2Sim /<br>Sim2Real 章"), (f"{len(vln)}", "篇 VLN /<br>具身导航章"), (f"{n_res}", "个 benchmark<br>与资源"),
             (f"{c['verified']}/{len(rows)}", "篇经 arXiv 核验<br>（标题全部一致）")]
     a('<div class="kpis">' + "".join(f'<div class="kpi"><div class="v">{k}</div><div class="l">{l}</div></div>' for k, l in kpis)
       + '</div>')
     a('<div class="callout"><h3>这一轮按你的意见做的改动</h3><ul>'
+      f'<li><b>只收通用大模型做具身任务</b>：VLA、分层 VLA、WAM、机器人基础模型直接出动作的工作全部删除，它们只作为 agent 调用的工具出现。'
+      f'Sonnet 按新范围重判了 {c["scope"]} 篇训练过的决策者与涉及 VLA / WAM 的论文，{c["scope_out"]} 篇因此排除。'
+      '通用模型直接出动作仍然算：GPT-6 Astra 在 RoboDojo 上直接当策略的工作（Wenbo Zhang 等）已从资源表移进「直接驱动型」。</li>'
+      f'<li><b>故事不只聚焦 2026</b>：每个 seat 先讲先驱（2022–2025），再讲 2026；先驱现在 {n_pio} 篇，补进了 Socratic Models、'
+      'ChatGPT for Robotics、Language to Rewards、GPT-4V 闭环规划、RoboGen、GenSim、Text2Reward、AutoRT 等。</li>'
       f'<li><b>ReKep 这一类都算 agent</b>：VLM 写出约束、关键点、可供性或代价函数交给求解器执行的工作一律收录；执行中依跟踪状态重解的'
       f'记「编写闭环」，一次求解的记「开环」。先按「编写闭环」规则复核了 {c["recheck"]} 篇原「前驱」（{c["recheck_core"]} 篇改判 core），'
       f'再按「这一类都算」重判了 {c["r3b"]:,} 篇相关论文，{c["r3b_con"]} 篇约束编程类改判 core。</li>'
       f'<li><b>agentic Real2Sim 都算</b>：agent 重建机器人操作场景（3D 场景、资产、铰接、物理参数、仿真代码）的工作直接进核心，'
       f'归 Designer；重判后 {c["r3b_r2s"]} 篇 Real2Sim 论文改判 core。Real2Sim / Sim2Real 章共 {len(r2s)} 篇，'
-      '含你点名的 RPG、SimEX、EmbodiedSmith；Video2World 和 GPT-6 Astra 的 RoboDojo 评测进资源表。</li>'
+      '含你点名的 RPG、SimEX、EmbodiedSmith；Video2World 进资源表。</li>'
       f'<li><b>VLN 单独成章</b>：2026 年 {len(vln)} 篇导航 agent 单列一章，另有 {len(vln_pio)} 篇早期 VLN agent 作为先驱。</li>'
-      f'<li><b>扩到约 120 篇，聚焦 2026</b>：2026 年核心 {n_core} 篇，2022–2025 年的奠基作与代表作作为先驱 {n_pio} 篇，'
-      f'另有资源 {n_res} 个。本轮新增 {c["new"]} 篇（附录中标「新」）。</li>'
+      f'<li><b>规模约 120 篇</b>：先驱 {n_pio} 篇 + 2026 年 {n_core} 篇，另有资源 {n_res} 个。本轮新增 {c["new"]} 篇（附录中标「新」）。</li>'
       f'<li><b>全面检索 2026 年</b>：不再只靠种子论文的引用。收割候选里全部 2026 年论文都逐篇判定，又用 Semantic Scholar '
       f'关键词检索补了 {c["s2_screen"]:,} 篇没引用种子的新论文；Haiku 初判、Sonnet 复核后，2026 年共有 {c["strong26"]} 篇满足定义。'
       f'核心表收 {n_core} 篇，其余 {c["ext"]} 篇按 seat 列在 README 的「More 2026 papers」里。</li>'
       f'<li><b>拓宽范围</b>：2026 核心覆盖 {body_txt}。</li></ul></div>')
     a('<div class="callout ask"><h3>需要你决定</h3><ol>'
+      '<li><b>主线的措辞</b>：只收通用大模型之后，原主线里的「not weights」不再成立。候选：'
+      '「Agency spreads around the body — general models, not embodied action models, fill seat after seat」；'
+      '或「General models become embodied agents through the loops built around them」。</li>'
+      '<li><b>副轴</b>：Carrier 只剩 G（原样使用）和 C（为 agent 角色微调）两类，信息量很小。建议改用 Interface（技能调用 / 冻结 VLA / '
+      '代码 / 约束 / 直接动作 / 问题规格 / 系统编辑）做副轴。</li>'
       '<li><b>审阅新增论文</b>：附录 A 中标「新」的论文都是这一轮加入的，有不同意的告诉我。</li>'
-      f'<li><b>主线的措辞</b>：两个例外让 {len(open_core)} 篇开环论文进了 2026 核心，「loop closure makes a carrier an agent」'
-      '不再严格成立。建议保留主线，把「闭环」一列写成 agency 的程度（开环 → 编写闭环 → 再决策），正文说明两个例外；'
-      '也可以改成「explicit decisions with authority make an agent; loop closure grades it」。</li>'
       '<li><b>自动驾驶</b>：按你第一次的决定，自动驾驶仍只在边界一节讨论。你说「很多别的 embodiment 都可以放进去」，'
       '如果也想收闭环驾驶 agent，我可以单独补一组。</li>'
       '<li><b>合并到 main</b>：所有内容目前在工作分支上，需要的话我开 PR。</li></ol></div>')
 
     # ---------------------------------------------------------- 1 pipeline
     a('<div class="section"><h2>1　这一轮做了什么</h2>')
-    a('<p>第一轮收割了 14 篇种子论文的前向引用，并做了粗筛和短名单；第二轮逐篇判定并挑出了第一版核心表。这一轮按你的意见改了闭环判定、'
-      '把重心移到 2026 年，并对 2026 年做了全量检索：收割候选中的 2026 年论文全部判定，再用关键词检索补上没引用种子的论文；'
-      '另有两轮联网搜索。之后按「ReKep 这一类都算」「agentic Real2Sim 都算」重判了相关论文，并把 VLN 单列一章。'
-      '下图是完整的筛选漏斗，右栏标出每一步由谁完成。</p>')
+    a('<p>第一轮收割了 14 篇种子论文的前向引用，并做了粗筛和短名单；第二轮逐篇判定并挑出了第一版核心表。这一轮按你的意见改了闭环判定，'
+      '对 2026 年做了全量检索（2026 年论文最多）：收割候选中的 2026 年论文全部判定，再用关键词检索补上没引用种子的论文；'
+      '另有两轮联网搜索。之后按「ReKep 这一类都算」「agentic Real2Sim 都算」重判了相关论文，把 VLN 单列一章，'
+      '最后按「只收通用大模型」删去具身大模型，并补全 2022–2025 年的先驱。下图是完整的筛选漏斗，右栏标出每一步由谁完成。</p>')
     a(f'<figure>{fig_pipeline(c)}<figcaption><b>图 1　筛选漏斗。</b>引用收割只能找到引用了种子论文的工作，'
       '很多 2026 年的新论文不在里面，所以加了 2026 年关键词检索和两轮联网搜索。批量判定用便宜的 Haiku，凡是 Haiku 判为 core、'
       '前驱或边界的都由 Sonnet 从头重判；核心表的论文都用 arXiv API 核对过编号和标题。</figcaption></figure>')
@@ -730,10 +746,11 @@ def build_html(fontdir):
 
     # ---------------------------------------------------------- 2 definition
     a('<div class="section"><h2>2　定义：什么算 agent</h2>')
-    a('<p>判定对象是「模型 + harness + 环」构成的过程，不是权重本身。同一族小模型放进 GUAVA 的 harness 里是 agent，'
-      '在 Show-Harness 的单 token 模式下就只是反应式策略。下图是逐篇判定时的顺序：</p>')
-    a(f'<figure>{fig_flow()}<figcaption><b>图 2　agent 判定流程。</b>①–③ 是三条 agent 判定，必须全部满足；'
-      '④ 决定进核心还是只作边界讨论。最后按 arXiv 首版年份分为 2026 核心和先驱。</figcaption></figure>')
+    a('<p>先看<b>模型是什么</b>：研究对象是通用大模型（LLM / VLM）做具身任务，它可以出计划、调工具、写代码，也可以直接出动作；'
+      '具身大模型（VLA、分层 VLA、WAM、机器人基础模型）直接出动作的工作不收。界线确实模糊，所以判断看模型是不是通用大模型，'
+      '不看输出是计划还是动作。再看<b>过程</b>：「模型 + harness + 环」是否满足三条判定。下图是逐篇判定时的顺序：</p>')
+    a(f'<figure>{fig_flow()}<figcaption><b>图 2　agent 判定流程。</b>⓪ 是范围，①–③ 是三条 agent 判定，必须全部满足；'
+      '④ 决定进核心还是只作边界讨论。最后按 arXiv 首版年份分为先驱（2022–2025）和 2026，两者按 seat 一起呈现。</figcaption></figure>')
     a('<div class="callout"><h3>「编写闭环」：以 ReKep 为例</h3>'
       '<p class="small">GPT-4o 只被调用一次，写出各阶段的子目标约束和路径约束（Python 函数）。执行时，求解器以约 10 Hz 依据跟踪到的关键点'
       '重新求解；一旦路径约束被破坏（比如杯子被从夹爪里拿走），系统回溯到前面的阶段重新抓取。随结果而变的逻辑是 VLM 写的，'
@@ -755,31 +772,31 @@ def build_html(fontdir):
     a('</div>')
 
     # ---------------------------------------------------------- 3 taxonomy
-    a('<div class="section"><h2>3　分类：五个 Seat × 四类 Carrier</h2>')
+    a('<div class="section"><h2>3　分类：五个 Seat，从先驱到 2026</h2>')
     a('<p><b>主轴 Seat</b> 回答「agent 坐在哪里」。判定依据是 agent 的输出<b>在什么阶段产生</b>、<b>由谁消费</b>：'
       '评测时被调用的是 Controller 或 Supervisor；部署前产出、冻结后再交给系统的是 Teacher、Designer 或 Developer。</p>')
     a(f'<figure>{fig_seats(rows)}<figcaption><b>图 3　五个 Seat 围绕机器人身体。</b>右侧两个 seat 在评测时工作：Controller 持续驱动，'
       'Supervisor 只在异常时介入。左侧三个 seat 在部署前工作，产出冻结后进入部署的系统。Real2Sim / Sim2Real 不是新的 seat，'
       '而是横跨 Designer 与 Developer 的专题（第 5 节）。</figcaption></figure>')
-    a('<p><b>副轴 Carrier</b> 回答「决策由哪类权重承载」。你最初的「agency 在哪里」四类，正好对应 Controller 一行的四列：'
-      '外部编排 → G / C；分层双系统 → H；内化 → I；multi-agent 不再是类别，改为 Topology 列。</p>')
-    a(f'<figure>{fig_grid(rows)}<figcaption><b>图 4　2026 年核心论文的 Seat × Carrier 网格。</b>格中是篇数和代表论文，'
-      '颜色越深篇数越多。外环的三个 seat（Teacher、Designer、Developer）几乎全部由 G 类通用模型承担；训练过的 carrier（C / H / I）'
-      '主要出现在评测时的 seat。</figcaption></figure>')
+    a('<p><b>副轴 Carrier</b> 现在只剩两类：G（通用模型原样使用）和 C（为 agent 角色微调或蒸馏、仍通过工具 / 技能 / 代码行动）。'
+      '原来的 H（分层双系统）和 I（一个模型既决策又出动作）属于具身大模型路线，按你的决定不收；你最初「agency 在哪里」四类中的'
+      '「分层双系统」「内化」因此只在正文作为对照，「外部编排」对应 G / C，「multi-agent」改为 Topology 列。下图按时期展开五个 seat：</p>')
+    a(f'<figure>{fig_grid(rows)}<figcaption><b>图 4　Seat × 时期。</b>左列是 2022–2025 年的先驱，右列是 2026 年的论文；格中是篇数和代表论文，'
+      '颜色越深篇数越多。Controller 从 2022 年起就有大量先驱；Supervisor、Designer、Teacher、Developer 的源头在 2023–2025 年，'
+      '到 2026 年各自成群。</figcaption></figure>')
     a('</div>')
 
     # ---------------------------------------------------------- 4 overview
-    a('<div class="section"><h2>4　2026 年核心论文全景</h2>')
-    a(f'<p>{n_core} 篇 2026 年核心论文按 seat 和季度排开（Q1 {q["1"]}、Q2 {q["2"]}、Q3 {q["3"]}、Q4 {q["4"]} 篇）。'
-      f'Controller 拆为四个子章：编排型 {sub["orchestrator"]}、直接驱动型 {sub["direct"]}、lifelong / memory 型 {sub["lifelong"]}、'
-      f'训练过的 carrier {sub["trained"]}，另有 {themed_ctl} 篇 Controller 在 Real2Sim 与 VLN 两章。'
-      '图中按 seat 列出全部 2026 年核心论文（◆ / △ 标出两个专题章），完整表格见附录 A。</p>')
-    a(f'<figure>{fig_quarters(rows)}<figcaption><b>图 5　2026 年核心论文按 Seat 与季度分布。</b>下半年明显加速；'
-      'Developer 和 lifelong 型 Controller 几乎都出现在 Q3 以后，对应 coding agent 和 harness 进化的浪潮。</figcaption></figure>')
-    a('<h3>先驱：2022–2025</h3>')
-    a(f'<p>{n_pio} 篇先驱只简要列出，说明每个 seat 是从哪里开始的。虚线卡片是开创了方向、但不满足闭环判定的工作。</p>')
-    a(f'<figure>{fig_pioneers(rows)}<figcaption><b>图 6　先驱按 Seat 与年份分布。</b>2022 年只有 Controller；'
+    a('<div class="section"><h2>4　核心论文全景：从先驱到 2026</h2>')
+    a(f'<p>{n_pio} 篇先驱是每个 seat 的源头：2022 年只有 Controller（SayCan、Code as Policies、Inner Monologue），'
+      '之后 Supervisor、Designer、Teacher、Developer 依次出现。虚线卡片是开创了方向、但不满足闭环判定的工作。</p>')
+    a(f'<figure>{fig_pioneers(rows)}<figcaption><b>图 5　先驱按 Seat 与年份分布。</b>2022 年只有 Controller；'
       '之后 Supervisor、Designer、Teacher、Developer 依次出现。</figcaption></figure>')
+    a(f'<p>2026 年论文最多：{n_core} 篇按 seat 和季度排开（Q1 {q["1"]}、Q2 {q["2"]}、Q3 {q["3"]}、Q4 {q["4"]} 篇）。'
+      f'Controller 拆为三个子章：编排型 {sub["orchestrator"]}、直接驱动型 {sub["direct"]}、lifelong / memory 型 {sub["lifelong"]}，'
+      f'另有 {themed_ctl} 篇 Controller 在 Real2Sim 与 VLN 两章。图中 ◆ / △ 标出两个专题章，完整表格见附录 A。</p>')
+    a(f'<figure>{fig_quarters(rows)}<figcaption><b>图 6　2026 年论文按 Seat 与季度分布。</b>下半年明显加速；'
+      'Developer 和 lifelong 型 Controller 几乎都出现在 Q3 以后，对应 coding agent 和 harness 进化的浪潮。</figcaption></figure>')
     a('</div>')
 
     # ---------------------------------------------------------- 5 real2sim
@@ -838,24 +855,28 @@ def build_html(fontdir):
       '<li><b>冻结核心表</b>：你审阅后，我按你的意见改 <code>core_selection.csv</code> 并重新生成 README 和这份报告。</li>'
       f'<li><b>补全链接</b>：目前只有 {c["links"]}/{len(rows)} 篇能从 arXiv comment 中提取到项目或代码链接，其余需要联网逐篇查。</li>'
       f'<li><b>全文审计</b>：2026 年的核心论文大多只按摘要判过，先核实 seat 与闭环形式有争议的几篇。</li>'
-      '<li><b>写正文</b>：按 Seat 分章，Controller 拆四个子章，Real2Sim / Sim2Real 与 VLN 各单独一章；第 7 节的数字作为趋势证据。</li>'
+      '<li><b>写正文</b>：按 Seat 分章，每章先讲先驱再讲 2026；Controller 拆三个子章，Real2Sim / Sim2Real 与 VLN 各单独一章；'
+      '第 7 节的数字作为趋势证据。</li>'
       '<li><b>可选</b>：做一个类似 WAM survey 的 GitHub Pages 浏览器；对已有 survey 做反向滚雪球，进一步提高查全率。</li></ol></div>')
     a('</div>')
 
     # ---------------------------------------------------------- appendix A
-    a('<div class="section"><h2>附录 A　2026 年核心论文表</h2>')
+    a('<div class="section"><h2>附录 A　按 Seat 的论文表：先驱与 2026</h2>')
     a('<p class="note">短名链接到 arXiv；月份为 arXiv 首版；会议来自 Semantic Scholar，未发表的记为 arXiv；★ 为用户点名；'
       '<span class="new">新</span> 为这一轮新增。Real2Sim / Sim2Real 章见第 5 节，VLN 章见第 6 节，这里不重复。</p>')
-    for s_ in ("orchestrator", "direct", "lifelong", "trained"):
-        a(table_core(rows, f"Controller · {SUB_ZH[s_]}",
-                     lambda r, s_=s_: r["tier"] == "core" and r["seat"] == "Controller" and r["sub"] == s_ and not r.get("theme")))
+    for s_ in ("orchestrator", "direct", "lifelong"):
+        f_ = lambda r, s_=s_: r["seat"] == "Controller" and r["sub"] == s_ and not r.get("theme")
+        a(table_pioneers(rows, f"Controller · {SUB_ZH[s_]} · 先驱", f_))
+        a(table_core(rows, f"Controller · {SUB_ZH[s_]} · 2026", lambda r, f_=f_: r["tier"] == "core" and f_(r)))
     for s_ in SEATS[1:]:
-        a(table_core(rows, f"{s_} · {SEAT_ZH[s_]}", lambda r, s_=s_: r["tier"] == "core" and r["seat"] == s_ and not r.get("theme")))
+        f_ = lambda r, s_=s_: r["seat"] == s_ and not r.get("theme")
+        a(table_pioneers(rows, f"{s_} · {SEAT_ZH[s_]} · 先驱", f_))
+        a(table_core(rows, f"{s_} · {SEAT_ZH[s_]} · 2026", lambda r, f_=f_: r["tier"] == "core" and f_(r)))
+    a(table_pioneers(rows, "Real2Sim / Sim2Real 与 VLN 两章的先驱", lambda r: bool(r.get("theme"))))
     a('</div>')
 
     # ---------------------------------------------------------- appendix B
-    a('<div class="section"><h2>附录 B　先驱、资源、候补与质量控制</h2>')
-    a(table_pioneers(rows))
+    a('<div class="section"><h2>附录 B　资源、候补与质量控制</h2>')
     resx = sorted(res, key=lambda r: (SEATS.index(r["seat"]) if r["seat"] in SEATS else 9, r["date"]))
     a(f'<h3>Benchmark 与资源（{len(resx)}）</h3><table class="tbl"><colgroup><col style="width:20%"><col style="width:6%">'
       '<col style="width:9%"><col style="width:11%"><col></colgroup>'
@@ -879,7 +900,7 @@ def build_html(fontdir):
       + f'<p class="small" style="margin-top:4pt">第一轮 CORE 中，两边都判 core 的 {seat_n} 篇里有 {seat_same} 篇主 seat 一致。</p></div>')
     a('<h3>文件位置</h3><table class="tbl"><colgroup><col style="width:36%"><col></colgroup>'
       '<tr><th>文件</th><th>内容</th></tr>'
-      '<tr><td>docs/definition.md</td><td>正文版定义（含编写闭环、两个例外、2026 聚焦、Real2Sim / Sim2Real 与 VLN 章）</td></tr>'
+      '<tr><td>docs/definition.md</td><td>正文版定义（通用大模型范围、三条判定与两个例外、先驱与 2026、Real2Sim / Sim2Real 与 VLN 章）</td></tr>'
       '<tr><td>docs/definition_draft.md</td><td>完整细则，作为附录和标注指南</td></tr>'
       '<tr><td>data/core/core_selection.csv</td><td>人工挑选的核心表输入；增删论文改这个文件</td></tr>'
       '<tr><td>data/core/core_table.csv</td><td>生成的核心表（含全部标签）</td></tr>'

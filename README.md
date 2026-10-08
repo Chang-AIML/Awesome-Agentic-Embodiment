@@ -1,52 +1,71 @@
 # Awesome Agentic Embodiment
 
-> *Agentic Embodiment studies foundation-model-driven processes that make explicit decisions whose consequences reach a robot body, and that re-decide on evidence of those consequences. Its organizing question is where such a process sits relative to the body's deployed policy — steering it, guarding it, teaching it, designing its learning problem, or building its system (**Seat**) — and which weights carry it (**Carrier**).*
+> *Agentic Embodiment studies general-purpose foundation models — LLMs and VLMs, not embodied action models — acting as agents that make explicit decisions whose consequences reach a robot body, and that re-decide on evidence of those consequences. Its organizing question is where such an agent sits relative to the body's deployed policy — steering it, guarding it, teaching it, designing its learning problem, or building its system (**Seat**).*
 
-**Thesis.** *Agency spreads around the body — and loop closure, not weights, makes a carrier an agent.*
+**Thesis (draft, under revision).** *Agency spreads around the body: general models, not embodied action models, fill seat after seat.*
 
-The list focuses on **2026**: **96 core papers** from 2026 organized by Seat, with a Real2Sim / Sim2Real section (18) and a VLN / embodied-navigation chapter (13); **34 pioneers** from 2022–2025; and **20 benchmarks and resources**. Definition and inclusion rules: [docs/definition.md](docs/definition.md) (Chinese).
+Each seat is traced from its **46 pioneers (2022–2025)** to **93 papers from 2026**, the year most of the field's papers appeared; Real2Sim / Sim2Real (18 from 2026) and VLN / embodied navigation (13 from 2026) have their own chapters, plus **19 benchmarks and resources**. Definition and inclusion rules: [docs/definition.md](docs/definition.md) (Chinese).
 
-## What counts as an agent
+## Scope and what counts as an agent
 
-All three must hold: (1) **explicit decisions** — plans, skill/tool/VLA calls, code, verdicts, system edits (not scores, latents or action chunks); (2) **decision authority** — the model writes its options, or picks among them with a control action (stop / retry / replan / ask / keep-revert); (3) **closed loop** — the model is called again with its own earlier decisions and evidence of their consequences and can revise them, *or* the constraints or program it wrote read live perception and adapt the behaviour while the robot acts (an *authored* loop, e.g. ReKep, VoxPoser, Code as Policies).
+**Scope.** General-purpose foundation models (LLMs / VLMs such as GPT, Gemini, Claude, Qwen-VL, GPT-6 Astra) doing embodied work as agents. They may plan, call skills, tools or VLAs, write code or constraints, or emit actions directly (LLM-as-policy, e.g. GPT-6 Astra evaluated as a robot policy on RoboDojo). A general model fine-tuned for an agent role still counts if it keeps acting through an agent interface (e.g. GUAVA). **Embodied foundation models that produce actions are not included** — VLAs (also with reasoning, memory or self-correction), hierarchical VLAs, world action models, robot foundation models (π0.5, ECoT, OneTwoVLA, Hi Robot, Gemini Robotics, PaLM-E); they appear here only as tools called by an agent.
 
-Two families are included even when the model writes its artifact once (*Loop* = none): **constraint / keypoint programming** — the model writes constraints, keypoints, affordances or cost functions that a solver executes (ReKep-type) — and **agentic Real2Sim** — an agent reconstructs an interactive simulation of a real robot scene.
+**Agent tests** (all three): (1) **explicit decisions** — plans, skill/tool/VLA calls, code, constraints, verdicts, system edits, or actions chosen by the general model; (2) **decision authority** — the model writes its options, or picks among them with a control action (stop / retry / replan / ask / keep-revert); (3) **closed loop** — the model is called again with its own earlier decisions and evidence of their consequences, *or* the constraints or program it wrote read live perception and adapt while the robot acts (an *authored* loop, e.g. ReKep, VoxPoser, Code as Policies). Two families are included even when written once (*Loop* = none): **constraint / keypoint programming** (ReKep-type) and **agentic Real2Sim**.
 
-Not included: reactive VLAs (incl. RL-finetuned), latent dual-systems, scalar reward/value models, one-shot annotators, world-model foresight (see the WAM survey), game/text worlds, purely digital agents.
+Also not included: scalar reward/value models, one-shot annotators, world-model foresight, game/text worlds, purely digital agents.
 
-## Seat × Carrier (2026 core)
+## Seat by period
 
-Core papers per cell (carrier of the source decider; Teacher rows count the teacher).
+| Seat | Phase | Pioneers 2022–2025 | 2026 | of which fine-tuned (C) |
+|---|---|---|---|---|
+| Controller | runtime | 28 | 43 | 3 |
+| Supervisor | runtime | 4 | 8 | · |
+| Teacher | pre-deployment | 3 | 10 | 2 |
+| Designer | pre-deployment | 9 | 15 | · |
+| Developer | pre-deployment | 2 | 17 | · |
 
-| Seat | Phase | G | C | H | I | Total |
-|---|---|---|---|---|---|---|
-| Controller | runtime | 38 | 3 | 3 | 2 | 46 |
-| Supervisor | runtime | 8 | · | · | · | 8 |
-| Teacher | pre-deployment | 10 | · | · | · | 10 |
-| Designer | pre-deployment | 15 | · | · | · | 15 |
-| Developer | pre-deployment | 17 | · | · | · | 17 |
+Counts include the papers of the Real2Sim / Sim2Real and VLN chapters under their seats.
 
-**Legend.** *Carrier* — weights of the top-level decider: **G** general model used as-is, **C** embodied-trained decider + generic executor, **H** trained decider + co-designed learned executor, **I** one model decides and acts (→ marks migration, e.g. G→C). *Topology* — ×1 single agent, ×R role agents on one task, ×N one agent per robot, 1:N one decider for many robots, ×O agents owning branches of a campaign. *Loop* — **re-decide**: the model is called again with its own decisions and their consequences; **authored**: constraints or a program written by the model read live perception and adapt while the robot acts (e.g. ReKep re-solves its keypoint constraints and backtracks when one breaks). *Closure* — evidence the loop uses: E execution, H human.
+**Legend.** *Carrier* — **G** general model used as-is, **C** general model fine-tuned or distilled for an agent role, still acting through tools, skills, code or plans (→ marks migration, e.g. G→C). *Topology* — ×1 single agent, ×R role agents on one task, ×N one agent per robot, 1:N one decider for many robots, ×O agents owning branches of a campaign. *Loop* — **re-decide**: the model is called again with its own decisions and their consequences; **authored**: constraints or a program written by the model read live perception and adapt while the robot acts (e.g. ReKep re-solves its keypoint constraints and backtracks when one breaks); **none**: written once (kept for pioneers and for the two exceptions). *Closure* — evidence the loop uses: E execution, H human.
 
 ## Contents
 
 - [Controller · Orchestrators](#controller--orchestrators)
 - [Controller · Direct drivers](#controller--direct-drivers)
 - [Controller · Lifelong / memory agents](#controller--lifelong--memory-agents)
-- [Controller · Trained carriers (C / H / I)](#controller--trained-carriers-c--h--i)
 - [Supervisor](#supervisor)
 - [Teacher](#teacher)
 - [Designer](#designer)
 - [Developer](#developer)
 - [Real2Sim / Sim2Real](#real2sim--sim2real)
 - [VLN and embodied navigation](#vln-and-embodied-navigation)
-- [Pioneers (2022–2025)](#pioneers-20222025)
 - [Benchmarks and resources](#benchmarks-and-resources)
 - [More 2026 papers (404)](#more-2026-papers)
 
 ## Controller · Orchestrators
 
 Called during evaluated episodes; sequence skills, tools or VLAs-as-tools.
+
+**Pioneers (2022–2025)**
+
+| Name | Paper | Year | Venue | Carrier | Interface | Topo | Loop | Closure | Body | Other seats |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **ZS-Planners** | [Language Models as Zero-Shot Planners: Extracting Actionable Knowledge for Embodied Agents](https://arxiv.org/abs/2201.07207) [[project]](https://huangwl18.github.io/language-planner) | 2022 | ICML | G | skill-call | ×1 | none | none | other/sim | – |
+| **Socratic Models** | [Socratic Models: Composing Zero-Shot Multimodal Reasoning with Language](https://arxiv.org/abs/2204.00598) [[project]](https://socraticmodels.github.io/) | 2022 | ICLR | G | skill-call | ×1 | none | none | manip/sim+real | – |
+| **SayCan** | [Do As I Can, Not As I Say: Grounding Language in Robotic Affordances](https://arxiv.org/abs/2204.01691) [[project]](https://say-can.github.io/) | 2022 | CoRL | G | skill-call | ×1 | re-decide | E | mobile-manip/real | – |
+| **Inner Monologue** | [Inner Monologue: Embodied Reasoning through Planning with Language Models](https://arxiv.org/abs/2207.05608) [[project]](https://innermonologue.github.io) | 2022 | CoRL | G | skill-call | ×1 | re-decide | E+H | manip/sim+real | – |
+| **Text2Motion** | [Text2Motion: From Natural Language Instructions to Feasible Plans](https://arxiv.org/abs/2303.12153) [[project]](https://sites.google.com/stanford.edu/text2motion) | 2023 | Autonomous Robots | G | skill-call | ×1 | none | M | manip/sim+real | – |
+| **TidyBot** | [TidyBot: Personalized Robot Assistance with Large Language Models](https://arxiv.org/abs/2305.05658) [[project]](https://tidybot.cs.princeton.edu) | 2023 | IROS | G | skill-call | ×1 | none | none | mobile-manip/real | – |
+| **KnowNo** | [Robots That Ask For Help: Uncertainty Alignment for Large Language Model Planners](https://arxiv.org/abs/2307.01928) | 2023 | CoRL | G | skill-call | ×1 | none | M | mobile-manip/sim+real | Supervisor |
+| **RoCo** | [RoCo: Dialectic Multi-Robot Collaboration with Large Language Models](https://arxiv.org/abs/2307.04738) | 2023 | ICRA | G | skill-call | ×N | re-decide | E | multi-robot/sim+real | – |
+| **SMART-LLM** | [SMART-LLM: Smart Multi-Agent Robot Task Planning using Large Language Models](https://arxiv.org/abs/2309.10062) | 2023 | IROS | G | code | 1:N | none | none | multi-robot/sim+real | – |
+| **Look Before You Leap** | [Look Before You Leap: Unveiling the Power of GPT-4V in Robotic Vision-Language Planning](https://arxiv.org/abs/2311.17842) | 2023 | arXiv | G | skill-call | ×1 | re-decide | E | manip/sim+real | – |
+| **AutoRT** | [AutoRT: Embodied Foundation Models for Large Scale Orchestration of Robotic Agents](https://arxiv.org/abs/2401.12963) | 2024 | arXiv | G | vla-call | 1:N | none | none | mobile-manip/real | Designer |
+| **COME-robot** | [Closed-Loop Open-Vocabulary Mobile Manipulation with GPT-4V](https://arxiv.org/abs/2404.10220) [[project]](https://come-robot.github.io/) | 2024 | ICRA | G | skill-call | ×1 | re-decide | E | mobile-manip/real | – |
+| **VLM-PC** | [Commonsense Reasoning for Legged Robot Adaptation with Vision-Language Models](https://arxiv.org/abs/2407.02666) | 2024 | ICRA | G | skill-call | ×1 | re-decide | E | loco/real | – |
+| **BUMBLE** | [BUMBLE: Unifying Reasoning and Acting with Vision-Language Models for Building-wide Mobile Manipulation](https://arxiv.org/abs/2410.06237) | 2024 | ICRA | G | skill-call | ×1 | re-decide | E | mobile-manip/real | – |
+
+**2026**
 
 | Name | Paper | Year | Venue | Carrier | Interface | Topo | Loop | Closure | Body | Other seats |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -59,12 +78,30 @@ Called during evaluated episodes; sequence skills, tools or VLAs-as-tools.
 | **AerialClaw** | [AerialClaw: An Open-Source Framework for LLM-Driven Autonomous Aerial Agents](https://arxiv.org/abs/2606.12142) | 2026 | arXiv | G | skill-call | ×1 | re-decide | E | aerial/sim | – |
 | **Physical Agency** | [Addressing the Orchestration Gap in Generalist Robots via Physical Agency](https://arxiv.org/abs/2607.21725) | 2026 | arXiv | G | vla-call | ×1 | re-decide | E | manip/sim+real | – |
 | **Thea** | [Towards the Harness of Embodied Agents](https://arxiv.org/abs/2608.11246) [[project]](https://eit-hai.github.io/thea) | 2026 | arXiv | G | skill-call | ×1 | re-decide | E | mobile-manip/real | Supervisor |
+| **Ludi** | [Ludi${}_{\scriptscriptstyle 0.1}$: An Agentic System for Socially Intelligent Robots](https://arxiv.org/abs/2608.22035) | 2026 | arXiv | C | skill-call | ×1 | re-decide | E+H | social/real | – |
 | **Smart-Agriculture Engine** | [Deploying and Evaluating a Smart-Agriculture Agentic Engine for Full-Season Soybean Farm Operations](https://arxiv.org/abs/2609.00106) | 2026 | arXiv | G | skill-call | ×1 | re-decide | E | other/real | – |
 | **AGRO-SUVIDE** | [AGRO-SUVIDE: Agentic Robotics for Surgical Viscoelastic Debridement](https://arxiv.org/abs/2609.34823) | 2026 | arXiv | G | skill-call | ×1 | authored | E | manip/real | Developer |
+| **Astra Robot Agents** | [Fewer Tokens, Better Action: GPT-6 Astra Robot Agents with 14% Higher Success Rate but 65% Fewer Tokens](https://arxiv.org/abs/2610.01939) | 2026 | arXiv | G | code | ×1 | re-decide | E | manip/sim | – |
 
 ## Controller · Direct drivers
 
-Called during evaluated episodes; emit semantic micro-actions, native commands or code executed now.
+Called during evaluated episodes; emit actions, semantic micro-actions, native commands, or code and constraints executed now.
+
+**Pioneers (2022–2025)**
+
+| Name | Paper | Year | Venue | Carrier | Interface | Topo | Loop | Closure | Body | Other seats |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **Code as Policies** | [Code as Policies: Language Model Programs for Embodied Control](https://arxiv.org/abs/2209.07753) | 2022 | ICRA | G | code | ×1 | authored | E | manip/sim+real | – |
+| **ProgPrompt** | [ProgPrompt: Generating Situated Robot Task Plans using Large Language Models](https://arxiv.org/abs/2209.11302) | 2022 | ICRA | G | code | ×1 | authored | E | manip/sim+real | – |
+| **ChatGPT for Robotics** | [ChatGPT for Robotics: Design Principles and Model Abilities](https://arxiv.org/abs/2306.17582) | 2023 | IEEE Access | G | code | ×1 | authored | E+H | aerial/sim+real | – |
+| **Language to Rewards** | [Language to Rewards for Robotic Skill Synthesis](https://arxiv.org/abs/2306.08647) [[project]](https://language-to-reward.github.io/) | 2023 | CoRL | G | constraint | ×1 | authored | E | manip/sim+real | – |
+| **VoxPoser** | [VoxPoser: Composable 3D Value Maps for Robotic Manipulation with Language Models](https://arxiv.org/abs/2307.05973) | 2023 | CoRL | G | constraint | ×1 | authored | E | manip/sim+real | – |
+| **MOKA** | [MOKA: Open-World Robotic Manipulation through Mark-Based Visual Prompting](https://arxiv.org/abs/2403.03174) | 2024 | RSS | G | constraint | ×1 | none | none | manip/real | – |
+| **CoPa** | [CoPa: General Robotic Manipulation through Spatial Constraints of Parts with Foundation Models](https://arxiv.org/abs/2403.08248) | 2024 | IROS | G | constraint | ×1 | none | none | manip/real | – |
+| **ReKep** | [ReKep: Spatio-Temporal Reasoning of Relational Keypoint Constraints for Robotic Manipulation](https://arxiv.org/abs/2409.01652) | 2024 | CoRL | G | constraint | ×1 | authored | E | mobile-manip/real | – |
+| **OmniManip** | [OmniManip: Towards General Robotic Manipulation via Object-Centric Interaction Primitives as Spatial Constraints](https://arxiv.org/abs/2501.03841) | 2025 | CVPR | G | constraint | ×1 | authored | E | manip/real | – |
+
+**2026**
 
 | Name | Paper | Year | Venue | Carrier | Interface | Topo | Loop | Closure | Body | Other seats |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -77,12 +114,21 @@ Called during evaluated episodes; emit semantic micro-actions, native commands o
 | **Show-Harness** | [Show-Harness: Just a VLM Agent Can Play Robots](https://arxiv.org/abs/2609.10522) [[project]](https://showlab.github.io/Show-Harness) | 2026 | arXiv | G | micro-action | ×1 | re-decide | E | manip/sim+real | – |
 | **Agent as Policy** | [Agent as Policy for Robotic Manipulation](https://arxiv.org/abs/2609.12541) | 2026 | arXiv | G | code | ×1 | re-decide | E | manip/real | – |
 | **AquaCap** | [AquaCap: A Training-Free Underwater Embodied Agent with Code-as-Policy](https://arxiv.org/abs/2609.23133) | 2026 | arXiv | G | code | ×1 | re-decide | E | other/sim+real | – |
+| **Astra on RoboDojo** | [An Unexpected Robot Policy: Early Evaluations of GPT-6 Astra on RoboDojo and Beyond](https://arxiv.org/abs/2609.24170) | 2026 | arXiv | G | micro-action | ×1 | re-decide | E | manip/sim | – |
 | **KPI** | [KPI: A Promptable Kernel for Physical Interaction on Humanoids](https://arxiv.org/abs/2609.36151) [[project]](https://kpi-robot.github.io/) | 2026 | arXiv | G | constraint | ×1 | authored | E | humanoid/sim+real | – |
 | **OpenRUA** | [OpenRUA: Robot-Use Agents Are Zero-Shot Visuomotor Policies](https://arxiv.org/abs/2610.02459) | 2026 | arXiv | G | code | ×1 | re-decide | E | manip/sim+real | – |
 
 ## Controller · Lifelong / memory agents
 
 Improve memory, skill libraries or harness across evaluated episodes.
+
+**Pioneers (2022–2025)**
+
+| Name | Paper | Year | Venue | Carrier | Interface | Topo | Loop | Closure | Body | Other seats |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **DROC** | [Distilling and Retrieving Generalizable Knowledge for Robot Manipulation via Language Corrections](https://arxiv.org/abs/2311.10678) [[project]](https://sites.google.com/stanford.edu/droc) | 2023 | ICRA | G | code | ×1 | re-decide | H | manip/real | – |
+
+**2026**
 
 | Name | Paper | Year | Venue | Carrier | Interface | Topo | Loop | Closure | Body | Other seats |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -93,37 +139,45 @@ Improve memory, skill libraries or harness across evaluated episodes.
 | **CaP Great Again** | [Make Code as Policy Great Again: Frontier Agents Write, Call, and Evolve Robot Tools](https://arxiv.org/abs/2609.39018) | 2026 | arXiv | G | skill-call | ×R | re-decide | E+H | manip/sim+real | Developer |
 | **Robo-COP** | [Co-Evolving Robot Orchestrators and Policies through Deployment](https://arxiv.org/abs/2610.09228) | 2026 | arXiv | G | code | ×1 | re-decide | E | manip/sim+real | Developer |
 
-## Controller · Trained carriers (C / H / I)
-
-The decider itself is embodied-trained: generic executor (C), co-designed executor (H) or one model (I).
-
-| Name | Paper | Year | Venue | Carrier | Interface | Topo | Loop | Closure | Body | Other seats |
-|---|---|---|---|---|---|---|---|---|---|---|
-| **Steerable VLA** | [Steerable Vision-Language-Action Policies for Embodied Reasoning and Hierarchical Control](https://arxiv.org/abs/2602.13193) | 2026 | Robotics | H | vla-call | ×1 | re-decide | E | manip/real | – |
-| **MEM** | [MEM: Multi-Scale Embodied Memory for Vision Language Action Models](https://arxiv.org/abs/2603.03596) [[project]](https://pi.website/research/memory) | 2026 | arXiv | I | skill-call | ×1 | re-decide | E | mobile-manip/real | – |
-| **Trace-Conditioned VLA** | [Long-Horizon Manipulation via Trace-Conditioned VLA Planning](https://arxiv.org/abs/2604.21924) [[project]](https://www.liuisabella.com/LoHoManip) | 2026 | arXiv | H | vla-call | ×1 | re-decide | E | manip/sim+real | – |
-| **Sentinel-VLA** | [Sentinel-VLA: A Metacognitive VLA Model with Active Status Monitoring for Dynamic Reasoning and Error Recovery](https://arxiv.org/abs/2605.01191) | 2026 | arXiv | I | trace | ×1 | re-decide | E | manip/sim+real | Supervisor |
-| **τ0-VLA** | [$τ_0$-VLA: a Hierarchical Robot Foundation Model with World-Model-Guided Test-Time Computation](https://arxiv.org/abs/2608.16885) [[project]](https://tau0-vla.github.io/) | 2026 | arXiv | H | vla-call | ×1 | re-decide | E | manip/real | – |
-| **Ludi** | [Ludi${}_{\scriptscriptstyle 0.1}$: An Agentic System for Socially Intelligent Robots](https://arxiv.org/abs/2608.22035) | 2026 | arXiv | C | skill-call | ×1 | re-decide | E+H | social/real | – |
-
 ## Supervisor
 
 Runtime, acts only on exceptions: gates, vetoes, failure detection and recovery, by a separate check process.
 
+**Pioneers (2022–2025)**
+
 | Name | Paper | Year | Venue | Carrier | Interface | Topo | Loop | Closure | Body | Other seats |
 |---|---|---|---|---|---|---|---|---|---|---|
-| **CycleVLA** | [CycleVLA: Proactive Self-Correcting Vision-Language-Action Models via Subtask Backtracking and Minimum Bayes Risk Decoding](https://arxiv.org/abs/2601.02295) [[project]](https://dannymcy.github.io/cyclevla/) | 2026 | arXiv | G | verdict | ×1 | re-decide | E | manip/sim | Controller |
+| **REFLECT** | [REFLECT: Summarizing Robot Experiences for Failure Explanation and Correction](https://arxiv.org/abs/2306.15724) [[project]](https://robot-reflect.github.io/) | 2023 | CoRL | G | verdict | ×1 | re-decide | E | manip/sim+real | Controller |
+| **DoReMi** | [DoReMi: Grounding Language Model by Detecting and Recovering from Plan-Execution Misalignment](https://arxiv.org/abs/2307.00329) | 2023 | IROS | G | verdict | ×R | re-decide | E | manip/sim+real | Controller |
+| **Safety Chip** | [Plug in the Safety Chip: Enforcing Constraints for LLM-driven Robot Agents](https://arxiv.org/abs/2309.09919) | 2023 | ICRA | G | constraint | ×1 | authored | E | mobile-manip/sim+real | – |
+| **Code-as-Monitor** | [Code-as-Monitor: Constraint-aware Visual Programming for Reactive and Proactive Robotic Failure Detection](https://arxiv.org/abs/2412.04455) [[project]](https://zhoues.github.io/Code-as-Monitor/) | 2024 | CVPR | G | verdict | ×1 | re-decide | E | manip/sim+real | Controller |
+
+**2026**
+
+| Name | Paper | Year | Venue | Carrier | Interface | Topo | Loop | Closure | Body | Other seats |
+|---|---|---|---|---|---|---|---|---|---|---|
 | **Contextual Safety Reasoning** | [Contextual Safety Reasoning and Grounding for Open-World Robots](https://arxiv.org/abs/2602.19983) | 2026 | arXiv | G | constraint | ×1 | authored | E | nav/sim+real | – |
+| **When to Act, Ask, or Learn** | [When to Act, Ask, or Learn: Uncertainty-Aware Policy Steering](https://arxiv.org/abs/2602.22474) | 2026 | Robotics | G | verdict | ×1 | re-decide | E+H | manip/sim+real | Controller |
 | **Agentic Task Graph** | [From Reaction to Anticipation: Proactive Failure Recovery through Agentic Task Graph for Robotic Manipulation](https://arxiv.org/abs/2605.11951) | 2026 | Robotics | G | code | ×R | authored | E | manip/sim+real | Controller |
 | **UAV Selective Recovery** | [Selective Agentic Recovery for UAV Autonomy with a Persistent Mission Runtime](https://arxiv.org/abs/2606.14219) | 2026 | arXiv | G | skill-call | ×1 | re-decide | E | aerial/sim+real | – |
 | **Zetta** | [Zetta $ζ$: An Efficient Closed-Loop Embodied Harness for Self-Evolving Physical Intelligence](https://arxiv.org/abs/2608.16590) | 2026 | arXiv | G | system-edit | ×1 | re-decide | E | manip/sim | Developer |
 | **FRAMES** | [FRAMES: Failure Recovery And Monitoring of Embodied Skills for Humanoid Loco-Manipulation](https://arxiv.org/abs/2609.22538) | 2026 | arXiv | G | verdict | ×R | re-decide | E | humanoid/sim+real | Controller |
 | **WhenToAsk** | [When Should a Failing Robot Ask? Initiating Corrective Human-Robot Dialogue from Audited Sensor Evidence](https://arxiv.org/abs/2609.21942) | 2026 | arXiv | G | verdict | ×1 | re-decide | E+H | manip/sim+real | – |
-| **Future-Anchored Verification** | [Future Anchored Verification and Online Recovery for World Action Models](https://arxiv.org/abs/2610.06280) | 2026 | arXiv | G | vla-call | ×1 | re-decide | E | manip/sim+real | – |
+| **Beyond Human Demos** | [Learning Beyond What Humans Can Demonstrate](https://arxiv.org/abs/2609.24996) [[project]](http://guardrail-policy.github.io/) | 2026 | arXiv | G | constraint | ×1 | authored | E | manip/sim | Developer |
 
 ## Teacher
 
 Before deployment, the agent acts; its outcome-checked behaviour becomes the deployed model's training target.
+
+**Pioneers (2022–2025)**
+
+| Name | Paper | Year | Venue | Carrier | Interface | Topo | Loop | Closure | Body | Other seats |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **SUDD** | [Scaling Up and Distilling Down: Language-Guided Robot Skill Acquisition](https://arxiv.org/abs/2307.14535) [[project]](https://www.cs.columbia.edu/~huy/scalingup/) | 2023 | CoRL | G | skill-call | ×1 | authored | E | manip/sim | Designer |
+| **Manipulate-Anything** | [Manipulate-Anything: Automating Real-World Robots using Vision-Language Models](https://arxiv.org/abs/2406.18915) [[project]](https://robot-ma.github.io/) | 2024 | CoRL | G | skill-call | ×1 | re-decide | E | manip/sim+real | Controller |
+| **RoboTwin 2.0** | [RoboTwin 2.0: A Scalable Data Generator and Benchmark with Strong Domain Randomization for Robust Bimanual Robotic Manipulation](https://arxiv.org/abs/2506.18088) [[project]](https://robotwin-platform.github.io/) [[code]](https://github.com/robotwin-Platform/robotwin) | 2025 | arXiv | G | code | ×1 | re-decide | E | manip/sim+real | Designer |
+
+**2026**
 
 | Name | Paper | Year | Venue | Carrier | Interface | Topo | Loop | Closure | Body | Other seats |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -138,6 +192,19 @@ Before deployment, the agent acts; its outcome-checked behaviour becomes the dep
 
 Before deployment, the agent designs the learning problem: rewards, tasks, environments, curricula, eval suites.
 
+**Pioneers (2022–2025)**
+
+| Name | Paper | Year | Venue | Carrier | Interface | Topo | Loop | Closure | Body | Other seats |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **Text2Reward** | [Text2Reward: Reward Shaping with Language Models for Reinforcement Learning](https://arxiv.org/abs/2309.11489) | 2023 | ICLR | G | problem-spec | ×1 | none | none | manip/sim+real | – |
+| **GenSim** | [GenSim: Generating Robotic Simulation Tasks via Large Language Models](https://arxiv.org/abs/2310.01361) [[project]](https://liruiw.github.io/gensim) [[code]](https://github.com/liruiw/GenSim) | 2023 | ICLR | G | problem-spec | ×1 | none | none | manip/sim+real | – |
+| **Eureka** | [Eureka: Human-Level Reward Design via Coding Large Language Models](https://arxiv.org/abs/2310.12931) [[project]](https://eureka-research.github.io/) | 2023 | ICLR | G | problem-spec | ×1 | re-decide | E | manip/sim | – |
+| **RoboGen** | [RoboGen: Towards Unleashing Infinite Data for Automated Robot Learning via Generative Simulation](https://arxiv.org/abs/2311.01455) | 2023 | ICML | G | problem-spec | ×1 | none | none | manip/sim | – |
+| **CurricuLLM** | [CurricuLLM: Automatic Task Curricula Design for Learning Complex Robot Skills using Large Language Models](https://arxiv.org/abs/2409.18382) | 2024 | ICRA | G | problem-spec | ×1 | re-decide | E | humanoid/sim | – |
+| **Eurekaverse** | [Eurekaverse: Environment Curriculum Generation via Large Language Models](https://arxiv.org/abs/2411.01775) [[project]](https://eureka-research.github.io/eurekaverse) | 2024 | CoRL | G | problem-spec | ×1 | re-decide | E | loco/sim+real | – |
+
+**2026**
+
 | Name | Paper | Year | Venue | Carrier | Interface | Topo | Loop | Closure | Body | Other seats |
 |---|---|---|---|---|---|---|---|---|---|---|
 | **SceneSmith** | [SceneSmith: Agentic Generation of Simulation-Ready Indoor Scenes](https://arxiv.org/abs/2602.09153) [[project]](https://scenesmith.github.io/) | 2026 | arXiv | G | problem-spec | ×R | re-decide | E | manip/sim | – |
@@ -150,6 +217,15 @@ Before deployment, the agent designs the learning problem: rewards, tasks, envir
 ## Developer
 
 Before deployment, the agent edits the solution: policy code, skill libraries, harness, training code, hardware; keeps or reverts by its own experiments.
+
+**Pioneers (2022–2025)**
+
+| Name | Paper | Year | Venue | Carrier | Interface | Topo | Loop | Closure | Body | Other seats |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **RoboMorph** | [RoboMorph: Evolving Robot Morphology using Large Language Models](https://arxiv.org/abs/2407.08626) | 2024 | ICRA | G | system-edit | ×1 | re-decide | E | loco/sim | – |
+| **VLMgineer** | [VLMgineer: Vision Language Models as Robotic Toolsmiths](https://arxiv.org/abs/2507.12644) [[project]](https://vlmgineer.github.io/release) | 2025 | arXiv | G | code | ×1 | re-decide | E | manip/sim | – |
+
+**2026**
 
 | Name | Paper | Year | Venue | Carrier | Interface | Topo | Loop | Closure | Body | Other seats |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -168,6 +244,16 @@ Before deployment, the agent edits the solution: policy code, skill libraries, h
 ## Real2Sim / Sim2Real
 
 Agents that build or calibrate simulators from the real world (Real2Sim), transfer or adapt what they learned in simulation to the real robot (Sim2Real), or practise in a reconstructed simulator and go back to the real one (Real2Sim2Real). Each paper keeps its Seat: building the simulator is the problem side (Designer), adapting the solution is Developer.
+
+**Pioneers (2022–2025)**
+
+| Name | Paper | Year | Venue | Seat | Carrier | Interface | Loop | Body | Other seats |
+|---|---|---|---|---|---|---|---|---|---|
+| **DrEureka** | [DrEureka: Language Model Guided Sim-To-Real Transfer](https://arxiv.org/abs/2406.01967) [[project]](https://eureka-research.github.io/dr-eureka/) | 2024 | RSS | Designer | G | problem-spec | re-decide | loco/sim+real | – |
+| **Articulate AnyMesh** | [Articulate AnyMesh: Open-Vocabulary 3D Articulated Objects Modeling](https://arxiv.org/abs/2502.02590) | 2025 | arXiv | Designer | G | problem-spec | none | manip/sim+real | – |
+| **Video2Policy** | [Video2Policy: Scaling up Manipulation Tasks in Simulation through Internet Videos](https://arxiv.org/abs/2502.09886) | 2025 | arXiv | Designer | G | problem-spec | re-decide | manip/sim | – |
+
+**2026**
 
 | Name | Paper | Year | Venue | Seat | Carrier | Interface | Loop | Body | Other seats |
 |---|---|---|---|---|---|---|---|---|---|
@@ -192,7 +278,18 @@ Agents that build or calibrate simulators from the real world (Real2Sim), transf
 
 ## VLN and embodied navigation
 
-Agents whose main task is navigation: vision-and-language navigation in continuous environments or on real robots, object-goal and instance navigation, long-range exploration. 2026 papers are evaluated in continuous simulation (e.g. Habitat VLN-CE) or on real robots; earlier agents on the discrete R2R graph appear only among the pioneers below. Seats are kept, so the chapter mixes Controllers with a few Teachers and Designers.
+Agents whose main task is navigation: vision-and-language navigation in continuous environments or on real robots, object-goal and instance navigation, long-range exploration. 2026 papers are evaluated in continuous simulation (e.g. Habitat VLN-CE) or on real robots; earlier agents on the discrete R2R graph appear only among the pioneers. Seats are kept, so the chapter mixes Controllers with a few Teachers and Designers.
+
+**Pioneers (2022–2025)**
+
+| Name | Paper | Year | Venue | Seat | Carrier | Interface | Loop | Body | Other seats |
+|---|---|---|---|---|---|---|---|---|---|
+| **LM-Nav** | [LM-Nav: Robotic Navigation with Large Pre-Trained Models of Language, Vision, and Action](https://arxiv.org/abs/2207.04429) [[project]](https://sites.google.com/view/lmnav) | 2022 | CoRL | Controller | G | skill-call | none | nav/real | – |
+| **NavGPT** | [NavGPT: Explicit Reasoning in Vision-and-Language Navigation with Large Language Models](https://arxiv.org/abs/2305.16986) | 2023 | AAAI | Controller | G | micro-action | re-decide | nav/sim | – |
+| **InstructNav** | [InstructNav: Zero-shot System for Generic Instruction Navigation in Unexplored Environment](https://arxiv.org/abs/2406.04882) | 2024 | CoRL | Controller | G | constraint | re-decide | nav/sim | – |
+| **Open-Nav** | [Open-Nav: Exploring Zero-Shot Vision-and-Language Navigation in Continuous Environment with Open-Source LLMs](https://arxiv.org/abs/2409.18794) | 2024 | ICRA | Controller | G | skill-call | re-decide | nav/sim+real | – |
+
+**2026**
 
 | Name | Paper | Year | Venue | Seat | Carrier | Interface | Loop | Body | Other seats |
 |---|---|---|---|---|---|---|---|---|---|
@@ -209,52 +306,6 @@ Agents whose main task is navigation: vision-and-language navigation in continuo
 | **Air-Ground VLN** | [Air-Ground Collaborative Vision-and-Language Navigation via Shared Bird's-Eye Maps](https://arxiv.org/abs/2609.03483) | 2026 | arXiv | Controller | G | skill-call | re-decide | multi-robot/sim | – |
 | **RoboFind** | [RoboFind: Multi-Agent Personalized Object Search for People Who Are Blind or Have Low Vision](https://arxiv.org/abs/2609.20330) | 2026 | arXiv | Controller | G | skill-call | re-decide | nav/real | Supervisor |
 | **ASENA** | [ASENA: Self-evolving Agents for Embodied Navigation](https://arxiv.org/abs/2609.39207) [[project]](https://asena-bot.github.io) | 2026 | arXiv | Controller | G | code | re-decide | nav/sim | – |
-
-**Earlier VLN agents (pioneers, 2023–2025).**
-
-| Name | Paper | Year | Venue | Seat | Carrier | Interface | Loop | Body | Other seats |
-|---|---|---|---|---|---|---|---|---|---|
-| **LM-Nav** | [LM-Nav: Robotic Navigation with Large Pre-Trained Models of Language, Vision, and Action](https://arxiv.org/abs/2207.04429) [[project]](https://sites.google.com/view/lmnav) | 2022 | CoRL | Controller | G | skill-call | none | nav/real | – |
-| **NavGPT** | [NavGPT: Explicit Reasoning in Vision-and-Language Navigation with Large Language Models](https://arxiv.org/abs/2305.16986) | 2023 | AAAI | Controller | G | micro-action | re-decide | nav/sim | – |
-| **InstructNav** | [InstructNav: Zero-shot System for Generic Instruction Navigation in Unexplored Environment](https://arxiv.org/abs/2406.04882) | 2024 | CoRL | Controller | G | constraint | re-decide | nav/sim | – |
-
-## Pioneers (2022–2025)
-
-Earlier foundational and representative works, listed briefly. *Loop* shows whether a paper already closes the loop (re-decide / authored) or is an open-loop forerunner (none).
-
-| Name | Paper | Year | Venue | Seat | Carrier | Interface | Loop | Body | Other seats |
-|---|---|---|---|---|---|---|---|---|---|
-| **ZS-Planners** | [Language Models as Zero-Shot Planners: Extracting Actionable Knowledge for Embodied Agents](https://arxiv.org/abs/2201.07207) [[project]](https://huangwl18.github.io/language-planner) | 2022 | ICML | Controller | G | skill-call | none | other/sim | – |
-| **SayCan** | [Do As I Can, Not As I Say: Grounding Language in Robotic Affordances](https://arxiv.org/abs/2204.01691) [[project]](https://say-can.github.io/) | 2022 | CoRL | Controller | G | skill-call | re-decide | mobile-manip/real | – |
-| **Inner Monologue** | [Inner Monologue: Embodied Reasoning through Planning with Language Models](https://arxiv.org/abs/2207.05608) [[project]](https://innermonologue.github.io) | 2022 | CoRL | Controller | G | skill-call | re-decide | manip/sim+real | – |
-| **Code as Policies** | [Code as Policies: Language Model Programs for Embodied Control](https://arxiv.org/abs/2209.07753) | 2022 | ICRA | Controller | G | code | authored | manip/sim+real | – |
-| **ProgPrompt** | [ProgPrompt: Generating Situated Robot Task Plans using Large Language Models](https://arxiv.org/abs/2209.11302) | 2022 | ICRA | Controller | G | code | authored | manip/sim+real | – |
-| **PaLM-E** | [PaLM-E: An Embodied Multimodal Language Model](https://arxiv.org/abs/2303.03378) | 2023 | ICML | Controller | C | skill-call | re-decide | mobile-manip/real | – |
-| **KnowNo** | [Robots That Ask For Help: Uncertainty Alignment for Large Language Model Planners](https://arxiv.org/abs/2307.01928) | 2023 | CoRL | Controller | G | skill-call | none | mobile-manip/sim+real | Supervisor |
-| **RoCo** | [RoCo: Dialectic Multi-Robot Collaboration with Large Language Models](https://arxiv.org/abs/2307.04738) | 2023 | ICRA | Controller | G | skill-call | re-decide | multi-robot/sim+real | – |
-| **VoxPoser** | [VoxPoser: Composable 3D Value Maps for Robotic Manipulation with Language Models](https://arxiv.org/abs/2307.05973) | 2023 | CoRL | Controller | G | constraint | authored | manip/sim+real | – |
-| **DROC** | [Distilling and Retrieving Generalizable Knowledge for Robot Manipulation via Language Corrections](https://arxiv.org/abs/2311.10678) [[project]](https://sites.google.com/stanford.edu/droc) | 2023 | ICRA | Controller | G | code | re-decide | manip/real | – |
-| **MOKA** | [MOKA: Open-World Robotic Manipulation through Mark-Based Visual Prompting](https://arxiv.org/abs/2403.03174) | 2024 | RSS | Controller | G | constraint | none | manip/real | – |
-| **CoPa** | [CoPa: General Robotic Manipulation through Spatial Constraints of Parts with Foundation Models](https://arxiv.org/abs/2403.08248) | 2024 | IROS | Controller | G | constraint | none | manip/real | – |
-| **ECoT** | [Robotic Control via Embodied Chain-of-Thought Reasoning](https://arxiv.org/abs/2407.08693) [[project]](https://embodied-cot.github.io) | 2024 | CoRL | Controller | I | trace | none | manip/real | – |
-| **ReKep** | [ReKep: Spatio-Temporal Reasoning of Relational Keypoint Constraints for Robotic Manipulation](https://arxiv.org/abs/2409.01652) | 2024 | CoRL | Controller | G | constraint | authored | mobile-manip/real | – |
-| **BUMBLE** | [BUMBLE: Unifying Reasoning and Acting with Vision-Language Models for Building-wide Mobile Manipulation](https://arxiv.org/abs/2410.06237) | 2024 | ICRA | Controller | G | skill-call | re-decide | mobile-manip/real | – |
-| **OmniManip** | [OmniManip: Towards General Robotic Manipulation via Object-Centric Interaction Primitives as Spatial Constraints](https://arxiv.org/abs/2501.03841) | 2025 | CVPR | Controller | G | constraint | authored | manip/real | – |
-| **Hi Robot** | [Hi Robot: Open-Ended Instruction Following with Hierarchical Vision-Language-Action Models](https://arxiv.org/abs/2502.19417) | 2025 | ICML | Controller | H | vla-call | re-decide | mobile-manip/real | – |
-| **π0.5** | [$π_{0.5}$: a Vision-Language-Action Model with Open-World Generalization](https://arxiv.org/abs/2504.16054) | 2025 | arXiv | Controller | I | trace | none | mobile-manip/real | – |
-| **OneTwoVLA** | [OneTwoVLA: A Unified Vision-Language-Action Model with Adaptive Reasoning](https://arxiv.org/abs/2505.11917) | 2025 | arXiv | Controller | I | micro-action | re-decide | manip/real | – |
-| **Gemini Robotics 1.5** | [Gemini Robotics 1.5: Pushing the Frontier of Generalist Robots with Advanced Embodied Reasoning, Thinking, and Motion Transfer](https://arxiv.org/abs/2510.03342) | 2025 | arXiv | Controller | H | vla-call | re-decide | manip/real | – |
-| **REFLECT** | [REFLECT: Summarizing Robot Experiences for Failure Explanation and Correction](https://arxiv.org/abs/2306.15724) [[project]](https://robot-reflect.github.io/) | 2023 | CoRL | Supervisor | G | verdict | re-decide | manip/sim+real | Controller |
-| **DoReMi** | [DoReMi: Grounding Language Model by Detecting and Recovering from Plan-Execution Misalignment](https://arxiv.org/abs/2307.00329) | 2023 | IROS | Supervisor | G | verdict | re-decide | manip/sim+real | Controller |
-| **Code-as-Monitor** | [Code-as-Monitor: Constraint-aware Visual Programming for Reactive and Proactive Robotic Failure Detection](https://arxiv.org/abs/2412.04455) [[project]](https://zhoues.github.io/Code-as-Monitor/) | 2024 | CVPR | Supervisor | G | verdict | re-decide | manip/sim+real | Controller |
-| **SUDD** | [Scaling Up and Distilling Down: Language-Guided Robot Skill Acquisition](https://arxiv.org/abs/2307.14535) [[project]](https://www.cs.columbia.edu/~huy/scalingup/) | 2023 | CoRL | Teacher | G | skill-call | authored | manip/sim | Designer |
-| **RoboTwin 2.0** | [RoboTwin 2.0: A Scalable Data Generator and Benchmark with Strong Domain Randomization for Robust Bimanual Robotic Manipulation](https://arxiv.org/abs/2506.18088) [[project]](https://robotwin-platform.github.io/) [[code]](https://github.com/robotwin-Platform/robotwin) | 2025 | arXiv | Teacher | G | code | re-decide | manip/sim+real | Designer |
-| **Eureka** | [Eureka: Human-Level Reward Design via Coding Large Language Models](https://arxiv.org/abs/2310.12931) [[project]](https://eureka-research.github.io/) | 2023 | ICLR | Designer | G | problem-spec | re-decide | manip/sim | – |
-| **DrEureka** | [DrEureka: Language Model Guided Sim-To-Real Transfer](https://arxiv.org/abs/2406.01967) [[project]](https://eureka-research.github.io/dr-eureka/) | 2024 | RSS | Designer | G | problem-spec | re-decide | loco/sim+real | – |
-| **Articulate AnyMesh** | [Articulate AnyMesh: Open-Vocabulary 3D Articulated Objects Modeling](https://arxiv.org/abs/2502.02590) | 2025 | arXiv | Designer | G | problem-spec | none | manip/sim+real | – |
-| **Video2Policy** | [Video2Policy: Scaling up Manipulation Tasks in Simulation through Internet Videos](https://arxiv.org/abs/2502.09886) | 2025 | arXiv | Designer | G | problem-spec | re-decide | manip/sim | – |
-| **RoboMorph** | [RoboMorph: Evolving Robot Morphology using Large Language Models](https://arxiv.org/abs/2407.08626) | 2024 | ICRA | Developer | G | system-edit | re-decide | loco/sim | – |
-| **VLMgineer** | [VLMgineer: Vision Language Models as Robotic Toolsmiths](https://arxiv.org/abs/2507.12644) [[project]](https://vlmgineer.github.io/release) | 2025 | arXiv | Developer | G | code | re-decide | manip/sim | – |
 
 ## Benchmarks and resources
 
@@ -273,7 +324,6 @@ Earlier foundational and representative works, listed briefly. *Loop* shows whet
 | **Orchestration Study** | [What Matters in Orchestrating Robot Policies: A Systematic Study of Hierarchical VLA Agents](https://arxiv.org/abs/2606.10267) | 2026 | arXiv | Controller | manip/sim+real |
 | **MLLM Drone Agents Eval** | [Evaluating Multimodal LLMs as Generalist Vision-Language-Action Agents for Drone Control: Commanding, Approaching, Tracking and Searching](https://arxiv.org/abs/2609.01404) | 2026 | arXiv | Controller | aerial/sim |
 | **Astra on VLN-CE** | [How Far Can GPT-6-Astra Go? Evaluating Capabilities in Zero-Shot Vision-and-Language Navigation](https://arxiv.org/abs/2609.20116) | 2026 | arXiv | Controller | nav/sim |
-| **Astra on RoboDojo** | [An Unexpected Robot Policy: Early Evaluations of GPT-6 Astra on RoboDojo and Beyond](https://arxiv.org/abs/2609.24170) | 2026 | arXiv | Controller | manip/sim |
 | **CodeActionBench** | [CodeActionBench: Evaluating Agentic Code-as-Policy for Embodied Manipulation](https://arxiv.org/abs/2609.33807) [[project]](https://codeactionbench.org) | 2026 | arXiv | Controller | manip/sim |
 | **RLE-Bench** | [RLE-Bench: A Qualifying Exam for Coding Agents as Robot Learning Engineers](https://arxiv.org/abs/2609.34210) [[project]](https://rle-bench.github.io/) | 2026 | arXiv | Developer | manip/sim |
 | **LIBERO-Agent** | [LIBERO-Agent: Evaluating General-Purpose Agents for Direct Embodied Manipulation](https://arxiv.org/abs/2609.39507) | 2026 | arXiv | Controller | manip/sim |
@@ -285,16 +335,18 @@ Earlier foundational and representative works, listed briefly. *Loop* shows whet
 
 404 further 2026 papers that meet the definition (judged `core` by a verification pass) but are not in the curated tables above. Tags come from the judging pass and are not hand-checked; generated by `scripts/build_extended.py`.
 
-<details><summary><b>Controller · Orchestrators</b> (120)</summary>
+<details><summary><b>Controller · Orchestrators</b> (145)</summary>
 
 | Paper | Month | Carrier | Loop | Body |
 |---|---|---|---|---|
 | A Hierarchical Framework of Central-Distributed LLM Negotiation and Specialized Model Orchestration for Multi-Robot Collaborative Assembly | 2026 | G | re-decide | multi-robot/sim |
 | [LLM-Based Agentic Exploration for Robot Navigation & Manipulation with Skill Orchestration](https://arxiv.org/abs/2601.00555) | 2026-01 | G | re-decide | mobile-manip/sim+real |
+| [Action-Sketcher: From Reasoning to Action via Visual Sketches for Long-Horizon Robotic Manipulation](https://arxiv.org/abs/2601.01618) | 2026-01 | I | re-decide | manip/sim+real |
 | [A Framework for Low-Latency, LLM-Driven Multimodal Interaction on the Pepper Robot](https://arxiv.org/abs/2603.21013) | 2026-01 | G | re-decide | social/real |
 | [An Embodied Companion for Visual Storytelling](https://arxiv.org/abs/2603.05511) | 2026-01 | G | re-decide | manip/real |
 | [UAVGENT: A Language-Guided Distributed Control Framework](https://arxiv.org/abs/2602.13212) | 2026-01 | G | re-decide | aerial/sim |
 | TRTP: a three-stage robust task planning framework for open worlds via visual-language models and digital twin simulation `real2sim2real` | 2026-02 | G | re-decide | manip/sim+real |
+| [BTGenBot-2: Efficient Behavior Tree Generation with Small Language Models](https://arxiv.org/abs/2602.01870) | 2026-02 | C | re-decide | mobile-manip/sim |
 | [PLanAR: Planning-Language-Grounded Agentic Reasoning for Robot Manipulation](https://arxiv.org/abs/2602.01662) | 2026-02 | G | re-decide | manip/real |
 | [Integrated Exploration and Sequential Manipulation on Scene Graph with LLM-based Situated Replanning](https://arxiv.org/abs/2602.04419) | 2026-02 | G | re-decide | mobile-manip/sim+real |
 | [Affordance-Aware Interactive Decision-Making and Execution for Ambiguous Instructions](https://arxiv.org/abs/2602.05273) | 2026-02 | G | re-decide | mobile-manip/sim+real |
@@ -307,17 +359,23 @@ Earlier foundational and representative works, listed briefly. *Loop* shows whet
 | [MALLVI: A Multi-Agent Framework for Integrated Generalized Robotics Manipulation](https://arxiv.org/abs/2602.16898) | 2026-02 | G | re-decide | manip/sim+real |
 | [Zero-shot Interactive Perception](https://arxiv.org/abs/2602.18374) | 2026-02 | G | re-decide | manip/real |
 | [CoReLIN: Constraint-based Reasoning for Zero-shot Lifelong Interactive Navigation](https://arxiv.org/abs/2602.20055) | 2026-02 | G | re-decide | mobile-manip/sim+real |
+| [Notes-to-Self: Scratchpad Augmented VLAs for Memory Dependent Manipulation Tasks](https://arxiv.org/abs/2602.21013) | 2026-02 | I | re-decide | manip/sim+real |
 | ChainBot: An Agent System for Autonomous Robotic Object Manipulation by Dynamically Chaining Multiple Foundation Models | 2026-02 | G | re-decide | manip/real |
 | [From Language to Action: Can LLM-Based Agents Be Used for Embodied Robot Cognition?](https://arxiv.org/abs/2603.03148) | 2026-03 | G | re-decide | mobile-manip/sim |
 | [Critic in the Loop: A Tri-System VLA Framework for Robust Long-Horizon Manipulation](https://arxiv.org/abs/2603.05185) | 2026-03 | G | re-decide | manip/sim+real |
 | Collaborative LLM-Based Agents for Autonomous Multi-UAV Mission Execution | 2026-03 | G | re-decide | multi-robot/sim+real |
 | [MoMaStage: Skill-State Graph Guided Planning and Closed-Loop Execution for Long-Horizon Indoor Mobile Manipulation](https://arxiv.org/abs/2603.08383) | 2026-03 | G | re-decide | mobile-manip/sim+real |
+| [SELF-VLA: A Skill Enhanced Agentic Vision-Language-Action Framework for Contact-Rich Disassembly](https://arxiv.org/abs/2603.11080) | 2026-03 | I | re-decide | manip/real |
+| [See, Plan, Rewind: Progress-Aware Vision-Language-Action Models for Robust Robotic Manipulation](https://arxiv.org/abs/2603.09292) | 2026-03 | I | re-decide | manip/sim |
 | [AdaClearGrasp: Learning Adaptive Clearing for Zero-Shot Robust Dexterous Grasping in Densely Cluttered Environments](https://arxiv.org/abs/2603.10616) | 2026-03 | G | re-decide | manip/sim+real |
+| [RoboStream: Weaving Spatio-Temporal Reasoning with Memory in Vision-Language Models for Robotics](https://arxiv.org/abs/2603.12939) | 2026-03 | C | re-decide | manip/sim+real |
+| TCoT: Trajectory Chain-of-Thoughts for Robotic Manipulation with Failure Recovery in Vision-Language-Action Model | 2026-03 | I | re-decide | manip/sim+real |
 | [From Scanning Guidelines to Action: A Robotic Ultrasound Agent with LLM-Based Reasoning](https://arxiv.org/abs/2603.14393) | 2026-03 | G | re-decide | manip/real |
 | [CORAL: COntextual Reasoning And Local Planning in A Hierarchical VLM Framework for Underwater Monitoring](https://arxiv.org/abs/2603.14786) | 2026-03 | G | re-decide | other/sim |
 | AIR-Embodied: Active Interactive Reconstruction for 3D Gaussian Splatting with Embodied Multimodal Agents | 2026-03 | G | re-decide | manip/sim+real |
 | [SafeGuard ASF: SR Agentic Humanoid Robot System for Autonomous Industrial Safety](https://arxiv.org/abs/2603.25353) | 2026-03 | G | re-decide | humanoid/sim+real |
 | [ROSClaw: An OpenClaw ROS 2 Framework for Agentic Robot Control and Interaction](https://arxiv.org/abs/2603.26997) | 2026-03 | G | re-decide | loco/real |
+| [LLM-Enabled Low-Altitude UAV Natural Language Navigation via Signal Temporal Logic Specification Translation and Repair](https://arxiv.org/abs/2603.27583) | 2026-03 | C | re-decide | aerial/sim |
 | [On-Demand Human Assistance for Task Continuation under Physical Action Failures in LLM-based Planning](https://arxiv.org/abs/2603.28156) | 2026-03 | G | re-decide | mobile-manip/real |
 | [OpenGo: An OpenClaw-Based Robotic Dog with Real-Time Skill Switching](https://arxiv.org/abs/2604.01708) | 2026-04 | G | re-decide | loco/real |
 | [ROSClaw: A Hierarchical Semantic-Physical Framework for Heterogeneous Multi-Agent Collaboration](https://arxiv.org/abs/2604.04664) | 2026-04 | G | re-decide | multi-robot/sim+real |
@@ -326,6 +384,7 @@ Earlier foundational and representative works, listed briefly. *Loop* shows whet
 | [DeCoNav: Dialog enhanced Long-Horizon Collaborative Vision-Language Navigation](https://arxiv.org/abs/2604.12486) | 2026-04 | G | re-decide | multi-robot/sim |
 | [Goal2Skill: Long-Horizon Manipulation with Adaptive Planning and Reflection](https://arxiv.org/abs/2604.13942) | 2026-04 | G | re-decide | manip/sim+real |
 | Graph-Based Task Allocation for Multi-Agent Fleet Management: A Genetic Algorithm Approach with LLM Integration | 2026-04 | G | re-decide | multi-robot/sim |
+| [Intent-aligned Autonomous Spacecraft Guidance via Reasoning Models](https://arxiv.org/abs/2604.17176) | 2026-04 | C | none | other/sim |
 | [CodeGraphVLP: Code-as-Planner Meets Semantic-Graph State for Non-Markovian Vision-Language-Action Models](https://arxiv.org/abs/2604.22238) | 2026-04 | G | authored | manip/real |
 | An Agentic Framework for Aerial Swarms: Integrating LLMs with the Crazyswarm2 | 2026-04 | G | re-decide | multi-robot/sim |
 | [ANCHOR: A Physically Grounded Closed-Loop Framework for Robust Home-Service Mobile Manipulation](https://arxiv.org/abs/2604.25323) | 2026-04 | G | re-decide | mobile-manip/real |
@@ -335,6 +394,7 @@ Earlier foundational and representative works, listed briefly. *Loop* shows whet
 | [BioProVLA-Agent: An Affordable, Protocol-Driven, Vision-Enhanced VLA-Enabled Embodied Multi-Agent System with Closed-Loop-Capable Reasoning for Biological Laboratory Manipulation](https://arxiv.org/abs/2605.07306) | 2026-05 | G | re-decide | manip/real |
 | [Melding LLM and temporal logic for reliable human-swarm collaboration in complex scenarios](https://arxiv.org/abs/2605.07877) | 2026-05 | G | re-decide | multi-robot/sim+real |
 | [Qumus: Realization of An Embodied AI Quantum Material Experimentalist](https://arxiv.org/abs/2605.18407) | 2026-05 | G | re-decide | other/real |
+| Man-Machine Collaborative Task Planning Based on Visual Language Models | 2026-05 | C | re-decide | manip/sim+real |
 | [Sentinel: Embodied Cooperative Spatial Reasoning and Planning](https://arxiv.org/abs/2605.26239) | 2026-05 | G | re-decide | multi-robot/sim |
 | [PEACE: A Planner-Executor Agent with Constraint Enforcement for UAVs](https://arxiv.org/abs/2606.00104) | 2026-05 | G | re-decide | aerial/sim |
 | [Make Your VLA More Robust Without More Data By Interleaving Motion Planning](https://arxiv.org/abs/2606.00985) | 2026-05 | G | re-decide | mobile-manip/sim |
@@ -345,8 +405,11 @@ Earlier foundational and representative works, listed briefly. *Loop* shows whet
 | [A Systems Engineering Framework for Vision-Language-Enabled UAV Triage and Disaster Response](https://arxiv.org/abs/2607.27597) | 2026-06 | G | re-decide | aerial/sim |
 | [VoLo: A Physical Orchestrator for Open-Vocabulary Long-Horizon Manipulation](https://arxiv.org/abs/2606.07723) | 2026-06 | G | re-decide | manip/sim+real |
 | [Agentic Neuro-Symbolic Planning and Commissioning for Human-in-the-Loop Industrial Robotics with Digital Twins](https://arxiv.org/abs/2606.08214) | 2026-06 | G | re-decide | manip/sim+real |
+| [Embodied-R1.5: Evolving Physical Intelligence via Embodied Foundation Models](https://arxiv.org/abs/2606.11324) | 2026-06 | C | re-decide | manip/sim+real |
+| [Learning What to Say to Your VLA: Mostly Harmless Vision Language Action Model Steering](https://arxiv.org/abs/2606.12299) | 2026-06 | C | re-decide | manip/sim+real |
 | [DynaHMRC: Decentralized Heterogeneous Multi-Robot Collaboration for Dynamic Tasks with Large Language Models](https://arxiv.org/abs/2606.14882) | 2026-06 | C | re-decide | multi-robot/sim |
 | MAVE: An Augmented Multi-agent LLM System for Interactive Design and Robotic Fabrication | 2026-06 | G | re-decide | manip/real |
+| [Vesta: A Generalist Embodied Reasoning Model](https://arxiv.org/abs/2606.20905) | 2026-06 | C | re-decide | mobile-manip/real |
 | [EmbodiedUS-FS: Fast Slow Intelligence for Ultrasound Robotics](https://arxiv.org/abs/2606.22319) | 2026-06 | G | re-decide | manip/real |
 | [HoloAgent-0: A Unified Embodied Agent Framework with 3D Spatial Memory](https://arxiv.org/abs/2606.23565) | 2026-06 | G | re-decide | mobile-manip/real |
 | RoDA: A Role-Playing Dual-Agent Framework to Drive Nursing Robots in Bimanual Coordination Tasks | 2026-06 | G | re-decide | manip/sim |
@@ -361,6 +424,7 @@ Earlier foundational and representative works, listed briefly. *Loop* shows whet
 | World-Model-Enhanced UAV Intelligent Inspection Method for Converter Station Valve Halls | 2026-07 | G | re-decide | aerial/real |
 | [HiMe: Hierarchical Embodied Memory for Long-Horizon Vision-Language-Action Control](https://arxiv.org/abs/2607.03449) | 2026-07 | C | re-decide | manip/sim+real |
 | [ACE: Agentic Control for Embodied Manipulation via Zero-shot Workflow Reasoning](https://arxiv.org/abs/2607.04162) | 2026-07 | G | re-decide | manip/real |
+| [Cortex: A Bidirectionally Aligned Embodied Agent Framework for Long-horizon Manipulation](https://arxiv.org/abs/2607.05377) | 2026-07 | H | re-decide | manip/sim+real |
 | [TypeGo: An OS Runtime for Embodied Agents](https://arxiv.org/abs/2607.05482) | 2026-07 | G | re-decide | loco/real |
 | [A Closed-Loop Multi-Agent Framework for Robust Multi-Robot Manipulation](https://arxiv.org/abs/2607.06990) | 2026-07 | G | re-decide | multi-robot/sim+real |
 | [Multi-Agent Robotic Control with Onboard Vision-Language Models](https://arxiv.org/abs/2607.07403) | 2026-07 | G | re-decide | mobile-manip/sim |
@@ -368,19 +432,27 @@ Earlier foundational and representative works, listed briefly. *Loop* shows whet
 | [A Glimpse into Long-term Physical Coexistence with Intelligent Robots](https://arxiv.org/abs/2607.11377) | 2026-07 | G | re-decide | multi-robot/real |
 | [Engagement-Aware Agentic Pursuit-Evasion](https://arxiv.org/abs/2607.10986) | 2026-07 | G | re-decide | multi-robot/sim |
 | Practical Human–Robot Interaction (HRI) through Large Language Model (LLM)-based Voice-to-Action Systems | 2026-07 | G | re-decide | mobile-manip/real |
+| [Exploratory, Communicative, and Deployable: Vision-Driven Embodied Agents for Open-World Mobile Manipulation](https://arxiv.org/abs/2607.13653) | 2026-07 | C | re-decide | mobile-manip/sim |
 | [RoboHarness: Memory-Driven Orchestration of Heterogeneous Robot Policies for Long-Horizon Planning](https://arxiv.org/abs/2607.18060) | 2026-07 | G | re-decide | manip/sim+real |
 | [LENS: LLM-guided Environment Simplification for Planning and Control in Clutter](https://arxiv.org/abs/2607.19633) | 2026-07 | G | re-decide | manip/sim+real |
+| [WCM: World-Cognition Model for Generalizable Human-Robot Interaction](https://arxiv.org/abs/2607.22999) | 2026-07 | C | re-decide | manip/real |
+| ReflectVLM+: Enhancing VLM-based Robotic Planning via Quantitative Stagnation Detection and Trajectory Refinement | 2026-07 | C | re-decide | manip/sim |
 | [RoboBRIDGE: A Modular Framework for Bridging Policies to Robust Real-World Robotic Agents](https://arxiv.org/abs/2607.27881) | 2026-07 | G | re-decide | manip/real |
 | [D-VLC: Decentralized Vision-Language Collaboration for Heterogeneous Embodied Multi-Robot Systems in Unknown Environments](https://arxiv.org/abs/2607.29009) | 2026-07 | G | re-decide | multi-robot/sim |
 | Dynamic Closed-Loop Grasping Via an Enhanced Thinkgrasp Framework | 2026-08 | G | re-decide | manip/sim |
 | Embodied Intelligence Robots: Flexible Task Planning Framework and Multimodal Fusion Perception | 2026-08 | G | re-decide | manip/real |
 | [ETA: A New Agentic Paradigm for Embodied Tasks](https://arxiv.org/abs/2608.03924) | 2026-08 | G | re-decide | manip/sim+real |
+| [Explicit Language Memory for Long-Horizon Planning in Vision-Language-Action Models](https://arxiv.org/abs/2608.04765) | 2026-08 | H | re-decide | manip/sim+real |
+| [Beyond Flat Policies: Hierarchical Post-Training for Embodied Agents in Robotic Manipulation](https://arxiv.org/abs/2608.05999) | 2026-08 | H | re-decide | manip/sim |
 | PFEA: a VLM-based high-level natural language planning and feedback embodied agent for human-centered AI | 2026-08 | G | re-decide | manip/real |
 | [HarnessWAM: Bridging Prediction and Deliberation in World Action Models](https://arxiv.org/abs/2608.09516) | 2026-08 | G | re-decide | manip/sim+real |
+| [Evolve Vision-Language-Action Model into an Agent with On-the-fly Tool-use](https://arxiv.org/abs/2608.14047) | 2026-08 | I | re-decide | manip/sim+real |
 | [MistyPilot: Enabling Social-Robot Control through Multi-Agent LLM Skill Orchestration](https://arxiv.org/abs/2608.15549) | 2026-08 | G | authored | social/real |
 | [HODAgent: Towards On-Demand, Responsive Humanoids for Physical World Human Interaction](https://arxiv.org/abs/2608.17584) | 2026-08 | G | re-decide | humanoid/sim+real |
+| MulPlanLM: multimodal robotic task planning with vision-language models and physical feedback | 2026-08 | C | re-decide | manip/real |
 | [Evidence-Gated Task and Motion Planning with Vision-Language Models](https://arxiv.org/abs/2608.20084) | 2026-08 | G | re-decide | manip/sim |
 | A human-verifiable execution-time DAG refinement framework for LLM-driven multi-robot construction task planning | 2026-08 | G | re-decide | multi-robot/sim |
+| [Triplet2Track: A Hierarchical System with Object-Centric Representations for Reliable Long-Horizon Manipulation](https://arxiv.org/abs/2608.22800) | 2026-08 | H | re-decide | manip/real |
 | [Plan Along the Way: Event-Triggered Foundation-Model Planning for TAMP Execution in Partially Observable Manipulation](https://arxiv.org/abs/2608.28075) | 2026-08 | G | re-decide | manip/sim |
 | [EMERGE-Policy: A Robot Mind Emerges Beyond a Single Policy](https://arxiv.org/abs/2608.29896) | 2026-08 | G | re-decide | manip/sim+real |
 | Adaptive Task Planning for Long-Horizon Robotic Manipulation Based on Video Priors and Dynamic Scene Graphs | 2026-09 | G | re-decide | manip/sim |
@@ -391,11 +463,13 @@ Earlier foundational and representative works, listed briefly. *Loop* shows whet
 | [A Brain-inspired Hierarchical Framework for Zero-Shot Robot Task Reasoning and Execution](https://arxiv.org/abs/2609.05985) | 2026-09 | G | re-decide | manip/real |
 | [2AM: Grounding Agent-Side Memory as Guidance for Steerable Action Models in Long-Horizon Manipulation](https://arxiv.org/abs/2609.11308) | 2026-09 | G | re-decide | manip/sim |
 | [Harness Robotic OS: A Unified Embodied-Agent Runtime for Closed-Loop Quadruped Inspection](https://arxiv.org/abs/2609.11225) | 2026-09 | G | re-decide | loco/real |
+| [Memory as Plans: World-Action Modeling with Memory-Grounded Planning](https://arxiv.org/abs/2609.11561) | 2026-09 | H | re-decide | manip/sim+real |
 | [AeroWeaver: An Embodied-Agent Harness for Weaving Aerial Skills into Distributed, Adaptive Swarm Execution](https://arxiv.org/abs/2609.18520) | 2026-09 | G | re-decide | multi-robot/sim |
 | [From Rollout to Reset: A Graph-Based Harness for Autonomous Long-Horizon Manipulation Evaluation](https://arxiv.org/abs/2609.19413) | 2026-09 | G | re-decide | manip/real |
 | [KINO: A Keyframe Interface for VLM Planning and Whole-Body Control in Humanoid Loco-Manipulation](https://arxiv.org/abs/2609.18869) | 2026-09 | G | re-decide | humanoid/sim+real |
 | [MaskHarness-WAM: Instance-Grounded Harnessing for Long-Horizon Robot Manipulation](https://arxiv.org/abs/2609.19974) | 2026-09 | G | re-decide | manip/sim+real |
 | SMaRTAban: a voice-controlled LLM agent for quadruped mobile robotics with integrated vision | 2026-09 | G | re-decide | loco/real |
+| [MedVLA: A Hierarchical Vision-Language-Action Framework for Closed-Loop Precision Medical Robot Manipulation](https://arxiv.org/abs/2609.25756) | 2026-09 | H | re-decide | manip/real |
 | [From Passive Execution to Active Exploration: Agentic Embodied Manipulation in Realistic Environments](https://arxiv.org/abs/2609.29091) | 2026-09 | G | re-decide | manip/sim+real |
 | [Robo-Harness K1: Harnessing Robot-Use Agents via Perception Augmentation](https://arxiv.org/abs/2609.29389) | 2026-09 | G | re-decide | manip/sim |
 | [Assisting for Open-Ended Tasks: Goal-Oriented Shared Autonomy as a Particle Filter](https://arxiv.org/abs/2609.32576) | 2026-09 | G | re-decide | manip/real |
@@ -408,6 +482,7 @@ for Autonomous Purification | 2026-09 | G | re-decide | manip/real |
 | [DuoMind: Enabling Distributed Multi-Robot Coordination with Semantic Communication](https://arxiv.org/abs/2610.02161) | 2026-10 | C | re-decide | multi-robot/sim |
 | [Fewer Tokens, Better Action: GPT-6 Astra Robot Agents with 14% Higher Success Rate but 65% Fewer Tokens](https://arxiv.org/abs/2610.01939) | 2026-10 | G | re-decide | manip/sim |
 | [MobiAgent: Dual-Loop Recursive Policy Self-Improvement for Long-Horizon Mobile Manipulation](https://arxiv.org/abs/2610.03476) | 2026-10 | H | re-decide | mobile-manip/sim+real |
+| [ROMA: LLM System for Real-World Object-Centric Multi-Sensory Active Perception](https://arxiv.org/abs/2610.06955) | 2026-10 | C | re-decide | manip/real |
 | [CIRRA: Dual-Level Continual Instruction Reconciliation with Ongoing Execution for Embodied Robot Agents in Interactive Household Tasks](https://arxiv.org/abs/2610.08862) | 2026-10 | G | re-decide | humanoid/real |
 | [Recursive Video In-Context Learning for Agentic Robot](https://arxiv.org/abs/2610.06843) | 2026-10 | G | re-decide | manip/sim+real |
 | [Toward Evidence-Driven Human-Agent-Robot Teaming for Earth-Independent Anomaly Triage](https://arxiv.org/abs/2610.08933) | 2026-10 | G | re-decide | mobile-manip/real |
@@ -520,38 +595,6 @@ for Autonomous Purification | 2026-09 | G | re-decide | manip/real |
 | [RoboBridge: A Self-Evolving Embodied Agent Framework for Sim-to-Real Transfer](https://arxiv.org/abs/2610.02717) | 2026-10 | G | re-decide | manip/sim+real |
 | [ProactiveVLA: Augmenting Embodied Memory through Proactive Environment Exploration](https://arxiv.org/abs/2610.06999) | 2026-10 | G | re-decide | manip/sim |
 | [RobotUse: Allocating Computation, Context, and Decisions](https://arxiv.org/abs/2610.04929) | 2026-10 | G | re-decide | manip/sim+real |
-
-</details>
-
-<details><summary><b>Controller · Trained carriers (C / H / I)</b> (25)</summary>
-
-| Paper | Month | Carrier | Loop | Body |
-|---|---|---|---|---|
-| [Action-Sketcher: From Reasoning to Action via Visual Sketches for Long-Horizon Robotic Manipulation](https://arxiv.org/abs/2601.01618) | 2026-01 | I | re-decide | manip/sim+real |
-| [BTGenBot-2: Efficient Behavior Tree Generation with Small Language Models](https://arxiv.org/abs/2602.01870) | 2026-02 | C | re-decide | mobile-manip/sim |
-| [Notes-to-Self: Scratchpad Augmented VLAs for Memory Dependent Manipulation Tasks](https://arxiv.org/abs/2602.21013) | 2026-02 | I | re-decide | manip/sim+real |
-| [SELF-VLA: A Skill Enhanced Agentic Vision-Language-Action Framework for Contact-Rich Disassembly](https://arxiv.org/abs/2603.11080) | 2026-03 | I | re-decide | manip/real |
-| [See, Plan, Rewind: Progress-Aware Vision-Language-Action Models for Robust Robotic Manipulation](https://arxiv.org/abs/2603.09292) | 2026-03 | I | re-decide | manip/sim |
-| [RoboStream: Weaving Spatio-Temporal Reasoning with Memory in Vision-Language Models for Robotics](https://arxiv.org/abs/2603.12939) | 2026-03 | C | re-decide | manip/sim+real |
-| TCoT: Trajectory Chain-of-Thoughts for Robotic Manipulation with Failure Recovery in Vision-Language-Action Model | 2026-03 | I | re-decide | manip/sim+real |
-| [LLM-Enabled Low-Altitude UAV Natural Language Navigation via Signal Temporal Logic Specification Translation and Repair](https://arxiv.org/abs/2603.27583) | 2026-03 | C | re-decide | aerial/sim |
-| [Intent-aligned Autonomous Spacecraft Guidance via Reasoning Models](https://arxiv.org/abs/2604.17176) | 2026-04 | C | none | other/sim |
-| Man-Machine Collaborative Task Planning Based on Visual Language Models | 2026-05 | C | re-decide | manip/sim+real |
-| [Embodied-R1.5: Evolving Physical Intelligence via Embodied Foundation Models](https://arxiv.org/abs/2606.11324) | 2026-06 | C | re-decide | manip/sim+real |
-| [Learning What to Say to Your VLA: Mostly Harmless Vision Language Action Model Steering](https://arxiv.org/abs/2606.12299) | 2026-06 | C | re-decide | manip/sim+real |
-| [Vesta: A Generalist Embodied Reasoning Model](https://arxiv.org/abs/2606.20905) | 2026-06 | C | re-decide | mobile-manip/real |
-| [Cortex: A Bidirectionally Aligned Embodied Agent Framework for Long-horizon Manipulation](https://arxiv.org/abs/2607.05377) | 2026-07 | H | re-decide | manip/sim+real |
-| [Exploratory, Communicative, and Deployable: Vision-Driven Embodied Agents for Open-World Mobile Manipulation](https://arxiv.org/abs/2607.13653) | 2026-07 | C | re-decide | mobile-manip/sim |
-| [WCM: World-Cognition Model for Generalizable Human-Robot Interaction](https://arxiv.org/abs/2607.22999) | 2026-07 | C | re-decide | manip/real |
-| ReflectVLM+: Enhancing VLM-based Robotic Planning via Quantitative Stagnation Detection and Trajectory Refinement | 2026-07 | C | re-decide | manip/sim |
-| [Explicit Language Memory for Long-Horizon Planning in Vision-Language-Action Models](https://arxiv.org/abs/2608.04765) | 2026-08 | H | re-decide | manip/sim+real |
-| [Beyond Flat Policies: Hierarchical Post-Training for Embodied Agents in Robotic Manipulation](https://arxiv.org/abs/2608.05999) | 2026-08 | H | re-decide | manip/sim |
-| [Evolve Vision-Language-Action Model into an Agent with On-the-fly Tool-use](https://arxiv.org/abs/2608.14047) | 2026-08 | I | re-decide | manip/sim+real |
-| MulPlanLM: multimodal robotic task planning with vision-language models and physical feedback | 2026-08 | C | re-decide | manip/real |
-| [Triplet2Track: A Hierarchical System with Object-Centric Representations for Reliable Long-Horizon Manipulation](https://arxiv.org/abs/2608.22800) | 2026-08 | H | re-decide | manip/real |
-| [Memory as Plans: World-Action Modeling with Memory-Grounded Planning](https://arxiv.org/abs/2609.11561) | 2026-09 | H | re-decide | manip/sim+real |
-| [MedVLA: A Hierarchical Vision-Language-Action Framework for Closed-Loop Precision Medical Robot Manipulation](https://arxiv.org/abs/2609.25756) | 2026-09 | H | re-decide | manip/real |
-| [ROMA: LLM System for Real-World Object-Centric Multi-Sensory Active Perception](https://arxiv.org/abs/2610.06955) | 2026-10 | C | re-decide | manip/real |
 
 </details>
 

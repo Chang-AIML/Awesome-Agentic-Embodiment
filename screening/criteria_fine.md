@@ -7,6 +7,31 @@ supports; when a detail is unclear, pick the most likely reading and lower `conf
 Revision 2026-10-08 (user decision): step A.3 accepts an **authored closed loop** as well as
 re-decision by the model. Papers first judged with the strict A.3 were re-judged with this version.
 
+## Step 0 — scope: general foundation models, not embodied foundation models (user decision 2026-10-08)
+
+The survey studies **general-purpose foundation models** (LLMs / VLMs / MLLMs such as GPT, Gemini, Claude,
+Qwen-VL, Llama, GPT-6 Astra) doing embodied work as agents. Such a model may output plans, skill / tool / VLA
+calls, code or constraints, **or directly emit (micro-)actions** (LLM-as-policy, e.g. GPT-6 Astra evaluated as
+a robot policy on RoboDojo, Agent as Policy, Show-Harness). A general model fine-tuned or distilled for one
+agentic role that keeps acting through an agent interface (tools, skills, code, plans) still counts — e.g.
+GUAVA distils a frontier VLM agent into a 4B agent with the same tools.
+
+**Out, whatever loop it has** (explicit reasoning, subtask text, memory, self-correction or hierarchy do not
+rescue it): **embodied foundation models whose job is to produce actions**, and papers whose headline
+contribution is such a model —
+- VLAs: OpenVLA, RT-2, π0 / π0.5, ECoT, OneTwoVLA, memory VLAs (MEM), metacognitive / self-correcting VLAs
+  (Sentinel-VLA), reasoning VLAs;
+- hierarchical VLA systems whose high level is trained for a co-designed low-level policy: Hi Robot,
+  Steerable VLA, τ0-VLA, Gemini Robotics 1.5, LoHo-Manip;
+- world action models (WAMs) and verifiers built for them;
+- robot / embodied foundation models and "embodied brains" pretrained as reusable embodied models: PaLM-E,
+  RoboBrain, GR00T, Embodied-R1.5-style models.
+These models may appear only as **tools called by an in-scope agent** (Harness VLA, where a coding agent
+steers frozen VLAs, is core).
+
+`carrier` is therefore `G` (general model used as-is) or `C` (general model fine-tuned / distilled for an
+agentic role, still acting through an agent interface). `H` and `I` are no longer used: those papers are out.
+
 ## Step A — is there an agent? (all three must hold)
 
 1. **Explicit decision**: the foundation model (LLM / VLM / VLA or a model trained from one) emits
@@ -110,12 +135,11 @@ tag `[real2sim]` (or `[real2sim2real]`). The agent's explicit decisions are its 
     on its own experiments.
 - **seat2**: secondary seats separated by `+` (or `-`).
 - **carrier** of the top-level decider: `G` general model used as-is (GPT, Gemini, Claude, Llama,
-  Qwen-VL off the shelf); `C` embodied-trained decider + generic executor (existing skills, planner);
-  `H` trained decider + co-designed learned low-level policy trained for its outputs; `I` one trained
-  model emits both explicit decisions and actions.
+  Qwen-VL off the shelf); `C` general model fine-tuned / distilled for an agentic role, still acting through
+  an agent interface (Step 0). `H` / `I` (co-trained hierarchies, one model deciding and acting) are out.
 - **sub** (Controller only, else `-`): `orchestrator` (calls skills/tools/VLAs), `direct` (micro-actions,
-  native commands, code executed now), `lifelong` (memory/skill/harness improved across episodes),
-  `trained` (carrier C/H/I). Pick the dominant one.
+  native commands, code or constraints executed now), `lifelong` (memory/skill/harness improved across
+  episodes). Pick the dominant one.
 - **interface**: one of `skill-call`, `vla-call`, `micro-action`, `code`, `constraint`, `verdict`,
   `trace`, `problem-spec`, `system-edit`, `message`.
 - **topo**: `x1` single agent; `xR` several role agents on one task; `xN` one agent per robot;
@@ -138,9 +162,7 @@ tag `[real2sim]` (or `[real2sim2real]`). The agent's explicit decisions are its 
 | SayCan | core | Controller | G | orchestrator |
 | Inner Monologue | core | Controller | G | orchestrator |
 | RoCo (multi-arm dialogue) | core | Controller | G | orchestrator (topo xN) |
-| PaLM-E | core | Controller | C | trained |
-| Hi Robot | core | Controller | H | trained |
-| OneTwoVLA | core | Controller | I | trained |
+| PaLM-E, Hi Robot, OneTwoVLA, ECoT, pi0.5, Gemini Robotics 1.5 (embodied foundation models) | out | - | - | - |
 | Code-as-Monitor | core | Supervisor | G | - |
 | REFLECT / DoReMi | core | Supervisor | G | - |
 | GUAVA (frontier agent trajectories distilled into 4B agent) | core | Teacher (seat2 Controller) | G | - |
@@ -148,7 +170,8 @@ tag `[real2sim]` (or `[real2sim2real]`). The agent's explicit decisions are its 
 | ENPIRE (coding agents edit robot policy code, keep/revert by real trials) | core | Developer | G | - |
 | Code as Policies / VoxPoser / ReKep (authored loop) | core | Controller | G | direct |
 | CoPa / MOKA (one-shot constraints or keypoints, open loop) | precursor | Controller | G | direct |
-| ECoT / pi0.5 | precursor | Controller | I | trained |
+| Agent as Policy, Show-Harness, GPT-6 Astra on RoboDojo (general model emits actions) | core | Controller | G | direct |
+| AgentVLN, GUAVA student (general VLM fine-tuned for an agent role) | core | Controller / Teacher | C / G→C | - |
 | LLM-Planner on ALFRED, CoELA on TDW | boundary | Controller | G | - |
 | OpenVLA, pi0, RT-1, GR00T N1 | out | - | - | - |
 | RoboMonkey, GVL, VLAC (scorers) | out | - | - | - |

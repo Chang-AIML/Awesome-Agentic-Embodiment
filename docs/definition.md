@@ -19,24 +19,36 @@
 > 9. **agentic Real2Sim 都算核心**：由 agent 重建机器人操作场景（3D 场景、资产、铰接、物理参数、仿真代码）的工作，按 §6.1 的规则直接进 CORE，不因「一次构建、不再调用模型」而降级。
 > 10. 规模放宽到约 **120 篇**（不是硬指标），仍聚焦 2026 年；2022–2025 年的奠基作与代表作作为先驱一并收录。
 > 11. **VLN 单独成章**（§6.2）。
+>
+> 2026-10-08 用户第三次追加的决策（覆盖第 6、10 条中「聚焦 2026」的说法）：
+> 12. **研究对象是通用大模型做具身任务**：LLM / VLM（GPT、Gemini、Claude、Qwen-VL、GPT-6 Astra 等）作为 agent 完成具身任务。它可以输出计划、调用技能 / 工具 / VLA、写代码或约束，也可以直接输出动作，例如 GPT-6 Astra 在 RoboDojo 上直接当策略。**具身大模型直接做动作的工作不收**：VLA（含带推理、子任务、memory、自我纠错的 VLA）、分层 VLA、WAM、机器人基础模型，只能作为被 agent 调用的工具出现。见 §2.0。
+> 13. **论文故事不只聚焦 2026**：2026 年论文最多，但 2022–2025 年的先驱同样重要，是每个 seat 的源头。核心表与正文按 seat 讲「先驱 → 2026」的脉络。
 
 ---
 
 ## 1. 一句话定义
 
-*Agentic Embodiment studies foundation-model-driven processes that make explicit decisions whose
-consequences reach a robot body, and that re-decide on evidence of those consequences. Its organizing
-question is where such a process sits relative to the body's deployed policy — steering it, guarding
-it, teaching it, designing its learning problem, or building its system (**Seat**) — and which weights
-carry it (**Carrier**).*
+*Agentic Embodiment studies general-purpose foundation models — LLMs and VLMs, not embodied action
+models — acting as agents that make explicit decisions whose consequences reach a robot body, and that
+re-decide on evidence of those consequences. Its organizing question is where such an agent sits relative
+to the body's deployed policy — steering it, guarding it, teaching it, designing its learning problem, or
+building its system (**Seat**).*
 
-中文：Agentic Embodiment 研究的是由基础模型驱动、能做出显式决策的过程。这些决策的后果会作用到机器人身体上，而过程会依据后果的证据重新决策。全文围绕一个问题组织：这个过程相对于机器人部署的策略坐在哪里（**Seat**），由哪类权重承载（**Carrier**）。
+中文：Agentic Embodiment 研究通用基础模型（LLM / VLM，而不是具身动作模型）作为 agent 做出的显式决策。这些决策的后果会作用到机器人身体上，agent 会依据后果的证据重新决策。全文围绕一个问题组织：这个 agent 相对于机器人部署的策略坐在哪里（**Seat**）。
 
 **推论**：agentic embodiment 不等于 agentic robot。ENPIRE 部署出去的策略里没有 agent，但它仍是核心样本，因为 agent 坐在 Developer 的位置。
 
 ---
 
-## 2. 什么算 agent：三条判定
+## 2. 什么算 agent：范围 + 三条判定
+
+### 2.0 范围：通用大模型，不是具身大模型（决策 12）
+
+- **收**：通用大模型（LLM / VLM / MLLM，如 GPT、Gemini、Claude、Qwen-VL、GPT-6 Astra）作为 agent 做具身任务。它输出什么都可以：计划、技能 / 工具 / VLA 调用、代码、约束，或者直接输出动作（LLM-as-policy，如 Agent as Policy、Show-Harness、GPT-6 Astra 在 RoboDojo 上直接当策略）。通用模型为某个 agent 角色微调或蒸馏、但仍通过 agent 接口（工具、技能、代码、计划）行动的，也收，例如 GUAVA 把前沿 VLM agent 蒸馏成使用同一套工具的 4B agent。
+- **不收**：具身大模型直接做动作，以及以这类模型为主要贡献的论文，不论其内部有没有推理链、子任务文本、memory 或自我纠错：VLA（OpenVLA、π0 / π0.5、ECoT、OneTwoVLA、MEM、Sentinel-VLA）、为低层策略协同训练的分层 VLA（Hi Robot、Steerable VLA、τ0-VLA、Gemini Robotics 1.5）、WAM、机器人或具身基础模型（PaLM-E、RoboBrain、GR00T）。它们只能作为被 agent 调用的工具出现，例如 Harness VLA 里 coding agent 调度冻结的 VLA。
+- LLM 直接出动作和 VLA 的界线确实模糊，判断看**模型是什么**，不看输出是什么：通用模型直接出动作算，具身大模型出计划也不算。
+
+### 2.1 三条判定
 
 三条**全部满足**才算 agent。判定对象是「模型 + harness + 环」构成的过程，不是权重本身。
 
@@ -50,7 +62,7 @@ carry it (**Carrier**).*
    - **再决策**（re-decide）：同一次运行中，模型至少被再次调用一次；再次调用时，输入里有它**自己先前的决策记录**和这些决策的**后果证据**，并且可以修订先前的决策。例：Inner Monologue、Code-as-Monitor。
    - **编写闭环**（authored loop）：模型写出的可执行 artifact（约束、程序、在线优化的目标函数、监控条件、成功判据）在机器人执行时读取实时感知，并依据结果改变行为：重新求解、在阶段之间前进或回溯、断言失败后执行恢复动作、否决危险动作、检查失败后重试。随结果而变的那部分逻辑必须由模型写出；触发它的机制（求解器、回溯、重试循环）可以是固定框架。例：ReKep 的关键点约束以约 10 Hz 重新求解，路径约束被破坏时回溯到前一阶段；VoxPoser、Code as Policies（带感知反馈循环的程序）、ProgPrompt（带断言和恢复动作的程序）、Language to Rewards。
    后果证据须来自执行后的观测、工具返回、verifier 事件、训练或评测统计，或人类反馈。只来自模型自己的预测（world model、执行前的可行性检查）不够。
-   **两种都不算**：artifact 的内容不随执行时的状态改变，例如一串技能名或地标、一次算出的抓取位姿或路点；一个计划交给各自闭环的技能去执行（那个环不是模型写的）；每步重新推理、但看不到自己先前决策的 VLA（ECoT、π0.5）。
+   **两种都不算**：artifact 的内容不随执行时的状态改变，例如一串技能名或地标、一次算出的抓取位姿或路点；一个计划交给各自闭环的技能去执行（那个环不是模型写的）；每步重新推理、但看不到自己先前决策的模型。（VLA 本身已按 §2.0 排除。）
    **两个例外（决策 8、9）**：约束 / 关键点编程类（模型写约束或代价函数交给求解器）和 agentic Real2Sim（模型重建可交互仿真场景）即使一次写成、不再闭环，也按 agent 收录，「闭环」一列记开环。见 §5 和 §6.1。
    Designer 和 Developer 的闭环仍要求依据训练或试验结果重新设计、重新修改（Eureka 迭代；一次写成的奖励或任务代码不算）。
 
@@ -67,7 +79,7 @@ carry it (**Carrier**).*
 
 | Seat | 阶段 | 判定规则 | 代表论文 |
 |---|---|---|---|
-| **Controller** | 评测时 | agent 在评测 episode 中被调用，直接决定机器人下一步做什么。检验方法：假如什么失败都没发生，它的输出是否仍然改变机器人的行为？是 → Controller。 | SayCan、Inner Monologue、RoCo、Harness VLA、Show-Harness、OneTwoVLA |
+| **Controller** | 评测时 | agent 在评测 episode 中被调用，直接决定机器人下一步做什么。检验方法：假如什么失败都没发生，它的输出是否仍然改变机器人的行为？是 → Controller。 | SayCan、Inner Monologue、RoCo、Harness VLA、Show-Harness、Agent as Policy |
 | **Supervisor** | 评测时 | 上述检验回答「否」：输出只在异常时起作用，如门控、否决、中断、恢复、重规划请求；并且检查过程独立于名义决策者。 | Code-as-Monitor、REFLECT、DoReMi |
 | **Teacher** | 部署前 | agent 亲自执行、并经结果检验的行为（轨迹、恢复分支、playbook），成为部署模型的训练目标或冻结上下文。只做一次标注的模型不算 Teacher。 | GUAVA、RoboTwin 2.0 |
 | **Designer** | 部署前 | agent 为学习者设计**问题**：reward、success、任务、环境、课程、评测套件。即使这些 artifact 经过迭代进化，也一律归 Designer。 | Eureka、DrEureka |
@@ -82,36 +94,28 @@ carry it (**Carrier**).*
 
 ---
 
-## 4. 副轴：Carrier（决策由哪类权重承载）
+## 4. 副轴：Carrier（通用模型原样使用还是改造过）
 
-找到掌握任务级控制流的最高层决策者，然后依次判断：
+决策 12 之后，Carrier 只剩两类：
 
 | Carrier | 含义 | 例子 |
 |---|---|---|
-| **G** | 作者没有对其权重做具身训练的通用模型（GPT、Gemini、Claude、开源 LLM / VLM 原样使用） | SayCan、CaM、Harness VLA |
-| **I** | 同一个训练过的模型既输出显式决策，又输出动作 | OneTwoVLA |
-| **H** | 训练过的决策者，配一个**为它协同设计**的学习型执行器（执行器的输入接口就是决策者的输出词表，且在同一工作中训练） | Hi Robot |
-| **C** | 训练过的决策者，配通用执行器（现成 skill、规划器、通用速度接口） | PaLM-E、Guava-4B |
+| **G** | 通用模型原样使用（GPT、Gemini、Claude、开源 LLM / VLM），作者没有改它的权重 | SayCan、CaM、Harness VLA |
+| **C** | 通用模型为某个 agent 角色微调或蒸馏，仍通过 agent 接口行动 | GUAVA 的 4B 学生（记作 G→C）、AgentVLN |
 
-**中心图**是 Seat × Carrier 网格。用户最初的「agency 在哪里」四类，对应 Controller 一行的四列：
+原来的 **H**（分层双系统、为低层协同训练）和 **I**（一个模型既决策又出动作）都属于具身大模型路线，按决策 12 不收。用户最初的「agency 在哪里」四类中，「外部编排」对应 G / C；「分层双系统」「内化」不再收录，只在正文作为对照；「multi-agent」改为 Topology 列。
 
-| 最初四类 | 现在的位置 |
-|---|---|
-| 外部编排 | Controller-G / C |
-| 分层双系统 | Controller-H（只收显式决策的版本，潜变量双系统判 OUT） |
-| 内化 | Controller-I |
-| multi-agent | 不再是类别，改为 Topology 列，可出现在任何 seat |
+Carrier 只剩两列后，Seat × Carrier 网格的信息量很小，副轴是否改用 Interface（技能调用 / 冻结 VLA / 代码 / 约束 / 直接动作 / 问题规格 / 系统编辑）待用户决定。
 
 ---
 
-## 5. Controller 的四个子章
+## 5. Controller 的三个子章
 
-Controller 在候选中占一半以上，正文按以下四类拆分：
+Controller 在候选中占一半以上，正文按以下三类拆分（原「训练过的 carrier」子章随决策 12 取消，C 类论文按功能归入下面三类）：
 
 1. **编排型**（orchestrator）：调用 skill、tool 或 VLA-as-tool。例：SayCan、Harness VLA。
 2. **直接驱动型**（direct driver）：输出语义微动作、原生指令、当下执行的代码或约束。例：Show-Harness、CaP-X、ReKep。这一子章也承接 robot-use agent 社区的命名。子章内部按闭环形式再分组：编写闭环（Code as Policies → VoxPoser → ReKep，模型写一次，程序或约束在执行中闭环）、再决策（CaP-X、Show-Harness，模型被反复调用），以及一次求解的约束 / 关键点编程（CoPa、MOKA 一类，决策 8 收录，闭环一列记开环）。
 3. **lifelong / memory 型**：评测期间写入并读取 memory、skill 库或 harness，越用越好。
-4. **训练过的 carrier**：Carrier 为 C / H / I。例：PaLM-E、Hi Robot、OneTwoVLA。
 
 ---
 
@@ -120,12 +124,12 @@ Controller 在候选中占一半以上，正文按以下四类拆分：
 | 层级 | 条件 | 去向 |
 |---|---|---|
 | **CORE** | arXiv 首版在 **2026 年**；满足 §2 三条判定；有机器人身体；至少一个主要实验在真机或物理仿真中进行（失败可能由接触、滑动、碰撞等物理原因引起）；agentic 部分是论文 headline 的自变量。agentic Real2Sim 按 §6.1 的规则判定 | 核心表，按 Seat 分节；Real2Sim / Sim2Real 与 VLN 各自成章 |
-| **先驱**（PIONEER） | arXiv 首版在 2022–2025 年的奠基作或代表作。满足 §2 三条判定的（如 SayCan、Code-as-Monitor、ReKep），和只满足判定 1、2 的开环工作（如 ZS-Planners、ECoT、π0.5）都可以收，用「闭环」一列区分 | 先驱表，按 Seat 简要列出 |
+| **先驱**（PIONEER） | arXiv 首版在 2022–2025 年的奠基作或代表作。满足 §2 三条判定的（如 SayCan、Code-as-Monitor、ReKep），和只满足判定 1、2 的开环工作（如 ZS-Planners、Socratic Models、CoPa）都可以收，用「闭环」一列区分 | 与 2026 年论文一起按 seat 呈现（决策 13）：每个 seat 先讲先驱，再讲 2026 |
 | **BOUNDARY** | agent 成立，但只在离散或脚本化仿真中（ALFRED、AI2-THOR、VirtualHome、TDW、R2R 离散图、Habitat magic grasp）；或属于自动驾驶 | 边界一节讨论，lineage 表 |
 | **RESOURCE** | benchmark、testbed、能力研究，被测对象是 agent | 单独的资源表 |
 | **OUT** | 其余全部 | 不收录 |
 
-**先驱的典型成员**：满足闭环的有 SayCan、Inner Monologue、Code as Policies、VoxPoser、ReKep、PaLM-E、Eureka、Code-as-Monitor；不满足闭环、但开创了方向的有 ZS-Planners、Socratic Models、ECoT、π0.5、KnowNo。2026 年不满足闭环的论文不收录（或进 lineage 表）。
+**先驱的典型成员**：满足闭环的有 SayCan、Inner Monologue、Code as Policies、VoxPoser、ReKep、Eureka、REFLECT、Code-as-Monitor；不满足闭环、但开创了方向的有 ZS-Planners、Socratic Models、KnowNo、CoPa、RoboGen。具身大模型（PaLM-E、RT-2、ECoT、π0.5、Hi Robot）按决策 12 不收，只在正文作为对照。2026 年不满足闭环的论文不收录（约束编程与 agentic Real2Sim 两个例外除外）。
 
 ### 6.1 Real2Sim / Sim2Real 专题板块
 
@@ -157,6 +161,7 @@ agent 搭建、校准、利用仿真并把结果迁移到真机的工作，单�
 
 | 情形 | 例子 |
 |---|---|
+| 具身大模型直接做动作（决策 12）：VLA，包括带推理链、子任务、memory、自我纠错的；为低层协同训练的分层 VLA；WAM；机器人或具身基础模型 | π0.5、ECoT、OneTwoVLA、MEM、Sentinel-VLA、Hi Robot、Steerable VLA、τ0-VLA、Gemini Robotics 1.5、PaLM-E、RoboBrain |
 | 反应式 VLA，包括 RL 微调的 | OpenVLA、π0、RT-1、SimpleVLA-RL |
 | 潜变量双系统；只在网络结构或控制频率上叫 hierarchical | GR00T N1、Helix、HiRT、RoboDual |
 | 输出是标量的打分器、奖励模型、价值或进度模型 | RoboMonkey、GVL、VLAC、RL-VLM-F |
@@ -173,7 +178,7 @@ agent 搭建、校准、利用仿真并把结果迁移到真机的工作，单�
 | 列 | 取值 |
 |---|---|
 | Seat | 主 seat 加粗，另列次 seat |
-| Carrier | G / C / H / I；可用箭头表示迁移，如 GUAVA 记作 G→C |
+| Carrier | G / C；可用箭头表示迁移，如 GUAVA 记作 G→C |
 | Interface | skill-tool 调用 / VLA-as-tool / 微动作 / 代码 / 约束与 objective / verdict 与纠正 / 执行轨迹与 playbook / 问题规格（reward、env、task）/ 系统编辑 |
 | Topology | ×1 单 agent / ×R 多角色共享一个任务 / ×N 每个身体一个 agent / 1:N 一个决策者对多个身体 / ×O 多 agent 分头负责 |
 | Closure | 闭环形式：再决策 / 编写闭环；证据来源：E 执行观测、H 人类反馈；cadence：step / subgoal / episode / training-run / experiment |
@@ -185,7 +190,12 @@ harness 和 multi-agent 都不是类别：harness 属于 Interface，multi-agent
 
 ## 9. 主线
 
-***"Agency spreads around the body — and loop closure, not weights, makes a carrier an agent."***
+原主线：***"Agency spreads around the body — and loop closure, not weights, makes a carrier an agent."***
+
+决策 12 之后，「not weights」不再成立：研究对象限定为通用大模型。主线待用户确认，候选：
+
+- ***"General models become embodied agents through the loops built around them — and agency spreads around the body, seat by seat."***
+- ***"Agency spreads around the body: general models, not embodied action models, fill seat after seat."***
 
 agency 没有从机器人身上迁走，而是在身体周围逐个占据新的 seat：
 
@@ -197,7 +207,7 @@ agency 没有从机器人身上迁走，而是在身体周围逐个占据新的 
 | 2025 | Teacher |
 | 2026 | 五个 seat 全部有人占据 |
 
-一个模型能不能坐进某个 seat，取决于它的决策是否闭环：要么模型带着自身记录、依据后果再决策，要么它写出的约束或程序在执行时依据后果调整。这与它是哪套权重、多大规模无关。
+一个通用模型能不能坐进某个 seat，取决于它在 harness 里是否做显式决策、并且闭环：要么带着自身记录、依据后果再决策，要么它写出的约束或程序在执行时依据后果调整。这条脉络从 2022 年的先驱开始（SayCan、Code as Policies、Inner Monologue），在 2026 年铺满五个 seat。
 
 > 注：上述时间线与比例来自有偏的测试集（按方向搜集，2026 年偏多），**必须在最终核心集上重算**后才能写进正文。
 
@@ -207,4 +217,4 @@ agency 没有从机器人身上迁走，而是在身体周围逐个占据新的 
 
 - **自动驾驶**：闭环驾驶 agent（CARLA、实车）和 open-loop 日志评测的工作，都只在边界一节讨论，不进核心。
 - **离散仿真**：ALFRED、AI2-THOR、VirtualHome、TDW、R2R 离散图上的 agent（LLM-Planner、CoELA、NavGPT 等）进入 lineage 表。正文需明说：这使 multi-agent 方向在核心集中偏薄。
-- **与 WAM 的分界**：中间表示是对世界的预测，归 WAM；是决策，归本文。world model 作为 agent 的工具、同时有执行闭环的系统，归本文。
+- **与 WAM / VLA 的分界**：决策者是具身大模型（VLA、WAM、机器人基础模型）的，归 WAM / VLA 方向，本文只作对照；决策者是通用大模型、把 VLA 或 world model 当工具调用的，归本文。
