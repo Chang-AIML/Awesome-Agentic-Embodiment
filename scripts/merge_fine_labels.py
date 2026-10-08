@@ -11,7 +11,10 @@ re-decide for core and none for precursor (the strict first pass only admitted r
 Validates enums and completeness against data/core/pool.jsonl, and joins pool metadata plus the
 definition test-set placement (matched by arXiv id) for comparison.
 
-Usage: python3 scripts/merge_fine_labels.py <dir> [<dir> ...]   (later dirs override earlier ones)
+Usage: python3 scripts/merge_fine_labels.py [--base <csv>] <dir> [<dir> ...]   (later dirs override earlier ones)
+  --base seeds the merge with an earlier merged file (its pass and prev columns are kept), so new shard
+  directories can be added after the original shard outputs are gone, e.g.
+  python3 scripts/merge_fine_labels.py --base data/core/fine_labels.csv <new dir>
 """
 import csv, glob, json, os, re, sys
 
@@ -41,7 +44,12 @@ def main():
     ts = {norm_arxiv(r["arxiv_id"]): r for r in
           csv.DictReader(open(os.path.join(ROOT, "docs/definition_testset_placements.csv")))}
     got, bad = {}, []
-    paths = [p for d in sys.argv[1:] for p in sorted(glob.glob(os.path.join(d, "*.txt")))]
+    args = sys.argv[1:]
+    if args[:1] == ["--base"]:
+        for r in csv.DictReader(open(args[1])):
+            got[r["id"]] = {k: r[k] for k in FIELDS + ["loop", "pass", "prev"]}
+        args = args[2:]
+    paths = [p for d in args for p in sorted(glob.glob(os.path.join(d, "*.txt")))]
     for path in paths:
         for line in open(path):
             parts = [p.strip() for p in line.rstrip("\n").split("|")]
