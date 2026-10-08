@@ -101,6 +101,7 @@
 | `scripts/build_readme.py` | 生成 `README.md`（英文 awesome list）：按 Seat 分节（Controller 拆编排型、直接驱动型、lifelong 三个子章），每节先列先驱再列 2026；另有 Real2Sim / Sim2Real 子方向、VLN 章、资源和两份扩展列表 |
 | `scripts/core_stats.py` → `docs/core_stats.md` | 按年份统计 seat（A：全部强模型 core；B：核心表） |
 | `scripts/build_report.py` | 生成中文进展报告 `docs/progress_report.pdf`（约 21 页）。图用内联 SVG / HTML，经 `scripts/print_pdf.cjs` 用 Playwright 的 Chromium 打印；字体 Noto Sans SC 首次运行时从 Google Fonts 下载到 `~/.cache/aae-report-fonts` |
+| `scripts/build_brief.py` → `docs/survey_brief.pdf` | 五页图文综述预览（概览与 Seat 图、范围与判定、脉络地图、五个 Seat 卡片、趋势与开放问题），复用 `build_report.py` 的图、配色与字体；改 selection 后与报告一起重跑 |
 | `docs/definition.md` | **正文版定义**：范围（通用大模型）、三条 agent 判定（含两个例外）、5 Seat × Carrier（G / C）、Controller 三个子章、层级、Real2Sim / Sim2Real 子方向（§6.1）、VLN 章（§6.2）、anatomy 列、主线 |
 | `docs/definition_draft.md` 等 | 定义草稿（附录与标注指南）、选型理由、13 个细节决策、353 篇测试集判定 |
 | `data/definition/` | 测试集论文与对 GUAVA、ENPIRE、CaM、harness 的深入调研 |
@@ -188,6 +189,7 @@ python3 scripts/build_extended.py                             # → extended_202
 python3 scripts/build_readme.py                               # → README.md
 python3 scripts/core_stats.py > docs/core_stats.md
 python3 scripts/build_report.py                               # → docs/progress_report.pdf
+python3 scripts/build_brief.py                                # → docs/survey_brief.pdf（5 页预览）
 ```
 
 **追加一轮判定**：把新判定的分片输出放进以轮次命名的目录（目录名就是 `pass`），然后

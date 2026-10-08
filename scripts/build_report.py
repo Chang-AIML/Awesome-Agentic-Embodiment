@@ -359,7 +359,7 @@ def fig_seats(rows):
     b.append(arrow("M294,88 C360,88 380,190 443,192"))
     b.append(arrow("M294,206 C360,206 380,208 443,208"))
     b.append(arrow("M294,324 C360,324 380,226 443,224"))
-    b.append(T(8, H - 8, "例子均为 2026 年的核心论文，★ 为用户点名。Carrier（G / C / H / I）是第二个维度：每个 seat 都记录决策由哪类权重承载。",
+    b.append(T(8, H - 8, "例子均为 2026 年的核心论文，★ 为用户点名。每篇另记 carrier：原样使用的通用模型（G），或为 agent 角色微调过的（C）。",
                9.0, 400, MUTED))
     return svg(W, H, "".join(b), "五个 Seat 围绕机器人身体的示意图", width="93%")
 
