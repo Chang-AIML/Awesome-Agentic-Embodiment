@@ -119,14 +119,16 @@
 | [EmbodiedSmith](https://arxiv.org/abs/2610.07969) | 2026 | Designer | G | 再决策 | 判定池 | 用户点名：场景生成与任务生成互相编辑的递归自改进飞轮，规模化产出仿真数据与评测环境 |
 | [Agentic RSR](https://arxiv.org/abs/2610.10479) | 2026 | Developer | G | 再决策 | 补漏 | agent 从工作区视频恢复尺度、依视觉反馈迭代重建 MuJoCo 场景，coding agent 再开发策略并回到真机；Real2Sim2Real 全链路 |
 
-## VLN 与具身导航（17）
+## VLN 与具身导航（19）
 
 | 短名 | 年份 | Seat | Carrier | 闭环 | 来源 | 入选理由 |
 |---|---|---|---|---|---|---|
 | [LM-Nav](https://arxiv.org/abs/2207.04429) | 2022 | Controller | G | 开环 | 判定池 | LLM 抽取地标、VLM 定位、导航模型执行的真机长程导航；VLN agent 的开环起点 |
 | [NavGPT](https://arxiv.org/abs/2305.16986) | 2023 | Controller | G | 再决策 | 判定池 | 第一个纯 LLM 的 VLN agent，在 R2R 离散图上逐步推理并决策（离散仿真，正文在边界一节讨论） |
+| [SayNav](https://arxiv.org/abs/2309.04077) | 2023 | Controller | G | 再决策 | 判定池 | LLM 基于逐步构建的 3D 场景图生成导航的高层计划，随新观测动态重规划（128 引） |
 | [InstructNav](https://arxiv.org/abs/2406.04882) | 2024 | Controller | G | 再决策 | 判定池 | 零样本通用指令导航，LLM 反复重规划 Dynamic Chain-of-Navigation；覆盖 nav |
 | [Open-Nav](https://arxiv.org/abs/2409.18794) | 2024 | Controller | G | 再决策 | 判定池 | 开源 LLM 的零样本 VLN-CE agent，连续环境与真机评测 |
+| [VLMnav](https://arxiv.org/abs/2411.05755) | 2024 | Controller | G | 再决策 | 判定池 | 不做感知、规划、控制的分工，VLM 每一步直接选择导航动作，零样本当端到端导航策略；通用 VLM 直接出导航动作 |
 | [One Agent to Guide Them All](https://arxiv.org/abs/2602.15400) | 2026 | Controller | G | 再决策 | 判定池 | MLLM 在可交互的度量世界表示上推理并做反事实检查，统一多种 VLN 任务，仿真与真机 |
 | [OnFly](https://arxiv.org/abs/2603.10682) | 2026 | Controller | G | 再决策 | 判定池 | 机载零样本空中 VLN：一个 VLM 生成导航目标，另一个依关键帧监控进度与安全；覆盖无人机 |
 | [HaltNav](https://arxiv.org/abs/2603.12696) | 2026 | Controller | C | 再决策 | 补漏 | MLLM 在轻量拓扑图（osmAG）上把路线拆成子指令，微调的 VLM 在门关闭、拥挤等情况下停止并触发重规划；仿真与真机 Fetch |
@@ -141,7 +143,7 @@
 | [RoboFind](https://arxiv.org/abs/2609.20330) | 2026 | Controller | G | 再决策 | 判定池 | 导航、验证、恢复三个 agent 驱动四足为视障用户找物，验证候选并触发恢复 |
 | [ASENA](https://arxiv.org/abs/2609.39207) | 2026 | Controller | G | 再决策 | 判定池 | coding agent 写并运行程序、调用导航 VLA 工具、检查结果并修复，经验随任务积累 |
 
-## 先驱（2022–2025）（42）
+## 先驱（2022–2025）（61）
 
 | 短名 | 年份 | Seat | Carrier | 闭环 | 来源 | 入选理由 |
 |---|---|---|---|---|---|---|
@@ -154,13 +156,17 @@
 | [ChatGPT for Robotics](https://arxiv.org/abs/2306.17582) | 2023 | Controller | G | 编写闭环 | 判定池 | ChatGPT 依提示与人类反馈写机器人代码并迭代修改，覆盖操作、无人机与导航；把通用 LLM 直接用于机器人控制的代表作（755 引） |
 | [Text2Motion](https://arxiv.org/abs/2303.12153) | 2023 | Controller | G | 开环 | 判定池 | LLM 生成技能序列并用学习的可行性模型在执行前检查几何可行性；只有预测性检查（开环） |
 | [TidyBot](https://arxiv.org/abs/2305.05658) | 2023 | Controller | G | 开环 | 判定池 | LLM 从少量示例归纳用户偏好并给出整理计划，真机移动操作；个性化的早期代表（开环） |
+| [AutoTAMP](https://arxiv.org/abs/2306.06531) | 2023 | Controller | G | 再决策 | 判定池 | LLM 把指令译成信号时序逻辑（STL）交给规划器求解，语法和语义检查失败时自动重提示；形式化语言接口的代表（215 引） |
 | [Language to Rewards](https://arxiv.org/abs/2306.08647) | 2023 | Controller | G | 编写闭环 | 判定池 | LLM 把指令写成奖励参数，由 MPC 在线优化成动作；约束 / 目标编程一支的早期代表（编写闭环，461 引） |
 | [REFLECT](https://arxiv.org/abs/2306.15724) | 2023 | Supervisor | G | 再决策 | 判定池 | 奠基 Supervisor：总结机器人经验解释失败，解释驱动纠正（296 引） |
 | [DoReMi](https://arxiv.org/abs/2307.00329) | 2023 | Supervisor | G | 再决策 | 判定池 | LLM 写约束、VLM 持续监测违例并触发恢复与重规划 |
 | [KnowNo](https://arxiv.org/abs/2307.01928) | 2023 | Controller | G | 开环 | 判定池 | 不确定时向人求助的起点；人挑选选项替代了模型决策 |
 | [RoCo](https://arxiv.org/abs/2307.04738) | 2023 | Controller | G | 再决策 | 种子 | 多机器人对话协商（×N）的代表；种子论文 |
+| [SayPlan](https://arxiv.org/abs/2307.06135) | 2023 | Controller | G | 再决策 | 判定池 | LLM 在 3D 场景图上做语义搜索并规划，场景图模拟器的反馈触发迭代重规划；大尺度环境规划的代表（530 引；证据主要在符号层面，按 rubric 属边界） |
 | [VoxPoser](https://arxiv.org/abs/2307.05973) | 2023 | Controller | G | 编写闭环 | 种子 | LLM 写代码组合 3D 价值图，由 MPC 闭环执行、对扰动鲁棒（编写闭环）；约束编程一支的起点 |
 | [SUDD](https://arxiv.org/abs/2307.14535) | 2023 | Teacher | G | 编写闭环 | 判定池 | LLM 规划并写成功检查代码，检查失败触发重试，经验证的数据蒸馏成策略；Teacher 的起点（编写闭环） |
+| [Incremental Humanoid Learning](https://arxiv.org/abs/2309.04316) | 2023 | Controller | G | 再决策 | 判定池 | 人形机器人在与人的自然对话中，由 LLM 把纠正意见写成改进的行为代码并存入记忆，下次避免同样错误（真机） |
+| [Prompt a Robot to Walk](https://arxiv.org/abs/2309.09969) | 2023 | Controller | G | 再决策 | 判定池 | LLM 以观测-动作历史为提示，逐步直接输出关节级动作让机器人行走（仿真）；通用模型直接当策略的早期尝试，与 2026 年 GPT-6 Astra 在 RoboDojo 上的直接控制一脉相承 |
 | [SMART-LLM](https://arxiv.org/abs/2309.10062) | 2023 | Controller | G | 开环 | 判定池 | LLM 分解任务、组队并分配给多台机器人；多机器人任务规划的早期代表（1:N，开环） |
 | [Safety Chip](https://arxiv.org/abs/2309.09919) | 2023 | Supervisor | G | 编写闭环 | 判定池 | LLM 把自然语言安全规范译成 LTL 约束，运行时强制执行；Supervisor 的约束式起点（编写闭环） |
 | [Text2Reward](https://arxiv.org/abs/2309.11489) | 2023 | Designer | G | 开环 | 判定池 | LLM 一次写出稠密奖励代码，可加人类反馈修改；Designer 的开环起点（218 引） |
@@ -169,15 +175,24 @@
 | [RoboGen](https://arxiv.org/abs/2311.01455) | 2023 | Designer | G | 开环 | 判定池 | LLM 提出任务、生成场景与奖励并分解训练，自动化机器人学习流水线（开环，308 引） |
 | [DROC](https://arxiv.org/abs/2311.10678) | 2023 | Controller | G | 再决策 | 判定池 | 整合在线语言纠正修订计划与技能代码，并蒸馏检索知识（H closure） |
 | [Look Before You Leap](https://arxiv.org/abs/2311.17842) | 2023 | Controller | G | 再决策 | 判定池 | GPT-4V 看图规划、执行后依视觉反馈重新规划；多模态通用模型做闭环机器人规划的早期代表（258 引） |
+| [RobotGPT](https://arxiv.org/abs/2312.01421) | 2023 | Teacher | G | 再决策 | 判定池 | ChatGPT 生成并在仿真中验证操作代码，用通过验证的执行数据训练更稳定的策略；Teacher 的早期代表（124 引） |
+| [TypeFly](https://arxiv.org/abs/2312.14950) | 2023 | Controller | G | 编写闭环 | 判定池 | LLM 为无人机写小型脚本语言（MiniSpec）程序，程序读取实时感知并带条件与循环执行；空中机器人上的编写闭环 |
+| [ORGANA](https://arxiv.org/abs/2401.06949) | 2024 | Controller | G | 再决策 | 判定池 | LLM 与化学家对话确定实验目标、规划并调度机器人和实验设备，依感知结果调整流程；实验室自动化场景（165 引） |
 | [AutoRT](https://arxiv.org/abs/2401.12963) | 2024 | Controller | G | 开环 | 判定池 | VLM 描述场景、LLM 为机器人车队提出任务并按规则筛选，大规模调度真机采数据（1:N，开环） |
 | [MOKA](https://arxiv.org/abs/2403.03174) | 2024 | Controller | G | 开环 | 判定池 | VLM 在标记过的图像上预测关键点可供性与路点，规划器转成动作；一次求解（开环），约束编程的代表 |
 | [CoPa](https://arxiv.org/abs/2403.08248) | 2024 | Controller | G | 开环 | 判定池 | VLM 写出部件级空间约束、由求解器求出位姿；一次求解（开环），约束编程的代表 |
+| [LLM3](https://arxiv.org/abs/2403.11552) | 2024 | Controller | G | 再决策 | 判定池 | LLM 提出符号动作与连续参数，运动规划失败的原因回传给 LLM 再推理；任务与运动规划（TAMP）一支的代表 |
 | [COME-robot](https://arxiv.org/abs/2404.10220) | 2024 | Controller | G | 再决策 | 判定池 | GPT-4V 闭环开放词表移动操作，执行反馈驱动重规划；覆盖 mobile-manip |
+| [Agentic Skill Discovery](https://arxiv.org/abs/2405.15019) | 2024 | Designer | G | 再决策 | 判定池 | LLM 提出新任务并写奖励，VLM 验证技能是否学会，学会的进入技能库、再据此提出下一个任务（仿真与真机） |
+| [OMNI-EPIC](https://arxiv.org/abs/2405.15568) | 2024 | Designer | G | 再决策 | 判定池 | 基础模型按人类的「有趣」标准不断写出新环境与奖励代码，形成开放式课程训练智能体；Designer 的开放式学习一支 |
 | [DrEureka](https://arxiv.org/abs/2406.01967) | 2024 | Designer | G | 再决策 | 判定池 | 奖励 + domain randomization 设计，四足 sim-to-real |
+| [LRLL](https://arxiv.org/abs/2406.18746) | 2024 | Controller | G | 再决策 | 判定池 | LLM 写策略代码并在使用中不断扩充技能库（软记忆、自引导探索、技能抽象），任务越做越复杂；终身技能库的代表 |
 | [Manipulate-Anything](https://arxiv.org/abs/2406.18915) | 2024 | Teacher | G | 再决策 | 判定池 | VLM 分解、执行、验证并重规划，经验证轨迹训练行为克隆策略（125 引） |
 | [VLM-PC](https://arxiv.org/abs/2407.02666) | 2024 | Controller | G | 再决策 | 补漏 | 足式机器人：VLM 依上下文历史选择并重规划运动技能以应对障碍；覆盖 loco |
+| [Real-Time Anomaly Detection](https://arxiv.org/abs/2407.08735) | 2024 | Supervisor | G | 开环 | 判定池 | 快慢两级：小模型实时判断观测是否异常，LLM 慢推理选择回退方案并接入安全控制；运行时监控的代表（107 引，开环） |
 | [RoboMorph](https://arxiv.org/abs/2407.08626) | 2024 | Developer | G | 再决策 | 判定池 | LLM 进化机器人形态（硬件），最早的 Developer |
 | [ReKep](https://arxiv.org/abs/2409.01652) | 2024 | Controller | G | 编写闭环 | 判定池 | VLM 写出关键点约束，求解器约 10 Hz 重解、约束破坏时回溯阶段；用户点名的「编写闭环」范例 |
+| [ReMEmbR](https://arxiv.org/abs/2409.13682) | 2024 | Controller | G | 再决策 | 判定池 | VLM 把长时程的机器人观测写成时空记忆，LLM agent 迭代检索记忆后回答问题或给出导航目标；记忆型 agent 的代表（真机） |
 | [CurricuLLM](https://arxiv.org/abs/2409.18382) | 2024 | Designer | G | 再决策 | 判定池 | LLM 生成子任务课程与奖励代码，依策略结果推进 |
 | [BUMBLE](https://arxiv.org/abs/2410.06237) | 2024 | Controller | G | 再决策 | 补漏 | VLM 统一感知、粗到细技能与双层 memory，楼宇级长程移动操作，90+ 小时真机评测 |
 | [Eurekaverse](https://arxiv.org/abs/2411.01775) | 2024 | Designer | G | 再决策 | 判定池 | LLM 写地形环境代码并依训练结果迭代课程 |
@@ -185,8 +200,14 @@
 | [OmniManip](https://arxiv.org/abs/2501.03841) | 2025 | Controller | G | 编写闭环 | 判定池 | 以物体为中心的交互基元作空间约束，在 6D 位姿跟踪下闭环重解（编写闭环） |
 | [Articulate AnyMesh](https://arxiv.org/abs/2502.02590) | 2025 | Designer | G | 开环 | 判定池 | VLM 视觉提示分割部件并构建关节，把刚体网格变成可仿真的铰接资产；agentic Real2Sim 的先驱（开环） |
 | [Video2Policy](https://arxiv.org/abs/2502.09886) | 2025 | Designer | G | 再决策 | 判定池 | 从视频重建仿真任务并依 RL 反馈迭代奖励代码 |
+| [RoboGuard](https://arxiv.org/abs/2503.07885) | 2025 | Supervisor | G | 编写闭环 | 判定池 | 两级护栏：先用推理模型把安全规范落到当前场景，再把 LLM 机器人的计划与时序逻辑约束对照、在线修正；抵御越狱攻击（真机） |
+| [Being-0](https://arxiv.org/abs/2503.12533) | 2025 | Controller | G | 再决策 | 判定池 | 基础模型作人形机器人的高层大脑，调用导航与灵巧操作等模块化技能，并依执行反馈调整；人形机器人 agent 的代表（真机） |
+| [RoboFAC](https://arxiv.org/abs/2505.12224) | 2025 | Supervisor | C | 再决策 | 判定池 | 在大规模失败轨迹上微调的 VLM 分析失败原因并给出纠正指令，在真机上纠正 VLA 的执行；Supervisor 中 carrier C 的例子 |
+| [PDDLLM](https://arxiv.org/abs/2505.18382) | 2025 | Developer | G | 再决策 | 判定池 | LLM 结合物理仿真回放，从一条示范中归纳出符号谓词和动作，自动构建 TAMP 的规划域；Developer 构建系统组件的例子 |
 | [RoboTwin 2.0](https://arxiv.org/abs/2506.18088) | 2025 | Teacher | G | 再决策 | 判定池 | MLLM 写任务代码并经仿真闭环修正，合成经验证的示范（571 引） |
+| [HumanoidGen](https://arxiv.org/abs/2507.00833) | 2025 | Teacher | G | 再决策 | 判定池 | LLM 推理生成双臂灵巧操作的关系约束与任务，自动采集人形机器人示范数据，带检查与回溯 |
 | [VLMgineer](https://arxiv.org/abs/2507.12644) | 2025 | Developer | G | 再决策 | 判定池 | VLM 协同设计工具与动作并以仿真进化评估；硬件侧 Developer |
+| [RoboMemory](https://arxiv.org/abs/2508.01415) | 2025 | Controller | G | 再决策 | 判定池 | 统一空间、时间、情景与语义四类记忆的 agent 框架，闭环规划并在交互中持续学习（仿真与真机） |
 
 ## Benchmark 与资源（19）
 

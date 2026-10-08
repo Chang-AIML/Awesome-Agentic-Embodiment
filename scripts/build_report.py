@@ -94,7 +94,7 @@ def load():
     ver, ver_core, ver_core_kept = [], 0, 0  # Sonnet verification of cheap-model verdicts (the step before it is Haiku's)
     for r in fine:
         h = hist(r)
-        k = next((i for i, (p_, _) in enumerate(h) if p_ in ("verify", "verify_s2")), None)
+        k = next((i for i, (p_, _) in enumerate(h) if p_ in ("verify", "verify_s2", "verify_pre", "verify_pf")), None)
         if k:
             ver.append(r)
             ver_core += h[k - 1][1] == "core"
@@ -102,6 +102,15 @@ def load():
     r3b = [r for r in fine if r.get("pass") == "recheck_r3b"]  # ReKep-type and agentic Real2Sim re-judged as agents
     scope = [r for r in fine if any(p_ == "recheck_scope" for p_, _ in hist(r))]  # general vs embodied model (decision 12)
     strong26 = [r for r in fine if r["verdict"] == "core" and r.get("pass") in STRONG and year_of(r) == "2026"]
+    strong_pre = [r for r in fine if r["verdict"] == "core" and r.get("pass") in STRONG
+                  and year_of(r) in ("2022", "2023", "2024", "2025")]
+    # coverage completion (round 3, after "is the coverage complete?"): never fine-judged and never coarse-screened
+    # candidates, an audit of cheap-model out verdicts, and a re-judge of general models that emit actions directly
+    n_pre = sum(1 for _ in open(p("data/core/pool_pre2026.jsonl")))
+    lp = p("data/screening/coarse_labels_completion.csv")
+    pf_lab = Counter(r["label"] for r in csv.DictReader(open(lp))) if os.path.exists(lp) else Counter()
+    audit = [dict(hist(r))["audit_out"] for r in fine if any(p_ == "audit_out" for p_, _ in hist(r))]
+    direct = [dict(hist(r))["recheck_direct"] for r in fine if any(p_ == "recheck_direct" for p_, _ in hist(r))]
     ep = p("data/core/extended_2026.csv")
     n_ext = sum(1 for _ in csv.DictReader(open(ep))) if os.path.exists(ep) else 0
     ep = p("data/core/extended_2022_2025.csv")
@@ -119,7 +128,10 @@ def load():
              new=sum(1 for r in rows if r["new"]), bulk=n_bulk, s2=s2_rows, s2_screen=sum(s2_lab.values()),
              s2_keep=s2_lab["relevant"] + s2_lab["maybe"], s2_pool=n_s2pool, judged=len(fine),
              ver=len(ver), ver_core=ver_core, ver_core_kept=ver_core_kept,
-             strong26=len(strong26), ext=n_ext, ext_pre=n_ext_pre, r3b=len(r3b), r3b_core=sum(1 for r in r3b if r["verdict"] == "core"),
+             strong26=len(strong26), ext=n_ext, ext_pre=n_ext_pre, strong_pre=len(strong_pre),
+             pre=n_pre, pf_screen=sum(pf_lab.values()), pf_keep=pf_lab["relevant"] + pf_lab["maybe"],
+             audit=len(audit), audit_core=sum(v == "core" for v in audit), audit_in=sum(v != "out" for v in audit),
+             direct=len(direct), direct_core=sum(v == "core" for v in direct), r3b=len(r3b), r3b_core=sum(1 for r in r3b if r["verdict"] == "core"),
              scope=len(scope), scope_out=sum(1 for r in scope if r["verdict"] == "out"),
              scope_core_out=sum(1 for r in scope if r["verdict"] == "out" and len(hist(r)) > 1 and hist(r)[-2][1] == "core"),
              r3b_con=sum(1 for r in r3b if r["verdict"] == "core" and r["interface"] == "constraint"),
@@ -251,9 +263,16 @@ def fig_pipeline(c):
         (f"{c['s2']:,}", "篇 2026 关键词检索",
          f"Semantic Scholar 检索「机器人 × agent」，补上没引用种子的论文：{c['s2_screen']:,} 篇新论文提到基础模型，"
          f"粗筛保留 {c['s2_keep']:,} 篇，逐篇判定", "脚本 + Haiku"),
+        (f"{c['pre']:,}", "篇补判（多为 2022–2025）",
+         "粗筛保留、但此前从未逐篇判定的候选，多是被引较少的 2022–2025 年论文；全部逐篇判定", "Haiku"),
+        (f"{c['pf_screen']:,}", "篇补粗筛",
+         f"引用收割中从未粗筛过的 2022 年后候选（标题和摘要里没有具身关键词）补做粗筛，保留 {c['pf_keep']} 篇逐篇判定", "Haiku"),
         (f"{c['ver']:,}", "篇 Sonnet 复核",
          f"Haiku 判为 core、前驱或边界的论文全部由 Sonnet 从头重判；Haiku 判 core 的 {c['ver_core']} 篇中 "
          f"{c['ver_core_kept']} 篇维持 core", "Sonnet"),
+        (f"{c['audit']}", "篇出局抽查",
+         f"随机抽 Haiku 判为 out 的论文由 Sonnet 重判，{c['audit_core']} 篇改判 core、{c['audit_in'] - c['audit_core']} 篇改判先驱、"
+         f"边界或资源；Haiku 漏判 core 的比例约 {round(100 * c['audit_core'] / max(c['audit'], 1), 1)}%", "Sonnet"),
         (f"{c['r3b']:,}", "篇按新规则重判",
          f"「ReKep 这一类都算」和「agentic Real2Sim 都算」：命中约束 / 关键点或 Real2Sim 特征、之前未判 core 的论文由 Sonnet 重判，"
          f"{c['r3b_core']} 篇改判 core（约束编程 {c['r3b_con']}、Real2Sim {c['r3b_r2s']}）", "Sonnet"),
@@ -266,6 +285,9 @@ def fig_pipeline(c):
         (f"{c['strong26']}", "篇 2026 年 core",
          f"经 Sonnet 判定或复核为 core 的 2026 年论文；{t['core']} 篇进核心表，其余 {c['ext']} 篇列入 README 的扩展列表",
          "Sonnet"),
+        (f"{c['strong_pre']}", "篇 2022–2025 年 core",
+         f"经 Sonnet 判定或复核为 core 的 2022–2025 年论文；挑出的先驱进核心表，其余 {c['ext_pre']} 篇列入 README 的 "
+         "2022–2025 扩展列表", "Sonnet"),
         (f"{t['pioneer']} + {t['core']} + {t['resource']}", "先驱 + 2026 + 资源",
          f"人工挑选；{c['verified']} 篇全部经 arXiv 核验，标题一致", "人工"),
     ]
@@ -697,15 +719,18 @@ def build_html(fontdir):
             (f"{c['verified']}/{len(rows)}", "篇经 arXiv 核验<br>（标题全部一致）")]
     a('<div class="kpis">' + "".join(f'<div class="kpi"><div class="v">{k}</div><div class="l">{l}</div></div>' for k, l in kpis)
       + '</div>')
+    added = [r["key"] for r in rows if r["tier"] == "pioneer" and r.get("added") == "r3c"]
     a('<div class="callout"><h3>这一轮按你的意见做的改动</h3><ul>'
-      f'<li><b>只收通用大模型做具身任务</b>：VLA、分层 VLA、WAM、机器人基础模型直接出动作的工作全部删除（Sonnet 按新范围重判 {c["scope"]} 篇，'
-      f'{c["scope_out"]} 篇排除）；通用模型直接出动作仍算，GPT-6 Astra 在 RoboDojo 上当策略（Wenbo Zhang 等）已移进「直接驱动型」。</li>'
-      f'<li><b>故事不只聚焦 2026</b>：每个 seat 先讲先驱（2022–2025）再讲 2026；先驱补到 {n_pio} 篇，新增 Socratic Models、'
-      'ChatGPT for Robotics、Language to Rewards、GPT-4V 闭环规划、RoboGen、GenSim、Text2Reward、AutoRT 等。</li>'
-      f'<li><b>ReKep 这一类、agentic Real2Sim 都算</b>：重判后约束编程类 {c["r3b_con"]} 篇、Real2Sim 类 {c["r3b_r2s"]} 篇改判 core；'
-      f'Real2Sim / Sim2Real 作为子方向只收 {len(r2s)} 篇代表作（含 RPG、SimEX、EmbodiedSmith，Video2World 在资源表）；VLN 章 {len(vln)} 篇。</li>'
-      f'<li><b>规模</b>：先驱 {n_pio} + 2026 年 {n_core} = {n_pio + n_core} 篇，另有资源 {n_res} 个；本轮新增 {c["new"]} 篇（附录中标「新」）。'
-      f'2026 年共有 {c["strong26"]} 篇满足定义，表外的 {c["ext"]} 篇列在 README 的扩展列表。</li></ul></div>')
+      f'<li><b>只收通用大模型做具身任务</b>：VLA、分层 VLA、WAM、机器人基础模型直接出动作的工作删除（重判 {c["scope"]} 篇，'
+      f'{c["scope_out"]} 篇排除）；通用模型直接出动作仍算（如 GPT-6 Astra 在 RoboDojo 上当策略）。</li>'
+      f'<li><b>覆盖补全</b>：从未细判的 {c["pre"]:,} 篇、从未粗筛的 {c["pf_screen"]:,} 篇（{c["pf_keep"]} 篇进入判定）全部补判；'
+      f'Haiku 的 core / 先驱 / 边界全部经 Sonnet 复核；抽查 {c["audit"]} 篇 Haiku 判 out 的论文，{c["audit_core"]} 篇改判 core；'
+      f'第三轮联网补漏 {c["gap3"]} 篇。</li>'
+      f'<li><b>先驱补到 {n_pio} 篇</b>，各 seat 均衡、多补 2025 年'
+      + (f'（本次新增 {len(added)} 篇，如 {"、".join(added[:6])}）' if added else '') + '。</li>'
+      f'<li><b>ReKep 一类、agentic Real2Sim 都算</b>；Real2Sim 只是子方向，只收 {len(r2s)} 篇代表作；VLN 单列一章（{len(vln)} 篇）。</li>'
+      f'<li><b>规模</b>：先驱 {n_pio} + 2026 年 {n_core} = {n_pio + n_core} 篇，资源 {n_res} 个；表外满足定义的论文列在 README '
+      f'扩展列表（2026 年 {c["ext"]} 篇，2022–2025 年 {c["ext_pre"]} 篇）。</li></ul></div>')
     a('<div class="callout ask"><h3>需要你决定</h3><ol>'
       '<li><b>主线的措辞</b>：只收通用大模型之后，原主线里的「not weights」不再成立。候选：'
       '「Agency spreads around the body — general models, not embodied action models, fill seat after seat」；'

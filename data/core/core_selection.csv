@@ -130,6 +130,27 @@ c00870,Video2Policy,pioneer,Designer,-,G,从视频重建仿真任务并依 RL �
 c08731,Articulate AnyMesh,pioneer,Designer,-,G,VLM 视觉提示分割部件并构建关节，把刚体网格变成可仿真的铰接资产；agentic Real2Sim 的先驱（开环）,,none,real2sim,r3
 c01684,RoboMorph,pioneer,Developer,-,G,LLM 进化机器人形态（硬件），最早的 Developer,,re-decide,,
 c09484,VLMgineer,pioneer,Developer,-,G,VLM 协同设计工具与动作并以仿真进化评估；硬件侧 Developer,,re-decide,,
+c01022,SayPlan,pioneer,Controller,orchestrator,G,LLM 在 3D 场景图上做语义搜索并规划，场景图模拟器的反馈触发迭代重规划；大尺度环境规划的代表（530 引；证据主要在符号层面，按 rubric 属边界）,,re-decide,,r3c
+c00216,LLM3,pioneer,Controller,orchestrator,G,LLM 提出符号动作与连续参数，运动规划失败的原因回传给 LLM 再推理；任务与运动规划（TAMP）一支的代表,,re-decide,,r3c
+c02956,ORGANA,pioneer,Controller,orchestrator,G,LLM 与化学家对话确定实验目标、规划并调度机器人和实验设备，依感知结果调整流程；实验室自动化场景（165 引）,,re-decide,,r3c
+c01072,Being-0,pioneer,Controller,orchestrator,G,基础模型作人形机器人的高层大脑，调用导航与灵巧操作等模块化技能，并依执行反馈调整；人形机器人 agent 的代表（真机）,,re-decide,,
+c00165,Prompt a Robot to Walk,pioneer,Controller,direct,G,LLM 以观测-动作历史为提示，逐步直接输出关节级动作让机器人行走（仿真）；通用模型直接当策略的早期尝试，与 2026 年 GPT-6 Astra 在 RoboDojo 上的直接控制一脉相承,,re-decide,,r3c
+c00301,AutoTAMP,pioneer,Controller,direct,G,LLM 把指令译成信号时序逻辑（STL）交给规划器求解，语法和语义检查失败时自动重提示；形式化语言接口的代表（215 引）,,re-decide,,r3c
+c03000,TypeFly,pioneer,Controller,direct,G,LLM 为无人机写小型脚本语言（MiniSpec）程序，程序读取实时感知并带条件与循环执行；空中机器人上的编写闭环,,authored,,r3c
+c00009,LRLL,pioneer,Controller,lifelong,G,LLM 写策略代码并在使用中不断扩充技能库（软记忆、自引导探索、技能抽象），任务越做越复杂；终身技能库的代表,,re-decide,,
+c00076,Incremental Humanoid Learning,pioneer,Controller,lifelong,G,人形机器人在与人的自然对话中，由 LLM 把纠正意见写成改进的行为代码并存入记忆，下次避免同样错误（真机）,,re-decide,,r3c
+c00533,ReMEmbR,pioneer,Controller,lifelong,G,VLM 把长时程的机器人观测写成时空记忆，LLM agent 迭代检索记忆后回答问题或给出导航目标；记忆型 agent 的代表（真机）,,re-decide,,r3c
+c07101,RoboMemory,pioneer,Controller,lifelong,G,统一空间、时间、情景与语义四类记忆的 agent 框架，闭环规划并在交互中持续学习（仿真与真机）,,re-decide,,r3c
+c01030,SayNav,pioneer,Controller,orchestrator,G,LLM 基于逐步构建的 3D 场景图生成导航的高层计划，随新观测动态重规划（128 引）,,re-decide,vln,r3c
+c08742,VLMnav,pioneer,Controller,direct,G,不做感知、规划、控制的分工，VLM 每一步直接选择导航动作，零样本当端到端导航策略；通用 VLM 直接出导航动作,,re-decide,vln,r3c
+c00859,RoboGuard,pioneer,Supervisor,-,G,两级护栏：先用推理模型把安全规范落到当前场景，再把 LLM 机器人的计划与时序逻辑约束对照、在线修正；抵御越狱攻击（真机）,,authored,,r3c
+c00656,Real-Time Anomaly Detection,pioneer,Supervisor,-,G,快慢两级：小模型实时判断观测是否异常，LLM 慢推理选择回退方案并接入安全控制；运行时监控的代表（107 引，开环）,,none,,r3c
+c08846,RoboFAC,pioneer,Supervisor,-,C,在大规模失败轨迹上微调的 VLM 分析失败原因并给出纠正指令，在真机上纠正 VLA 的执行；Supervisor 中 carrier C 的例子,,re-decide,,r3c
+c01293,RobotGPT,pioneer,Teacher,-,G,ChatGPT 生成并在仿真中验证操作代码，用通过验证的执行数据训练更稳定的策略；Teacher 的早期代表（124 引）,,re-decide,,r3c
+c04904,HumanoidGen,pioneer,Teacher,-,G,LLM 推理生成双臂灵巧操作的关系约束与任务，自动采集人形机器人示范数据，带检查与回溯,,re-decide,,r3c
+c00810,Agentic Skill Discovery,pioneer,Designer,-,G,LLM 提出新任务并写奖励，VLM 验证技能是否学会，学会的进入技能库、再据此提出下一个任务（仿真与真机）,,re-decide,,r3c
+t336,OMNI-EPIC,pioneer,Designer,-,G,基础模型按人类的「有趣」标准不断写出新环境与奖励代码，形成开放式课程训练智能体；Designer 的开放式学习一支,2405.15568,re-decide,,
+c00909,PDDLLM,pioneer,Developer,-,G,LLM 结合物理仿真回放，从一条示范中归纳出符号谓词和动作，自动构建 TAMP 的规划域；Developer 构建系统组件的例子,,re-decide,,r3c
 gap:2502.09560,EmbodiedBench,resource,Controller,-,-,24 个 MLLM 作为视觉驱动具身 agent 的综合评测，从高层规划到低层操作,,,,
 gap:2410.07166,Embodied Agent Interface,resource,Controller,-,-,把 LLM 具身决策拆成目标解释、子目标分解、动作序列、转移建模四个模块逐项评测,,,,
 c01624,VLABench,resource,Controller,-,-,语言条件操作的大规模长程推理 benchmark（228 引）,,,,
