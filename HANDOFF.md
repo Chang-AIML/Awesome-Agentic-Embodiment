@@ -88,6 +88,10 @@
 | `scripts/build_s2_pool.py`、`data/candidates/s2_coarse_2026.csv`、`data/core/pool_s2.jsonl` | 检索结果的粗筛分片、粗筛标签和判定池（2,916 篇，id 为 `s#####`，即 sweep 文件行号） |
 | `scripts/arxiv_sweep.py` | 直接按月列 2026 年 arXiv 论文的脚本（写好但本轮未用，arXiv API 限流严重） |
 | `screening/criteria_fine.md` | **stage-2 细判 rubric**（英文），含编写闭环、约束 / 关键点编程、agentic Real2Sim 三节 |
+| `screening/prompts/` | 给子 agent 的三份提示词：逐篇判定（`fine_judge.txt`）、粗筛（`coarse_screen.txt`）、2022–2025 先驱联网补漏（`gap_search_2022_2025.txt`） |
+| `data/judging_runs/round3/` | 第三轮各判定轮次的原始分片输出（目录名即 `pass`），说明见该目录的 README；更早轮次的原始输出已随旧会话丢失 |
+| `scripts/judging/` | 判定辅助：`check_fine.py` / `check_coarse.py` 核对分片输出的完整性与枚举，`make_verify.py` 把 Haiku 的 core / 前驱 / 边界整理成 Sonnet 复核分片，`pioneer_candidates.py` 按 seat 列出未入表的 2022–2025 年 core / 前驱，供补先驱时挑选 |
+| `scripts/history/make_selection_r3.py`、`data/core/history/core_selection.r2.csv` | 第三轮生成 `core_selection.csv` 的脚本（按章分组、写中文理由），只作记录：改核心表直接改 CSV，重跑这个脚本会覆盖 CSV |
 | `scripts/merge_fine_labels.py` | 合并分片输出、校验枚举和完整性；读取全部五个判定池。`--base data/core/fine_labels.csv` 可在已合并的文件上追加新轮次 |
 | `data/core/fine_labels.csv` | 12,230 篇的逐篇判定：verdict、seat、seat2、carrier、sub、interface、topo、closure、body、rep、conf、reason、loop、pass、prev 等 |
 | `data/core/gap_candidates.jsonl` | 第一轮联网补漏 50 篇（均经 arXiv 核验） |
@@ -202,6 +206,11 @@ python3 scripts/build_brief.py                                # → docs/survey_
 3. 全文审计：2026 年的核心论文大多只按摘要判过，先核实 seat 与闭环形式有争议的几篇（如 Agent as Policy、VIA、FAEA、Thea、GTA-2、DREAM、EmbodiedSmith）。
 4. 写 survey 正文：按 `definition.md` §3–§6 组织章节，Real2Sim / Sim2Real 与 VLN 各一章，用 `docs/core_stats.md` A 部分作趋势证据。
 5. 可选：做类似 WAM 的 GitHub Pages 浏览器，数据源直接用 `core_table.csv` + `core_meta.json`；对已有 survey 做反向滚雪球。
+
+**在本地继续**
+- 拉取：`git clone https://github.com/Chang-AIML/Awesome-Agentic-Embodiment && git checkout claude/jolly-thompson-g43dno`（已 clone 的话 `git fetch origin && git checkout claude/jolly-thompson-g43dno && git pull`）。所有工作都在这个分支上，尚未合并到 main。
+- 依赖：生成表格、README、统计的脚本只用 Python 3 标准库。生成 PDF（`build_report.py`、`build_brief.py`）还需要 Node.js 和 Playwright 的 Chromium（`npm i -g playwright && npx playwright install chromium`）；字体 Noto Sans SC 第一次运行时自动下载到 `~/.cache/aae-report-fonts`。
+- 批量判定原来靠云端会话里并行的子 agent；在本地可以用 Claude Code 按 `screening/prompts/` 的提示词分片跑，输出放进以轮次命名的目录，再用 `merge_fine_labels.py --base` 合并。
 
 ---
 

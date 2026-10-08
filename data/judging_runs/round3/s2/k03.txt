@@ -1,0 +1,95 @@
+s04039|core|Controller|-|G|direct|micro-action|x1|E|aerial/sim|3|med|re-decide|VLM grounds spatial anchors and memory each step to choose drone moves and stop in zero-shot aerial VLN; re-decides on new observations.
+s11291|out|-|-|-|-|-|-|-|-|-|high|-|Tactile pretraining on human video feeding a reactive VLA policy; no explicit agent decisions or closed-loop control.
+s09454|out|-|-|-|-|-|-|-|-|-|high|-|Three-system VLA foundation model emitting actions; reactive visuomotor policy, not an inspectable decision-making agent.
+s01301|out|-|-|-|-|-|-|-|-|-|high|-|Training-free adaptive pruning for VLA inference latency; no agentic decisions or robot-level planning.
+s00162|resource|Controller|-|-|-|micro-action|x1|E|aerial/sim+real|3|med|re-decide|[sim2real] UAV VLN benchmark with 137K instructions evaluating MLLM navigators; SFT+RFT agent AirVLN-R1 tested on a real UAV.
+s04735|out|-|-|-|-|-|-|-|-|-|med|-|End-to-end VLM navigator with occupancy-pretrained spatial token emits actions directly; latent reactive policy, no inspectable decisions.
+s01129|out|-|-|-|-|-|-|-|-|-|high|-|Offline evaluation of VLM text-mask alignment on coastal imagery; no robot decisions or control.
+s02500|out|-|-|-|-|-|-|-|-|-|med|-|ChatGPT persuasion dialogue scripts for physiotherapy motivation; text dialogue study, no robot actions or closed-loop control.
+s01057|out|-|-|-|-|-|-|-|-|-|high|-|Object-centric training regime for a reactive VLA policy; visuomotor model with no explicit agent decisions.
+s00543|out|-|-|-|-|-|-|-|-|-|med|-|Text-to-motion generator in a frozen BFM latent space; generative motion model, no inspectable agent decisions or loop.
+s05362|out|-|-|-|-|-|-|-|-|-|high|-|Learned visual token pruning for VLA efficiency; reactive policy compression, no agentic decisions.
+s08920|precursor|Controller|-|G|orchestrator|skill-call|x1|E|aerial/sim|2|med|none|LLM parses UAV commands into a task plan run by a fixed FSM with completion checks; open-loop plan, numerical sim only.
+s10623|out|-|-|-|-|-|-|-|-|-|high|-|Monocular depth completion via calibrated relative-depth prior; perception model with no agent decisions.
+s09558|out|-|-|-|-|-|-|-|-|-|med|-|Plush dialogue companion with ASR, local LLM, RAG and TTS; information hub, no robot action decisions.
+s05626|out|-|-|-|-|-|-|-|-|-|med|-|Regression policy plus diffusion world-model imagination for UAV visual servoing; predicted outcomes only, no foundation-model decisions.
+s10858|out|-|-|-|-|-|-|-|-|-|med|-|Abstract LLM agent populations competing for shared resources; simulated text-level game, no embodied robot.
+s02571|out|-|-|-|-|-|-|-|-|-|low|-|No abstract provided; title suggests foundation-model decomposition for robot learning, agentic role unverifiable.
+s10776|core|Controller|-|G|orchestrator|skill-call|x1|E|nav/sim|3|med|re-decide|Frozen LVLM emits landmark and region decisions over spatial-temporal anchors for zero-shot Habitat VLN-CE; re-decides with execution evidence.
+s02365|out|-|-|-|-|-|-|-|-|-|med|-|RL-trained leader and follower UAV navigation policies in a Stackelberg game; learned policies, no foundation-model decisions.
+s07321|core|Controller|-|G|lifelong|skill-call|x1|E|nav/sim|3|med|re-decide|VLM picks candidate regions and verifies stop, then reflection writes graph priors back after each subtask for zero-shot navigation.
+s11725|out|-|-|-|-|-|-|-|-|-|high|-|Force-free compliance controller via motor currents; VLM, IL and planners are plug-in high-level modules, not the contribution.
+s08215|out|-|-|-|-|-|-|-|-|-|med|-|Benchmark of small LMs as block-programming tutors in VEX VR; text tutoring feedback, no robot control decisions.
+s03587|out|-|-|-|-|-|-|-|-|-|med|-|Systematic review of intelligent and robot tutoring systems; education-focused, not embodied agents deciding for robots.
+s00425|out|-|-|-|-|-|-|-|-|-|med|-|Benchmark of latent action representations for VLA alignment; evaluates visual encoders, not agent decisions.
+s07049|out|-|-|-|-|-|-|-|-|-|med|-|VLM question-answering benchmark on aerial-ground observation groups; offline perception and reasoning, no robot decisions.
+s06480|out|-|-|-|-|-|-|-|-|-|high|-|Geometric planner for tensioned cable routing; classical planning with no foundation-model component or agentic decisions.
+s03722|out|-|-|-|-|-|-|-|-|-|high|-|Dataset and camera-setting study for lightweight marine-litter detectors on a USV; perception evaluation, no agent decisions.
+s10123|out|-|-|-|-|-|-|-|-|-|low|-|UAV high-level VLA benchmark scoring reactive VLA policies on digital twins; no inspectable agent decisions, borderline resource.
+s05826|out|-|-|-|-|-|-|-|-|-|low|-|No abstract; title suggests offline LLM extraction of safety rules from text, likely no runtime robot control.
+s07183|out|-|-|-|-|-|-|-|-|-|high|-|LLM-driven virtual pedagogical avatar in AR for a planned user study; no robot body or robot decisions.
+s00204|out|-|-|-|-|-|-|-|-|-|high|-|Economic simulation game with LLM agents in Three.js and Phaser; no robot body, game-like world.
+s01053|out|-|-|-|-|-|-|-|-|-|high|-|Multimodal UAV perception alignment transformer; perception model, no agent decisions.
+s06762|out|-|-|-|-|-|-|-|-|-|med|-|Shared autonomy around an off-the-shelf VLA with user intervention and flow guidance; reactive VLA control, no FM decider.
+s09500|out|-|-|-|-|-|-|-|-|-|med|-|Braille pen tactile recognition with LLM tutoring feedback; no robot body, LLM emits learner guidance only.
+s11256|precursor|Controller|-|G|orchestrator|skill-call|x1|none|other/sim|1|low|none|No abstract; title suggests LLM maps multimodal human requests to urban robot commands; loop and experiments unverified.
+s09056|resource|Controller|-|-|-|skill-call|x1|E|other/sim|2|med|re-decide|UE5 platform benchmarking LLM-driven avatars on manipulation, navigation and multi-agent tasks; plans run via API, not robots.
+s05359|precursor|Designer|-|G|-|problem-spec|x1|E|other/sim|3|low|none|LLM/VLM generate UE5 scenes and task programs kept by a validator for robot training; one-shot generation, no feedback loop.
+s11051|out|-|-|-|-|-|-|-|-|-|med|-|Theoretical resource model for flat multi-agent disturbance rejection; classical controllers, no foundation-model decisions.
+s00273|resource|Controller|-|-|-|skill-call|x1|E|other|3|med|re-decide|Survey of security threats across perception, planning and action interfaces of FM-powered embodied agents; no own method.
+s06087|resource|Controller|-|-|-|skill-call|x1|H|manip/real|2|low|none|No abstract; title suggests user study of LVLM-driven robotic sorting with visual instructions; agent role inferred.
+s00099|out|-|-|-|-|-|-|-|-|-|high|-|VLM modality-adapter routing for 3D spatial VQA; offline question answering, no robot decisions or control.
+s02202|out|-|-|-|-|-|-|-|-|-|high|-|RGB-only humanoid locomotion policy with frozen VFM features; learned RL controller, no explicit agent decisions.
+s04768|out|-|-|-|-|-|-|-|-|-|med|-|Content analysis of student dialogues with an LLM wellbeing coach; text study, no robot control decisions.
+s09203|out|-|-|-|-|-|-|-|-|-|med|-|LLM speech-act classifier selects gesture clips for a medical interpreter robot; one-shot classifier, no closed loop.
+s02582|core|Controller|-|G|orchestrator|skill-call|x1|E|loco/real|3|med|re-decide|LLM-driven memory knowledge graph picks navigation targets for a quadruped; RAG memory updated with reachability feedback during ObjectNav.
+s05129|out|-|-|-|-|-|-|-|-|-|med|-|Diffusion-based apartment scene generator with LLM layout parsing; one-shot scene generation, no agent loop or robot.
+s02913|out|-|-|-|-|-|-|-|-|-|med|-|Fine-tuned VLM scores geometrically generated candidate paths for social navigation; scoring code-enumerated options, not an agent.
+s05323|precursor|Developer|-|G|-|code|x1|none|other|1|low|none|No abstract; title suggests LLM assisting robotic control software development; code generation with closed loop unverified.
+s05065|out|-|-|-|-|-|-|-|-|-|high|-|Training-free action-chunk execution-horizon method for robot policies; reactive policy post-processing, no FM agent decisions.
+s11630|resource|Controller|-|-|-|micro-action|x1|E|other/sim|2|med|re-decide|3D benchmark testing whether embodied VLM agents recognize themselves in mirrors; agents emit actions in simulated episodes.
+s10627|out|-|-|-|-|-|-|-|-|-|med|-|FM supplies per-pair risk weights and decay scales fed into a fixed cost field; scalar priors used as an organ, no agent decisions.
+s09341|out|-|-|-|-|-|-|-|-|-|high|-|Learned verifier reweighting candidate VLA actions for test-time scaling; a scorer organ, not an agent.
+s04850|out|-|-|-|-|-|-|-|-|-|high|-|Deployment-safety formalization of VLA executable specs and action unnormalization; analysis of reactive policies, no agent decisions.
+s09417|out|-|-|-|-|-|-|-|-|-|high|-|Federated multi-agent RL for UAV networks; learned RL policies with no foundation-model decisions.
+s07573|out|-|-|-|-|-|-|-|-|-|med|-|LLM scaffolding for novice social-robot programmers in block tools; human-led HCI study with no robot-level agent loop.
+s09377|out|-|-|-|-|-|-|-|-|-|high|-|Supervised communication gate for bandwidth-limited cooperative VLN; learned gating module, no foundation-model decision loop.
+s11102|resource|Controller|-|-|-|skill-call|x1|E|other|2|med|re-decide|Survey of LLM agents across driving and UAV autonomy, simulators and security; resource on agents with no own method.
+s06244|boundary|Controller|-|G|orchestrator|skill-call|xN|E|driving/sim|2|med|re-decide|LLM-controlled driving agents in a 3D urban benchmark with coupled traffic; autonomous-driving domain places it at boundary.
+s07574|core|Designer|-|G|-|problem-spec|x1|E|aerial/sim|2|med|re-decide|LLM generates and evolves UAV test seeds from simulation feedback to find near-violation scenarios; designs eval suites, re-designs on execution outcomes.
+s07641|out|-|-|-|-|-|-|-|-|-|med|-|Broad CPS architecture review covering AI and foundation models; not an embodied-agent study, no agent decisions.
+s01728|out|-|-|-|-|-|-|-|-|-|high|-|RL world-model learning with agentic exploration and structured latent representations; learned control, no foundation-model decisions.
+s02293|out|-|-|-|-|-|-|-|-|-|low|-|No abstract; title suggests an SLM ranks UAV-integrated warehouse zones, a scorer over enumerated options rather than an agent.
+s02405|out|-|-|-|-|-|-|-|-|-|high|-|Autoregressive gesture-token generator for conversational avatars; generative motion model, no robot decisions.
+s06904|resource|Controller|-|-|-|micro-action|x1|E|nav/sim|3|med|re-decide|Habitat 3.0 socially compliant VLN benchmark evaluating VLM navigators (NaVILA, StreamVLN) among pedestrians; per-step VLM actions, LoRA-adapted.
+s05162|out|-|-|-|-|-|-|-|-|-|med|-|Perspective on sentience of agents and robots with an evaluation framework; conceptual, no agent decision or control study.
+s00345|precursor|Controller|-|G|orchestrator|skill-call|x1|none|other/real|1|low|none|LLM-based keyword and semantic parsing maps speech to teleoperation or detection commands; one-shot mapping, no feedback loop.
+s08376|out|-|-|-|-|-|-|-|-|-|low|-|Edge-cloud LLM service architecture for IoA robots; networking focus, robot decisions conceptual, no robot-level evaluation.
+s07396|out|-|-|-|-|-|-|-|-|-|med|-|VLM builds a scene graph as perception evidence while a DFA planner selects waypoints; the VLM is not the decider.
+s07553|out|-|-|-|-|-|-|-|-|-|med|-|Survey of security risks for LLM-based industrial AI agents across IT/OT; no embodied robot agent as subject.
+s11317|resource|Controller|-|-|-|code|x1|none|manip/sim|2|med|none|Evaluation framework for LLM-generated industrial robot programs via NL-to-code-to-simulation; one-shot code, no closed loop.
+s10590|core|Controller|-|G|direct|micro-action|x1|E|aerial/sim|3|med|re-decide|LLM picks UAV moves each step; reflection on navigation failures feeds corrective guidance into later decisions in zero-shot UAV target search.
+s00909|out|-|-|-|-|-|-|-|-|-|med|-|Local-RAG LLM channel-selection engine for underwater nodes; evaluated offline with Ragas, no robot-level agent loop.
+s01429|out|-|-|-|-|-|-|-|-|-|med|-|VLM grounds an instruction to one of enumerated image cells; grounding feeds a fixed planner and RL tracker, no authored agent loop.
+s02580|precursor|Controller|-|G|orchestrator|skill-call|x1|none|nav/real|2|low|none|VLM control agent parses noisy speech into robot navigation commands; ASR is the headline, closed loop not described.
+s05655|out|-|-|-|-|-|-|-|-|-|med|-|Survey of quantum-enhanced LLMs for space-aerial-ground communication networks; networking focus, not embodied agents.
+s11508|out|-|-|-|-|-|-|-|-|-|high|-|VFM-based visual relocalization over a 3DGS map; perception and localization pipeline, no agent decisions.
+s02483|out|-|-|-|-|-|-|-|-|-|med|-|KG-augmented LoRA for agricultural language understanding; text semantic model, no robot control decisions.
+s01090|out|-|-|-|-|-|-|-|-|-|high|-|Preference-conditioned decision transformer for UAV MEC scheduling; learned sequence scheduler, not a foundation-model agent.
+s06158|out|-|-|-|-|-|-|-|-|-|med|-|Image-enriched text queries improve VLM grounding on semantic maps; navigation policy unchanged, so the VLM acts as an organ.
+s05653|core|Controller|-|G|orchestrator|skill-call|x1|E|manip/sim|2|low|re-decide|VLM picks target parts and grasp rounds in closed-loop PyBullet clutter; re-decides after each perception-action round, GraspNet executes.
+s08812|out|-|-|-|-|-|-|-|-|-|med|-|Two-stage VLM reasoning and diffusion for egocentric human motion; motion synthesis with no robot decisions or control.
+s06364|out|-|-|-|-|-|-|-|-|-|med|-|RL cloth manipulation with disentangled perception and reasoning; learned policies, no foundation-model decisions.
+s10144|core|Controller|-|G|orchestrator|skill-call|x1|E|manip/real|2|low|re-decide|LLM agent plans AIMD, DFT and robotic IR/Raman measurements, re-deciding from tool results; chemistry-headline, robot role unclear.
+s04946|core|Controller|-|G|lifelong|micro-action|x1|E|nav/sim|3|med|re-decide|Training-free harness: multi-round frontier-model navigation checks maps and records against observations and carries memory across tasks on GOAT-Bench.
+s06024|out|-|-|-|-|-|-|-|-|-|med|-|LLM acts as state processor and reward designer inside a DRL UAV data-collection loop; outputs are embeddings and rewards, an organ role.
+s08750|out|-|-|-|-|-|-|-|-|-|med|-|Perspective on haptic foundation models with tactile benchmark evaluations; perception backbones, no agent decisions.
+s01089|out|-|-|-|-|-|-|-|-|-|med|-|Multi-view indoor scene reconstruction with VLM relation predictions fused by priors; offline scene perception, no agent loop.
+s06703|out|-|-|-|-|-|-|-|-|-|high|-|Frozen DINOv3 backbone evaluated on blueberry perception; perception model, no agent decisions.
+s08060|out|-|-|-|-|-|-|-|-|-|high|-|Directional VLM reward shaping for robot RL; VLM acts as a reward organ, not a decider.
+s08217|precursor|Controller|-|G|orchestrator|skill-call|x1|none|mobile-manip/real|1|low|none|Jetson-based warehouse robot where Qwen LLM parses commands and plans tasks; open-loop planning, closed loop not described.
+s01960|out|-|-|-|-|-|-|-|-|-|high|-|Fusion of YOLO, VLM and metal-detector confidences for demining with calibrated weights; classifier fusion, no agent decisions.
+s08303|out|-|-|-|-|-|-|-|-|-|med|-|Real-to-sim scene reconstruction where a VLM placement policy manipulates asset gizmos; scene-building component, no robot body or agent loop.
+s00711|core|Controller|-|G|direct|verdict|x1|E|nav/sim|3|med|re-decide|VLM compares controller-built candidate views and decides stop or walk-back in zero-shot R2R-CE; re-decides with revocable arrival checks.
+s00457|core|Controller|-|G|orchestrator|skill-call|x1|E|manip/sim+real|3|low|re-decide|Router allocates test-time compute to VLM embodied planners that emit plans with memory history; validated on VLABench, RoboMME and a real Franka arm.
+s00915|out|-|-|-|-|-|-|-|-|-|med|-|UAV threat question-answering system with LLMs; text question answering, no robot decisions or control.

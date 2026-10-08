@@ -1,0 +1,101 @@
+c01398|resource|Controller|-|-|-|skill-call|x1|none|aerial/sim|2|med|none|LLM turns user prompts into control API calls for UAVs and manipulators in Isaac Sim; simulator testbed, no closed loop shown.
+c00908|core|Controller|-|G|orchestrator|vla-call|x1|E|manip/real|3|high|re-decide|VLM agent with monitor, memory and self-reflection organizes VLA calls using real-time VLA proficiency feedback; real-world manipulation tasks.
+c04910|out|-|-|-|-|-|-|-|-|-|high|-|Text-to-human-motion diffusion with GPT-3 prompt augmentation; no robot body or embodied agent decision.
+c08165|precursor|Controller|-|G|orchestrator|skill-call|x1|none|humanoid/real|2|med|none|LLM picks the requested object from voice dialogue and calls the grasp module on a humanoid; no feedback loop described.
+c10928|out|-|-|-|-|-|-|-|-|-|low|-|No abstract; title alone does not show an in-scope agent, robot body or closed loop.
+c02485|precursor|Controller|-|G|orchestrator|skill-call|x1|none|other/sim|2|low|none|LLM with tree-RAG over compliance manuals writes robot task plans; body and experiments unclear, no loop described.
+c05668|boundary|Controller|-|G|lifelong|message|x1|H|mobile-manip/sim|2|low|re-decide|FM agent keeps joint belief, asks clarifications and refines shared plans with the human; experiments unclear, likely household simulation.
+c05805|precursor|Controller|-|G|orchestrator|skill-call|x1|none|humanoid/real|2|med|none|LLM picks verbal or physical response and writes behavior trees run on NAO; one-shot planning, no feedback loop.
+c10748|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] VLA post-training framework whose model emits robot actions; embodied foundation model, out of scope.
+c07400|boundary|Designer|-|G|-|code|1:N|none|driving/sim|2|med|none|LLM writes natural-language traffic scenario scripts run in CARLA; driving domain, one-shot script generation.
+c02475|boundary|Controller|-|G|lifelong|message|x1|none|nav/sim|2|low|none|Soar agent learns office tasks online from environment, human text and GPT-3 answers; likely discrete simulation, LLM is secondary.
+c03796|out|-|-|-|-|-|-|-|-|-|high|-|Room-escape game benchmark for LM agents; games with no physical embodiment, out of scope.
+c02671|out|-|-|-|-|-|-|-|-|-|high|-|Multimodal LLM generates robot action steps and confirmations from video, evaluated offline on YouCook2; no robot execution.
+c05999|precursor|Controller|-|G|direct|code|x1|none|other/sim|2|low|none|No abstract; title suggests a vision model autonomously derives robot structure and control, loop unknown.
+c02894|out|-|-|-|-|-|-|-|-|-|high|-|LLM agents in game environments (Slay the Spire, Civilization V) learn skills from experience; games are out of scope.
+c09952|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] VLA policy improved via human rewind-and-refine data collection; Task Sentinel is only a success predictor.
+c09194|out|-|-|-|-|-|-|-|-|-|high|-|Pretrained black-box optimizer producing candidate solutions; numeric optimization model, not an agent deciding embodied actions.
+c11253|out|-|-|-|-|-|-|-|-|-|high|-|Goal-conditioned transformer predicts navigation actions from images; reactive visuomotor policy, no agentic decisions.
+c13335|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] German vision-language-action model; action-producing embodied foundation model, out of scope.
+c02409|out|-|-|-|-|-|-|-|-|-|high|-|Latent-diffusion visual subgoal generator guiding a manipulation policy; image outputs, no discrete agent decisions.
+c06459|out|-|-|-|-|-|-|-|-|-|med|-|LLM/VLM speech pipeline on Pepper; outputs are utterances, no robot-control decisions or experiments reported.
+c11039|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Generalist transformer policy for robot manipulation trained across datasets; action-producing, out of scope.
+c03840|out|-|-|-|-|-|-|-|-|-|high|-|VLM embedding distance used as a loss for differentiable-sim demonstration generation; latent organ, no discrete decisions.
+c10002|out|-|-|-|-|-|-|-|-|-|high|-|Among Us-style text game for LLM persuasion; no embodiment, games out of scope.
+c09690|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] VLA fine-tuned to emit switching events for co-designed dexterous controllers; hierarchical VLA, out of scope.
+c12740|resource|Controller|-|-|-|message|x1|none|other/sim+real|2|low|none|Survey of embodied language learning, where LLM and VLM learners are situated in the world; no method of its own.
+c03679|resource|Supervisor|Designer|-|-|verdict|x1|none|other/sim+real|3|med|none|Survey of risk-control approaches for foundation-model-enabled robots across deployment and incidents; subject is embodied agents.
+c10252|out|-|-|-|-|-|-|-|-|-|high|-|Survey of LLM-augmented image segmentation for transportation; perception survey, not about embodied agents.
+c09987|out|-|-|-|-|-|-|-|-|-|high|-|Video generation model imagines task demonstrations whose extracted signals train simulated policies; world-model imagination, no agent decisions.
+c04004|precursor|Controller|-|G|orchestrator|skill-call|x1|none|manip/real|2|med|none|LLM planner compiles voice commands into action-primitive sequences for an assistive arm; no re-planning from outcomes described.
+c11406|out|-|-|-|-|-|-|-|-|-|high|-|Two-stage visuomotor policy trained with offline RL or imitation; reactive action model, no foundation-model decisions.
+c02620|out|-|-|-|-|-|-|-|-|-|high|-|Symbolic knowledge and cognitive architecture generate robot code from VR demonstrations; no foundation model in the loop.
+c00323|out|-|-|-|-|-|-|-|-|-|med|-|VLM proposes and labels predicates from images for a classical planner; perception/grounding role, no FM choosing actions.
+c05545|precursor|Controller|-|G|orchestrator|skill-call|x1|none|other/sim|2|low|none|LLM with robot-system ontology and hierarchical-thought tuning writes industrial task plans; loop and body unclear from abstract.
+c01722|out|-|-|-|-|-|-|-|-|-|high|-|Diffusion motion-primitive policies composed for instruction-following navigation; learned visuomotor policy, no foundation-model decisions.
+c13338|out|-|-|-|-|-|-|-|-|-|high|-|No abstract; RL vision-based UAV obstacle-evasion policy, a reactive visuomotor policy with no foundation-model decisions.
+c02646|core|Controller|-|G|direct|code|x1|E|manip/sim+real|3|med|re-decide|[sim2real] LLM plans and writes control code, retrieves successful code memories and re-plans; tested on RLBench, CALVIN and hardware.
+c01716|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Unified VLA model for general robot control; action-producing embodied foundation model, out of scope.
+c00922|precursor|Controller|-|G|orchestrator|skill-call|x1|none|manip/sim|2|low|none|No abstract; title suggests an LLM reasons about harm before manipulation plans; loop and experiments unknown.
+c09326|out|-|-|-|-|-|-|-|-|-|high|-|Contact-implicit MPC for dynamic on-palm sliding manipulation; no foundation-model agent involved.
+c10781|out|-|-|-|-|-|-|-|-|-|high|-|Persona-based LLM agent with graph RAG for LaMP text personalization; no embodiment, out of scope.
+c06017|out|-|-|-|-|-|-|-|-|-|low|-|No abstract; title suggests self-supervised vision-action pretraining for a reactive navigation policy.
+c00835|precursor|Controller|-|G|orchestrator|skill-call|x1|none|manip/sim|2|low|none|LLM plans atomic robot actions over a hierarchical procedural knowledge graph; open-loop planning, experiment setting unclear.
+c05336|out|-|-|-|-|-|-|-|-|-|high|-|VLM preference labels on trajectory pairs train an offline RL policy; organ-only judge, the policy itself is reactive.
+c02893|boundary|Controller|-|C|orchestrator|skill-call|x1|none|mobile-manip/sim|2|low|none|Backdoor attack fine-tunes a VLM-based embodied planner to run hidden multi-step policies on object triggers; attack study, loop unclear.
+c06658|out|-|-|-|-|-|-|-|-|-|high|-|LLM token-length predictor for communication efficiency in cloud robotics; model-internal efficiency method, no agent decisions.
+c03095|out|-|-|-|-|-|-|-|-|-|high|-|LLM-evolved tunable programs for combinatorial optimization (cap set); no embodiment or robot body.
+c10068|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] Cross-embodiment VLA policy with equivariant action decoder; action-producing embodied foundation model, out of scope.
+c13571|boundary|Controller|-|G|orchestrator|skill-call|x1|H|driving/sim|2|med|re-decide|LLM with function calling executes driver-confirmed ADAS commands in CARLA over multi-turn dialogue; driving domain, boundary.
+c13288|out|-|-|-|-|-|-|-|-|-|high|-|Wearable FBG tactile sensor hardware for demonstration collection; no foundation-model agent involved.
+c00477|core|Controller|-|G|direct|code|x1|E|manip/real|3|high|re-decide|Pretrained LLM writes modular control code, runs it with debugging probes and refines it in a closed loop; real camera-arm calibration and pick-and-place.
+c03866|out|-|-|-|-|-|-|-|-|-|high|-|Contrastive image retrieval for open-vocabulary object search; embedding-based retrieval, no foundation-model agent decisions.
+c06061|out|-|-|-|-|-|-|-|-|-|high|-|Flow-matching model predicts likely object locations over time; generative prior and organ, no foundation-model agent decisions.
+c01740|boundary|Controller|-|G|lifelong|skill-call|x1|E+H|other/sim|2|low|re-decide|No abstract; from memory, a GPT-4V agent distils trajectories and human fixes into insights; discrete household sim.
+c02882|out|-|-|-|-|-|-|-|-|-|high|-|VLM smartphone agent taps and swipes on Android in the Wild; GUI agent, out of scope.
+c02810|boundary|Controller|-|G|orchestrator|skill-call|x1|M|other/sim|2|low|re-decide|MLLM proposes subgoals and PDDL plans refined by a validator loop; evaluated only in symbolic planning domains, no physical robot.
+c01249|precursor|Controller|-|C|direct|code|x1|none|manip/real|2|med|none|Fine-tuned LLM writes URScript for a UR arm, evaluated in real-world scenarios; one-shot code generation, no feedback loop.
+c01394|out|-|-|-|-|-|-|-|-|-|med|-|No abstract; from memory, ProAgent is an LLM planner for Overcooked, a cooking game environment, out of scope.
+c13303|out|-|-|-|-|-|-|-|-|-|high|-|Object detection plus CNN material recognition for robot perception; perception model, no foundation-model agent decisions.
+c00933|core|Designer|-|G|-|code|x1|E|manip/sim|3|med|re-decide|LLM writes reward code and a VLM diagnoses failed trajectories so the LLM rewrites rewards; foundation models only used in training.
+c09475|out|-|-|-|-|-|-|-|-|-|high|-|Statistical risk calibration of learned human-intent predictors decides when to ask; no foundation-model decision.
+c00340|out|-|-|-|-|-|-|-|-|-|high|-|Code models extract action preconditions for sampling in dialog and TextWorld; text-world benchmarks with no robot body.
+c02487|out|-|-|-|-|-|-|-|-|-|high|-|TAMP planning over learned neural object descriptors and demonstration skills; no foundation-model decisions.
+c01438|out|-|-|-|-|-|-|-|-|-|low|-|No abstract; title suggests a digital-twin system for human-robot collaboration, with no agent evidence.
+c02520|precursor|Controller|-|G|orchestrator|skill-call|x1|none|nav/sim|2|med|none|ChatGPT turns text and voice commands into ROS 2 navigation calls on a Gazebo mobile robot; no feedback loop, latency-focused.
+c10333|out|-|-|-|-|-|-|-|-|-|high|-|Speculative decoding accelerates a diffusion visuomotor policy with RL; policy acceleration, no foundation-model agent.
+c07448|out|-|-|-|-|-|-|-|-|-|high|-|RL navigation policy with auxiliary action-description distillation from VLMs; the policy emits actions, no agentic decisions.
+c00207|out|-|-|-|-|-|-|-|-|-|low|-|No abstract; title suggests VLM-based action selection in representation space, likely organ-like scoring of candidates.
+c00239|core|Controller|-|G|orchestrator|skill-call|x1|E|mobile-manip/real|3|med|re-decide|LLM does spatial region abstraction and online planning over a VLM-built 3D semantic map on a real mobile manipulator; replans as environment changes.
+c00760|precursor|Controller|-|G|orchestrator|skill-call|x1|none|manip/real|2|low|none|Foundation models plan bimanual subgoals bound to a skill library for two-handed execution; one-shot pipeline, no feedback loop described.
+c13277|out|-|-|-|-|-|-|-|-|-|med|-|[embodied-FM] VLM trained to map language to parameterized robot actions and back; policy-style action model, out of scope.
+c07578|core|Designer|-|G|-|code|x1|E|nav/sim|2|low|re-decide|VLM plans subtasks, writes executable exploration code and picks poor-perception regions to collect training samples; room exploration, likely simulated.
+c01250|out|-|-|-|-|-|-|-|-|-|med|-|VLM evaluator scores code-enumerated trajectory candidates via VQA; code owns selection and control, so the VLM is an organ.
+c02818|out|-|-|-|-|-|-|-|-|-|high|-|Transformer network predicts goal positions for object rearrangement via voting; learned perception model, no foundation-model agent.
+c06029|core|Controller|-|G|orchestrator|skill-call|x1|E|manip/real|3|med|re-decide|VLM turns demonstration videos into behavior trees and replans after execution failures; closed loop with scene interpretation, robotic assembly.
+c05046|boundary|Controller|-|G|orchestrator|skill-call|x1|none|driving/real|2|low|none|No abstract; from title, LLM driving decisions tested on a real vehicle; autonomous-driving domain makes it boundary.
+c10849|out|-|-|-|-|-|-|-|-|-|high|-|LLMs write programs that generate simulator-verified spatial QA training data for VLMs; annotation pipeline, not an embodied agent.
+c09979|out|-|-|-|-|-|-|-|-|-|med|-|LLM insight-memory agent (GPT-3.5) for embodied planning in a text world; no robot body, out of scope.
+c06126|core|Controller|-|G|direct|constraint|x1|none|manip/sim|2|low|none|MLLM writes pairwise object-relation plans that become affordance maps and test-time costs guiding a diffusion placement planner; solved once, no loop.
+c12668|out|-|-|-|-|-|-|-|-|-|high|-|General review of vision-language models; not an embodied-agent subject, out of scope.
+c13272|out|-|-|-|-|-|-|-|-|-|med|-|[embodied-FM] Continual-learning forgetting study of Octo, an action-producing robot policy; subject is an embodied foundation model.
+c00898|core|Controller|-|G|direct|constraint|x1|none|manip/sim+real|3|med|none|Off-the-shelf VLM turns language into 3D keyframe constraints that guide diffusion inpainting; keyframes solved once, tested in sim and real.
+c05577|core|Controller|-|G|orchestrator|skill-call|x1|E|nav/sim|2|med|re-decide|LLM as central controller calls navigation tools via function calling, re-queried with tool results; PyBullet physics simulation experiments.
+c06415|out|-|-|-|-|-|-|-|-|-|low|-|No abstract; course project proposal on manipulation and navigation, no evident foundation-model agent.
+c03817|out|-|-|-|-|-|-|-|-|-|low|-|No abstract; from memory, a navigation policy on frozen foundation-model features emits actions directly; out.
+c13558|out|-|-|-|-|-|-|-|-|-|high|-|Agentic AI for industrial monitoring dashboards and diagnostics; no robot body, out of scope.
+c07394|out|-|-|-|-|-|-|-|-|-|high|-|Keypoint-conditioned visuomotor imitation policy with spatio-temporal attention; reactive policy, no foundation-model agent.
+c03861|out|-|-|-|-|-|-|-|-|-|high|-|[embodied-FM] pi0-based VLA with CLIP condition monitor for weight thresholds; action-producing VLA framework, out of scope.
+c01540|out|-|-|-|-|-|-|-|-|-|med|-|No abstract; pretrained LM action selection on ALFWorld text environment; text-world benchmark, out of scope.
+c05940|out|-|-|-|-|-|-|-|-|-|high|-|Visual imitation learning with target localization; reactive visuomotor policy, no foundation-model agent.
+c01076|resource|Controller|-|-|-|skill-call|xR|E|other/sim|2|low|re-decide|Component-wise analysis (Observer, Planner, Executor) of LLM-centric agents on ALFRED embodied instruction following; discrete household simulation.
+c01210|core|Teacher|-|G|-|constraint|x1|none|manip/sim|2|low|none|LLM and VLM plan and extract affordances that a heuristic motion planner turns into demonstrations for a diffusion policy; no loop described.
+c03009|out|-|-|-|-|-|-|-|-|-|high|-|Minecraft evaluation framework for open-ended game agents; games are out of scope.
+c03664|boundary|Controller|-|G|orchestrator|verdict|x1|none|driving/sim|2|med|none|LLM module adds chain-of-thought decisions to an E2E driving planner when baseline planners fail; CARLA driving domain.
+c02202|precursor|Controller|-|G|direct|code|x1|none|manip/sim+real|2|med|none|Off-the-shelf code LLM writes robot policy code from language, grounded by CLIP and YOLOv8; arm in sim and real, no feedback loop described.
+c03078|out|-|-|-|-|-|-|-|-|-|med|-|VLM procedural planner evaluated on ActPlan-1K and ALFRED; one-shot planning with no robot body, out of scope.
+c10059|out|-|-|-|-|-|-|-|-|-|med|-|[embodied-FM] Training-free adapter that personalizes a frozen VLA via detection and visual prompts; action-producing VLA focus, out.
+c02411|resource|Controller|-|-|-|skill-call|x1|E|other/sim|3|high|re-decide|Benchmark of LLM task-level embodied planning with spatial and temporal tests and simulator feedback.
+c01862|out|-|-|-|-|-|-|-|-|-|high|-|General position article on trustworthy foundation models; not an embodied-agent study, out of scope.
+c02596|out|-|-|-|-|-|-|-|-|-|high|-|LVLM generates scalar rewards from offline data for offline RL; reward-model organ, no discrete agent decisions.
+c02607|out|-|-|-|-|-|-|-|-|-|high|-|Foundation-model human-motion reconstruction yields a stabilizing reward for RL humanoid policy; reward organ, reactive policy, no agent decisions.
