@@ -25,7 +25,8 @@ COLOR = {"Controller": "#2a78d6", "Supervisor": "#eb6834", "Teacher": "#1baf7a",
          "Developer": "#e87ba4"}
 INK, INK2, MUTED, GRID, BASE, SURFACE = "#0b0b0b", "#52514e", "#898781", "#e1e0d9", "#c3c2b7", "#fcfcfb"
 SEQ = ["#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5"]  # sequential blue steps 100/200/300/400
-NAMED = {"GUAVA", "Harness VLA", "Show-Harness", "ENPIRE", "Code-as-Monitor"}
+NAMED = {"GUAVA", "Harness VLA", "Show-Harness", "ENPIRE", "Code-as-Monitor", "ReKep", "RPG", "SimEX", "EmbodiedSmith",
+         "Video2World", "Astra on RoboDojo"}  # papers the user named
 SUB_ZH = {"orchestrator": "编排型", "direct": "直接驱动型", "lifelong": "lifelong / memory 型"}
 IFACE_ZH = {"skill-call": "技能调用", "vla-call": "VLA 调用", "micro-action": "语义微动作", "code": "代码",
             "constraint": "约束", "verdict": "裁决", "trace": "执行轨迹", "problem-spec": "问题规格",
