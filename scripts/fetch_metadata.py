@@ -7,8 +7,9 @@ Usage: python3 scripts/fetch_metadata.py [--refresh] <csv> [<csv> ...]
        verified there are kept unless --refresh, so re-runs only query new ids)
 Set SEMANTIC_SCHOLAR_API_KEY to use a key; keyless requests retry on 429.
 """
-import csv, json, os, re, sys, time, urllib.parse, urllib.request
+import csv, html, json, os, re, sys, time, urllib.parse, urllib.request
 import xml.etree.ElementTree as ET
+from datetime import datetime
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from harvest_citations import http_get_json  # noqa: E402  (shared retry/backoff)
@@ -52,6 +53,33 @@ def arxiv_batch(ids):
     return out
 
 
+def abs_page(aid):
+    """Fallback when the export API rate-limits us: parse the arxiv.org/abs page (same fields)."""
+    url = f"https://arxiv.org/abs/{aid}"
+    for attempt in range(4):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (survey metadata check)"})
+            with urllib.request.urlopen(req, timeout=60) as r:
+                page = r.read().decode("utf-8", "replace")
+            break
+        except Exception as e:
+            print("  abs retry", aid, attempt, e, file=sys.stderr)
+            time.sleep(5 * (attempt + 1))
+    else:
+        return None
+    get = lambda pat: (lambda m: html.unescape(re.sub(r"<[^>]+>", "", m.group(1))).strip() if m else "")(
+        re.search(pat, page, re.S))
+    title = get(r'<meta name="citation_title" content="([^"]+)"')
+    sub = get(r"\[Submitted on (\d{1,2} \w{3} \d{4})")
+    if not title or not sub:
+        return None
+    return dict(arxiv_title=re.sub(r"\s+", " ", title), published=datetime.strptime(sub, "%d %b %Y").strftime("%Y-%m-%d"),
+                updated="", authors=[html.unescape(a) for a in re.findall(r'<meta name="citation_author" content="([^"]+)"', page)],
+                comment=re.sub(r"\s+", " ", get(r'<td class="tablecell comments[^"]*">(.*?)</td>')),
+                journal_ref=get(r'<td class="tablecell jref">(.*?)</td>'),
+                primary_category=(re.findall(r"\(([a-z\-]+\.[A-Z]{2})\)", get(r'<span class="primary-subject">(.*?)</span>')) or [""])[0])
+
+
 def s2_batch(ids):
     headers = {"Content-Type": "application/json"}
     if os.environ.get("SEMANTIC_SCHOLAR_API_KEY"):
@@ -82,6 +110,11 @@ def main():
     for k in range(0, len(ids), 20):
         meta.update(arxiv_batch(ids[k:k + 20]))
         time.sleep(3)
+    for i in [i for i in ids if i not in meta]:  # API refused or timed out: read the abs pages instead
+        m = abs_page(i)
+        if m:
+            meta[i] = m
+        time.sleep(1)
     s2 = {}
     for k in range(0, len(ids), 400):
         s2.update(s2_batch(ids[k:k + 400]))

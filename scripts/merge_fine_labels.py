@@ -6,6 +6,8 @@ Re-judging runs add a loop field before the reason (14 fields):
     id|verdict|seat|seat2|carrier|sub|interface|topo|closure|body|rep|conf|loop|reason
 where loop is re-decide / authored / none (criteria_fine.md step A.3). Rows without it get
 re-decide for core and none for precursor (the strict first pass only admitted re-decision).
+`pass` is the shard directory a judgment came from; when a later directory re-judges a paper,
+`prev` keeps the earlier `pass:verdict` (e.g. bulk:core) so verification agreement can be measured.
 Validates enums and completeness against data/core/pool.jsonl, and joins pool metadata plus the
 definition test-set placement (matched by arXiv id) for comparison.
 
@@ -59,6 +61,11 @@ def main():
             errs = [k for k, ok in ENUM.items() if row[k] not in ok]
             if errs:
                 bad.append((os.path.basename(path), f"{row['id']} bad {errs}: " + "|".join(row[k] for k in errs)))
+            old = got.get(row["id"])
+            if old and old["pass"] != row["pass"]:  # a later pass re-judged it: keep the earlier verdict
+                row["prev"] = f"{old['pass']}:{old['verdict']}"
+            else:
+                row["prev"] = (old or {}).get("prev", "")
             got[row["id"]] = row  # last judgment wins (re-runs append)
     missing = sorted(set(pool) - set(got))  # ids of a pool whose shards are still running show up here
     out = []

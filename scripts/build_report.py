@@ -45,6 +45,15 @@ def norm_arxiv(a):
     return re.sub(r"v\d+$", "", (a or "").strip().lower().replace("arxiv:", ""))
 
 
+STRONG = {"out", "recheck", "verify", "verify_s2"}  # judging passes run with the strong model (see build_extended.py)
+
+
+def year_of(r):
+    """arXiv v1 year from the id (YYMM.nnnnn) when there is one, else the Semantic Scholar date."""
+    m = re.match(r"(\d{2})\d{2}\.\d{4,5}$", norm_arxiv(r.get("arxiv")))
+    return "20" + m.group(1) if m else (r.get("date") or "????")[:4]
+
+
 def load():
     p = lambda *x: os.path.join(ROOT, *x)
     rows = list(csv.DictReader(open(p("data/core/core_table.csv"))))
@@ -64,12 +73,21 @@ def load():
         r["cites"] = m.get("citations")
         r["named"] = r["key"] in NAMED
         r["new"] = bool(r.get("added"))
-    year = lambda r: (meta.get(norm_arxiv(r["arxiv"]), {}).get("published") or r["date"] or "????")[:4]
     with open(p("data/candidates/candidates.csv")) as f:
         n_cand = sum(1 for _ in csv.reader(f)) - 1
     coarse = Counter(r["label"] for r in csv.DictReader(open(p("data/screening/coarse_labels.csv"))))
     src = Counter(o["source"].split(";")[0] for o in pool)
     re_rows = [r for r in fine if r.get("pass") == "recheck"]
+    # round 3: bulk pool (every 2026 harvest candidate), S2 keyword sweep, strong-model verification
+    n_bulk = sum(1 for _ in open(p("data/core/pool_bulk.jsonl")))
+    s2_rows = sum(1 for _ in open(p("data/candidates/s2_sweep_2026.jsonl")))
+    s2_lab = Counter(r["label"] for r in csv.DictReader(open(p("data/candidates/s2_coarse_2026.csv"))))
+    n_s2pool = sum(1 for _ in open(p("data/core/pool_s2.jsonl")))
+    ver = [r for r in fine if r.get("pass") in ("verify", "verify_s2") and r.get("prev")]
+    ver_core = [r for r in ver if r["prev"].endswith(":core")]
+    strong26 = [r for r in fine if r["verdict"] == "core" and r.get("pass") in STRONG and year_of(r) == "2026"]
+    ep = p("data/core/extended_2026.csv")
+    n_ext = sum(1 for _ in csv.DictReader(open(ep))) if os.path.exists(ep) else 0
     c = dict(records=CITATION_RECORDS, cand=n_cand, prefilter=sum(coarse.values()), relevant=coarse["relevant"],
              maybe=coarse["maybe"], pool=len(pool), shortlist=len(pool) - src["supplement"] - src["testset"],
              supplement=src["supplement"], testset=src["testset"], verdict=Counter(r["verdict"] for r in fine),
@@ -79,13 +97,16 @@ def load():
              tier=Counter(r["tier"] for r in rows), seat=Counter(r["seat"] for r in rows if r["tier"] == "core"),
              verified=sum(1 for r in rows if meta.get(r["arxiv"], {}).get("verified")),
              links=sum(1 for r in rows if re.search(r"https?://", meta.get(r["arxiv"], {}).get("comment", ""))),
-             new=sum(1 for r in rows if r["new"]))
+             new=sum(1 for r in rows if r["new"]), bulk=n_bulk, s2=s2_rows, s2_screen=sum(s2_lab.values()),
+             s2_keep=s2_lab["relevant"] + s2_lab["maybe"], s2_pool=n_s2pool, judged=len(fine),
+             ver=len(ver), ver_core=len(ver_core), ver_core_kept=sum(1 for r in ver_core if r["verdict"] == "core"),
+             strong26=len(strong26), ext=n_ext)
     # trend corpus: every stage-2 core verdict in the judging pool
     prim, alls, n = defaultdict(Counter), defaultdict(Counter), Counter()
     for r in fine:
-        if r["verdict"] != "core":
+        if r["verdict"] != "core" or r.get("pass") not in STRONG:
             continue
-        y = year(r)
+        y = year_of(r)
         n[y] += 1
         prim[y][r["seat"]] += 1
         for s in {r["seat"]} | {x for x in re.split(r"[+,;/ ]+", r["seat2"]) if x in SEATS}:
@@ -193,20 +214,28 @@ def examples(rows, seat, limit=250):
 # ------------------------------------------------------------------ figures
 
 def fig_pipeline(c):
-    v = c["verdict"]
+    t = c["tier"]
     steps = [
-        (f"{c['records']:,}", "条引用记录", "14 篇种子论文的前向引用（Semantic Scholar）", "脚本"),
-        (f"{c['cand']:,}", "篇去重候选", "合并去重，按引用了几篇种子排序", "脚本"),
-        (f"{c['prefilter']:,}", "篇进入粗筛", "关键词或种子重叠预筛", "脚本"),
+        (f"{c['records']:,}", "条引用记录", f"14 篇种子论文的前向引用（Semantic Scholar），去重后 {c['cand']:,} 篇候选", "脚本"),
         (f"{c['relevant'] + c['maybe']:,}", "篇粗筛保留",
-         f"判为「相关」{c['relevant']:,} 篇、「可能」{c['maybe']:,} 篇；全部「无关」都经 Sonnet 复核", "Haiku + Sonnet"),
-        (f"{c['pool']:,}", "篇判定池",
-         f"短名单 {c['shortlist']}（影响力、新兴度）+ 小 seat 补充 {c['supplement']} + 测试集 {c['testset']}", "脚本"),
-        (f"{v['core']}", "篇判为 core",
-         f"19 个 Sonnet agent 逐篇判定；按「编写闭环」新规则复核 {c['recheck']} 篇前驱，{c['recheck_core']} 篇改判 core", "Sonnet"),
+         f"{c['prefilter']:,} 篇进入粗筛；判「相关」{c['relevant']:,}、「可能」{c['maybe']:,}；全部「无关」经 Sonnet 复核",
+         "Haiku + Sonnet"),
+        (f"{c['pool']:,}", "篇第一轮判定池",
+         f"短名单 {c['shortlist']} + 小 seat 补充 {c['supplement']} + 测试集 {c['testset']}，逐篇判定；"
+         f"按「编写闭环」新规则复核 {c['recheck']} 篇前驱，{c['recheck_core']} 篇改判 core", "Sonnet"),
+        (f"{c['bulk']:,}", "篇批量判定池", "收割候选中的全部 2026 年论文，加 2022–2025 年的高被引论文，逐篇判定", "Haiku"),
+        (f"{c['s2']:,}", "篇 2026 关键词检索",
+         f"Semantic Scholar 检索「机器人 × agent」，补上没引用种子的论文：{c['s2_screen']:,} 篇新论文提到基础模型，"
+         f"粗筛保留 {c['s2_keep']:,} 篇，逐篇判定", "脚本 + Haiku"),
+        (f"{c['ver']:,}", "篇 Sonnet 复核",
+         f"Haiku 判为 core、前驱或边界的论文全部由 Sonnet 从头重判；Haiku 判 core 的 {c['ver_core']} 篇中 "
+         f"{c['ver_core_kept']} 篇维持 core", "Sonnet"),
         (f"{c['gap1'] + c['gap2']}", "篇联网补漏",
-         f"两轮联网搜索：公认工作 {c['gap1']} 篇；2026 年与 Real2Sim / Sim2Real {c['gap2']} 篇；全部经 arXiv 核验", "联网 agent"),
-        (f"{c['tier']['core']} + {c['tier']['pioneer']} + {c['tier']['resource']}", "2026 核心 + 先驱 + 资源",
+         f"公认工作 {c['gap1']} 篇；2026 年与 Real2Sim / Sim2Real {c['gap2']} 篇；全部经 arXiv 核验", "联网 agent"),
+        (f"{c['strong26']}", "篇 2026 年 core",
+         f"经 Sonnet 判定或复核为 core 的 2026 年论文；{t['core']} 篇进核心表，其余 {c['ext']} 篇列入 README 的扩展列表",
+         "Sonnet"),
+        (f"{t['core']} + {t['pioneer']} + {t['resource']}", "2026 核心 + 先驱 + 资源",
          f"人工挑选；{c['verified']} 篇全部经 arXiv 核验，标题一致", "人工"),
     ]
     out = ['<div class="flow">']
@@ -587,7 +616,6 @@ table { border-collapse: collapse; width: 100%; }
 
 def build_html(fontdir):
     rows, c, trend, agree, (seat_same, seat_n), alt = load()
-    v = c["verdict"]
     seat = c["seat"]
     core = [r for r in rows if r["tier"] == "core"]
     pio = [r for r in rows if r["tier"] == "pioneer"]
@@ -633,6 +661,9 @@ def build_html(fontdir):
       f'本轮新增 {c["new"]} 篇（附录中标「新」）。</li>'
       f'<li><b>新增 Real2Sim / Sim2Real 板块</b>：{len(r2s)} 篇 2026 年论文，含你推荐的 RPG、SimEX、EmbodiedSmith；'
       'Video2World 进资源表。</li>'
+      f'<li><b>全面检索 2026 年</b>：不再只靠种子论文的引用。收割候选里全部 2026 年论文都逐篇判定，又用 Semantic Scholar '
+      f'关键词检索补了 {c["s2_screen"]:,} 篇没引用种子的新论文；Haiku 初判、Sonnet 复核后，2026 年共有 {c["strong26"]} 篇满足定义。'
+      f'核心表收 {n_core} 篇，其余 {c["ext"]} 篇按 seat 列在 README 的「More 2026 papers」里。</li>'
       f'<li><b>拓宽范围</b>：2026 核心覆盖 {body_txt}。</li></ul></div>')
     a('<div class="callout ask"><h3>需要你决定</h3><ol>'
       '<li><b>审阅新增论文</b>：附录 A 中标「新」的论文都是这一轮加入的，有不同意的告诉我。</li>'
@@ -643,15 +674,20 @@ def build_html(fontdir):
     # ---------------------------------------------------------- 1 pipeline
     a('<div class="section"><h2>1　这一轮做了什么</h2>')
     a('<p>第一轮收割了 14 篇种子论文的前向引用，并做了粗筛和短名单；第二轮逐篇判定并挑出了第一版核心表。这一轮按你的意见改了闭环判定、'
-      '把重心移到 2026 年、补了两轮联网搜索，并新增 Real2Sim / Sim2Real 板块。下图是完整的筛选漏斗，右栏标出每一步由谁完成。</p>')
+      '把重心移到 2026 年，并对 2026 年做了全量检索：收割候选中的 2026 年论文全部判定，再用关键词检索补上没引用种子的论文；'
+      '另有两轮联网搜索，并新增 Real2Sim / Sim2Real 板块。下图是完整的筛选漏斗，右栏标出每一步由谁完成。</p>')
     a(f'<figure>{fig_pipeline(c)}<figcaption><b>图 1　筛选漏斗。</b>引用收割只能找到引用了种子论文的工作，'
-      '很多 2026 年的新论文和 Real2Sim 方向的工作不在里面，所以补了两轮联网搜索；所有论文都用 arXiv API 核对过编号和标题。'
-      '</figcaption></figure>')
-    a('<h3>四个关键做法</h3><ul>'
+      '很多 2026 年的新论文不在里面，所以加了 2026 年关键词检索和两轮联网搜索。批量判定用便宜的 Haiku，凡是 Haiku 判为 core、'
+      '前驱或边界的都由 Sonnet 从头重判；核心表的论文都用 arXiv API 核对过编号和标题。</figcaption></figure>')
+    a('<h3>五个关键做法</h3><ul>'
       f'<li><b>补判定池</b>：短名单按被引数和新兴度取样，会漏掉被引中等、但属于小 seat 的论文，例如 Code-as-Monitor；'
       f'所以补了 {c["supplement"]} 篇小 seat 论文和 {c["testset"]} 篇第一轮测试集论文。</li>'
-      '<li><b>逐篇判定</b>：每个 Sonnet agent 读约 40–94 篇的标题和摘要，按 rubric 给出 verdict、seat、carrier、子类、接口、'
-      '闭环形式、代表性（1–5 分）和一句理由；合并时校验了枚举值和完整性。</li>'
+      f'<li><b>2026 年不抽样</b>：收割候选中的 2026 年论文全部判定（批量判定池 {c["bulk"]:,} 篇）；引用收割漏掉的论文，'
+      f'用 Semantic Scholar 关键词检索补齐（{c["s2"]:,} 篇命中，新论文中 {c["s2_keep"]:,} 篇进入判定）。</li>'
+      f'<li><b>逐篇判定，两级模型</b>：共 {c["judged"]:,} 篇按 rubric 逐篇判定（verdict、seat、carrier、子类、接口、闭环形式、'
+      '代表性 1–5 分和一句理由），合并时校验枚举值和完整性。批量部分由 Haiku 初判，所有 Haiku 判为 core、前驱或边界的论文再由 '
+      f'Sonnet 不看初判结果从头重判（{c["ver"]:,} 篇）；Haiku 的 core 有 {round(100 * c["ver_core_kept"] / max(c["ver_core"], 1))}% 被 Sonnet 维持。'
+      '统计和扩展列表只用 Sonnet 的判定。</li>'
       f'<li><b>联网补漏</b>：第一轮找公认工作（{c["gap1"]} 篇，如 EmbodiedBench、BUMBLE）；第二轮专找 2026 年、'
       f'Real2Sim / Sim2Real 和少见的身体形态（{c["gap2"]} 篇）。</li>'
       '<li><b>人工挑选</b>：每个 seat 内按代表性和影响力排序，兼顾子类、身体形态和 carrier 的覆盖；每篇写了中文入选理由。</li></ul>')
@@ -716,8 +752,9 @@ def build_html(fontdir):
 
     # ---------------------------------------------------------- 6 trends
     a('<div class="section"><h2>6　趋势证据</h2>')
-    a(f'<p>核心表是按名额挑的，不能当趋势证据。所以下面用判定池里全部 {v["core"]} 篇判为 core 的论文统计（含按新规则改判的）。'
-      f'判定池按影响力和新兴度取样，2026 年偏多（{t["2026"]["n"]} 篇），所以只看各年内部的结构，不看绝对数量。</p>')
+    a(f'<p>核心表是按名额挑的，不能当趋势证据。所以下面用全部经 Sonnet 判定或复核为 core 的论文统计（{sum(x["n"] for x in trend)} 篇，'
+      f'年份取 arXiv 首版）。2026 年是全量检索（{t["2026"]["n"]} 篇），2022–2025 年只含种子邻域和高被引论文，'
+      '所以只看各年内部的结构，不比较绝对数量。</p>')
     a(f'<figure>{fig_share(trend)}<figcaption><b>图 8　各年份主 seat 的占比。</b>每篇论文按主 seat 计一次。'
       f'Controller 一直是多数；2026 年 Developer 占到 {pct(t["2026"]["prim"]["Developer"] / t["2026"]["n"])}。'
       '不足以放下标签的色块，数值见下表。</figcaption></figure>')
@@ -791,7 +828,9 @@ def build_html(fontdir):
       '<tr><td>docs/definition_draft.md</td><td>完整细则，作为附录和标注指南</td></tr>'
       '<tr><td>data/core/core_selection.csv</td><td>人工挑选的核心表输入；增删论文改这个文件</td></tr>'
       '<tr><td>data/core/core_table.csv</td><td>生成的核心表（含全部标签）</td></tr>'
-      '<tr><td>data/core/fine_labels.csv</td><td>1,406 篇的逐篇判定（含按新规则复核的结果）</td></tr>'
+      f'<tr><td>data/core/fine_labels.csv</td><td>{c["judged"]:,} 篇的逐篇判定（pass 列标出判定轮次，prev 列保留被复核前的判定）</td></tr>'
+      '<tr><td>data/core/extended_2026.csv</td><td>核心表之外、满足定义的 2026 年论文（README 扩展列表）</td></tr>'
+      '<tr><td>data/candidates/s2_sweep_2026.jsonl、s2_coarse_2026.csv</td><td>2026 年关键词检索结果与粗筛标签</td></tr>'
       '<tr><td>data/core/gap_candidates.jsonl、gap2_candidates.jsonl</td><td>两轮联网补漏的结果</td></tr>'
       '<tr><td>docs/core_review.md</td><td>中文审阅清单</td></tr>'
       '<tr><td>docs/core_stats.md</td><td>按年份统计 seat 的全部数字</td></tr>'
