@@ -698,7 +698,7 @@ def build_html(fontdir):
       f'<li><b>故事不只聚焦 2026</b>：每个 seat 先讲先驱（2022–2025）再讲 2026；先驱补到 {n_pio} 篇，新增 Socratic Models、'
       'ChatGPT for Robotics、Language to Rewards、GPT-4V 闭环规划、RoboGen、GenSim、Text2Reward、AutoRT 等。</li>'
       f'<li><b>ReKep 这一类、agentic Real2Sim 都算</b>：重判后约束编程类 {c["r3b_con"]} 篇、Real2Sim 类 {c["r3b_r2s"]} 篇改判 core；'
-      f'Real2Sim / Sim2Real 章 {len(r2s)} 篇（含 RPG、SimEX、EmbodiedSmith，Video2World 在资源表），VLN 章 {len(vln)} 篇。</li>'
+      f'Real2Sim / Sim2Real 作为子方向只收 {len(r2s)} 篇代表作（含 RPG、SimEX、EmbodiedSmith，Video2World 在资源表）；VLN 章 {len(vln)} 篇。</li>'
       f'<li><b>规模</b>：先驱 {n_pio} + 2026 年 {n_core} = {n_pio + n_core} 篇，另有资源 {n_res} 个；本轮新增 {c["new"]} 篇（附录中标「新」）。'
       f'2026 年共有 {c["strong26"]} 篇满足定义，表外的 {c["ext"]} 篇列在 README 的扩展列表。</li></ul></div>')
     a('<div class="callout ask"><h3>需要你决定</h3><ol>'
@@ -788,8 +788,8 @@ def build_html(fontdir):
     a('</div>')
 
     # ---------------------------------------------------------- 5 real2sim
-    a('<div class="section"><h2>5　Real2Sim / Sim2Real 专题</h2>')
-    a('<p>2026 年一个明显的新方向，是 agent 自己搭建、校准、利用仿真：从真实视频或数据集重建可交互的仿真世界，在里面练习、诊断失败、'
+    a('<div class="section"><h2>5　子方向：Real2Sim / Sim2Real</h2>')
+    a('<p>这是横跨 Designer 与 Developer 的一个子方向，表中只收代表作，其余列在 README 的扩展列表。内容是 agent 自己搭建、校准、利用仿真：从真实视频或数据集重建可交互的仿真世界，在里面练习、诊断失败、'
       '改进技能，再借少量真机试验修正仿真器并迁移回真机。按 Seat 规则，构建「题目」（仿真世界、资产、参数）归 Designer，'
       '改进「解法」（技能、代码、prompt）归 Developer，所以这一节横跨两个 seat，每篇仍标出 seat 颜色。'
       '按你的决定，agent 重建机器人操作场景的工作一律收录，一次构建的在「闭环」一列记开环。</p>')
@@ -843,7 +843,7 @@ def build_html(fontdir):
       '<li><b>冻结核心表</b>：你审阅后，我按你的意见改 <code>core_selection.csv</code> 并重新生成 README 和这份报告。</li>'
       f'<li><b>补全链接</b>：目前只有 {c["links"]}/{len(rows)} 篇能从 arXiv comment 中提取到项目或代码链接，其余需要联网逐篇查。</li>'
       f'<li><b>全文审计</b>：2026 年的核心论文大多只按摘要判过，先核实 seat 与闭环形式有争议的几篇。</li>'
-      '<li><b>写正文</b>：按 Seat 分章，每章先讲先驱再讲 2026；Controller 拆三个子章，Real2Sim / Sim2Real 与 VLN 各单独一章；'
+      '<li><b>写正文</b>：按 Seat 分章，每章先讲先驱再讲 2026；Controller 拆三个子章，VLN 单独一章，Real2Sim / Sim2Real 作为子方向一小节；'
       '第 7 节的数字作为趋势证据。</li>'
       '<li><b>可选</b>：做一个类似 WAM survey 的 GitHub Pages 浏览器；对已有 survey 做反向滚雪球，进一步提高查全率。</li></ol></div>')
     a('</div>')

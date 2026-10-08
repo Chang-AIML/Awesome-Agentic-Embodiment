@@ -4,7 +4,7 @@
 
 **Thesis (draft, under revision).** *Agency spreads around the body: general models, not embodied action models, fill seat after seat.*
 
-Each seat is traced from its **46 pioneers (2022–2025)** to **93 papers from 2026**, the year most of the field's papers appeared; Real2Sim / Sim2Real (18 from 2026) and VLN / embodied navigation (13 from 2026) have their own chapters, plus **19 benchmarks and resources**. Definition and inclusion rules: [docs/definition.md](docs/definition.md) (Chinese).
+Each seat is traced from its **46 pioneers (2022–2025)** to **85 papers from 2026**, the year most of the field's papers appeared; VLN / embodied navigation (13 from 2026) has its own chapter and the Real2Sim / Sim2Real sub-direction a short section (9), plus **19 benchmarks and resources**. Definition and inclusion rules: [docs/definition.md](docs/definition.md) (Chinese).
 
 ## Scope and what counts as an agent
 
@@ -20,9 +20,9 @@ Also not included: scalar reward/value models, one-shot annotators, world-model 
 |---|---|---|---|---|
 | Controller | runtime | 28 | 44 | 3 |
 | Supervisor | runtime | 4 | 8 | · |
-| Teacher | pre-deployment | 3 | 10 | 2 |
-| Designer | pre-deployment | 9 | 14 | · |
-| Developer | pre-deployment | 2 | 17 | · |
+| Teacher | pre-deployment | 3 | 7 | 2 |
+| Designer | pre-deployment | 9 | 10 | · |
+| Developer | pre-deployment | 2 | 16 | · |
 
 Counts include the papers of the Real2Sim / Sim2Real and VLN chapters under their seats.
 
@@ -37,10 +37,10 @@ Counts include the papers of the Real2Sim / Sim2Real and VLN chapters under thei
 - [Teacher](#teacher)
 - [Designer](#designer)
 - [Developer](#developer)
-- [Real2Sim / Sim2Real](#real2sim--sim2real)
+- [Sub-direction: Real2Sim / Sim2Real](#sub-direction-real2sim--sim2real)
 - [VLN and embodied navigation](#vln-and-embodied-navigation)
 - [Benchmarks and resources](#benchmarks-and-resources)
-- [More 2026 papers (387)](#more-2026-papers)
+- [More 2026 papers (395)](#more-2026-papers)
 
 ## Controller · Orchestrators
 
@@ -136,6 +136,7 @@ Improve memory, skill libraries or harness across evaluated episodes.
 | **Harness VLA** | [Harness VLA: Steering Frozen VLAs into Reliable Manipulation Primitives via Memory-Guided Agents](https://arxiv.org/abs/2607.08448) | 2026 | arXiv | G | code | ×1 | re-decide | E | manip/sim | – |
 | **Teach and Grow** | [Teach and Grow: An Agent-Centered Architecture for General Robot Learning](https://arxiv.org/abs/2608.17209) [[project]](https://tgl.changnie.top) | 2026 | arXiv | G | code | ×1 | authored | E+H | manip/real | – |
 | **MessyMem** | [MessyMem: Learning-from-Doing Memory for Mobile Manipulation](https://arxiv.org/abs/2609.15976) [[project]](https://messymem.github.io) | 2026 | arXiv | G | skill-call | ×1 | re-decide | E | mobile-manip/sim+real | – |
+| **GPT-6-Astra XLeRobot** | [Robot Manipulation with GPT-6-Astra: Body Knowledge, Experience Reuse, Emergent Skills, and Sim2Real Transfer](https://arxiv.org/abs/2609.31770) [[code]](https://github.com/hesd10/astra-robot-sim2real) | 2026 | arXiv | G | code | ×1 | re-decide | E | mobile-manip/sim+real | – |
 | **CaP Great Again** | [Make Code as Policy Great Again: Frontier Agents Write, Call, and Evolve Robot Tools](https://arxiv.org/abs/2609.39018) | 2026 | arXiv | G | skill-call | ×R | re-decide | E+H | manip/sim+real | Developer |
 | **Robo-COP** | [Co-Evolving Robot Orchestrators and Policies through Deployment](https://arxiv.org/abs/2610.09228) | 2026 | arXiv | G | code | ×1 | re-decide | E | manip/sim+real | Developer |
 
@@ -241,9 +242,9 @@ Before deployment, the agent edits the solution: policy code, skill libraries, h
 | **PhysEvo** | [PhysEvo: Astra Can Act, Let It](https://arxiv.org/abs/2610.08995) | 2026 | arXiv | G | system-edit | ×R | re-decide | E | manip/sim+real | Controller |
 | **LACE-CRAFT** | [LACE-CRAFT: Robot Co-Design with Actor Inheritance and Blackboard Collaboration](https://arxiv.org/abs/2610.09283) [[project]](https://deemostech.github.io/lace-craft/) | 2026 | arXiv | G | system-edit | ×R | re-decide | E | loco/sim+real | Designer |
 
-## Real2Sim / Sim2Real
+## Sub-direction: Real2Sim / Sim2Real
 
-Agents that build or calibrate simulators from the real world (Real2Sim), transfer or adapt what they learned in simulation to the real robot (Sim2Real), or practise in a reconstructed simulator and go back to the real one (Real2Sim2Real). Each paper keeps its Seat: building the simulator is the problem side (Designer), adapting the solution is Developer.
+One sub-direction that cuts across Designer and Developer: agents that build or calibrate simulators from the real world (Real2Sim), transfer what they learned in simulation to the real robot (Sim2Real), or practise in a reconstructed simulator and go back to the real one (Real2Sim2Real). Only representative papers are listed here; further ones are in *More 2026 papers*.
 
 **Pioneers (2022–2025)**
 
@@ -257,18 +258,9 @@ Agents that build or calibrate simulators from the real world (Real2Sim), transf
 
 | Name | Paper | Year | Venue | Seat | Carrier | Interface | Loop | Body | Other seats |
 |---|---|---|---|---|---|---|---|---|---|
-| **Scene2Demo** | [Scene2Demo: Self-Evolving Embodied Data Generation via Object-Action Graph](https://arxiv.org/abs/2602.12065) | 2026 | arXiv | Teacher | G | skill-call | re-decide | manip/sim | Designer |
 | **Vid2Sid** | [Vid2Sid: Videos Can Help Close the Sim2Real Gap](https://arxiv.org/abs/2602.19359) | 2026 | arXiv | Designer | G | problem-spec | re-decide | other/sim+real | – |
-| **MotionDisco** | [MotionDisco: Motion Discovery for Extreme Humanoid Loco-Manipulation](https://arxiv.org/abs/2606.06139) | 2026 | arXiv | Teacher | G | trace | re-decide | humanoid/sim+real | – |
-| **GaP** | [GaP: A Graph-as-Policy Multi-Agent Self-Learning Harness For Variational Automation Tasks](https://arxiv.org/abs/2607.05369) | 2026 | arXiv | Developer | G | code | re-decide | manip/sim+real | Designer |
 | **Agentic Real2Sim** | [Agentic Real2Sim: Physics-based World Modeling with Vision-Language Agents](https://arxiv.org/abs/2607.19190) | 2026 | arXiv | Designer | G | problem-spec | re-decide | manip/sim+real | – |
-| **DREAM** | [DREAM: Deployment-Time Demonstration Generation via Real-to-Sim for Scalable Policy Adaptation](https://arxiv.org/abs/2608.29078) | 2026 | arXiv | Designer | G | problem-spec | authored | manip/sim+real | Teacher |
-| **Lucida** | [Lucida: Parse, Generate, and Place for Composable Real-to-Sim Scene Modeling](https://arxiv.org/abs/2608.30821) [[project]](https://lucida-r2s.github.io/) | 2026 | arXiv | Designer | G | problem-spec | re-decide | manip/sim | – |
-| **SUN** | [SUN: Agentic Robot Policy Learning with Persistent Task Programs](https://arxiv.org/abs/2608.31167) | 2026 | arXiv | Designer | G | problem-spec | re-decide | manip/sim+real | Teacher |
-| **GPT-6-Astra XLeRobot** | [Robot Manipulation with GPT-6-Astra: Body Knowledge, Experience Reuse, Emergent Skills, and Sim2Real Transfer](https://arxiv.org/abs/2609.31770) [[code]](https://github.com/hesd10/astra-robot-sim2real) | 2026 | arXiv | Controller | G | code | re-decide | mobile-manip/sim+real | – |
 | **CoDimRecon** | [CoDimRecon: Agentic Reconstruction of Sim-Ready 3D Scenes with Deformable Curves, Surfaces, and Volumes](https://arxiv.org/abs/2609.36024) [[project]](https://shuzhaoxie.github.io/CoDimRecon/) | 2026 | arXiv | Designer | G | problem-spec | re-decide | manip/sim | – |
-| **DexAgent** | [DexAgent: An Agentic Human2Sim2Robot Framework for Dexterous Manipulation with Self-Evolving Tool Library](https://arxiv.org/abs/2609.35318) [[project]](https://dexagent123.github.io/) | 2026 | arXiv | Teacher | G | code | re-decide | manip/sim+real | Developer |
-| **F4R** | [F4R: Failure-Driven Recognition, Reconstruction, Refinement, and Redeployment for Continual Robot Self-Improvement](https://arxiv.org/abs/2609.35575) | 2026 | arXiv | Designer | G | problem-spec | re-decide | manip/sim+real | – |
 | **Real2Gym** | [Real2Gym: Building Gyms from Videos, Bringing Skills to Robots](https://arxiv.org/abs/2609.37089) [[project]](https://real2gym.github.io/) | 2026 | arXiv | Developer | G | code | re-decide | manip/sim+real | Designer |
 | **SimEX** | [SimEX: Simulation-Integrated Robotics AutoResearch](https://arxiv.org/abs/2609.38982) | 2026 | arXiv | Developer | G | system-edit | re-decide | manip/sim+real | Designer |
 | **RPG** | [Reconstruct, Practice, Go Real: Guided Self-Improvement for Embodied Agents](https://arxiv.org/abs/2610.02204) | 2026 | arXiv | Developer | G | system-edit | re-decide | manip/sim+real | Controller |
@@ -333,7 +325,7 @@ Agents whose main task is navigation: vision-and-language navigation in continuo
 
 ## More 2026 papers
 
-387 further 2026 papers that meet the definition (judged `core` by a verification pass) but are not in the curated tables above. Tags come from the judging pass and are not hand-checked; generated by `scripts/build_extended.py`.
+395 further 2026 papers that meet the definition (judged `core` by a verification pass) but are not in the curated tables above. Tags come from the judging pass and are not hand-checked; generated by `scripts/build_extended.py`.
 
 <details><summary><b>Controller · Orchestrators</b> (128)</summary>
 
@@ -666,12 +658,14 @@ for Autonomous Purification | 2026-09 | G | re-decide | manip/real |
 
 </details>
 
-<details><summary><b>Teacher</b> (13)</summary>
+<details><summary><b>Teacher</b> (16)</summary>
 
 | Paper | Month | Carrier | Loop | Body |
 |---|---|---|---|---|
 | [Accelerating Robotic Reinforcement Learning with Agent Guidance](https://arxiv.org/abs/2602.11978) | 2026-02 | G | re-decide | manip/real |
+| [Scene2Demo: Self-Evolving Embodied Data Generation via Object-Action Graph](https://arxiv.org/abs/2602.12065) `real2sim` | 2026-02 | G | re-decide | manip/sim |
 | Gentle Manipulation of Long-Horizon Tasks Without Human Demonstrations | 2026-03 | G | re-decide | manip/sim+real |
+| [MotionDisco: Motion Discovery for Extreme Humanoid Loco-Manipulation](https://arxiv.org/abs/2606.06139) `sim2real` | 2026-06 | G | re-decide | humanoid/sim+real |
 | [HATS: A Human-Agent Teleoperation System for Multi-Arm Data Collection](https://arxiv.org/abs/2606.16491) | 2026-06 | G | re-decide | manip/real |
 | [InSight: Self-Guided Skill Acquisition via Steerable VLAs](https://arxiv.org/abs/2606.24884) | 2026-06 | G | re-decide | manip/real |
 | [Zero2Skill: Bootstrapping Robot Skills through Autonomous Data Collection, Training, and Deployment](https://arxiv.org/abs/2607.14047) | 2026-07 | G | re-decide | manip/real |
@@ -680,13 +674,14 @@ for Autonomous Purification | 2026-09 | G | re-decide | manip/real |
 | [MAGMA-GEN: Validated Recovery Supervision from Ambiguous Failures via Counterfactual Re-Execution](https://arxiv.org/abs/2609.20056) | 2026-09 | G | re-decide | manip/sim |
 | [TANDEM: Task and Motion Planning with As-Needed Demonstrations for Efficient Vision-Language-Action Model Fine-tuning](https://arxiv.org/abs/2609.28314) | 2026-09 | G | authored | manip/sim+real |
 | [RE-0: Verified Recursive Improvement of Embodied Code-as-Policy Agents through Local On-Policy Distillation](https://arxiv.org/abs/2609.32416) | 2026-09 | G | re-decide | manip/sim |
+| [DexAgent: An Agentic Human2Sim2Robot Framework for Dexterous Manipulation with Self-Evolving Tool Library](https://arxiv.org/abs/2609.35318) `real2sim2real` | 2026-09 | G | re-decide | manip/sim+real |
 | [EmbodiRSI: Recursive Self-Improvement for Data-Efficient Robot Adaptation](https://arxiv.org/abs/2609.38905) `real2sim2real` | 2026-09 | G | re-decide | manip/sim+real |
 | [Recova: Agent-Guided Failure Recovery for Autonomous Robotic Manipulation](https://arxiv.org/abs/2610.01178) | 2026-10 | G | re-decide | manip/sim+real |
 | [Recursive Self-Improvement of Visuomotor Policies through Local Recovery Supervision](https://arxiv.org/abs/2610.05151) | 2026-10 | G | re-decide | manip/sim |
 
 </details>
 
-<details><summary><b>Designer</b> (41)</summary>
+<details><summary><b>Designer</b> (45)</summary>
 
 | Paper | Month | Carrier | Loop | Body |
 |---|---|---|---|---|
@@ -719,12 +714,16 @@ for Autonomous Purification | 2026-09 | G | re-decide | manip/real |
 | [Prompt-Driven Exploration](https://arxiv.org/abs/2607.08837) | 2026-07 | G | re-decide | manip/sim |
 | [MLREF: Efficient Module Reuse for Reward Design in Reinforcement Learning via Large Language Models](https://arxiv.org/abs/2608.18827) | 2026-08 | G | re-decide | other/sim |
 | [NeoWorld-Pro: Programming Interactive Scenes from Monocular Images for Embodied Simulation](https://arxiv.org/abs/2608.24212) `real2sim` | 2026-08 | G | re-decide | manip/sim |
+| [DREAM: Deployment-Time Demonstration Generation via Real-to-Sim for Scalable Policy Adaptation](https://arxiv.org/abs/2608.29078) `real2sim2real` | 2026-08 | G | authored | manip/sim+real |
+| [Lucida: Parse, Generate, and Place for Composable Real-to-Sim Scene Modeling](https://arxiv.org/abs/2608.30821) `real2sim` | 2026-08 | C | re-decide | manip/sim |
+| [SUN: Agentic Robot Policy Learning with Persistent Task Programs](https://arxiv.org/abs/2608.31167) `sim2real` | 2026-08 | G | re-decide | manip/sim+real |
 | [DISEIL: Demonstration Distillation for Sample-Efficient Imitation Learning](https://arxiv.org/abs/2609.08123) | 2026-09 | G | re-decide | manip/sim |
 | [DeformSmith: Physics Harness-Guided Hierarchical Generation of Deformable Assets for Robot Manipulation](https://arxiv.org/abs/2609.18620) | 2026-09 | G | re-decide | manip/sim |
 | [DiagGen: Agentic Generation of Deformable Assets with Sim-based Diagnostics for Robotic Simulation](https://arxiv.org/abs/2609.23103) `real2sim` | 2026-09 | G | re-decide | manip/sim |
 | [MimicAgent: Quadruped Skills via Prompt-to-Trajectory Generation](https://arxiv.org/abs/2609.24145) `sim2real` | 2026-09 | G | re-decide | loco/sim+real |
 | [Beyond Scripted Search: Sample-Efficient Reward Discovery via Agentic Black-box Optimization](https://arxiv.org/abs/2609.32394) | 2026-09 | G | re-decide | other/sim |
 | [Test-Time Spatial Reasoning for Robot Manipulation Using Generative Real-to-Sim](https://arxiv.org/abs/2609.33982) `real2sim2real` | 2026-09 | G | none | manip/sim+real |
+| [F4R: Failure-Driven Recognition, Reconstruction, Refinement, and Redeployment for Continual Robot Self-Improvement](https://arxiv.org/abs/2609.35575) `real2sim2real` | 2026-09 | G | re-decide | manip/sim+real |
 | [FACT: Fidelity-Aware Construction of Articulated Twins](https://arxiv.org/abs/2609.37067) `real2sim` | 2026-09 | G | re-decide | manip/sim |
 | [Video2SwimFish: An Automated Pipeline for Reconstructing Controllable Fish Models and Biological Locomotion from Real Fish Videos](https://arxiv.org/abs/2609.38966) `real2sim` | 2026-09 | G | re-decide | other/sim |
 | [Awomo-SimDataEngine: Agentic Simulation-ReadyWorld Generation](https://arxiv.org/abs/2610.02274) | 2026-10 | G | re-decide | manip/sim |
@@ -734,7 +733,7 @@ for Autonomous Purification | 2026-09 | G | re-decide | manip/real |
 
 </details>
 
-<details><summary><b>Developer</b> (39)</summary>
+<details><summary><b>Developer</b> (40)</summary>
 
 | Paper | Month | Carrier | Loop | Body |
 |---|---|---|---|---|
@@ -754,6 +753,7 @@ for Autonomous Purification | 2026-09 | G | re-decide | manip/real |
 | [Automating the Design of Embodied AgentArchitectures](https://arxiv.org/abs/2606.30111) | 2026-06 | G | re-decide | mobile-manip/sim |
 | Agents Trainer: Automatically Training Multi-Agent Reinforcement Learning Models for Drone Swarm Using Language Model-Based Agents | 2026-07 | G | re-decide | aerial/sim |
 | Automated UAV Controller Synthesis via LLM-Generated Control Logic and Particle Swarm Optimization `sim2real` | 2026-07 | G | re-decide | aerial/sim+real |
+| [GaP: A Graph-as-Policy Multi-Agent Self-Learning Harness For Variational Automation Tasks](https://arxiv.org/abs/2607.05369) `real2sim2real` | 2026-07 | G | re-decide | manip/sim+real |
 | LLMigrate: Large Language Models as Migration Controllers in Island-Based Evolutionary Design of Soft Robots | 2026-07 | G | re-decide | other/sim |
 | [MEMENTO: Memory-Guided Memetic Code-as-Policy Evolution](https://arxiv.org/abs/2607.22832) | 2026-07 | G | re-decide | manip/sim |
 | [A Few Words Go a Long Way: Language Guided Robot Policy Synthesis](https://arxiv.org/abs/2607.23784) | 2026-07 | G | re-decide | manip/sim+real |

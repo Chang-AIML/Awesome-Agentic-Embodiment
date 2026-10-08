@@ -46,3 +46,11 @@ gap:2610.09764,AeroEval,Supervisor,LLM 验证者检查无人机任务代码与�
 gap:2610.09588,Adaptive Code Generation,Controller,LLM 写机器人程序，运行时触发器重新调用（Gazebo 四足）
 c10995,QD Red-Teaming,Designer,VLM 只是固定质量多样性搜索里的变异算子，范围重判后降为前驱
 t328,AllDayNav,Designer,主体是用离线 RL 精调 VLA 导航策略，VLM 只写 memory 与自提任务；范围重判后降为前驱
+s08218,F4R,Designer,Real2Sim2Real：诊断真机失败、在重建的仿真中修正后重新部署；Real2Sim 子方向只保留代表作
+s04709,DexAgent,Teacher,从人类视频重建仿真并生成灵巧操作数据（Real2Sim2Real）
+c01004,Scene2Demo,Teacher,单张真实图像生成仿真场景与示范（Real2Sim）
+c00282,SUN,Designer,修复带类型的任务程序训练可迁移策略（Sim2Real）
+c02028,MotionDisco,Teacher,LLM 引导的进化搜索为人形极限动作生成参考（Sim2Real）
+s08303,Lucida,Designer,VLM 经 GUI 操作组合出真实场景的仿真复本（Real2Sim）
+s01997,DREAM,Designer,部署时 real-to-sim 生成示范微调真机 VLA（Real2Sim2Real）
+s09723,GaP,Developer,多 agent 把策略写成计算图，仿真自学习后上真机（Real2Sim2Real）

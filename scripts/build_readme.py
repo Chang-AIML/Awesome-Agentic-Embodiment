@@ -136,8 +136,8 @@ def main():
            "**Thesis (draft, under revision).** *Agency spreads around the body: general models, not embodied action "
            "models, fill seat after seat.*", "",
            f"Each seat is traced from its **{len(pio)} pioneers (2022–2025)** to **{len(core)} papers from 2026**, the year "
-           f"most of the field's papers appeared; Real2Sim / Sim2Real ({len(r2s)} from 2026) and VLN / embodied "
-           f"navigation ({len(vln)} from 2026) have their own chapters, plus **{len(res)} benchmarks and resources**. "
+           f"most of the field's papers appeared; VLN / embodied navigation ({len(vln)} from 2026) has its own chapter and "
+           f"the Real2Sim / Sim2Real sub-direction a short section ({len(r2s)}), plus **{len(res)} benchmarks and resources**. "
            "Definition and inclusion rules: [docs/definition.md](docs/definition.md) (Chinese).", "",
            "## Scope and what counts as an agent", "",
            "**Scope.** General-purpose foundation models (LLMs / VLMs such as GPT, Gemini, Claude, Qwen-VL, GPT-6 Astra) "
@@ -169,7 +169,8 @@ def main():
     anchor = lambda t: "#" + re.sub(r"[^a-z0-9 -]", "", t.lower()).replace(" ", "-")
     for _, _, title, _ in SECTIONS:
         out.append(f"- [{title}]({anchor(title)})")
-    out += ["- [Real2Sim / Sim2Real](#real2sim--sim2real)", "- [VLN and embodied navigation](#vln-and-embodied-navigation)",
+    out += ["- [Sub-direction: Real2Sim / Sim2Real](#sub-direction-real2sim--sim2real)",
+            "- [VLN and embodied navigation](#vln-and-embodied-navigation)",
             "- [Benchmarks and resources](#benchmarks-and-resources)"]
     if ext:
         out.append(f"- [More 2026 papers ({len(ext)})](#more-2026-papers)")
@@ -177,11 +178,11 @@ def main():
     for seat, sub, title, desc in SECTIONS:
         out += [f"## {title}", "", desc, ""] + lineage([r for r in pio if in_section(r, seat, sub)],
                                                        [r for r in core if in_section(r, seat, sub)], head, row_md)
-    out += ["## Real2Sim / Sim2Real", "",
-            "Agents that build or calibrate simulators from the real world (Real2Sim), transfer or adapt what they "
-            "learned in simulation to the real robot (Sim2Real), or practise in a reconstructed simulator and go back "
-            "to the real one (Real2Sim2Real). Each paper keeps its Seat: building the simulator is the problem side "
-            "(Designer), adapting the solution is Developer.", ""] + \
+    out += ["## Sub-direction: Real2Sim / Sim2Real", "",
+            "One sub-direction that cuts across Designer and Developer: agents that build or calibrate simulators from the "
+            "real world (Real2Sim), transfer what they learned in simulation to the real robot (Sim2Real), or practise in a "
+            "reconstructed simulator and go back to the real one (Real2Sim2Real). Only representative papers are listed "
+            "here; further ones are in *More 2026 papers*.", ""] + \
            lineage([r for r in pio if chapter(r) == "r2s"], r2s, seat_head, seat_row_md)
     out += ["## VLN and embodied navigation", "",
             "Agents whose main task is navigation: vision-and-language navigation in continuous environments or on real "

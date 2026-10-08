@@ -131,7 +131,9 @@ Controller 在候选中占一半以上，正文按以下三类拆分（原「训
 
 **先驱的典型成员**：满足闭环的有 SayCan、Inner Monologue、Code as Policies、VoxPoser、ReKep、Eureka、REFLECT、Code-as-Monitor；不满足闭环、但开创了方向的有 ZS-Planners、Socratic Models、KnowNo、CoPa、RoboGen。具身大模型（PaLM-E、RT-2、ECoT、π0.5、Hi Robot）按决策 12 不收，只在正文作为对照。2026 年不满足闭环的论文不收录（约束编程与 agentic Real2Sim 两个例外除外）。
 
-### 6.1 Real2Sim / Sim2Real 专题板块
+### 6.1 Real2Sim / Sim2Real 专题板块（子方向）
+
+Real2Sim / Sim2Real 只是 Designer 与 Developer 下的一个子方向（用户 2026-10-08 指出）。核心表只收代表作，其余满足定义的论文进 README 的扩展列表。
 
 agent 搭建、校准、利用仿真并把结果迁移到真机的工作，单独成节，但每篇仍标 Seat：
 

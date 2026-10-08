@@ -37,7 +37,7 @@
 | [KPI](https://arxiv.org/abs/2609.36151) | 2026 | Controller | G | 编写闭环 | 判定池 | 人形：VLM 写轨迹与「跟踪 / 柔顺 / 保持力」契约，固定内核依接触调整刚度（编写闭环） |
 | [OpenRUA](https://arxiv.org/abs/2610.02459) | 2026 | Controller | G | 再决策 | 判定池 | 现成 coding agent 在终端工作区写 ROS 2 代码并当场运行；robot-use agent 本身就是零样本视觉运动策略 |
 
-## Controller · lifelong / memory 型（6）
+## Controller · lifelong / memory 型（7）
 
 | 短名 | 年份 | Seat | Carrier | 闭环 | 来源 | 入选理由 |
 |---|---|---|---|---|---|---|
@@ -45,6 +45,7 @@
 | [Harness VLA](https://arxiv.org/abs/2607.08448) | 2026 | Controller | G | 再决策 | 判定池 | 用户点名：冻结 VLA 作为工具，agent 重落地与重摆放，memory 跨 episode 学习 |
 | [Teach and Grow](https://arxiv.org/abs/2608.17209) | 2026 | Controller | G | 编写闭环 | 判定池 | coding agent 把少量示范变成带物理反馈的闭环技能块，技能库随使用增长 |
 | [MessyMem](https://arxiv.org/abs/2609.15976) | 2026 | Controller | G | 再决策 | 判定池 | 持久 3D 场景图 memory 随交互结果更新的移动操作 agent |
+| [GPT-6-Astra XLeRobot](https://arxiv.org/abs/2609.31770) | 2026 | Controller | G | 再决策 | 判定池 | GPT-6-Astra 写控制程序驱动 XLeRobot，复用身体知识、经验与技能，并从仿真迁移到真实电梯按钮任务 |
 | [CaP Great Again](https://arxiv.org/abs/2609.39018) | 2026 | Controller | G | 再决策 | 判定池 | 编程 agent 依执行反馈编写、进化机器人工具，执行 agent 调用；Code as Policies 的 2026 版 |
 | [Robo-COP](https://arxiv.org/abs/2610.09228) | 2026 | Controller | G | 再决策 | 补漏 | VLM 编排者在部署中从自己的执行里整理示范、决定何时微调 VLA，只有经验证变好才采用新策略；编排者与策略共同进化 |
 
@@ -104,22 +105,13 @@
 | [PhysEvo](https://arxiv.org/abs/2610.08995) | 2026 | Developer | G | 再决策 | 补漏 | 冻结的 GPT-6 Astra 执行任务，meta-agent 依轨迹诊断失败、修改工具与技能并测试后保留；RoboDojo 42 任务，并在真机 PiPER 上继续 |
 | [LACE-CRAFT](https://arxiv.org/abs/2610.09283) | 2026 | Developer | G | 再决策 | 补漏 | 反馈、形态、奖励、整合四个 LLM 角色共享实验记录，交叉评审形态-奖励提案，固定任务指标决定保留或回滚；机器人协同设计 |
 
-## Real2Sim / Sim2Real（18）
+## Real2Sim / Sim2Real（9）
 
 | 短名 | 年份 | Seat | Carrier | 闭环 | 来源 | 入选理由 |
 |---|---|---|---|---|---|---|
-| [Scene2Demo](https://arxiv.org/abs/2602.12065) | 2026 | Teacher | G | 再决策 | 判定池 | 单张真实图像变成仿真场景与任务，反馈 agent 检查 rollout 并自我进化地生成示范 |
 | [Vid2Sid](https://arxiv.org/abs/2602.19359) | 2026 | Designer | G | 再决策 | 判定池 | VLM 对比仿真与真实视频、诊断差异并提出物理参数修改，缩小 sim2real 差距 |
-| [MotionDisco](https://arxiv.org/abs/2606.06139) | 2026 | Teacher | G | 再决策 | 判定池 | LLM 引导的进化搜索提出交互序列，经轨迹优化细化，为极限人形移动操作生成参考并迁移到真机 |
-| [GaP](https://arxiv.org/abs/2607.05369) | 2026 | Developer | G | 再决策 | 判定池 | 多 agent coding harness 把机器人策略写成计算图，在仿真中自学习改进后部署到真机（Graph-as-Policy） |
 | [Agentic Real2Sim](https://arxiv.org/abs/2607.19190) | 2026 | Designer | G | 再决策 | 判定池 | VLM agent 从真实录像出发，迭代调用工具构建可仿真的物理孪生；agentic Real2Sim 的代表 |
-| [DREAM](https://arxiv.org/abs/2608.29078) | 2026 | Designer | G | 编写闭环 | 判定池 | 部署时 real-to-sim：LLM 在重建的工作区上把指令写成符号目标与成功判据，生成示范微调真机 VLA（一次构建） |
-| [Lucida](https://arxiv.org/abs/2608.30821) | 2026 | Designer | G | 再决策 | 判定池 | agentic Real2Sim：VLM 策略经多轮 GUI 操作摆放生成的资产，组合出真实场景的可仿真复本 |
-| [SUN](https://arxiv.org/abs/2608.31167) | 2026 | Designer | G | 再决策 | 判定池 | agent 依程序反馈修复带类型的任务程序（目标、谓词、奖励），训练出可迁移到真机的策略 |
-| [GPT-6-Astra XLeRobot](https://arxiv.org/abs/2609.31770) | 2026 | Controller | G | 再决策 | 判定池 | GPT-6-Astra 写控制程序驱动 XLeRobot，复用身体知识、经验与技能，并从仿真迁移到真实电梯按钮任务 |
 | [CoDimRecon](https://arxiv.org/abs/2609.36024) | 2026 | Designer | G | 再决策 | 判定池 | agentic Real2Sim：agent 会话从多视角 RGB 重建可仿真的刚体、铰接与可变形曲线场景，行为测试暴露差异后针对性修正 |
-| [DexAgent](https://arxiv.org/abs/2609.35318) | 2026 | Teacher | G | 再决策 | 判定池 | agent 从人类视频重建仿真、挑选或编写工具，生成灵巧操作数据并迁移到机器人 |
-| [F4R](https://arxiv.org/abs/2609.35575) | 2026 | Designer | G | 再决策 | 判定池 | agent 诊断真机失败、把失败场景重建为可交互仿真，在其中修正后重新部署 |
 | [Real2Gym](https://arxiv.org/abs/2609.37089) | 2026 | Developer | G | 再决策 | 判定池 | agent 从示范视频重建场景、写阶段代码，依仿真结果诊断修正后把技能带回真机 |
 | [SimEX](https://arxiv.org/abs/2609.38982) | 2026 | Developer | G | 再决策 | 判定池 | 用户点名：coding agent 在仿真中迭代机器人工具箱代码，再借少量真机试验同时修正工具箱与仿真器（robotics AutoResearch） |
 | [RPG](https://arxiv.org/abs/2610.02204) | 2026 | Developer | G | 再决策 | 判定池 | 用户点名：从数据集重建练习任务，在仿真中诊断失败、写新技能并修改 system prompt，经跨任务评测保留后回到真机 |
