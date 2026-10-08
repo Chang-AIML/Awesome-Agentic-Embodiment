@@ -43,6 +43,34 @@ re-decision by the model. Papers first judged with the strict A.3 were re-judged
      trial outcomes (Eureka iterates; one-shot reward or task code such as Text2Reward, RoboGen,
      GenSim does not).
 
+## Constraint / keypoint programming (user decision 2026-10-08, second batch)
+
+"ReKep-type papers all count as agents." A foundation model that writes spatial constraints, keypoints,
+affordance or contact specifications, value maps, or cost / objective functions that a solver, optimizer
+or motion planner turns into robot motion (ReKep, VoxPoser, OmniManip, CoPa, MOKA, Language to Rewards,
+...) counts as **core** (if step B's body and experiment conditions hold) with seat `Controller`, sub
+`direct`, interface `constraint`.
+- `loop` = authored when the constraints are re-solved on live tracked state or stage transitions /
+  backtracking depend on them; re-decide when the model is re-queried with outcomes; none when the
+  constraints are solved once (still core: the loop column keeps the distinction).
+- Still `out`: models that output only grasp poses, waypoints or action chunks directly (no constraint or
+  objective that a solver consumes), and fixed perception pipelines with no foundation-model decision.
+
+## Agentic Real2Sim (user decision 2026-10-08, second batch)
+
+A foundation-model agent that **reconstructs or builds an interactive simulation of a real robot scene**
+(scene / asset / articulation reconstruction from real images, video or scans; layout; physics parameters;
+simulation code) and the result is used for robot learning, data generation or evaluation counts as
+**core** with seat `Designer` (or `Developer` when it then improves the robot's solution) and the reason
+tag `[real2sim]` (or `[real2sim2real]`). The agent's explicit decisions are its construction choices.
+- The usual build → render/simulate → compare with the real observation or check executability → revise
+  cycle satisfies step A.3 (`loop` = re-decide or authored).
+- A one-shot agentic pipeline still counts: verdict core, `loop` = none.
+- Reconstruction without a foundation-model decider (Gaussian splatting, NeRF, classical system
+  identification, learned asset generators run as fixed pipelines) stays `out`.
+- Physical-experiment requirement: the reconstructed scene must be a physics simulation used by a robot
+  (sim policy training, data generation or evaluation); real-robot transfer is welcome but not required.
+
 ## Step B — verdict (pick one)
 
 - **core**: Step A holds; robot body (arm, mobile base, legged, humanoid, drone, multi-robot,

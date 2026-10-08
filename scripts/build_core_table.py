@@ -28,8 +28,9 @@ SECTION_ZH = [("core", "Controller", "orchestrator", "Controller · 编排型"),
               ("core", "Controller", "lifelong", "Controller · lifelong / memory 型"),
               ("core", "Controller", "trained", "Controller · 训练过的 carrier"), ("core", "Supervisor", None, "Supervisor"),
               ("core", "Teacher", None, "Teacher"), ("core", "Designer", None, "Designer"), ("core", "Developer", None, "Developer"),
-              ("r2s", None, None, "Real2Sim / Sim2Real"), ("pioneer", None, None, "先驱（2022–2025）"),
-              ("resource", None, None, "Benchmark 与资源")]
+              ("r2s", None, None, "Real2Sim / Sim2Real"), ("vln", None, None, "VLN 与具身导航"),
+              ("pioneer", None, None, "先驱（2022–2025）"), ("resource", None, None, "Benchmark 与资源")]
+R2S_THEMES = {"real2sim", "sim2real", "real2sim2real"}  # theme values of the Real2Sim / Sim2Real section; "vln" = VLN chapter
 
 
 def write_review(rows):
@@ -38,11 +39,13 @@ def write_review(rows):
            "要增删或改判，改 selection 文件后重新运行脚本。", ""]
     for tier, seat, sub, title in SECTION_ZH:
         if tier == "r2s":
-            xs = [r for r in rows if r["tier"] == "core" and r["theme"]]
+            xs = [r for r in rows if r["tier"] == "core" and r["theme"] in R2S_THEMES]
+        elif tier == "vln":  # 2026 core and pioneers of the VLN chapter
+            xs = [r for r in rows if r["tier"] in ("core", "pioneer") and r["theme"] == "vln"]
         else:
             xs = [r for r in rows if r["tier"] == tier and (seat is None or r["seat"] == seat) and (sub is None or r["sub"] == sub)
-                  and not (tier == "core" and r["theme"])]
-        xs.sort(key=lambda r: (r["date"] or "9999", r["key"]))
+                  and not (tier == "core" and r["theme"]) and not (tier == "pioneer" and r["theme"] == "vln")]
+        xs.sort(key=lambda r: (r["tier"] != "pioneer", r["date"] or "9999", r["key"]))
         out += [f"## {title}（{len(xs)}）", "", "| 短名 | 年份 | Seat | Carrier | 闭环 | 来源 | 入选理由 |", "|---|---|---|---|---|---|---|"]
         for r in xs:
             src = "补漏" if r["id"].startswith("gap:") else ("种子" if r["id"].startswith("seed:") else "判定池")

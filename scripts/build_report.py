@@ -32,6 +32,7 @@ IFACE_ZH = {"skill-call": "技能调用", "vla-call": "VLA 调用", "micro-actio
             "system-edit": "系统编辑", "message": "消息", "-": "–", "": "–"}
 LOOP_ZH = {"re-decide": "再决策", "authored": "编写闭环", "none": "开环", "-": "–", "": "–"}
 THEME_ZH = {"real2sim": "Real2Sim", "sim2real": "Sim2Real", "real2sim2real": "Real2Sim2Real"}
+R2S_THEMES = set(THEME_ZH)  # theme "vln" marks the VLN chapter instead
 BODY_ZH = {"manip": "操作", "mobile-manip": "移动操作", "nav": "导航", "loco": "足式", "humanoid": "人形",
            "multi-robot": "多机器人", "aerial": "空中", "driving": "驾驶", "social": "社交", "other": "其他"}
 FID_ZH = {"real": "真机", "sim": "仿真", "sim+real": "仿真+真机"}
@@ -45,7 +46,7 @@ def norm_arxiv(a):
     return re.sub(r"v\d+$", "", (a or "").strip().lower().replace("arxiv:", ""))
 
 
-STRONG = {"out", "recheck", "verify", "verify_s2"}  # judging passes run with the strong model (see build_extended.py)
+STRONG = {"out", "recheck", "verify", "verify_s2", "recheck_r3b"}  # judging passes run with the strong model (see build_extended.py)
 
 
 def year_of(r):
@@ -84,6 +85,7 @@ def load():
     s2_lab = Counter(r["label"] for r in csv.DictReader(open(p("data/candidates/s2_coarse_2026.csv"))))
     n_s2pool = sum(1 for _ in open(p("data/core/pool_s2.jsonl")))
     ver = [r for r in fine if r.get("pass") in ("verify", "verify_s2") and r.get("prev")]
+    r3b = [r for r in fine if r.get("pass") == "recheck_r3b"]  # ReKep-type and agentic Real2Sim re-judged as agents
     ver_core = [r for r in ver if r["prev"].endswith(":core")]
     strong26 = [r for r in fine if r["verdict"] == "core" and r.get("pass") in STRONG and year_of(r) == "2026"]
     ep = p("data/core/extended_2026.csv")
@@ -100,7 +102,9 @@ def load():
              new=sum(1 for r in rows if r["new"]), bulk=n_bulk, s2=s2_rows, s2_screen=sum(s2_lab.values()),
              s2_keep=s2_lab["relevant"] + s2_lab["maybe"], s2_pool=n_s2pool, judged=len(fine),
              ver=len(ver), ver_core=len(ver_core), ver_core_kept=sum(1 for r in ver_core if r["verdict"] == "core"),
-             strong26=len(strong26), ext=n_ext)
+             strong26=len(strong26), ext=n_ext, r3b=len(r3b), r3b_core=sum(1 for r in r3b if r["verdict"] == "core"),
+             r3b_con=sum(1 for r in r3b if r["verdict"] == "core" and r["interface"] == "constraint"),
+             r3b_r2s=sum(1 for r in r3b if r["verdict"] == "core" and re.match(r"\s*\[real2sim", r["reason"])))
     # trend corpus: every stage-2 core verdict in the judging pool
     prim, alls, n = defaultdict(Counter), defaultdict(Counter), Counter()
     for r in fine:
@@ -119,7 +123,7 @@ def load():
     # agreement with the first-round test-set placements (first pass only)
     agree = defaultdict(Counter)
     for r in fine:
-        if r["testset_tier"] and r.get("pass") != "recheck":
+        if r["testset_tier"] and r.get("pass") == "out":  # rows re-judged later (recheck, recheck_r3b) are left out
             agree[r["testset_tier"].split(" ")[0]][r["verdict"]] += 1
     both = [r for r in fine if r["testset_tier"] == "CORE" and r["verdict"] == "core"]
     seat_same = sum(1 for r in both if r["testset_primary"].split("-")[0].split(" ")[0] == r["seat"])
@@ -192,7 +196,8 @@ def chip(r, col=None, year=False):
     """A paper card. Fill = re-decide; outline = authored loop; dashed grey = open loop (pioneers)."""
     col = col or COLOR.get(r["seat"], MUTED)
     cls = {"authored": "chip au", "none": "chip op"}.get(r.get("loop"), "chip")
-    mark = (" ★" if r["named"] else "") + (" ◆" if r.get("theme") and r["tier"] == "core" else "")
+    mark = (" ★" if r["named"] else "") + (" ◆" if r.get("theme") in R2S_THEMES and r["tier"] == "core" else "") + \
+           (" △" if r.get("theme") == "vln" else "")
     yr = f'<span class="cy">{r["year"][2:]}</span>' if year else ""
     return f'<span class="{cls}" style="--c:{col}">{esc(r["key"])}{mark}{yr}</span>'
 
@@ -230,8 +235,11 @@ def fig_pipeline(c):
         (f"{c['ver']:,}", "篇 Sonnet 复核",
          f"Haiku 判为 core、前驱或边界的论文全部由 Sonnet 从头重判；Haiku 判 core 的 {c['ver_core']} 篇中 "
          f"{c['ver_core_kept']} 篇维持 core", "Sonnet"),
+        (f"{c['r3b']:,}", "篇按新规则重判",
+         f"「ReKep 这一类都算」和「agentic Real2Sim 都算」：命中约束 / 关键点或 Real2Sim 特征、之前未判 core 的论文由 Sonnet 重判，"
+         f"{c['r3b_core']} 篇改判 core（约束编程 {c['r3b_con']}、Real2Sim {c['r3b_r2s']}）", "Sonnet"),
         (f"{c['gap1'] + c['gap2']}", "篇联网补漏",
-         f"公认工作 {c['gap1']} 篇；2026 年与 Real2Sim / Sim2Real {c['gap2']} 篇；全部经 arXiv 核验", "联网 agent"),
+         f"公认工作 {c['gap1']} 篇；2026 年少见身体形态、小 seat 与 Real2Sim {c['gap2']} 篇；全部经 arXiv 核验", "联网 agent"),
         (f"{c['strong26']}", "篇 2026 年 core",
          f"经 Sonnet 判定或复核为 core 的 2026 年论文；{t['core']} 篇进核心表，其余 {c['ext']} 篇列入 README 的扩展列表",
          "Sonnet"),
@@ -255,11 +263,11 @@ def fig_flow():
          arrow("M350,27 L407,27")]
     qs = [("① 显式决策", ["输出可检查的离散决策：计划、技能 / 工具 / VLA", "调用、代码、约束、裁决、对系统的编辑"]),
           ("② 决策权", ["自己写出选项；或在含 stop / retry / replan /", "ask 等控制行为的选项中做选择"]),
-          ("③ 闭环（满足其一）", ["再决策：带着自身记录和执行后果被再次调用；", "编写闭环：它写的约束 / 程序在执行时依结果调整"]),
+          ("③ 闭环（满足其一，或属两个例外）", ["再决策；或编写闭环（写的约束 / 程序依结果调整）。", "例外：约束编程、agentic Real2Sim 一次写成也收"]),
           ("④ 机器人身体与保真度", ["真机，或失败可能由物理原因引起的仿真", "（接触、滑动、碰撞）"])]
     exits = [("OUT · 器官或执行器", ["反应式 VLA（OpenVLA、π0）、打分器 / 奖励", "模型、world model 预测（归 WAM）"], "#f4f3ef", BASE),
              ("OUT · 没有决策权", ["只给代码枚举的同类候选打分，", "控制流归代码（SG-Nav、PIVOT）"], "#f4f3ef", BASE),
-             ("先驱（若为 2025 年前的奠基作）", ["开环计划或约束、无自身记录的逐步推理：", "ZS-Planners、CoPa、ECoT、π0.5"],
+             ("先驱（若为 2025 年前的奠基作）", ["开环计划、无自身记录的逐步推理：", "ZS-Planners、Socratic、ECoT、π0.5"],
               tint(MUTED, 0.16), MUTED),
              ("BOUNDARY · 边界", ["离散或脚本化仿真（ALFRED、AI2-THOR）、", "自动驾驶；进 lineage 表"], "#f4f3ef", BASE)]
     y = 66
@@ -363,7 +371,9 @@ def fig_quarters(rows):
         out.append("</tr>")
     out.append("</table>")
     out.append('<div class="binlegend"><span class="chip" style="--c:#2a78d6">实心</span>再决策　'
-               '<span class="chip au" style="--c:#2a78d6">空心</span>编写闭环　★ 用户点名　◆ 同时列入 Real2Sim / Sim2Real 板块</div>')
+               '<span class="chip au" style="--c:#2a78d6">空心</span>编写闭环　'
+               '<span class="chip op" style="--c:#2a78d6">虚线</span>开环（约束编程、Real2Sim 例外）　'
+               '★ 用户点名　◆ Real2Sim / Sim2Real 章　△ VLN 章</div>')
     return "".join(out)
 
 
@@ -542,7 +552,7 @@ li { margin: 1.5pt 0; }
 .defn { border-left: 4px solid #2a78d6; background: #f5f9fe; padding: 8pt 11pt; margin: 8pt 0 10pt; border-radius: 0 6px 6px 0; }
 .defn .en { color: #52514e; font-size: 8.6pt; line-height: 1.5; margin-top: 4pt; }
 .thesis { font-weight: 700; font-size: 10.6pt; margin: 6pt 0 2pt; }
-.kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 7pt; margin: 10pt 0 12pt; }
+.kpis { display: grid; grid-template-columns: repeat(6, 1fr); gap: 7pt; margin: 10pt 0 12pt; }
 .kpi { border: 1px solid #e1e0d9; border-radius: 8px; padding: 7pt 9pt; background: #fcfcfb; }
 .kpi .v { font-size: 17pt; font-weight: 700; line-height: 1.15; }
 .kpi .l { font-size: 8.3pt; color: #52514e; line-height: 1.35; margin-top: 2pt; }
@@ -619,7 +629,9 @@ def build_html(fontdir):
     seat = c["seat"]
     core = [r for r in rows if r["tier"] == "core"]
     pio = [r for r in rows if r["tier"] == "pioneer"]
-    r2s = [r for r in core if r.get("theme")]
+    r2s = [r for r in core if r.get("theme") in R2S_THEMES]
+    vln = [r for r in core if r.get("theme") == "vln"]
+    vln_pio = [r for r in pio if r.get("theme") == "vln"]
     res = [r for r in rows if r["tier"] == "resource"]
     sub = Counter(r["sub"] for r in core if r["seat"] == "Controller")
     n_core, n_pio, n_res = len(core), len(pio), len(res)
@@ -630,6 +642,7 @@ def build_html(fontdir):
     pct = lambda f: f"{round(100 * f)}%"
     authored_core = [r for r in core if r["loop"] == "authored"]
     authored_pio = [r for r in pio if r["loop"] == "authored"]
+    open_core = [r for r in core if r["loop"] == "none"]  # admitted by the two exceptions (decisions 8 and 9)
     bodies = Counter((r["body"] or "").split("/")[0] for r in core)
     body_txt = "、".join(f"{BODY_ZH.get(k, k)} {n}" for k, n in bodies.most_common() if k)
     q = Counter(str((int(r["date"][5:7]) - 1) // 3 + 1) for r in core if len(r["date"]) >= 7)
@@ -638,7 +651,7 @@ def build_html(fontdir):
 
     # ---------------------------------------------------------- page 1: summary
     a('<h1>Agentic Embodiment 综述 · 第三轮进展</h1>')
-    a('<div class="sub">聚焦 2026：定义、分类与核心论文表 · 2026-10-08 · 分支 claude/compassionate-sagan-wklsz6</div>')
+    a('<div class="sub">聚焦 2026：定义、分类与核心论文表 · 2026-10-08 · 分支 claude/jolly-thompson-g43dno</div>')
     a('<div class="defn"><b>一句话定义</b>　Agentic Embodiment 研究由基础模型驱动、做出显式决策的过程：决策的后果作用到机器人身体上，'
       '过程再依据后果的证据重新决策。全文围绕一个问题组织：这个过程相对于机器人部署的策略坐在哪里（<b>Seat</b>），'
       '由哪类权重承载（<b>Carrier</b>）。'
@@ -650,23 +663,29 @@ def build_html(fontdir):
     a('<p class="note">agency 没有离开机器人，而是在身体周围占据越来越多的位置；一个模型算不算 agent，取决于它的决策是否闭环'
       '（模型自己带着记录再决策，或它写出的约束、程序在执行时依据后果调整），而不是它用的是哪套权重。</p>')
     kpis = [(f"{n_core}", "篇 2026 年<br>核心论文"), (f"{n_pio}", "篇先驱<br>（2022–2025）"),
-            (f"{len(r2s)}", "篇 Real2Sim /<br>Sim2Real 板块"), (f"{n_res}", "个 benchmark<br>与资源"),
+            (f"{len(r2s)}", "篇 Real2Sim /<br>Sim2Real 章"), (f"{len(vln)}", "篇 VLN /<br>具身导航章"), (f"{n_res}", "个 benchmark<br>与资源"),
             (f"{c['verified']}/{len(rows)}", "篇经 arXiv 核验<br>（标题全部一致）")]
     a('<div class="kpis">' + "".join(f'<div class="kpi"><div class="v">{k}</div><div class="l">{l}</div></div>' for k, l in kpis)
       + '</div>')
     a('<div class="callout"><h3>这一轮按你的意见做的改动</h3><ul>'
-      f'<li><b>承认「编写闭环」</b>：ReKep 这类工作，VLM 只写一次约束或程序，但执行时据结果重求解、回溯或恢复，现在算 agent。'
-      f'Sonnet 按新规则复核了全部 {c["recheck"]} 篇原「前驱」，{c["recheck_core"]} 篇改判 core。</li>'
-      f'<li><b>聚焦 2026，扩到约 100 篇</b>：2026 年核心 {n_core} 篇，2022–2025 年的代表作作为先驱 {n_pio} 篇，另有资源 {n_res} 个。'
-      f'本轮新增 {c["new"]} 篇（附录中标「新」）。</li>'
-      f'<li><b>新增 Real2Sim / Sim2Real 板块</b>：{len(r2s)} 篇 2026 年论文，含你推荐的 RPG、SimEX、EmbodiedSmith；'
-      'Video2World 进资源表。</li>'
+      f'<li><b>ReKep 这一类都算 agent</b>：VLM 写出约束、关键点、可供性或代价函数交给求解器执行的工作一律收录；执行中依跟踪状态重解的'
+      f'记「编写闭环」，一次求解的记「开环」。先按「编写闭环」规则复核了 {c["recheck"]} 篇原「前驱」（{c["recheck_core"]} 篇改判 core），'
+      f'再按「这一类都算」重判了 {c["r3b"]:,} 篇相关论文，{c["r3b_con"]} 篇约束编程类改判 core。</li>'
+      f'<li><b>agentic Real2Sim 都算</b>：agent 重建机器人操作场景（3D 场景、资产、铰接、物理参数、仿真代码）的工作直接进核心，'
+      f'归 Designer；重判后 {c["r3b_r2s"]} 篇 Real2Sim 论文改判 core。Real2Sim / Sim2Real 章共 {len(r2s)} 篇，'
+      '含你点名的 RPG、SimEX、EmbodiedSmith；Video2World 和 GPT-6 Astra 的 RoboDojo 评测进资源表。</li>'
+      f'<li><b>VLN 单独成章</b>：2026 年 {len(vln)} 篇导航 agent 单列一章，另有 {len(vln_pio)} 篇早期 VLN agent 作为先驱。</li>'
+      f'<li><b>扩到约 120 篇，聚焦 2026</b>：2026 年核心 {n_core} 篇，2022–2025 年的奠基作与代表作作为先驱 {n_pio} 篇，'
+      f'另有资源 {n_res} 个。本轮新增 {c["new"]} 篇（附录中标「新」）。</li>'
       f'<li><b>全面检索 2026 年</b>：不再只靠种子论文的引用。收割候选里全部 2026 年论文都逐篇判定，又用 Semantic Scholar '
       f'关键词检索补了 {c["s2_screen"]:,} 篇没引用种子的新论文；Haiku 初判、Sonnet 复核后，2026 年共有 {c["strong26"]} 篇满足定义。'
       f'核心表收 {n_core} 篇，其余 {c["ext"]} 篇按 seat 列在 README 的「More 2026 papers」里。</li>'
       f'<li><b>拓宽范围</b>：2026 核心覆盖 {body_txt}。</li></ul></div>')
     a('<div class="callout ask"><h3>需要你决定</h3><ol>'
       '<li><b>审阅新增论文</b>：附录 A 中标「新」的论文都是这一轮加入的，有不同意的告诉我。</li>'
+      f'<li><b>主线的措辞</b>：两个例外让 {len(open_core)} 篇开环论文进了 2026 核心，「loop closure makes a carrier an agent」'
+      '不再严格成立。建议保留主线，把「闭环」一列写成 agency 的程度（开环 → 编写闭环 → 再决策），正文说明两个例外；'
+      '也可以改成「explicit decisions with authority make an agent; loop closure grades it」。</li>'
       '<li><b>自动驾驶</b>：按你第一次的决定，自动驾驶仍只在边界一节讨论。你说「很多别的 embodiment 都可以放进去」，'
       '如果也想收闭环驾驶 agent，我可以单独补一组。</li>'
       '<li><b>合并到 main</b>：所有内容目前在工作分支上，需要的话我开 PR。</li></ol></div>')
@@ -675,7 +694,8 @@ def build_html(fontdir):
     a('<div class="section"><h2>1　这一轮做了什么</h2>')
     a('<p>第一轮收割了 14 篇种子论文的前向引用，并做了粗筛和短名单；第二轮逐篇判定并挑出了第一版核心表。这一轮按你的意见改了闭环判定、'
       '把重心移到 2026 年，并对 2026 年做了全量检索：收割候选中的 2026 年论文全部判定，再用关键词检索补上没引用种子的论文；'
-      '另有两轮联网搜索，并新增 Real2Sim / Sim2Real 板块。下图是完整的筛选漏斗，右栏标出每一步由谁完成。</p>')
+      '另有两轮联网搜索。之后按「ReKep 这一类都算」「agentic Real2Sim 都算」重判了相关论文，并把 VLN 单列一章。'
+      '下图是完整的筛选漏斗，右栏标出每一步由谁完成。</p>')
     a(f'<figure>{fig_pipeline(c)}<figcaption><b>图 1　筛选漏斗。</b>引用收割只能找到引用了种子论文的工作，'
       '很多 2026 年的新论文不在里面，所以加了 2026 年关键词检索和两轮联网搜索。批量判定用便宜的 Haiku，凡是 Haiku 判为 core、'
       '前驱或边界的都由 Sonnet 从头重判；核心表的论文都用 arXiv API 核对过编号和标题。</figcaption></figure>')
@@ -707,6 +727,13 @@ def build_html(fontdir):
       f'<p class="small" style="margin:0">核心表中的编写闭环：2026 年 {len(authored_core)} 篇'
       + (f'（{"、".join(r["key"] for r in authored_core[:6])}{"等" if len(authored_core) > 6 else ""}）' if authored_core else '')
       + f'；先驱 {len(authored_pio)} 篇（{"、".join(r["key"] for r in authored_pio)}）。</p></div>')
+    a('<div class="callout"><h3>两个例外：约束编程与 agentic Real2Sim</h3>'
+      '<p class="small">按你的决定，下面两类即使模型只写一次、不再闭环，也按 agent 收录，「闭环」一列记开环：'
+      '（1）<b>约束 / 关键点编程</b>：VLM 写出空间约束、关键点、可供性或代价函数，由求解器或规划器转成动作（CoPa、MOKA 一类）；'
+      '（2）<b>agentic Real2Sim</b>：agent 从真实图像、视频或扫描重建可交互的仿真场景，自己决定资产、位姿、铰接、物理参数或仿真代码，'
+      '重建结果用于机器人学习、数据生成或评测。没有基础模型做决策的重建方法（Gaussian splatting、NeRF、经典辨识）仍不算。</p>'
+      f'<p class="small" style="margin:0">2026 核心中开环的 {len(open_core)} 篇'
+      + (f'：{"、".join(r["key"] for r in open_core[:8])}{"等" if len(open_core) > 8 else ""}' if open_core else '') + '。</p></div>')
     a('<h3>三个常见误区</h3><ul>'
       '<li><b>RL 微调不等于 agency</b>：SimpleVLA-RL 一类判 OUT，因为没有显式决策。</li>'
       '<li><b>架构内的 memory 不等于 agency</b>：MemoryVLA 一类判 OUT。agent 自己读写的 memory 才计入。</li>'
@@ -744,14 +771,27 @@ def build_html(fontdir):
     a('<div class="section"><h2>5　Real2Sim / Sim2Real 专题</h2>')
     a('<p>2026 年一个明显的新方向，是 agent 自己搭建、校准、利用仿真：从真实视频或数据集重建可交互的仿真世界，在里面练习、诊断失败、'
       '改进技能，再借少量真机试验修正仿真器并迁移回真机。按 Seat 规则，构建「题目」（仿真世界、资产、参数）归 Designer，'
-      '改进「解法」（技能、代码、prompt）归 Developer，所以这一节横跨两个 seat，每篇仍标出 seat 颜色。</p>')
+      '改进「解法」（技能、代码、prompt）归 Developer，所以这一节横跨两个 seat，每篇仍标出 seat 颜色。'
+      '按你的决定，agent 重建机器人操作场景的工作一律收录，一次构建的在「闭环」一列记开环。</p>')
     a(f'<figure>{fig_r2s(rows)}<figcaption><b>图 7　Real2Sim / Sim2Real 板块。</b>彩色卡片是 2026 年的核心论文，颜色表示 seat；'
       '灰色卡片是更早的先驱（右下角为年份）和评测资源。</figcaption></figure>')
-    a(table_core(rows, "Real2Sim / Sim2Real · 2026", lambda r: r["tier"] == "core" and r.get("theme"), show_seat=True))
+    a(table_core(rows, "Real2Sim / Sim2Real · 2026", lambda r: r["tier"] == "core" and r.get("theme") in R2S_THEMES,
+                 show_seat=True))
+    a('</div>')
+
+    # ---------------------------------------------------------- 6 VLN
+    a('<div class="section"><h2>6　VLN 与具身导航</h2>')
+    a('<p>以导航为主任务的 agent 单列一章：连续环境（Habitat VLN-CE 等）或真机上的 vision-and-language navigation、'
+      'object-goal 与实例导航、长程探索。2026 年的论文须在连续环境或真机上评测；R2R 离散图上的开创性 VLN agent 只作为先驱，'
+      '正文在边界一节讨论。导航中顺带操作的移动操作任务仍归 Controller 各子章。</p>')
+    if vln_pio:
+        a('<p class="small"><b>先驱：</b>' + "".join(chip(r, MUTED, year=True) for r in sorted(vln_pio, key=lambda r: r["date"]))
+          + '</p>')
+    a(table_core(rows, "VLN 与具身导航 · 2026", lambda r: r["tier"] == "core" and r.get("theme") == "vln"))
     a('</div>')
 
     # ---------------------------------------------------------- 6 trends
-    a('<div class="section"><h2>6　趋势证据</h2>')
+    a('<div class="section"><h2>7　趋势证据</h2>')
     a(f'<p>核心表是按名额挑的，不能当趋势证据。所以下面用全部经 Sonnet 判定或复核为 core 的论文统计（{sum(x["n"] for x in trend)} 篇，'
       f'年份取 arXiv 首版）。2026 年是全量检索（{t["2026"]["n"]} 篇），2022–2025 年只含种子邻域和高被引论文，'
       '所以只看各年内部的结构，不比较绝对数量。</p>')
@@ -779,18 +819,18 @@ def build_html(fontdir):
       f'<th class="num">有效 seat 数</th></tr>{tr}</table>')
     a('<p class="note" style="margin-top:4pt">各 seat 一栏：主 seat 篇数（括号内为主 seat 或次 seat 含该 seat 的篇数）。'
       '投稿前仍应按草稿 §10 的方案，从候选中分层随机抽样、两人盲标后复核这两个趋势。</p>')
-    a('<div style="break-inside: avoid"><h2 style="margin-top:14pt">7　下一步</h2><ol>'
+    a('<div style="break-inside: avoid"><h2 style="margin-top:14pt">8　下一步</h2><ol>'
       '<li><b>冻结核心表</b>：你审阅后，我按你的意见改 <code>core_selection.csv</code> 并重新生成 README 和这份报告。</li>'
       f'<li><b>补全链接</b>：目前只有 {c["links"]}/{len(rows)} 篇能从 arXiv comment 中提取到项目或代码链接，其余需要联网逐篇查。</li>'
       f'<li><b>全文审计</b>：2026 年的核心论文大多只按摘要判过，先核实 seat 与闭环形式有争议的几篇。</li>'
-      '<li><b>写正文</b>：按 Seat 分章，Controller 拆四个子章，Real2Sim / Sim2Real 单独一章；第 6 节的数字作为趋势证据。</li>'
+      '<li><b>写正文</b>：按 Seat 分章，Controller 拆四个子章，Real2Sim / Sim2Real 与 VLN 各单独一章；第 7 节的数字作为趋势证据。</li>'
       '<li><b>可选</b>：做一个类似 WAM survey 的 GitHub Pages 浏览器；对已有 survey 做反向滚雪球，进一步提高查全率。</li></ol></div>')
     a('</div>')
 
     # ---------------------------------------------------------- appendix A
     a('<div class="section"><h2>附录 A　2026 年核心论文表</h2>')
     a('<p class="note">短名链接到 arXiv；月份为 arXiv 首版；会议来自 Semantic Scholar，未发表的记为 arXiv；★ 为用户点名；'
-      '<span class="new">新</span> 为这一轮新增。Real2Sim / Sim2Real 板块的论文见第 5 节，这里不重复。</p>')
+      '<span class="new">新</span> 为这一轮新增。Real2Sim / Sim2Real 章见第 5 节，VLN 章见第 6 节，这里不重复。</p>')
     for s_ in ("orchestrator", "direct", "lifelong", "trained"):
         a(table_core(rows, f"Controller · {SUB_ZH[s_]}",
                      lambda r, s_=s_: r["tier"] == "core" and r["seat"] == "Controller" and r["sub"] == s_ and not r.get("theme")))
@@ -824,7 +864,7 @@ def build_html(fontdir):
       + f'<p class="small" style="margin-top:4pt">第一轮 CORE 中，两边都判 core 的 {seat_n} 篇里有 {seat_same} 篇主 seat 一致。</p></div>')
     a('<h3>文件位置</h3><table class="tbl"><colgroup><col style="width:36%"><col></colgroup>'
       '<tr><th>文件</th><th>内容</th></tr>'
-      '<tr><td>docs/definition.md</td><td>正文版定义（含编写闭环、2026 聚焦、Real2Sim / Sim2Real 板块）</td></tr>'
+      '<tr><td>docs/definition.md</td><td>正文版定义（含编写闭环、两个例外、2026 聚焦、Real2Sim / Sim2Real 与 VLN 章）</td></tr>'
       '<tr><td>docs/definition_draft.md</td><td>完整细则，作为附录和标注指南</td></tr>'
       '<tr><td>data/core/core_selection.csv</td><td>人工挑选的核心表输入；增删论文改这个文件</td></tr>'
       '<tr><td>data/core/core_table.csv</td><td>生成的核心表（含全部标签）</td></tr>'

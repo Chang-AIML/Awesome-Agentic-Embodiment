@@ -34,7 +34,7 @@ def seat_table(core, year):
     print("\nCells: primary seat (all-seat count, i.e. papers with that seat as primary or secondary).\n")
 
 
-STRONG = {"out", "recheck", "verify", "verify_s2"}  # strong-model judging passes (cheap first-pass core is not counted)
+STRONG = {"out", "recheck", "verify", "verify_s2", "recheck_r3b"}  # strong-model judging passes (cheap first-pass core is not counted)
 
 
 def main():

@@ -12,7 +12,7 @@ Usage: python3 scripts/build_extended.py   -> data/core/extended_2026.csv
 import csv, json, os, re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STRONG = {"out", "recheck", "verify", "verify_s2"}  # merge_fine_labels.py `pass` = shard directory name
+STRONG = {"out", "recheck", "verify", "verify_s2", "recheck_r3b"}  # merge_fine_labels.py `pass` = shard directory name
 COLS = ["id", "arxiv", "title", "date", "seat", "seat2", "sub", "carrier", "loop", "topo", "body", "rep", "conf",
         "theme", "reason", "pass"]
 

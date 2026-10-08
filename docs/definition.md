@@ -13,6 +13,12 @@
 > 5. 闭环判定（§2 第 3 条）承认**编写闭环**：模型写出的约束或程序在执行时读取实时感知、依据结果调整行为，即使模型不再被调用，也算 agent。ReKep、VoxPoser、Code as Policies 等因此进入核心。
 > 6. 核心表扩大到约 **100 篇**，并**聚焦 2026 年**：2026 年的论文进 CORE（约 75 篇）；2022–2025 年的代表作只简要提及，作为**先驱**（约 25 篇）。
 > 7. 新增 **Real2Sim / Sim2Real** 专题板块（§6.1），收 agent 搭建、校准、利用仿真并迁移到真机的工作。
+>
+> 2026-10-08 用户第二次追加的决策（覆盖第 6 条的数字）：
+> 8. **ReKep 这一类都算 agent**：VLM 写出空间约束、关键点、可供性或代价函数，交给求解器或规划器执行的工作（ReKep、VoxPoser、OmniManip、CoPa、MOKA 等）一律算 agent，归 Controller · 直接驱动型。执行中依跟踪状态重解的记「编写闭环」，一次求解的记「开环」，仍收录。
+> 9. **agentic Real2Sim 都算核心**：由 agent 重建机器人操作场景（3D 场景、资产、铰接、物理参数、仿真代码）的工作，按 §6.1 的规则直接进 CORE，不因「一次构建、不再调用模型」而降级。
+> 10. 规模放宽到约 **120 篇**（不是硬指标），仍聚焦 2026 年；2022–2025 年的奠基作与代表作作为先驱一并收录。
+> 11. **VLN 单独成章**（§6.2）。
 
 ---
 
@@ -45,6 +51,7 @@ carry it (**Carrier**).*
    - **编写闭环**（authored loop）：模型写出的可执行 artifact（约束、程序、在线优化的目标函数、监控条件、成功判据）在机器人执行时读取实时感知，并依据结果改变行为：重新求解、在阶段之间前进或回溯、断言失败后执行恢复动作、否决危险动作、检查失败后重试。随结果而变的那部分逻辑必须由模型写出；触发它的机制（求解器、回溯、重试循环）可以是固定框架。例：ReKep 的关键点约束以约 10 Hz 重新求解，路径约束被破坏时回溯到前一阶段；VoxPoser、Code as Policies（带感知反馈循环的程序）、ProgPrompt（带断言和恢复动作的程序）、Language to Rewards。
    后果证据须来自执行后的观测、工具返回、verifier 事件、训练或评测统计，或人类反馈。只来自模型自己的预测（world model、执行前的可行性检查）不够。
    **两种都不算**：artifact 的内容不随执行时的状态改变，例如一串技能名或地标、一次算出的抓取位姿或路点；一个计划交给各自闭环的技能去执行（那个环不是模型写的）；每步重新推理、但看不到自己先前决策的 VLA（ECoT、π0.5）。
+   **两个例外（决策 8、9）**：约束 / 关键点编程类（模型写约束或代价函数交给求解器）和 agentic Real2Sim（模型重建可交互仿真场景）即使一次写成、不再闭环，也按 agent 收录，「闭环」一列记开环。见 §5 和 §6.1。
    Designer 和 Developer 的闭环仍要求依据训练或试验结果重新设计、重新修改（Eureka 迭代；一次写成的奖励或任务代码不算）。
 
 **三个常见误区**
@@ -102,7 +109,7 @@ carry it (**Carrier**).*
 Controller 在候选中占一半以上，正文按以下四类拆分：
 
 1. **编排型**（orchestrator）：调用 skill、tool 或 VLA-as-tool。例：SayCan、Harness VLA。
-2. **直接驱动型**（direct driver）：输出语义微动作、原生指令、当下执行的代码或约束。例：Show-Harness、CaP-X、ReKep。这一子章也承接 robot-use agent 社区的命名。子章内部按闭环形式再分两组：编写闭环（Code as Policies → VoxPoser → ReKep，模型写一次，程序或约束在执行中闭环）和再决策（CaP-X、Show-Harness，模型被反复调用）。
+2. **直接驱动型**（direct driver）：输出语义微动作、原生指令、当下执行的代码或约束。例：Show-Harness、CaP-X、ReKep。这一子章也承接 robot-use agent 社区的命名。子章内部按闭环形式再分组：编写闭环（Code as Policies → VoxPoser → ReKep，模型写一次，程序或约束在执行中闭环）、再决策（CaP-X、Show-Harness，模型被反复调用），以及一次求解的约束 / 关键点编程（CoPa、MOKA 一类，决策 8 收录，闭环一列记开环）。
 3. **lifelong / memory 型**：评测期间写入并读取 memory、skill 库或 harness，越用越好。
 4. **训练过的 carrier**：Carrier 为 C / H / I。例：PaLM-E、Hi Robot、OneTwoVLA。
 
@@ -112,7 +119,7 @@ Controller 在候选中占一半以上，正文按以下四类拆分：
 
 | 层级 | 条件 | 去向 |
 |---|---|---|
-| **CORE** | arXiv 首版在 **2026 年**；满足 §2 三条判定；有机器人身体；至少一个主要实验在真机或物理仿真中进行（失败可能由接触、滑动、碰撞等物理原因引起）；agentic 部分是论文 headline 的自变量 | 核心表，按 Seat 分节 |
+| **CORE** | arXiv 首版在 **2026 年**；满足 §2 三条判定；有机器人身体；至少一个主要实验在真机或物理仿真中进行（失败可能由接触、滑动、碰撞等物理原因引起）；agentic 部分是论文 headline 的自变量。agentic Real2Sim 按 §6.1 的规则判定 | 核心表，按 Seat 分节；Real2Sim / Sim2Real 与 VLN 各自成章 |
 | **先驱**（PIONEER） | arXiv 首版在 2022–2025 年的奠基作或代表作。满足 §2 三条判定的（如 SayCan、Code-as-Monitor、ReKep），和只满足判定 1、2 的开环工作（如 ZS-Planners、ECoT、π0.5）都可以收，用「闭环」一列区分 | 先驱表，按 Seat 简要列出 |
 | **BOUNDARY** | agent 成立，但只在离散或脚本化仿真中（ALFRED、AI2-THOR、VirtualHome、TDW、R2R 离散图、Habitat magic grasp）；或属于自动驾驶 | 边界一节讨论，lineage 表 |
 | **RESOURCE** | benchmark、testbed、能力研究，被测对象是 agent | 单独的资源表 |
@@ -131,6 +138,18 @@ agent 搭建、校准、利用仿真并把结果迁移到真机的工作，单�
 | Real2Sim2Real | 在重建的仿真里练习、自我改进，再回到真机（如 RPG、SimEX） | Developer（修改「解法」），次 seat Designer |
 
 这类工作的评测（如 Video2World）进资源表，并在本节交叉引用。
+
+**agentic Real2Sim 的判定（决策 9）**：基础模型 agent 为机器人任务重建或搭建可交互仿真，即从真实图像、视频或扫描出发，自己决定选哪些资产、摆放位姿、铰接结构、物理参数，或直接写仿真代码，重建结果用于机器人学习、数据生成或评测。这类工作一律进 CORE，Seat 记 Designer（重建后再改进解法的记 Developer），theme 记 real2sim。
+- 构建过程通常是「渲染或仿真 → 与真实观测比对或检查可执行性 → 修改」，这本身满足 §2 第 3 条的闭环。
+- 一次构建、不再迭代的 agentic 管线也收，「闭环」一列记 none，读者可以区分。
+- 没有基础模型做构建决策的重建方法（Gaussian splatting、NeRF、经典 system identification）不算。
+
+### 6.2 VLN 与具身导航章节（决策 11）
+
+以导航为主任务的 agent 单独成章：vision-and-language navigation（VLN-CE、真机 VLN）、object-goal / instance 导航、长程导航与探索，Seat 多为 Controller。
+- 2026 年的核心论文须在连续环境（Habitat VLN-CE、Isaac 等）或真机上评测。
+- R2R 离散图上的开创性 VLN agent（如 NavGPT、MapGPT）只作为先驱收录，「Body」一列标出离散仿真，正文在边界一节讨论。
+- 导航中顺带有操作的移动操作任务仍归 Controller 各子章。
 
 ---
 
