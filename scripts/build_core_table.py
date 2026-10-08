@@ -77,9 +77,10 @@ def main():
         for c in ("key", "tier", "why"):
             row[c] = s[c]
         row["added"] = s.get("added") or ""
-        for c in ("seat", "sub", "carrier", "loop", "theme"):
+        for c in ("seat", "sub", "carrier", "loop"):
             if s.get(c):
                 row[c] = s[c]
+        row["theme"] = s.get("theme") or ""  # the chapter (Real2Sim / VLN) is a curation decision, never inherited
         if not row["loop"]:  # gap-fill rows carry no loop field
             row["loop"] = {"core": "re-decide", "pioneer": "re-decide"}.get(row["tier"], "-")
         if row["theme"] in ("-", None):

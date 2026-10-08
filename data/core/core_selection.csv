@@ -26,6 +26,7 @@ c01841,MessyMem,core,Controller,lifelong,G,持久 3D 场景图 memory 随交互�
 c00595,Teach and Grow,core,Controller,lifelong,G,coding agent 把少量示范变成带物理反馈的闭环技能块，技能库随使用增长,,,,r3
 c01216,CaP Great Again,core,Controller,lifelong,G,编程 agent 依执行反馈编写、进化机器人工具，执行 agent 调用；Code as Policies 的 2026 版,,,,r3
 s01312,PhysMem,core,Controller,lifelong,G,VLM 规划者记录经验、提出物理原理假设并用针对性试验验证，测试时 memory 扩展物理推理,,,,r3
+gap:2610.09228,Robo-COP,core,Controller,lifelong,G,VLM 编排者在部署中从自己的执行里整理示范、决定何时微调 VLA，只有经验证变好才采用新策略；编排者与策略共同进化,,,,r3
 c06870,MEM,core,Controller,trained,I,VLA 输出子任务语言并更新自身文本记忆（多尺度记忆，76 引）,,,,
 c05563,τ0-VLA,core,Controller,trained,H,分层机器人基础模型：高层依执行 memory 生成子任务并由世界模型引导，低层协同训练（H）,,,,r3
 c00882,Steerable VLA,core,Controller,trained,H,学习得到的具身推理者（或提示 VLM）发出子任务、运动与像素指令，驱动协同训练的 VLA（H）,,,,r3
@@ -61,6 +62,8 @@ c00911,Skill-Harness Evolution,core,Developer,-,G,冻结模型从 rollout 进化
 c00744,AdaHVLA,core,Developer,-,G,多 agent 分析 / 修订循环依 rollout 证据编辑协调 VLA 的代码 harness,,,,r3
 c01817,SPINE,core,Developer,-,G,子 agent 建立机器人档案并调试双臂遥操作栈（驱动、接口、控制）；真机系统工程,,,,r3
 s04167,Continuum Robot Design,core,Developer,-,G,LLM 设计者与评审依物理仿真结果迭代修改腱驱动连续体机器人的设计；硬件侧 Developer,,,,r3
+gap:2610.08995,PhysEvo,core,Developer,-,G,冻结的 GPT-6 Astra 执行任务，meta-agent 依轨迹诊断失败、修改工具与技能并测试后保留；RoboDojo 42 任务，并在真机 PiPER 上继续,,,,r3
+gap:2610.09283,LACE-CRAFT,core,Developer,-,G,反馈、形态、奖励、整合四个 LLM 角色共享实验记录，交叉评审形态-奖励提案，固定任务指标决定保留或回滚；机器人协同设计,,,,r3
 c00155,RPG,core,Developer,-,G,用户点名：从数据集重建练习任务，在仿真中诊断失败、写新技能并修改 system prompt，经跨任务评测保留后回到真机,,,real2sim2real,r3
 c00495,SimEX,core,Developer,-,G,用户点名：coding agent 在仿真中迭代机器人工具箱代码，再借少量真机试验同时修正工具箱与仿真器（robotics AutoResearch）,,,real2sim2real,
 s11012,EmbodiedSmith,core,Designer,-,G,用户点名：场景生成与任务生成互相编辑的递归自改进飞轮，规模化产出仿真数据与评测环境,,,real2sim,r3
@@ -78,6 +81,7 @@ s08303,Lucida,core,Designer,-,G,agentic Real2Sim：VLM 策略经多轮 GUI 操�
 s01997,DREAM,core,Designer,-,G,部署时 real-to-sim：LLM 在重建的工作区上把指令写成符号目标与成功判据，生成示范微调真机 VLA（一次构建）,,,real2sim2real,r3
 c00362,GPT-6-Astra XLeRobot,core,Controller,lifelong,G,GPT-6-Astra 写控制程序驱动 XLeRobot，复用身体知识、经验与技能，并从仿真迁移到真实电梯按钮任务,,,sim2real,r3
 s09723,GaP,core,Developer,-,G,多 agent coding harness 把机器人策略写成计算图，在仿真中自学习改进后部署到真机（Graph-as-Policy）,,,real2sim2real,r3
+gap:2610.10479,Agentic RSR,core,Developer,-,G,agent 从工作区视频恢复尺度、依视觉反馈迭代重建 MuJoCo 场景，coding agent 再开发策略并回到真机；Real2Sim2Real 全链路,,,real2sim2real,r3
 c01104,AgenticNav,core,Controller,direct,G,VLM 在 harness 中调用动作、深度与 memory 工具，带着自己的推理历史选择目标像素；VLN-CE 闭环,,,vln,r3
 c06679,Embodied Agents Take Control,core,Controller,direct,G,通用 coding-agent harness 掌管每一步导航动作并自我纠错，零样本可比工业级系统,,,vln,r3
 c04069,ASENA,core,Controller,lifelong,G,coding agent 写并运行程序、调用导航 VLA 工具、检查结果并修复，经验随任务积累,,,vln,r3
@@ -90,6 +94,7 @@ t328,AllDayNav,core,Designer,-,G,真机终身导航 RL：VLM 写 memory 描述�
 c06226,RoboFind,core,Controller,orchestrator,G,导航、验证、恢复三个 agent 驱动四足为视障用户找物，验证候选并触发恢复,,,vln,r3
 c05659,NORM-Nav,core,Controller,direct,G,约束编程类导航：LLM 把指令解析成结构化行为约束，依实时感知落成代价地图层由规划器执行并在线重规划,,,vln,r3
 s11075,Air-Ground VLN,core,Controller,orchestrator,G,无人机与地面车的 VLM 在共享鸟瞰地图上推理并互相下发子目标，空地协同 VLN；×N 拓扑,,,vln,r3
+gap:2603.12696,HaltNav,core,Controller,orchestrator,C,MLLM 在轻量拓扑图（osmAG）上把路线拆成子指令，微调的 VLM 在门关闭、拥挤等情况下停止并触发重规划；仿真与真机 Fetch,,,vln,r3
 seed:zero-shot-planners,ZS-Planners,pioneer,Controller,orchestrator,G,LLM 作零样本规划者的起点：把高层指令分解为可执行步骤；开环,,none,,
 seed:saycan,SayCan,pioneer,Controller,orchestrator,G,奠基作：LLM 与 affordance 组合，逐步在异质 skill 中选择，执行后重新调用；Controller 的起点,,re-decide,,
 seed:inner-monologue,Inner Monologue,pioneer,Controller,orchestrator,G,奠基作：成功检测与人类反馈回灌提示，典型闭环规划者,,re-decide,,
@@ -141,4 +146,6 @@ gap:2601.21570,EmboCoach-Bench,resource,Developer,-,-,32 个 RL/IL 任务，LLM 
 s04733,Video2World,resource,Designer,-,-,用户点名：评测 coding agent 能否从具身视频端到端构建可交互仿真（222 个重建实例）；与 Real2Sim 章交叉引用,,,real2sim,r3
 c00452,Astra on RoboDojo,resource,Controller,-,-,用户点名：GPT-6 Astra 等 LLM 不经微调直接作为操作策略（LLM as policy），在 RoboDojo 全部 42 个任务上评测,,,,r3
 c00279,Frontier VLM Agents Study,resource,Controller,-,-,七个前沿 VLM agent 在几何、空间与操作任务上的实证研究：它们离机器人通才还有多远,,,,r3
+gap:2610.10409,RobotWorld,resource,Controller,-,-,84 个机器人使用任务，覆盖操作、移动操作、足式、驾驶与空中控制，带交互预算与可执行成功检查,,,,r3
+gap:2609.20116,Astra on VLN-CE,resource,Controller,-,-,GPT-6-Astra 在零样本 VLN-CE 闭环中的能力评测（R2R-CE 成功率 52%），与 RoboDojo 评测互补,,,,r3
 s10690,MLLM Drone Agents Eval,resource,Controller,-,-,评测 MLLM 作为无人机的通用视觉-语言-动作 agent；覆盖空中,,,,r3

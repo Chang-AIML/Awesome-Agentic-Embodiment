@@ -43,3 +43,13 @@ c04543,Open-Nav,Controller,开源 LLM 零样本 VLN-CE 先驱（2024）
 c00305,Safety Chip,Supervisor,LLM 把安全规范译为 LTL 约束运行时强制（2023）
 c00306,Manipulate-Anything,Teacher,VLM 验证的真机示范生成（2024）
 gap:2407.02666,VLM-PC,Controller,足式机器人技能重规划（2024）
+gap:2610.10498,EmbodiedRSI,Developer,自进化 harness 按信息价值选择物理实验并修改代码与技能（10 月 7 日新论文）
+gap:2605.09494,LASSA,Controller,LLM 在故障时为 AUV 重规划，求解器否决不可行输出；湖上试验，覆盖水下
+gap:2609.37067,FACT,Designer,agent 用证据-诊断-修订循环构建铰接孪生（Real2Sim，未涉及机器人策略）
+gap:2608.24212,NeoWorld-Pro,Designer,MLLM 从单张图像写场景程序并依 Isaac Sim 任务结果修正（Real2Sim，仅仿真）
+gap:2609.39579,AVERT-VLN,Supervisor,微调 VLM 监控 VLN-CE 执行并在迷路时求助（仅仿真）
+gap:2602.05467,MerNav,Controller,记忆-执行-复查的零样本导航框架（Habitat 与人形）
+gap:2603.07997,CMMR-VLN,Controller,GPT-4o 导航 agent 的持续多模态记忆（主要在离散 R2R）
+gap:2610.10388,RoboQuest,Controller,RoboCasa365 上需要搜索与检查的移动操作 benchmark
+gap:2610.09764,AeroEval,Supervisor,LLM 验证者检查无人机任务代码与轨迹（仅仿真）
+gap:2610.09588,Adaptive Code Generation,Controller,LLM 写机器人程序，运行时触发器重新调用（Gazebo 四足）
