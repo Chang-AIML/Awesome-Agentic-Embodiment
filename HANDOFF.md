@@ -126,7 +126,7 @@
 
 **主线**：原主线「…loop closure, not weights, makes a carrier an agent」随决策 12 失效，草案改为「Agency spreads around the body — general models, not embodied action models, fill seat after seat」，待用户确认。副轴是否从 Carrier 换成 Interface 也待用户决定。
 
-**趋势**（`docs/core_stats.md` A 部分；下面的数字是覆盖补全之前的，补全后见该文件）：有效 seat 数 1.00（2022）→ 2.32（2023）→ 3.04（2024）→ 3.58（2025）→ 3.39（2026）；含 Controller 的论文占比 2023 年后在 63%–81%。覆盖补全之后 2022–2025 年也已判完收割到的全部候选，但它们仍只来自种子论文的引用邻域，所以仍以各年内部结构为主做比较。投稿前仍应按 `definition_draft.md` §10 做分层随机抽样验证。
+**趋势**（`docs/core_stats.md` A 部分，强模型判为 core 的 976 篇）：有效 seat 数 1.00（2022）→ 2.30（2023）→ 2.65（2024）→ 3.01（2025）→ 3.34（2026），覆盖补全后变成单调上升（补全前 2025 年的 3.58 高于 2026 年，是只收高被引论文造成的偏差）；以 Controller 为主 seat 或次 seat 的论文占比 87%（2023）→ 78% → 76% → 74%（2026），逐年下降但始终是多数。覆盖补全之后 2022–2025 年也已判完收割到的全部候选，但它们仍只来自种子论文的引用邻域，所以仍以各年内部结构为主做比较。投稿前仍应按 `definition_draft.md` §10 做分层随机抽样验证。
 
 ---
 

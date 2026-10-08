@@ -50,7 +50,7 @@ def main():
     fine = [r for r in csv.DictReader(open(os.path.join(ROOT, "data/core/fine_labels.csv")))
             if r["verdict"] == "core" and r.get("pass") in STRONG]
     print(f"## A. All core verdicts from strong-model passes (n = {len(fine)}; 2026 searched exhaustively, "
-          "2022-2025 only around the seeds and highly cited papers)\n")
+          "2022-2025 every harvested candidate judged, but harvested only around the seeds plus web gap searches)\n")
     seat_table(fine, year)
     rows = list(csv.DictReader(open(os.path.join(ROOT, "data/core/core_table.csv"))))
     core = [r for r in rows if r["tier"] == "core"]

@@ -148,6 +148,8 @@ def load():
             alls[y][s] += 1
     trend = []
     for y in sorted(n):
+        if not y.isdigit():  # a few judged papers have no known date ("????"); they are left out of the trend
+            continue
         tot = sum(alls[y].values())
         eff = math.exp(-sum(v / tot * math.log(v / tot) for v in alls[y].values() if v))
         trend.append(dict(year=y, n=n[y], prim=prim[y], alls=alls[y], eff=eff))
@@ -844,8 +846,8 @@ def build_html(fontdir):
     # ---------------------------------------------------------- 6 trends
     a('<div class="section"><h2>7　趋势证据</h2>')
     a(f'<p>核心表是按名额挑的，不能当趋势证据。所以下面用全部经 Sonnet 判定或复核为 core 的论文统计（{sum(x["n"] for x in trend)} 篇，'
-      f'年份取 arXiv 首版）。2026 年是全量检索（{t["2026"]["n"]} 篇），2022–2025 年只含种子邻域和高被引论文，'
-      '所以只看各年内部的结构，不比较绝对数量。</p>')
+      f'年份取 arXiv 首版）。2026 年是全量检索（{t["2026"]["n"]} 篇）；2022–2025 年收割到的候选也已全部判定，'
+      '但只来自种子论文的引用邻域和三轮联网补漏，没有像 2026 年那样做关键词检索，所以只看各年内部的结构，不比较绝对数量。</p>')
     a(f'<figure>{fig_share(trend)}<figcaption><b>图 8　各年份主 seat 的占比。</b>每篇论文按主 seat 计一次。'
       f'Controller 一直是多数；2026 年 Developer 占到 {pct(t["2026"]["prim"]["Developer"] / t["2026"]["n"])}。'
       '不足以放下标签的色块，数值见下表。</figcaption></figure>')
