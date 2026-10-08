@@ -45,7 +45,7 @@
 ```
 
 - 用户已确认四项框架决策（§5），正文版定义见 `docs/definition.md`；`docs/definition_draft.md` 降为附录和标注指南。
-- **Sonnet 判定与测试集判定的一致性**：测试集 CORE 的 68 篇中，66 篇被 Sonnet 判为 core；其中 64 篇主 seat 一致。Sonnet 对 CORE-P 和 B-loop 偏宽（CORE-P 50 篇中 40 篇判 core，B-loop 中 11 篇判 core），人工挑选时已按定义纠正。
+- **Sonnet 判定与测试集判定的一致性**：测试集 CORE 的 70 篇中，68 篇被 Sonnet 判为 core；其中 65 篇主 seat 一致。Sonnet 对 CORE-P 和 BOUNDARY 偏宽（CORE-P 52 篇中 42 篇判 core，BOUNDARY 98 篇中 11 篇判 core），人工挑选时已按定义纠正。
 
 ---
 
@@ -75,6 +75,7 @@
 | `scripts/build_core_table.py` | selection + fine_labels + gap → `data/core/core_table.csv`，检查重复和未知 id |
 | `scripts/fetch_metadata.py` | 用 arXiv API 核验每个 id 并取标题、v1 日期、作者、comment；用 S2 batch 取 venue 和被引数 → `data/core/core_meta.json` |
 | `scripts/build_readme.py` | 从 core_table + core_meta 生成 `README.md`（awesome list，英文），按 Seat 分节 |
+| `scripts/build_report.py` | 生成中文进展报告 `docs/progress_report.pdf`（12 页，7 张图）。图用内联 SVG / HTML 画，经 `scripts/print_pdf.cjs` 用 Playwright 的 Chromium 打印。字体 Noto Sans SC 首次运行时从 Google Fonts 下载到 `~/.cache/aae-report-fonts`；GitHub raw 在本环境被拦截 |
 | `data/definition/testset_papers.json` | 测试集论文（由 11 个方向的 agent 搜集），带 timing、role、locus 等工作标签 |
 | `data/definition/exemplar_research.json` | 对 GUAVA、ENPIRE、CaM、harness 的深入调研 |
 
@@ -123,7 +124,7 @@
 2. **严格闭环把奠基作降为 boundary** → 用户选 A：CaP、ZS-Planners、ProgPrompt、VoxPoser、KnowNo、ECoT、π0.5、SUDD 作为 precursor 进核心表。
 3. **Controller 占比过大** → 核心表中 Controller 拆为四个子章：编排型 11、直接驱动型 6、lifelong 4、训练过的 carrier 5。
 4. **趋势数字来自有偏的测试集** → 已在 214 篇 stage-2 core 上重算，见 `docs/core_stats.md` A 部分。主线的两个支撑仍然成立：
-   - **seat 增加**：有效 seat 数 1.00（2022）→ 2.67（2023）→ 3.14（2024、2025）→ 3.60（2026）；2026 年含 Developer 的论文占 25%（all-seat，27/108），2024 年以前为 0–5%。
+   - **seat 增加**：有效 seat 数 1.00（2022）→ 2.67（2023）→ 3.14（2024、2025）→ 3.60（2026）；2026 年含 Developer 的论文占 25%（all-seat，27/108）；2022–2023 年为 0，2024 年 11%（5/44，RoboMorph、InterPreT、LRLL 等），2025 年 3%（1/38）。
    - **没有迁移**：含 Controller coupling 的论文占比 2023–2026 年稳定在 71%–78%。
    - **注意**：判定池按影响力和新兴度取样，2026 年占一半，所以这仍不是独立随机样本。投稿前应按 `definition_draft.md` §10 的方案做分层随机抽样验证。
 
@@ -172,6 +173,7 @@ python3 scripts/fetch_metadata.py data/core/core_table.csv   # 新增 id 时运�
 python3 scripts/build_core_table.py      # 再跑一次，填入 v1 日期与被引数
 python3 scripts/build_readme.py          # → README.md
 python3 scripts/core_stats.py > docs/core_stats.md
+python3 scripts/build_report.py         # → docs/progress_report.pdf
 ```
 
 **待用户审阅**
