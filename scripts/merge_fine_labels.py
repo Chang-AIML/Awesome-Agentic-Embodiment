@@ -31,7 +31,11 @@ def norm_arxiv(a):
 
 
 def main():
-    pool = {o["id"]: o for o in map(json.loads, open(os.path.join(ROOT, "data/core/pool.jsonl")))}
+    pool = {}
+    for name in ("pool.jsonl", "pool_bulk.jsonl"):  # first pool + bulk pool (build_bulk_pool.py)
+        path = os.path.join(ROOT, "data/core", name)
+        if os.path.exists(path):
+            pool.update({o["id"]: o for o in map(json.loads, open(path))})
     ts = {norm_arxiv(r["arxiv_id"]): r for r in
           csv.DictReader(open(os.path.join(ROOT, "docs/definition_testset_placements.csv")))}
     got, bad = {}, []
@@ -56,7 +60,7 @@ def main():
             if errs:
                 bad.append((os.path.basename(path), f"{row['id']} bad {errs}: " + "|".join(row[k] for k in errs)))
             got[row["id"]] = row  # last judgment wins (re-runs append)
-    missing = sorted(set(pool) - set(got))
+    missing = sorted(set(pool) - set(got))  # ids of a pool whose shards are still running show up here
     out = []
     for i, row in sorted(got.items()):
         p = pool[i]
