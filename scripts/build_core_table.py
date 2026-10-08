@@ -2,8 +2,9 @@
 """Join the hand-curated selection with stage-2 labels into the core table.
 
 Inputs:
-  data/core/core_selection.csv   curated rows: id, key, tier, seat, sub, carrier, why[, arxiv, loop]
-                                 (seat/sub/carrier/loop here override the stage-2 labels)
+  data/core/core_selection.csv   curated rows: id, key, tier, seat, sub, carrier, why[, arxiv, loop, theme, added]
+                                 (seat/sub/carrier/loop/theme here override the stage-2 labels;
+                                 added = the round that brought the row in, e.g. r3)
   data/core/fine_labels.csv      stage-2 labels for pool ids (c*/t*/seed:*)
   data/core/gap_candidates.jsonl, data/core/gap2_candidates.jsonl
                                  gap-fill papers, referenced as id `gap:<arxiv>`
@@ -16,7 +17,7 @@ import csv, json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 COLS = ["key", "tier", "theme", "seat", "seat2", "sub", "carrier", "interface", "topo", "loop", "closure", "body",
-        "title", "arxiv", "date", "citations", "rep", "id", "source", "why"]
+        "title", "arxiv", "date", "citations", "rep", "id", "source", "why", "added"]
 
 
 def norm_arxiv(a):
@@ -72,6 +73,7 @@ def main():
         row = {c: base.get(c, "") for c in COLS}
         for c in ("key", "tier", "why"):
             row[c] = s[c]
+        row["added"] = s.get("added") or ""
         for c in ("seat", "sub", "carrier", "loop", "theme"):
             if s.get(c):
                 row[c] = s[c]

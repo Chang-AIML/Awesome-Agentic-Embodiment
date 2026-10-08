@@ -32,7 +32,7 @@ def norm_arxiv(a):
 
 def main():
     pool = {}
-    for name in ("pool.jsonl", "pool_bulk.jsonl"):  # first pool + bulk pool (build_bulk_pool.py)
+    for name in ("pool.jsonl", "pool_bulk.jsonl", "pool_s2.jsonl"):  # first pool, bulk pool, S2 sweep pool
         path = os.path.join(ROOT, "data/core", name)
         if os.path.exists(path):
             pool.update({o["id"]: o for o in map(json.loads, open(path))})

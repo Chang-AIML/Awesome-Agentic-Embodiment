@@ -2,8 +2,9 @@
 """Fetch metadata for core papers: arXiv (exact title, v1 date, authors, comment, links) and
 Semantic Scholar (venue, citation count). Verifies that every arXiv id exists.
 
-Usage: python3 scripts/fetch_metadata.py data/core/core_selection.csv
-       (reads the `arxiv` column; writes data/core/core_meta.json keyed by arXiv id)
+Usage: python3 scripts/fetch_metadata.py [--refresh] <csv> [<csv> ...]
+       (reads the `arxiv` column; writes data/core/core_meta.json keyed by arXiv id; ids already
+       verified there are kept unless --refresh, so re-runs only query new ids)
 Set SEMANTIC_SCHOLAR_API_KEY to use a key; keyless requests retry on 429.
 """
 import csv, json, os, re, sys, time, urllib.parse, urllib.request
@@ -24,15 +25,17 @@ def norm_arxiv(a):
 def arxiv_batch(ids):
     url = "https://export.arxiv.org/api/query?" + urllib.parse.urlencode(
         {"id_list": ",".join(ids), "max_results": len(ids)})
-    for attempt in range(6):
+    for attempt in range(8):  # the API rate-limits shared IPs (429); back off, then give up on this batch
         try:
             with urllib.request.urlopen(url, timeout=60) as r:
                 root = ET.fromstring(r.read())
             break
-        except Exception:
-            time.sleep(3 * (attempt + 1))
+        except Exception as e:
+            print("  arXiv retry", attempt, e, file=sys.stderr)
+            time.sleep(min(10 * (attempt + 1), 60))
     else:
-        raise RuntimeError("arXiv API unreachable")
+        print("  arXiv batch failed; ids stay unverified until a re-run:", ",".join(ids), file=sys.stderr)
+        return {}
     out = {}
     for e in root.findall("a:entry", NS):
         aid = norm_arxiv(e.findtext("a:id", "", NS).rsplit("/abs/", 1)[-1])
@@ -69,8 +72,12 @@ def s2_batch(ids):
 
 
 def main():
-    rows = list(csv.DictReader(open(sys.argv[1])))
-    ids = sorted({norm_arxiv(r["arxiv"]) for r in rows if norm_arxiv(r.get("arxiv"))})
+    args = [a for a in sys.argv[1:] if a != "--refresh"]
+    rows = [r for p in args for r in csv.DictReader(open(p))]
+    path = os.path.join(ROOT, "data/core/core_meta.json")
+    old = {} if "--refresh" in sys.argv or not os.path.exists(path) else json.load(open(path))
+    want = sorted({norm_arxiv(r["arxiv"]) for r in rows if norm_arxiv(r.get("arxiv"))})
+    ids = [i for i in want if not old.get(i, {}).get("verified")]
     meta = {}
     for k in range(0, len(ids), 20):
         meta.update(arxiv_batch(ids[k:k + 20]))
@@ -78,7 +85,7 @@ def main():
     s2 = {}
     for k in range(0, len(ids), 400):
         s2.update(s2_batch(ids[k:k + 400]))
-    out = {}
+    out = dict(old)
     for i in ids:
         m = meta.get(i)
         s = s2.get(i, {})
@@ -86,10 +93,9 @@ def main():
                       venue_name=(s.get("publicationVenue") or {}).get("name", ""),
                       citations=s.get("citationCount"), s2_date=s.get("publicationDate") or "",
                       dblp=(s.get("externalIds") or {}).get("DBLP", ""))
-    path = os.path.join(ROOT, "data/core/core_meta.json")
     json.dump(out, open(path, "w"), indent=1, ensure_ascii=False)
-    bad = [i for i, v in out.items() if not v["verified"]]
-    print(f"{len(out)} ids, arXiv-verified {len(out) - len(bad)}, S2 hits {len(s2)} -> {path}")
+    bad = [i for i in want if not out[i]["verified"]]
+    print(f"{len(want)} ids ({len(ids)} queried), arXiv-verified {len(want) - len(bad)}, S2 hits {len(s2)} -> {path}")
     if bad:
         print("NOT FOUND on arXiv:", " ".join(bad))
 
