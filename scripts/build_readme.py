@@ -173,7 +173,8 @@ def main():
             "Agents whose main task is navigation: vision-and-language navigation in continuous environments or on real "
             "robots, object-goal and instance navigation, long-range exploration. 2026 papers are evaluated in continuous "
             "simulation (e.g. Habitat VLN-CE) or on real robots; earlier agents on the discrete R2R graph appear only "
-            "among the pioneers below.", "", head] + [row_md(r, meta) for r in sorted(vln, key=sort_key)] + [""]
+            "among the pioneers below. Seats are kept, so the chapter mixes Controllers with a few Teachers and Designers.", "",
+            seat_head] + [seat_row_md(r, meta) for r in sorted(vln, key=sort_key)] + [""]
     if vln_pio:
         out += ["**Earlier VLN agents (pioneers, 2023–2025).**", "", seat_head] + \
                [seat_row_md(r, meta) for r in sorted(vln_pio, key=sort_key)] + [""]

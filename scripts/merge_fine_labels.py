@@ -7,7 +7,8 @@ Re-judging runs add a loop field before the reason (14 fields):
 where loop is re-decide / authored / none (criteria_fine.md step A.3). Rows without it get
 re-decide for core and none for precursor (the strict first pass only admitted re-decision).
 `pass` is the shard directory a judgment came from; when a later directory re-judges a paper,
-`prev` keeps the earlier `pass:verdict` (e.g. bulk:core) so verification agreement can be measured.
+`prev` keeps the earlier judgments as a `;`-separated chain of `pass:verdict`, oldest first
+(e.g. bulk:core;verify:precursor), so verification agreement can be measured.
 Validates enums and completeness against data/core/pool.jsonl, and joins pool metadata plus the
 definition test-set placement (matched by arXiv id) for comparison.
 
@@ -70,8 +71,8 @@ def main():
             if errs:
                 bad.append((os.path.basename(path), f"{row['id']} bad {errs}: " + "|".join(row[k] for k in errs)))
             old = got.get(row["id"])
-            if old and old["pass"] != row["pass"]:  # a later pass re-judged it: keep the earlier verdict
-                row["prev"] = f"{old['pass']}:{old['verdict']}"
+            if old and old["pass"] != row["pass"]:  # a later pass re-judged it: append the earlier verdict to the chain
+                row["prev"] = ";".join(x for x in (old.get("prev", ""), f"{old['pass']}:{old['verdict']}") if x)
             else:
                 row["prev"] = (old or {}).get("prev", "")
             got[row["id"]] = row  # last judgment wins (re-runs append)

@@ -55,6 +55,11 @@ def year_of(r):
     return "20" + m.group(1) if m else (r.get("date") or "????")[:4]
 
 
+def hist(r):
+    """Judgment history of a paper, oldest first: [(pass, verdict), ...] from the prev chain plus the current row."""
+    return [tuple(x.split(":", 1)) for x in (r.get("prev") or "").split(";") if x] + [(r.get("pass"), r["verdict"])]
+
+
 def load():
     p = lambda *x: os.path.join(ROOT, *x)
     rows = list(csv.DictReader(open(p("data/core/core_table.csv"))))
@@ -78,30 +83,37 @@ def load():
         n_cand = sum(1 for _ in csv.reader(f)) - 1
     coarse = Counter(r["label"] for r in csv.DictReader(open(p("data/screening/coarse_labels.csv"))))
     src = Counter(o["source"].split(";")[0] for o in pool)
-    re_rows = [r for r in fine if r.get("pass") == "recheck"]
+    re_rows = [r for r in fine if any(p_ == "recheck" for p_, _ in hist(r))]
+    re_core = [r for r in re_rows if dict(hist(r))["recheck"] == "core"]
     # round 3: bulk pool (every 2026 harvest candidate), S2 keyword sweep, strong-model verification
     n_bulk = sum(1 for _ in open(p("data/core/pool_bulk.jsonl")))
     s2_rows = sum(1 for _ in open(p("data/candidates/s2_sweep_2026.jsonl")))
     s2_lab = Counter(r["label"] for r in csv.DictReader(open(p("data/candidates/s2_coarse_2026.csv"))))
     n_s2pool = sum(1 for _ in open(p("data/core/pool_s2.jsonl")))
-    ver = [r for r in fine if r.get("pass") in ("verify", "verify_s2") and r.get("prev")]
+    ver, ver_core, ver_core_kept = [], 0, 0  # Sonnet verification of cheap-model verdicts (the step before it is Haiku's)
+    for r in fine:
+        h = hist(r)
+        k = next((i for i, (p_, _) in enumerate(h) if p_ in ("verify", "verify_s2")), None)
+        if k:
+            ver.append(r)
+            ver_core += h[k - 1][1] == "core"
+            ver_core_kept += h[k - 1][1] == "core" and h[k][1] == "core"
     r3b = [r for r in fine if r.get("pass") == "recheck_r3b"]  # ReKep-type and agentic Real2Sim re-judged as agents
-    ver_core = [r for r in ver if r["prev"].endswith(":core")]
     strong26 = [r for r in fine if r["verdict"] == "core" and r.get("pass") in STRONG and year_of(r) == "2026"]
     ep = p("data/core/extended_2026.csv")
     n_ext = sum(1 for _ in csv.DictReader(open(ep))) if os.path.exists(ep) else 0
     c = dict(records=CITATION_RECORDS, cand=n_cand, prefilter=sum(coarse.values()), relevant=coarse["relevant"],
              maybe=coarse["maybe"], pool=len(pool), shortlist=len(pool) - src["supplement"] - src["testset"],
              supplement=src["supplement"], testset=src["testset"], verdict=Counter(r["verdict"] for r in fine),
-             recheck=len(re_rows), recheck_core=sum(1 for r in re_rows if r["verdict"] == "core"),
-             recheck_authored=sum(1 for r in re_rows if r["verdict"] == "core" and r["loop"] == "authored"),
+             recheck=len(re_rows), recheck_core=len(re_core),
+             recheck_authored=sum(1 for r in re_core if r["pass"] == "recheck" and r["loop"] == "authored"),
              gap1=len(gaps.get("gap_candidates.jsonl", {})), gap2=len(gaps.get("gap2_candidates.jsonl", {})),
              tier=Counter(r["tier"] for r in rows), seat=Counter(r["seat"] for r in rows if r["tier"] == "core"),
              verified=sum(1 for r in rows if meta.get(r["arxiv"], {}).get("verified")),
              links=sum(1 for r in rows if re.search(r"https?://", meta.get(r["arxiv"], {}).get("comment", ""))),
              new=sum(1 for r in rows if r["new"]), bulk=n_bulk, s2=s2_rows, s2_screen=sum(s2_lab.values()),
              s2_keep=s2_lab["relevant"] + s2_lab["maybe"], s2_pool=n_s2pool, judged=len(fine),
-             ver=len(ver), ver_core=len(ver_core), ver_core_kept=sum(1 for r in ver_core if r["verdict"] == "core"),
+             ver=len(ver), ver_core=ver_core, ver_core_kept=ver_core_kept,
              strong26=len(strong26), ext=n_ext, r3b=len(r3b), r3b_core=sum(1 for r in r3b if r["verdict"] == "core"),
              r3b_con=sum(1 for r in r3b if r["verdict"] == "core" and r["interface"] == "constraint"),
              r3b_r2s=sum(1 for r in r3b if r["verdict"] == "core" and re.match(r"\s*\[real2sim", r["reason"])))
@@ -123,9 +135,9 @@ def load():
     # agreement with the first-round test-set placements (first pass only)
     agree = defaultdict(Counter)
     for r in fine:
-        if r["testset_tier"] and r.get("pass") == "out":  # rows re-judged later (recheck, recheck_r3b) are left out
-            agree[r["testset_tier"].split(" ")[0]][r["verdict"]] += 1
-    both = [r for r in fine if r["testset_tier"] == "CORE" and r["verdict"] == "core"]
+        if r["testset_tier"] and hist(r)[0][0] == "out":  # the first stage-2 pass, before any re-judging
+            agree[r["testset_tier"].split(" ")[0]][hist(r)[0][1]] += 1
+    both = [r for r in fine if r["testset_tier"] == "CORE" and hist(r)[0] == ("out", "core") and r["verdict"] == "core"]
     seat_same = sum(1 for r in both if r["testset_primary"].split("-")[0].split(" ")[0] == r["seat"])
     alt = []
     fine_by_id = {r["id"]: r for r in fine}
@@ -280,7 +292,7 @@ def fig_flow():
         y += 88
     b.append(box(20, y, 330, 64, "全部满足", ["arXiv 首版在 2026 年 → CORE（按 Seat 分节）", "2022–2025 年的代表作 → 先驱"],
                  fill=tint(COLOR["Controller"], 0.12), stroke=COLOR["Controller"]))
-    return svg(W, y + 70, "".join(b), "agent 判定流程图")
+    return svg(W, y + 70, "".join(b), "agent 判定流程图", width="88%")
 
 
 def fig_seats(rows):
@@ -359,8 +371,8 @@ def lanes_core():
 def fig_quarters(rows):
     qs = [("1", "Q1 · 1–3 月"), ("2", "Q2 · 4–6 月"), ("3", "Q3 · 7–9 月"), ("4", "Q4 · 10 月")]
     q = lambda r: str((int(r["date"][5:7]) - 1) // 3 + 1) if len(r["date"]) >= 7 else "1"
-    out = ['<table class="matrix"><colgroup><col style="width:14%"><col style="width:17%"><col style="width:20%">'
-           '<col style="width:33%"><col style="width:16%"></colgroup><tr><th></th>']
+    out = ['<table class="matrix"><colgroup><col style="width:14%"><col style="width:18%"><col style="width:20%">'
+           '<col style="width:29%"><col style="width:19%"></colgroup><tr><th></th>']
     out += [f"<th>{t}</th>" for _, t in qs] + ["</tr>"]
     for label, seat, f in lanes_core():
         xs = [r for r in rows if f(r)]
@@ -506,7 +518,8 @@ def table_core(rows, title, pred, show_seat=False):
         return ""
     third = ("Seat", lambda r: r["seat"]) if show_seat else ("会议", lambda r: r["venue"])
     out = [f'<h3>{esc(title)}（{len(xs)}）</h3><table class="tbl"><colgroup><col style="width:15%"><col style="width:6.5%">'
-           '<col style="width:8%"><col style="width:6%"><col style="width:8%"><col style="width:7%"><col style="width:13%"><col>'
+           f'<col style="width:{10 if show_seat else 8}%"><col style="width:6%"><col style="width:8%"><col style="width:7%">'
+           '<col style="width:13%"><col>'
            f'</colgroup><tr><th>短名</th><th>月份</th><th>{third[0]}</th><th>Carrier</th><th>接口</th><th>闭环</th><th>身体</th>'
            '<th>入选理由</th></tr>']
     for r in xs:
@@ -602,6 +615,7 @@ table { border-collapse: collapse; width: 100%; }
 .matrix .lsub { color: #52514e; margin-left: 12pt; font-size: 7.4pt; }
 .chip { display: inline-block; line-height: 1.3; padding: 1.2pt 4pt 1.2pt 4pt; margin: 1.3pt 2pt 1.3pt 0; font-size: 7.3pt;
         border-radius: 3px; border-left: 3px solid var(--c); background: color-mix(in srgb, var(--c) 13%, white); white-space: nowrap; }
+.matrix .chip { white-space: normal; max-width: 100%; box-sizing: border-box; }
 .chip.au { background: #ffffff; box-shadow: inset 0 0 0 1px var(--c); }
 .chip.op { background: #ffffff; color: #52514e; border-left: 3px dashed var(--c); box-shadow: inset 0 0 0 1px #d6d4cc; }
 .chip .cy { color: #898781; margin-left: 3pt; font-size: 6.6pt; }
@@ -633,7 +647,8 @@ def build_html(fontdir):
     vln = [r for r in core if r.get("theme") == "vln"]
     vln_pio = [r for r in pio if r.get("theme") == "vln"]
     res = [r for r in rows if r["tier"] == "resource"]
-    sub = Counter(r["sub"] for r in core if r["seat"] == "Controller")
+    sub = Counter(r["sub"] for r in core if r["seat"] == "Controller" and not r.get("theme"))
+    themed_ctl = sum(1 for r in core if r["seat"] == "Controller" and r.get("theme"))
     n_core, n_pio, n_res = len(core), len(pio), len(res)
     t = {x["year"]: x for x in trend}
     dev = {y: x["alls"]["Developer"] / x["n"] for y, x in t.items()}
@@ -734,10 +749,9 @@ def build_html(fontdir):
       '重建结果用于机器人学习、数据生成或评测。没有基础模型做决策的重建方法（Gaussian splatting、NeRF、经典辨识）仍不算。</p>'
       f'<p class="small" style="margin:0">2026 核心中开环的 {len(open_core)} 篇'
       + (f'：{"、".join(r["key"] for r in open_core[:8])}{"等" if len(open_core) > 8 else ""}' if open_core else '') + '。</p></div>')
-    a('<h3>三个常见误区</h3><ul>'
-      '<li><b>RL 微调不等于 agency</b>：SimpleVLA-RL 一类判 OUT，因为没有显式决策。</li>'
-      '<li><b>架构内的 memory 不等于 agency</b>：MemoryVLA 一类判 OUT。agent 自己读写的 memory 才计入。</li>'
-      '<li><b>多机器人不等于 multi-agent</b>：一个 LLM 调度多台机器人（SMART-LLM），topology 记为 1:N。</li></ul>')
+    a('<p class="small"><b>三个常见误区</b>：RL 微调不等于 agency（SimpleVLA-RL 一类没有显式决策，判 OUT）；'
+      '架构内的 memory 不等于 agency（MemoryVLA 一类判 OUT，agent 自己读写的 memory 才计入）；'
+      '多机器人不等于 multi-agent（一个 LLM 调度多台机器人，如 SMART-LLM，topology 记为 1:N）。</p>')
     a('</div>')
 
     # ---------------------------------------------------------- 3 taxonomy
@@ -758,7 +772,8 @@ def build_html(fontdir):
     a('<div class="section"><h2>4　2026 年核心论文全景</h2>')
     a(f'<p>{n_core} 篇 2026 年核心论文按 seat 和季度排开（Q1 {q["1"]}、Q2 {q["2"]}、Q3 {q["3"]}、Q4 {q["4"]} 篇）。'
       f'Controller 拆为四个子章：编排型 {sub["orchestrator"]}、直接驱动型 {sub["direct"]}、lifelong / memory 型 {sub["lifelong"]}、'
-      f'训练过的 carrier {sub["trained"]}。完整表格见附录 A。</p>')
+      f'训练过的 carrier {sub["trained"]}，另有 {themed_ctl} 篇 Controller 在 Real2Sim 与 VLN 两章。'
+      '图中按 seat 列出全部 2026 年核心论文（◆ / △ 标出两个专题章），完整表格见附录 A。</p>')
     a(f'<figure>{fig_quarters(rows)}<figcaption><b>图 5　2026 年核心论文按 Seat 与季度分布。</b>下半年明显加速；'
       'Developer 和 lifelong 型 Controller 几乎都出现在 Q3 以后，对应 coding agent 和 harness 进化的浪潮。</figcaption></figure>')
     a('<h3>先驱：2022–2025</h3>')
@@ -787,7 +802,7 @@ def build_html(fontdir):
     if vln_pio:
         a('<p class="small"><b>先驱：</b>' + "".join(chip(r, MUTED, year=True) for r in sorted(vln_pio, key=lambda r: r["date"]))
           + '</p>')
-    a(table_core(rows, "VLN 与具身导航 · 2026", lambda r: r["tier"] == "core" and r.get("theme") == "vln"))
+    a(table_core(rows, "VLN 与具身导航 · 2026", lambda r: r["tier"] == "core" and r.get("theme") == "vln", show_seat=True))
     a('</div>')
 
     # ---------------------------------------------------------- 6 trends
