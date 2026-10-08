@@ -33,13 +33,13 @@ def norm_arxiv(a):
 def fetch(query, start, n):
     url = "https://export.arxiv.org/api/query?" + urllib.parse.urlencode(
         {"search_query": query, "start": start, "max_results": n, "sortBy": "submittedDate", "sortOrder": "ascending"})
-    for attempt in range(8):
+    for attempt in range(12):  # the API rate-limits shared IPs hard (429); back off patiently
         try:
-            with urllib.request.urlopen(url, timeout=120) as r:
+            with urllib.request.urlopen(url, timeout=180) as r:
                 return ET.fromstring(r.read())
         except Exception as e:
             print("  retry", attempt, e, file=sys.stderr)
-            time.sleep(5 * (attempt + 1))
+            time.sleep(min(30 * (attempt + 1), 180))
     raise RuntimeError("arXiv API failed")
 
 
@@ -76,7 +76,7 @@ def main():
                                 abstract=re.sub(r"\s+", " ", e.findtext("a:summary", "", NS)).strip(),
                                 cid=known.get(aid, "")))
             print(f"  {name} {start + args.page}/{total} -> {len(out)} unique", file=sys.stderr)
-            time.sleep(3)
+            time.sleep(6)
     if args.count_only:
         return
     with open(args.out, "w") as f:
