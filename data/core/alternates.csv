@@ -14,7 +14,6 @@ c00969,RobotUse,Controller,计算、上下文与决策的分配；playbook 依�
 c01487,Local Recovery Supervision,Teacher,教师 agent 在失败状态生成恢复示范
 c00123,Agent-Guided RL,Teacher,多模态 agent 代替人类监督真机 RL
 s07174,EmbodiRSI,Teacher,递归自改进的纠正轨迹生成（Real2Sim2Real）
-c08743,SAGE,Designer,agentic 3D 场景生成（56 引）；与 SceneSmith 同类
 s06252,DeformSmith,Designer,可变形资产的几何与物理参数生成
 c10169,EmbodiedGen V2,Designer,agentic 仿真 3D 世界引擎
 c07486,Agentic Robotics Loop,Developer,训练-评测-改进事务循环
@@ -31,7 +30,6 @@ c04301,PerceptTwin,Controller,感知地图重建仿真供 LLM 迭代规划（Rea
 s06573,LiteReality-Agent,Designer,coding agent 重建可交互室内场景（Real2Sim）
 s01084,DiagGen,Designer,仿真诊断驱动的可变形资产生成
 c09424,SimFoundry,Designer,自动化数字孪生场景生成；摘要未写明基础模型的决策角色
-c01426,HarnessVLN,Controller,训练无关的 VLN harness；与 AgenticNav 等同类
 t298,NavHarness,Controller,终身导航 harness
 c07802,Contextual Uncertainty,Controller,Spot 上主动消解模糊任务的 LLM 策略
 s03025,EvolveNav,Controller,ObjectNav 的自进化 memory
@@ -46,3 +44,5 @@ gap:2603.07997,CMMR-VLN,Controller,GPT-4o 导航 agent 的持续多模态记忆�
 gap:2610.10388,RoboQuest,Controller,RoboCasa365 上需要搜索与检查的移动操作 benchmark
 gap:2610.09764,AeroEval,Supervisor,LLM 验证者检查无人机任务代码与轨迹（仅仿真）
 gap:2610.09588,Adaptive Code Generation,Controller,LLM 写机器人程序，运行时触发器重新调用（Gazebo 四足）
+c10995,QD Red-Teaming,Designer,VLM 只是固定质量多样性搜索里的变异算子，范围重判后降为前驱
+t328,AllDayNav,Designer,主体是用离线 RL 精调 VLA 导航策略，VLM 只写 memory 与自提任务；范围重判后降为前驱

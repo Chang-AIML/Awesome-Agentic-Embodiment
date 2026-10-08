@@ -49,7 +49,7 @@ c00812,RF-Agent,core,Designer,-,G,LLM agent 用蒙特卡洛树搜索迭代写、
 c11104,RDA,core,Designer,-,G,VLM agent 观看轨迹、总结失败模式并迭代修改奖励,,,,r3
 c12114,ROOT,core,Designer,-,G,在奖励程序、策略与 rollout 的持久实验树上搜索奖励，实现用户指定的足式行为,,,,r3
 s10781,SceneSmith,core,Designer,-,G,设计者、评审与编排三个 VLM agent 迭代搭建可仿真的室内场景，供机器人学习与评测（47 引）,,,,r3
-c10995,QD Red-Teaming,core,Designer,-,G,VLM 驱动的质量多样性搜索依 VLA 失败生成对抗指令；评测套件型 Designer,,,,r3
+c08743,SAGE,core,Designer,-,G,agent 调用布局与物体生成器和评审，迭代产出可仿真的 3D 场景（56 引）,,,,r3
 c00802,ENPIRE,core,Developer,-,G,用户点名：多个 coding agent 修改策略与训练代码，真机试验决定保留或回滚,,,,
 c00371,ASPIRE,core,Developer,-,G,coding agent 编写并精炼控制程序，从执行轨迹诊断失败，验证后入技能库（56 引）,,,,
 c00138,RHO,core,Developer,-,G,coding agent 依奖励与执行反馈搜索修改多文件策略代码库,,,,
@@ -80,14 +80,14 @@ c00362,GPT-6-Astra XLeRobot,core,Controller,lifelong,G,GPT-6-Astra 写控制程�
 s09723,GaP,core,Developer,-,G,多 agent coding harness 把机器人策略写成计算图，在仿真中自学习改进后部署到真机（Graph-as-Policy）,,,real2sim2real,r3
 gap:2610.10479,Agentic RSR,core,Developer,-,G,agent 从工作区视频恢复尺度、依视觉反馈迭代重建 MuJoCo 场景，coding agent 再开发策略并回到真机；Real2Sim2Real 全链路,,,real2sim2real,r3
 c01104,AgenticNav,core,Controller,direct,G,VLM 在 harness 中调用动作、深度与 memory 工具，带着自己的推理历史选择目标像素；VLN-CE 闭环,,,vln,r3
+c01426,HarnessVLN,core,Controller,orchestrator,G,训练无关的 MLLM 规划提案经 harness 验证，执行反馈更新 memory 与拓扑图，统一多种导航任务,,,vln,r3
 c06679,Embodied Agents Take Control,core,Controller,direct,G,通用 coding-agent harness 掌管每一步导航动作并自我纠错，零样本可比工业级系统,,,vln,r3
 c04069,ASENA,core,Controller,lifelong,G,coding agent 写并运行程序、调用导航 VLA 工具、检查结果并修复，经验随任务积累,,,vln,r3
 s03802,One Agent to Guide Them All,core,Controller,direct,G,MLLM 在可交互的度量世界表示上推理并做反事实检查，统一多种 VLN 任务，仿真与真机,,,vln,r3
 s11144,HAM-VLN,core,Controller,direct,G,MLLM 选择下一个路点并写分层 memory（含失败记录），后续调用再读入,,,vln,r3
 s06980,OnFly,core,Controller,direct,G,机载零样本空中 VLN：一个 VLM 生成导航目标，另一个依关键帧监控进度与安全；覆盖无人机,,,vln,r3
-s05277,AgentVLN,core,Controller,trained,C,训练过的 VLM 作大脑调用导航技能库，带自我纠错与主动探索（C）,,,vln,r3
+s05277,AgentVLN,core,Controller,orchestrator,C,训练过的 VLM 作大脑调用导航技能库，带自我纠错与主动探索（C）,,,vln,r3
 c03976,LocalNav,core,Teacher,-,G→C,前沿 VLM 导航 agent 轨迹蒸馏到端侧 4B VLM；覆盖 nav 的 Teacher,,,vln,
-t328,AllDayNav,core,Designer,-,G,真机终身导航 RL：VLM 写 memory 描述、自提任务并检索视觉目标，持续出题,,,vln,r3
 c06226,RoboFind,core,Controller,orchestrator,G,导航、验证、恢复三个 agent 驱动四足为视障用户找物，验证候选并触发恢复,,,vln,r3
 c05659,NORM-Nav,core,Controller,direct,G,约束编程类导航：LLM 把指令解析成结构化行为约束，依实时感知落成代价地图层由规划器执行并在线重规划,,,vln,r3
 s11075,Air-Ground VLN,core,Controller,orchestrator,G,无人机与地面车的 VLM 在共享鸟瞰地图上推理并互相下发子目标，空地协同 VLN；×N 拓扑,,,vln,r3

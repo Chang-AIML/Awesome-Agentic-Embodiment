@@ -46,16 +46,18 @@
                  · Haiku：批量池与 S2 池；其 core / 前驱 / 边界共 929 篇由 Sonnet 从头复核
                    （Haiku 判 core 的 383 篇中 290 篇维持 core）
                  · Sonnet：按「ReKep 这一类都算」「agentic Real2Sim 都算」重判 658 篇，62 篇改判 core
-                 → 强模型判为 core 的 2026 年论文 481 篇
-                  └─ 人工挑选 + 联网补漏 → 2026 核心 96 + 先驱 34 + 资源 20       data/core/core_selection.csv
+                 · Sonnet：按「只收通用大模型」重判 324 篇（训练过的决策者、涉及 VLA / WAM 的），148 篇排除
+                 → 强模型判为 core 的 2026 年论文 460 篇
+                  └─ 人工挑选 + 联网补漏 → 先驱 46 + 2026 年 93 + 资源 19          data/core/core_selection.csv
                       ├─ 核心表（全部经 arXiv 核验）                           data/core/core_table.csv、core_meta.json
-                      ├─ 未入表的 2026 年 core 404 篇                           data/core/extended_2026.csv
-                      ├─ 候补 54 篇（因名额没收）                              data/core/alternates.csv
+                      ├─ 未入表的 2026 年 core 387 篇                           data/core/extended_2026.csv
+                      ├─ 候补 47 篇（因名额没收）                              data/core/alternates.csv
                       └─ awesome list 与中文进展报告                           README.md、docs/progress_report.pdf
 ```
 
 - `fine_labels.csv` 的 `pass` 列是判定轮次：`out`（第一轮 Sonnet，名字沿用当时的分片目录名）、`recheck`（编写闭环复核）、`bulk` / `s2`（Haiku）、`verify` / `verify_s2`（Sonnet 复核）、`recheck_r3b`（新规则重判）。`prev` 列保留更早的判定链，如 `bulk:core;verify:precursor`。**统计和扩展列表只用强模型轮次**（`out`、`recheck`、`verify`、`verify_s2`、`recheck_r3b`）。
-- 2026 年核心 96 篇按章：Controller 编排型 11、直接驱动型 11、lifelong 6、训练过的 carrier 6；Supervisor 8；Teacher 6；Designer 6；Developer 11；Real2Sim / Sim2Real 章 18；VLN 章 13。按 seat 合计（含两个专题章）：Controller 46、Supervisor 8、Teacher 10、Designer 15、Developer 17。
+- 按章（先驱 / 2026）：Controller 编排型 14 / 13、直接驱动型 9 / 12、lifelong 1 / 6；Supervisor 4 / 8；Teacher 3 / 6；Designer 6 / 6；Developer 2 / 11；Real2Sim / Sim2Real 3 / 18；VLN 4 / 13。按 seat 合计（含两个专题章）：先驱 Controller 28、Designer 9、Supervisor 4、Teacher 3、Developer 2；2026 年 Controller 44、Developer 17、Designer 14、Teacher 10、Supervisor 8。
+- `pass` 列新增 `recheck_scope`（决策 12 的范围重判），理由以 `[embodied-FM]` 开头的是因具身大模型被排除的。
 - 第二轮联网补漏（两个 Sonnet agent，arXiv API 全年扫描 + WebSearch）找到 25 篇不在任何池里的论文，多为 10 月 5–8 日的新论文，见 `data/core/gap2_candidates.jsonl`。其中 Robo-COP、PhysEvo、LACE-CRAFT、Agentic RSR、HaltNav 进核心表，RobotWorld 与 GPT-6-Astra 的 VLN-CE 评测进资源表，其余进候补或扩展列表。补漏 agent 的结论是：除最近一周外，现有候选对 2026 年已接近饱和。
 
 ---
@@ -112,7 +114,7 @@
 
 **主线**：原主线「…loop closure, not weights, makes a carrier an agent」随决策 12 失效，草案改为「Agency spreads around the body — general models, not embodied action models, fill seat after seat」，待用户确认。副轴是否从 Carrier 换成 Interface 也待用户决定。
 
-**趋势**（`docs/core_stats.md` A 部分，强模型判为 core 的 625 篇）：有效 seat 数 1.00（2022）→ 2.29（2023）→ 3.02（2024）→ 3.30（2025）→ 3.27（2026）；含 Controller 的论文占比 2023 年后在 65%–82%。2026 年是全量检索，2022–2025 年只含种子邻域与高被引论文，所以只比较各年内部结构。投稿前仍应按 `definition_draft.md` §10 做分层随机抽样验证。
+**趋势**（`docs/core_stats.md` A 部分，范围重判后强模型判为 core 的 589 篇）：有效 seat 数 1.00（2022）→ 2.32（2023）→ 3.04（2024）→ 3.58（2025）→ 3.39（2026）；含 Controller 的论文占比 2023 年后在 63%–81%。2026 年是全量检索，2022–2025 年只含种子邻域与高被引论文，所以只比较各年内部结构。投稿前仍应按 `definition_draft.md` §10 做分层随机抽样验证。
 
 ---
 
@@ -134,7 +136,7 @@
 
 8. **ReKep 这一类都算 agent**：约束 / 关键点编程类一律收录，一次求解的记开环。
 9. **agentic Real2Sim 都算**：agent 重建机器人操作场景（3D 场景、资产、铰接、物理参数、仿真代码）的工作直接进核心，归 Designer（之后改进解法的归 Developer）。
-10. **约 120 篇**（不是硬指标），聚焦 2026；2022–2025 年的作为先驱也要收。
+10. **约 120 篇**（不是硬指标）；2022–2025 年的作为先驱也要收（「聚焦 2026」的说法已被第 13 条修正）。
 11. **VLN 单独成章**。
 
 第 8 条有两种读法：只收执行中重解的（如 ReKep、OmniManip），或连一次求解的（CoPa、MOKA）也收。这里按后一种做，开环的用「闭环」一列标出，必要时可以按这一列筛掉。这一点已在报告里向用户说明。
@@ -153,9 +155,9 @@
 **已完成**
 1. 定义与 rubric 按第 5–11 条更新（`docs/definition.md`、`screening/criteria_fine.md`）。
 2. 8,267 篇全部判定；Haiku 的 core / 前驱 / 边界全部经 Sonnet 复核；按第 8、9 条重判 658 篇。
-3. 核心表 150 行：2026 核心 96（各章篇数见 §2），先驱 34，资源 20。本轮新增 84 篇，标 `added=r3`。每篇都有中文入选理由，审阅清单在 `docs/core_review.md`；因名额没收的 54 篇在 `data/core/alternates.csv`。
+3. 核心表 158 行：先驱 46，2026 年 93（各章篇数见 §2），资源 19。本轮新增 95 篇，标 `added=r3`。每篇都有中文入选理由，审阅清单在 `docs/core_review.md`；因名额没收的 47 篇在 `data/core/alternates.csv`。按决策 12 删去的具身大模型：MEM、Sentinel-VLA、τ0-VLA、Steerable VLA、LoHo-Manip、FAVOR、CycleVLA，以及先驱 ECoT、π0.5、OneTwoVLA、Hi Robot、Gemini Robotics 1.5、PaLM-E。
 4. 用户点名的论文都在表内：GUAVA、Harness VLA、Show-Harness、ENPIRE 在 2026 核心；Code-as-Monitor、ReKep 在先驱；RPG、SimEX、EmbodiedSmith 在 Real2Sim 章；Video2World 与 2609.24170 在资源表。GPT-6 Astra 相关的还有 PhysEvo（Developer）、GPT-6-Astra XLeRobot（Real2Sim 章）和 VLN-CE 评测（资源）。
-5. 150 篇全部经 arXiv API 核验；README、统计、报告已重新生成。
+5. 158 篇全部经 arXiv API 核验；README 与报告按 seat 先列先驱再列 2026，统计与报告已重新生成。
 
 **重新生成的命令**（改 `core_selection.csv` 之后依次运行）
 

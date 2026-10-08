@@ -82,8 +82,8 @@
 | 短名 | 年份 | Seat | Carrier | 闭环 | 来源 | 入选理由 |
 |---|---|---|---|---|---|---|
 | [SceneSmith](https://arxiv.org/abs/2602.09153) | 2026 | Designer | G | 再决策 | 判定池 | 设计者、评审与编排三个 VLM agent 迭代搭建可仿真的室内场景，供机器人学习与评测（47 引） |
+| [SAGE](https://arxiv.org/abs/2602.10116) | 2026 | Designer | G | 再决策 | 判定池 | agent 调用布局与物体生成器和评审，迭代产出可仿真的 3D 场景（56 引） |
 | [RF-Agent](https://arxiv.org/abs/2602.23876) | 2026 | Designer | G | 再决策 | 判定池 | LLM agent 用蒙特卡洛树搜索迭代写、改奖励代码，以训练结果为反馈 |
-| [QD Red-Teaming](https://arxiv.org/abs/2603.12510) | 2026 | Designer | G | 再决策 | 判定池 | VLM 驱动的质量多样性搜索依 VLA 失败生成对抗指令；评测套件型 Designer |
 | [RDA](https://arxiv.org/abs/2606.01672) | 2026 | Designer | G | 再决策 | 判定池 | VLM agent 观看轨迹、总结失败模式并迭代修改奖励 |
 | [FIND](https://arxiv.org/abs/2609.32069) | 2026 | Designer | G | 再决策 | 判定池 | 真机 agentic RL：VLM 依近期成功率选择练习任务并自评结果 |
 | [ROOT](https://arxiv.org/abs/2610.04250) | 2026 | Designer | G | 再决策 | 判定池 | 在奖励程序、策略与 rollout 的持久实验树上搜索奖励，实现用户指定的足式行为 |
@@ -113,7 +113,7 @@
 | [MotionDisco](https://arxiv.org/abs/2606.06139) | 2026 | Teacher | G | 再决策 | 判定池 | LLM 引导的进化搜索提出交互序列，经轨迹优化细化，为极限人形移动操作生成参考并迁移到真机 |
 | [GaP](https://arxiv.org/abs/2607.05369) | 2026 | Developer | G | 再决策 | 判定池 | 多 agent coding harness 把机器人策略写成计算图，在仿真中自学习改进后部署到真机（Graph-as-Policy） |
 | [Agentic Real2Sim](https://arxiv.org/abs/2607.19190) | 2026 | Designer | G | 再决策 | 判定池 | VLM agent 从真实录像出发，迭代调用工具构建可仿真的物理孪生；agentic Real2Sim 的代表 |
-| [DREAM](https://arxiv.org/abs/2608.29078) | 2026 | Designer | G | 开环 | 判定池 | 部署时 real-to-sim：LLM 在重建的工作区上把指令写成符号目标与成功判据，生成示范微调真机 VLA（一次构建） |
+| [DREAM](https://arxiv.org/abs/2608.29078) | 2026 | Designer | G | 编写闭环 | 判定池 | 部署时 real-to-sim：LLM 在重建的工作区上把指令写成符号目标与成功判据，生成示范微调真机 VLA（一次构建） |
 | [Lucida](https://arxiv.org/abs/2608.30821) | 2026 | Designer | G | 再决策 | 判定池 | agentic Real2Sim：VLM 策略经多轮 GUI 操作摆放生成的资产，组合出真实场景的可仿真复本 |
 | [SUN](https://arxiv.org/abs/2608.31167) | 2026 | Designer | G | 再决策 | 判定池 | agent 依程序反馈修复带类型的任务程序（目标、谓词、奖励），训练出可迁移到真机的策略 |
 | [GPT-6-Astra XLeRobot](https://arxiv.org/abs/2609.31770) | 2026 | Controller | G | 再决策 | 判定池 | GPT-6-Astra 写控制程序驱动 XLeRobot，复用身体知识、经验与技能，并从仿真迁移到真实电梯按钮任务 |
@@ -141,11 +141,11 @@
 | [AgentVLN](https://arxiv.org/abs/2603.17670) | 2026 | Controller | C | 再决策 | 判定池 | 训练过的 VLM 作大脑调用导航技能库，带自我纠错与主动探索（C） |
 | [NORM-Nav](https://arxiv.org/abs/2605.16979) | 2026 | Controller | G | 编写闭环 | 判定池 | 约束编程类导航：LLM 把指令解析成结构化行为约束，依实时感知落成代价地图层由规划器执行并在线重规划 |
 | [AgenticNav](https://arxiv.org/abs/2606.10577) | 2026 | Controller | G | 再决策 | 判定池 | VLM 在 harness 中调用动作、深度与 memory 工具，带着自己的推理历史选择目标像素；VLN-CE 闭环 |
-| [AllDayNav](https://arxiv.org/abs/2606.10927) | 2026 | Designer | G | 再决策 | 判定池 | 真机终身导航 RL：VLM 写 memory 描述、自提任务并检索视觉目标，持续出题 |
 | [LocalNav](https://arxiv.org/abs/2606.27871) | 2026 | Teacher | G→C | 再决策 | 判定池 | 前沿 VLM 导航 agent 轨迹蒸馏到端侧 4B VLM；覆盖 nav 的 Teacher |
 | [Embodied Agents Take Control](https://arxiv.org/abs/2607.26148) | 2026 | Controller | G | 再决策 | 判定池 | 通用 coding-agent harness 掌管每一步导航动作并自我纠错，零样本可比工业级系统 |
 | [HAM-VLN](https://arxiv.org/abs/2607.29600) | 2026 | Controller | G | 再决策 | 判定池 | MLLM 选择下一个路点并写分层 memory（含失败记录），后续调用再读入 |
 | [Air-Ground VLN](https://arxiv.org/abs/2609.03483) | 2026 | Controller | G | 再决策 | 判定池 | 无人机与地面车的 VLM 在共享鸟瞰地图上推理并互相下发子目标，空地协同 VLN；×N 拓扑 |
+| [HarnessVLN](https://arxiv.org/abs/2609.15195) | 2026 | Controller | G | 再决策 | 判定池 | 训练无关的 MLLM 规划提案经 harness 验证，执行反馈更新 memory 与拓扑图，统一多种导航任务 |
 | [RoboFind](https://arxiv.org/abs/2609.20330) | 2026 | Controller | G | 再决策 | 判定池 | 导航、验证、恢复三个 agent 驱动四足为视障用户找物，验证候选并触发恢复 |
 | [ASENA](https://arxiv.org/abs/2609.39207) | 2026 | Controller | G | 再决策 | 判定池 | coding agent 写并运行程序、调用导航 VLA 工具、检查结果并修复，经验随任务积累 |
 

@@ -300,7 +300,7 @@ def fig_flow():
         y += 88
     b.append(box(20, y, 330, 64, "全部满足", ["2022–2025 年的代表作 → 先驱；2026 年 → 2026 论文", "两者按 Seat 一起讲「先驱 → 2026」"],
                  fill=tint(COLOR["Controller"], 0.12), stroke=COLOR["Controller"]))
-    return svg(W, y + 70, "".join(b), "agent 判定流程图", width="88%")
+    return svg(W, y + 70, "".join(b), "agent 判定流程图", width="72%")
 
 
 def fig_seats(rows):
@@ -675,7 +675,7 @@ def build_html(fontdir):
 
     # ---------------------------------------------------------- page 1: summary
     a('<h1>Agentic Embodiment 综述 · 第三轮进展</h1>')
-    a('<div class="sub">聚焦 2026：定义、分类与核心论文表 · 2026-10-08 · 分支 claude/jolly-thompson-g43dno</div>')
+    a('<div class="sub">从先驱到 2026：定义、分类与核心论文表 · 2026-10-08 · 分支 claude/jolly-thompson-g43dno</div>')
     a('<div class="defn"><b>一句话定义</b>　Agentic Embodiment 研究通用基础模型（LLM / VLM，而不是具身动作模型）作为 agent 做出的显式决策：'
       '决策的后果作用到机器人身体上，agent 再依据后果的证据重新决策。全文围绕一个问题组织：这个 agent 相对于机器人部署的策略坐在哪里'
       '（<b>Seat</b>）。'
@@ -693,23 +693,14 @@ def build_html(fontdir):
     a('<div class="kpis">' + "".join(f'<div class="kpi"><div class="v">{k}</div><div class="l">{l}</div></div>' for k, l in kpis)
       + '</div>')
     a('<div class="callout"><h3>这一轮按你的意见做的改动</h3><ul>'
-      f'<li><b>只收通用大模型做具身任务</b>：VLA、分层 VLA、WAM、机器人基础模型直接出动作的工作全部删除，它们只作为 agent 调用的工具出现。'
-      f'Sonnet 按新范围重判了 {c["scope"]} 篇训练过的决策者与涉及 VLA / WAM 的论文，{c["scope_out"]} 篇因此排除。'
-      '通用模型直接出动作仍然算：GPT-6 Astra 在 RoboDojo 上直接当策略的工作（Wenbo Zhang 等）已从资源表移进「直接驱动型」。</li>'
-      f'<li><b>故事不只聚焦 2026</b>：每个 seat 先讲先驱（2022–2025），再讲 2026；先驱现在 {n_pio} 篇，补进了 Socratic Models、'
+      f'<li><b>只收通用大模型做具身任务</b>：VLA、分层 VLA、WAM、机器人基础模型直接出动作的工作全部删除（Sonnet 按新范围重判 {c["scope"]} 篇，'
+      f'{c["scope_out"]} 篇排除）；通用模型直接出动作仍算，GPT-6 Astra 在 RoboDojo 上当策略（Wenbo Zhang 等）已移进「直接驱动型」。</li>'
+      f'<li><b>故事不只聚焦 2026</b>：每个 seat 先讲先驱（2022–2025）再讲 2026；先驱补到 {n_pio} 篇，新增 Socratic Models、'
       'ChatGPT for Robotics、Language to Rewards、GPT-4V 闭环规划、RoboGen、GenSim、Text2Reward、AutoRT 等。</li>'
-      f'<li><b>ReKep 这一类都算 agent</b>：VLM 写出约束、关键点、可供性或代价函数交给求解器执行的工作一律收录；执行中依跟踪状态重解的'
-      f'记「编写闭环」，一次求解的记「开环」。先按「编写闭环」规则复核了 {c["recheck"]} 篇原「前驱」（{c["recheck_core"]} 篇改判 core），'
-      f'再按「这一类都算」重判了 {c["r3b"]:,} 篇相关论文，{c["r3b_con"]} 篇约束编程类改判 core。</li>'
-      f'<li><b>agentic Real2Sim 都算</b>：agent 重建机器人操作场景（3D 场景、资产、铰接、物理参数、仿真代码）的工作直接进核心，'
-      f'归 Designer；重判后 {c["r3b_r2s"]} 篇 Real2Sim 论文改判 core。Real2Sim / Sim2Real 章共 {len(r2s)} 篇，'
-      '含你点名的 RPG、SimEX、EmbodiedSmith；Video2World 进资源表。</li>'
-      f'<li><b>VLN 单独成章</b>：2026 年 {len(vln)} 篇导航 agent 单列一章，另有 {len(vln_pio)} 篇早期 VLN agent 作为先驱。</li>'
-      f'<li><b>规模约 120 篇</b>：先驱 {n_pio} 篇 + 2026 年 {n_core} 篇，另有资源 {n_res} 个。本轮新增 {c["new"]} 篇（附录中标「新」）。</li>'
-      f'<li><b>全面检索 2026 年</b>：不再只靠种子论文的引用。收割候选里全部 2026 年论文都逐篇判定，又用 Semantic Scholar '
-      f'关键词检索补了 {c["s2_screen"]:,} 篇没引用种子的新论文；Haiku 初判、Sonnet 复核后，2026 年共有 {c["strong26"]} 篇满足定义。'
-      f'核心表收 {n_core} 篇，其余 {c["ext"]} 篇按 seat 列在 README 的「More 2026 papers」里。</li>'
-      f'<li><b>拓宽范围</b>：2026 核心覆盖 {body_txt}。</li></ul></div>')
+      f'<li><b>ReKep 这一类、agentic Real2Sim 都算</b>：重判后约束编程类 {c["r3b_con"]} 篇、Real2Sim 类 {c["r3b_r2s"]} 篇改判 core；'
+      f'Real2Sim / Sim2Real 章 {len(r2s)} 篇（含 RPG、SimEX、EmbodiedSmith，Video2World 在资源表），VLN 章 {len(vln)} 篇。</li>'
+      f'<li><b>规模</b>：先驱 {n_pio} + 2026 年 {n_core} = {n_pio + n_core} 篇，另有资源 {n_res} 个；本轮新增 {c["new"]} 篇（附录中标「新」）。'
+      f'2026 年共有 {c["strong26"]} 篇满足定义，表外的 {c["ext"]} 篇列在 README 的扩展列表。</li></ul></div>')
     a('<div class="callout ask"><h3>需要你决定</h3><ol>'
       '<li><b>主线的措辞</b>：只收通用大模型之后，原主线里的「not weights」不再成立。候选：'
       '「Agency spreads around the body — general models, not embodied action models, fill seat after seat」；'
@@ -752,18 +743,15 @@ def build_html(fontdir):
     a(f'<figure>{fig_flow()}<figcaption><b>图 2　agent 判定流程。</b>⓪ 是范围，①–③ 是三条 agent 判定，必须全部满足；'
       '④ 决定进核心还是只作边界讨论。最后按 arXiv 首版年份分为先驱（2022–2025）和 2026，两者按 seat 一起呈现。</figcaption></figure>')
     a('<div class="callout"><h3>「编写闭环」：以 ReKep 为例</h3>'
-      '<p class="small">GPT-4o 只被调用一次，写出各阶段的子目标约束和路径约束（Python 函数）。执行时，求解器以约 10 Hz 依据跟踪到的关键点'
-      '重新求解；一旦路径约束被破坏（比如杯子被从夹爪里拿走），系统回溯到前面的阶段重新抓取。随结果而变的逻辑是 VLM 写的，'
-      '只是触发它的机制是固定框架。Code-as-Monitor 的不同只在于违例时会再次调用 VLM。按新规则两者都算 agent，'
-      '在表中用「闭环」一列区分：再决策 / 编写闭环。</p>'
+      '<p class="small">GPT-4o 只被调用一次，写出各阶段的子目标约束和路径约束（Python 函数）。执行时求解器以约 10 Hz 依跟踪到的关键点重解；'
+      '路径约束被破坏时回溯到前面的阶段。随结果而变的逻辑是 VLM 写的，触发机制是固定框架。表中用「闭环」一列区分再决策与编写闭环。</p>'
       f'<p class="small" style="margin:0">核心表中的编写闭环：2026 年 {len(authored_core)} 篇'
       + (f'（{"、".join(r["key"] for r in authored_core[:6])}{"等" if len(authored_core) > 6 else ""}）' if authored_core else '')
       + f'；先驱 {len(authored_pio)} 篇（{"、".join(r["key"] for r in authored_pio)}）。</p></div>')
     a('<div class="callout"><h3>两个例外：约束编程与 agentic Real2Sim</h3>'
-      '<p class="small">按你的决定，下面两类即使模型只写一次、不再闭环，也按 agent 收录，「闭环」一列记开环：'
-      '（1）<b>约束 / 关键点编程</b>：VLM 写出空间约束、关键点、可供性或代价函数，由求解器或规划器转成动作（CoPa、MOKA 一类）；'
-      '（2）<b>agentic Real2Sim</b>：agent 从真实图像、视频或扫描重建可交互的仿真场景，自己决定资产、位姿、铰接、物理参数或仿真代码，'
-      '重建结果用于机器人学习、数据生成或评测。没有基础模型做决策的重建方法（Gaussian splatting、NeRF、经典辨识）仍不算。</p>'
+      '<p class="small">下面两类即使模型只写一次、不再闭环，也按 agent 收录，「闭环」一列记开环：（1）<b>约束 / 关键点编程</b>：'
+      'VLM 写出约束、关键点、可供性或代价函数，由求解器转成动作（CoPa、MOKA 一类）；（2）<b>agentic Real2Sim</b>：agent 从真实数据重建'
+      '可交互的仿真场景，自己决定资产、位姿、铰接、物理参数或仿真代码。没有基础模型做决策的重建方法（NeRF、经典辨识）仍不算。</p>'
       f'<p class="small" style="margin:0">2026 核心中开环的 {len(open_core)} 篇'
       + (f'：{"、".join(r["key"] for r in open_core[:8])}{"等" if len(open_core) > 8 else ""}' if open_core else '') + '。</p></div>')
     a('<p class="small"><b>三个常见误区</b>：RL 微调不等于 agency（SimpleVLA-RL 一类没有显式决策，判 OUT）；'

@@ -55,10 +55,14 @@ def main():
     core = [r for r in rows if r["tier"] == "core"]
     print(f"## B. Curated core table (n = {len(core)}, all 2026; quota-driven, not trend evidence)\n")
     seat_table(core, year)
-    car = Counter((r["seat"], r["carrier"].split("→")[0].strip()) for r in core)
-    print("| Seat | " + " | ".join("GCHI") + " |\n|---|---|---|---|---|")
+    # Carrier of the 2026 table: G general model as-is, C fine-tuned for an agent role (decision 12 removed H / I)
+    car = Counter((r["seat"], r["carrier"].split("→")[-1].strip()) for r in core)
+    print("| Seat | G | C |\n|---|---|---|")
     for s in SEATS:
-        print(f"| {s} | " + " | ".join(str(car[(s, k)] or "·") for k in "GCHI") + " |")
+        print(f"| {s} | " + " | ".join(str(car[(s, k)] or "·") for k in "GC") + " |")
+    pio = [r for r in rows if r["tier"] == "pioneer"]
+    print(f"\n## C. Pioneers (n = {len(pio)}, 2022-2025)\n")
+    seat_table(pio, year)
     pre = Counter(year(r) for r in rows if r["tier"] == "pioneer")
     print("\nPioneers by year: " + ", ".join(f"{y}: {n}" for y, n in sorted(pre.items())))
     loop = Counter((r["tier"], r.get("loop", "")) for r in rows if r["tier"] in ("core", "pioneer"))
