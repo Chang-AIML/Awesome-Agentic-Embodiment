@@ -37,17 +37,23 @@ def get(url, tries=3, wait=5):
 
 
 def arxiv_by_title(title):
-    """arXiv API title search; the id of an entry whose normalized title matches (ratio >= 0.93), else ""."""
-    stop = {"the", "and", "for", "with", "from", "via", "using", "into", "towards", "toward"}
-    words = [w for w in re.sub(r"[^A-Za-z0-9 ]+", " ", title).split() if len(w) > 2 and w.lower() not in stop]
-    q = urllib.parse.quote("+AND+".join(f"ti:{w}" for w in words[:10]), safe="+:")
-    x = get(f"https://export.arxiv.org/api/query?search_query={q}&max_results=10")
-    if x in (None, "err"):
-        return x or ""
-    x = x.decode("utf-8", "ignore")
-    for aid, t in re.findall(r"<entry>.*?<id>https?://arxiv\.org/abs/([^<]+?)(?:v\d+)?</id>.*?<title>(.*?)</title>", x, re.S):
-        if difflib.SequenceMatcher(None, norm(t), norm(title)).ratio() >= 0.93:
-            return aid
+    """arXiv API title search (phrase query, else the longer words ANDed; arXiv drops stopwords such as "that");
+    the id of an entry whose normalized title matches (ratio >= 0.93), else "", or "err" if the API failed."""
+    clean = re.sub(r"[^A-Za-z0-9 ]+", " ", title).split()
+    stop = {"that", "this", "with", "from", "into", "using", "towards", "toward", "their", "your", "through", "what",
+            "when", "which", "where", "while", "over", "under", "via", "the", "and", "for"}
+    long_words = [w for w in clean if len(w) > 3 and w.lower() not in stop][:6]
+    for q in ('ti:"' + " ".join(clean) + '"', "+AND+".join(f"ti:{w}" for w in long_words)):
+        x = get(f"https://export.arxiv.org/api/query?search_query={urllib.parse.quote(q, safe='+:')}&max_results=10", tries=3, wait=10)
+        time.sleep(3)  # arXiv API: one request every 3 s
+        if x == "err":
+            return "err"
+        x = (x or b"").decode("utf-8", "ignore")
+        for aid, t in re.findall(r"<entry>.*?<id>https?://arxiv\.org/abs/([^<]+?)(?:v\d+)?</id>.*?<title>(.*?)</title>", x, re.S):
+            if difflib.SequenceMatcher(None, norm(t), norm(title)).ratio() >= 0.93:
+                return aid
+        if "<entry>" in x:  # results, but none with this title
+            return ""
     return ""
 
 
@@ -89,16 +95,13 @@ def resolve(srcs, out):
             d["arxiv"] = m.group(1)
         else:
             a = arxiv_by_title(d["title"]) if d["title"] else ""
-            time.sleep(3)  # arXiv API: one request every 3 s
             if a == "err":
                 d["status"] = "err"
             elif a:
                 d["arxiv"] = a
             elif d["s2id"] or d["doi"]:  # open-access PDF; one try, Semantic Scholar throttles requests without a key
                 w = get(f"{api}{d['s2id'] or 'DOI:' + urllib.parse.quote(d['doi'])}?{fields}", tries=1)
-                if w == "err":
-                    d["status"] = "err"
-                elif w:
+                if w and w != "err":  # throttled: no PDF link, the paper is judged from its abstract
                     w = json.loads(w)
                     d["arxiv"] = re.sub(r"v\d+$", "", (w.get("externalIds") or {}).get("ArXiv") or "")
                     d["pdf"] = (w.get("openAccessPdf") or {}).get("url") or ""

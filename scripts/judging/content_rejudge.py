@@ -22,8 +22,10 @@ two columns; its results were mapped to seats by hand (data/core/paper_list.csv)
   merge   <first_out_dir> <verify_out_dir> <final_out_dir>
       Final lines = the verified line where there is one, else the first-pass line; review / apply the final dir.
   apply   <out_dir> <shard_dir> [--update]
-      Write the verdicts into data/core/paper_list.csv. New keys are appended; keys already in the CSV are left
-      alone unless --update is given. Then run scripts/build_paper_list.py.
+      Write the verdicts into data/core/paper_list.csv. New papers are appended with their candidate id in the id
+      column and a short display key from the title; papers already in the CSV (by key or id) are left alone unless
+      --update is given, and a paper whose arXiv id is already listed is skipped. Then run
+      scripts/build_paper_list.py.
 """
 import csv, glob, os, re, sys
 from collections import Counter
@@ -38,9 +40,22 @@ ROLES = {"Designer": ["环境/重建", "奖励/任务"], "Teacher": ["示范/蒸
          "Controller": ["编排", "写策略", "直接动作"], "Supervisor": ["监控/恢复"]}
 ROLE_ORDER = ["环境/重建", "奖励/任务", "示范/蒸馏", "系统/代码", "本体/工具", "编排", "写策略", "直接动作", "监控/恢复", "评测", ""]
 COLS = ["verdict", "phase", "seat", "role", "topic", "key", "year", "tier", "title", "arxiv", "decision_model",
-        "model_status", "contribution", "connection", "reason", "evidence", "note", "arrows"]
+        "model_status", "contribution", "connection", "reason", "evidence", "note", "arrows", "id"]
 TOPIC_MA = "多智能体"  # topic column: ;-separated chapters across seats; the judging sets or clears only this one
 clean = lambda s: " ".join((s or "").split())
+
+
+def short_name(title, taken):
+    """Display key for a paper added by `apply`: the name before the colon (up to 3 words), else the first 6
+    words of the title; made unique against `taken`."""
+    t = clean(title)
+    m = re.match(r"^([^:]{2,40}?)\s*:\s+\S", t)
+    k = m.group(1).strip() if m and len(m.group(1).split()) <= 3 else " ".join(t.split()[:6]).rstrip(",;:")
+    base, n = k, 2
+    while k.lower() in taken:
+        k, n = f"{base} ({n})", n + 1
+    taken.add(k.lower())
+    return k
 
 
 def shards(src, text_dir, shard_dir, size=10):
@@ -106,6 +121,9 @@ def review(out_dir, mode="changes"):
 def apply(out_dir, shard_dir, update=False):
     rows = list(csv.DictReader(open(CSV, encoding="utf-8-sig")))
     cur = {r["key"]: r for r in rows}
+    cur.update({r["id"]: r for r in rows if r.get("id")})  # papers added earlier are matched by candidate id
+    have_arxiv = {r["arxiv"]: r["key"] for r in rows if r["arxiv"]}
+    taken = {r["key"].lower() for r in rows}
     meta = {}
     for p in glob.glob(os.path.join(shard_dir, "k*.tsv")):
         for line in open(p):
@@ -136,10 +154,14 @@ def apply(out_dir, shard_dir, update=False):
                 changed += 1
             continue
         a, t, year = meta.get(k, (g["arxiv"], "", ""))
+        if a and a in have_arxiv:
+            print(f"  skip {k}: arXiv {a} is already in the list as {have_arxiv[a]}")
+            continue
         m = re.match(r"(\d{2})\d{2}\.\d{4,5}$", a)
         year = "20" + m.group(1) if m else year
-        rows.append(dict(vals, key=k, arxiv=a, title=t, year=year, tier="2026" if year == "2026" else "先驱",
-                         arrows="", note=""))
+        rows.append(dict(vals, id=k, key=short_name(t, taken) if t else k, arxiv=a, title=t, year=year,
+                         tier="2026" if year == "2026" else "先驱", arrows="", note=""))
+        have_arxiv[a] = k
         added += 1
     rows.sort(key=lambda r: (VERDICTS.index(r["verdict"]), SEATS.index(r["seat"]), ROLE_ORDER.index(r["role"]),
                              r["tier"] != "先驱", r["year"], r["key"].lower()))
@@ -188,7 +210,7 @@ def merge(first_dir, verify_dir, out_dir):
     assert not bad, bad
     raw = {}
     for d in (first_dir, verify_dir):
-        for p in glob.glob(os.path.join(d, "*.txt")):
+        for p in sorted(glob.glob(os.path.join(d, "*.txt"))):  # sorted: a later file (e.g. zz_redo.txt) wins
             if p.endswith(".prior.txt"):
                 continue
             for l in open(p):

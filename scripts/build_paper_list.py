@@ -41,7 +41,8 @@ def table(rows, L):
     L += ["| 论文 | 年 | 角色 | 决策模型 | 理由 | 原文证据 | 备注 |", "|---|---|---|---|---|---|---|"]
     for r in rows:
         name = f"[{r['key']}](https://arxiv.org/abs/{r['arxiv']})" if r["arxiv"] else r["key"]
-        L.append(f"| {name} | {r['year']}{'（先驱）' if r['tier'] == '先驱' else ''} | {r['role']} | "
+        ma = " · 多智能体" if "多智能体" in (r.get("topic") or "") else ""
+        L.append(f"| {name} | {r['year']}{'（先驱）' if r['tier'] == '先驱' else ''} | {r['role']}{ma} | "
                  f"{r['decision_model']}（{r['model_status']}） | {r['reason']} | {r['evidence']} | {r['note']} |")
     L.append("")
 
@@ -60,7 +61,8 @@ def main():
          "收录要求**现成的通用大模型**（未经作者训练或微调）作为 agent 存在并起作用，连到 Policy / Code 或 Env / Sim 其中之一即可"
          "（开环也算）；论文主体必须是 agent，数据生成平台、资产流水线不算；训练过的 VLA、技能、感知模型只能作为 agent 调用的工具。"
          "每篇都读了全文判定，「决策模型」一列写明谁在做决策，括号内 G = 现成通用模型、FT = 作者训练或微调、SPEC = VLA 或专用模型；"
-         "「原文证据」是论文原句。\n",
+         "「原文证据」是论文原句。2026-10-09 补判的扩展论文：有 arXiv 版本的读全文（Haiku 初判、Sonnet 复核）；"
+         "不在 arXiv 上、拿不到全文的按摘要判，理由以「仅摘要」开头；自动驾驶论文中标题已能确定的按标题排除。\n",
          "## 分类：两个阶段，五个 Seat\n",
          "| 阶段 | Seat | 含义 | 篇数 |", "|---|---|---|---|"]
     L += [f"| {ph} | {s} | {d} | {sc[s]} |" for s, ph, d in SEATS]
@@ -91,9 +93,17 @@ def main():
     for v in ("资源", "剔除"):
         xs = [r for r in recs if r["verdict"] == v]
         L.append(f"## {v}（{len(xs)}）\n\n{VERDICT_D[v]}\n")
-        table(xs, L) if v == "剔除" else _res(xs, L)
+        _out(xs, L) if v == "剔除" else _res(xs, L)
     open(os.path.join(ROOT, "docs/paper_list.md"), "w").write("\n".join(L) + "\n")
     print("docs/paper_list.md:", dict(vc), dict(pc), dict(sc))
+
+
+def _out(rows, L):
+    L += ["| 论文 | 年 | 决策模型 | 理由 |", "|---|---|---|---|"]
+    for r in rows:
+        name = f"[{r['key']}](https://arxiv.org/abs/{r['arxiv']})" if r["arxiv"] else r["key"]
+        L.append(f"| {name} | {r['year']} | {r['decision_model']}（{r['model_status']}） | {r['reason']} |")
+    L.append("")
 
 
 def _res(rows, L):

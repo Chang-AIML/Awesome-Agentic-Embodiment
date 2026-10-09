@@ -82,15 +82,22 @@ runtime — controlling it or supervising it (**Seat**).*
 
 ## 4. 现状（2026-10-09）
 
-核心表 174 篇已按上面的标准逐篇读全文判定：保留 145、资源 20、剔除 9。
+清单（`data/core/paper_list.csv`）共 2,064 篇：保留 1,584、资源 25、剔除 455。
 
-保留的 145 篇按阶段和 Seat 分：
+- 核心表 174 篇：逐篇读全文判定（保留 145、资源 20、剔除 9）。
+- 补判 1,890 篇（两份扩展列表 1,732 篇 + 边界 313 篇中可判的部分）：
+  - 有 arXiv 版本的 1,319 篇读全文，Haiku 初判、Sonnet 复核；
+  - 不在 arXiv 上的 538 篇只能按摘要判，理由以「仅摘要」开头（其中保留 404 篇）；
+  - 边界里标题即可确定是自动驾驶的 36 篇按标题排除；
+  - 另有 152 篇既无全文也无摘要，未判，列在 `data/core/unjudged_no_text.csv`。
+
+保留的 1,584 篇按阶段和 Seat 分：
 
 | 阶段 | 篇数 | 各 Seat |
 |---|---|---|
-| 执行前 | 53 | Designer 20、Teacher 9、Developer 24 |
-| 运行时 | 92 | Controller 80、Supervisor 12 |
+| 执行前 | 281 | Designer 133、Teacher 43、Developer 105 |
+| 运行时 | 1,303 | Controller 1,233、Supervisor 70 |
 
-核心表之外还有约 2,045 篇候选只按旧定义判过，需要按同一标准补判（见 `../HANDOFF.md` §4）。
+其中 278 篇属于多智能体专题。
 
 **主线（草案）**：*Agency spreads around the body: general models, not embodied action models, fill seat after seat.*

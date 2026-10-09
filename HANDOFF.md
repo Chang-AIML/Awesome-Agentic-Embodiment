@@ -1,6 +1,6 @@
 # 交接文档：Awesome Agentic Embodiment
 
-> 最后更新：2026-10-09。全部工作已合并到 **main**（之前在分支 `claude/jolly-thompson-g43dno` 上做）。接手后从 main 拉新分支继续。
+> 最后更新：2026-10-09（第二次）。本轮在分支 `claude/extended-rejudge` 上：补判了扩展列表和边界论文，加了多智能体专题。
 > 旧版交接（第一至三轮，按 Seat × Carrier 定义做的部分）原样保留在 `docs/history/HANDOFF_round3.md`，里面有更早的检索漏斗、各轮判定和踩坑的细节，需要时再查。
 
 ---
@@ -9,15 +9,16 @@
 
 - **项目**：一个 awesome list 和一篇 survey，主题是 *agentic embodiment*，即通用大模型（LLM / VLM）作为 agent 做具身任务。
 - **现阶段以 list 为主。** 用户原话：「之前survey的定义方式有问题，我们先把list做好」「给我csv就行」。
-- **分类（最终）**：用户试过三层（L1/L2/L3）后反悔，回到两个阶段、五个 Seat：「preexcution / runtime 两层就行；1 可以分 designer、teacher、developer；2 可以分 Controller 和 Supervisor」「但是定义还是可以按照我们最后筛选的paper去定」。所以**收录标准用最后一轮筛选的（§1.2），分类用阶段 + Seat（§1.3）**。
-- **当前交付物**：`data/core/paper_list.csv`，共 174 篇。
-  - 保留 145 篇：执行前 53（Designer 20、Teacher 9、Developer 24），运行时 92（Controller 80、Supervisor 12）；
-  - 资源 20 篇（benchmark 与评测研究）；
-  - 剔除 9 篇。
-  - 每篇都读了全文判定，附有决策模型和原文证据。可读版 `docs/paper_list.md`，定义 `docs/definition.md`，5 页图文总结 `docs/list_summary.pdf`。
-- **还没做完**：这 174 篇只是旧定义下挑出来的核心表。下面两批论文还没有按新标准判过（见 §4）：
-  - 按旧定义判为合格、但没进核心表的约 1,732 篇；
-  - 旧定义的边界论文 313 篇。
+- **分类**：两个阶段、五个 Seat（§1.3），外加三个横跨 Seat 的专题：Real2Sim / Sim2Real、VLN、**多智能体**（用户 2026-10-09 要求单独成章，§1.5）。
+- **当前交付物**：`data/core/paper_list.csv`，共 2,064 篇：保留 1,584、资源 25、剔除 455。
+  - 核心表 174 篇（保留 145、资源 20、剔除 9）：逐篇读全文，结论沿用上一轮。
+  - 本轮补判 1,890 篇（两份扩展列表 + 边界论文）：
+    - 有 arXiv 版本的 1,319 篇读全文：Haiku 初判，Sonnet 复核（复核主要纠正 Seat）；
+    - 不在 arXiv 上的 538 篇按摘要判，理由以「仅摘要」开头（保留 404）；
+    - 边界论文里标题即可确定是自动驾驶的 36 篇按标题排除；
+    - 152 篇既无全文也无摘要，没判，列在 `data/core/unjudged_no_text.csv`。
+  - 保留的按 Seat：Designer 133、Teacher 43、Developer 105、Controller 1,233、Supervisor 70；多智能体 278 篇。
+- **还没做完 / 需要用户看的**：见 §4。
 
 ---
 
@@ -45,6 +46,7 @@
   - 通用模型自己当 agent 行动、再把它的经验蒸馏成小模型的，算 Teacher（如 GUAVA）。
 - **规则 4**：主体是数据集、数据生成平台、资产流水线或 benchmark，LLM 只是其中一个模块的，不收。以通用大模型 agent 为对象的 benchmark 归「资源」。
 - **规则 5**：VLA、分层 VLA、WAM、机器人基础模型直接出动作的不收，它们只能作为被 agent 调用的工具出现。通用模型直接出动作仍然算（Controller · 直接动作）。
+- **Env / Sim 的范围**（用户 2026-10-09 选定）：真机、物理仿真、离散具身仿真（ALFRED、VirtualHome、R2R 离散图）都算；纯文本世界（只有文字的 ALFWorld、TextWorld）和自动驾驶不算。Minecraft、Overcooked 这类有化身的游戏按六条规则正常判（这一点是我定的，用户没表态）。
 
 ### 1.3 分类：两个阶段，五个 Seat
 
@@ -90,23 +92,36 @@
 - Video2World 是 benchmark，归资源。
 - GPT-6 Astra on RoboDojo（2609.24170）是用户举的「LLM 直接出动作」的例子；全文判为评测研究，现在放在资源（被评测的 Seat 为 Controller）。这一条要跟用户确认。
 
+### 1.5 多智能体专题（用户 2026-10-09：「你可以再单独造一个multi-agent的章节」）
+
+- 和 Real2Sim、VLN 一样横跨 Seat，每篇仍有自己的 Seat；CSV 的 `topic` 列写「多智能体」。
+- 定义（我拟的，用户还没确认）：多智能体是主系统的核心，满足其一：
+  - 通用大模型 agent 分配、规划或协调两个及以上机器人（含异构团队）；
+  - 论文把系统呈现为两个及以上分工不同、互相对话或交接工作的通用大模型 agent。
+  - 单个机器人上的几次 prompt 调用流水线、只有人机对话、单 agent 调 subagent 工具，都不算。
+- 结果：保留的论文里 278 篇是多智能体（核心表 11 篇：RoCo、SMART-LLM、AutoRT、ABot-Claw、Air-Ground VLN、AdaHVLA、ENPIRE、LACE-CRAFT、ROOT、Skill2Real、PARTNR）。第二条标准偏宽，按「多个角色 agent」收进来的论文不少，用户可能想收紧。
+
 ---
 
 ## 2. 文件
 
 | 文件 | 状态 | 说明 |
 |---|---|---|
-| `data/core/paper_list.csv` | **当前主文件** | list 本身。UTF-8 带 BOM，Excel 可直接打开。列见 §3 |
+| `data/core/paper_list.csv` | **当前主文件** | list 本身，2,064 篇。UTF-8 带 BOM，Excel 可直接打开。列见 §3 |
+| `data/core/unjudged_no_text.csv` | 当前 | 152 篇没判的（无全文、无摘要），带 DOI，以后可以手动找全文 |
 | `docs/paper_list.md` | 当前 | 可读版，由 `scripts/build_paper_list.py` 从 CSV 生成，不要手改 |
 | `docs/definition.md` | 当前 | 定义：收录标准六条 + 两个阶段、五个 Seat。旧版在 `docs/history/definition_round3.md` |
 | `docs/agent_loop_framework.png` | 当前 | 用户画的回路图（收录标准） |
 | `docs/list_summary.pdf` | 当前 | 5 页图文总结：五个 Seat、收录标准、每个 Seat 的代表作、清单里的趋势、判例与下一步。由 `scripts/build_list_summary.py` 从 CSV 生成；改了 CSV 后重跑（代表作名单在脚本的 REPS 里，改了 Seat 或删了论文要同步，否则会报错） |
-| `screening/prompts/content_rejudge.txt` | 当前 | 读全文判定的提示词，即上面六条规则的执行版 |
-| `scripts/judging/fetch_fulltext.sh`、`scripts/judging/content_rejudge.py` | 当前 | 下载全文、切分片、汇总、写回 CSV 的工具，用法见 §5 |
-| `data/judging_runs/content_rejudge/` | 当前 | 这 174 篇全文判定的原始输出 |
+| `screening/prompts/content_rejudge.txt` | 当前 | 读全文判定的提示词（六条规则 + Env/Sim 范围 + Seat 易错点 + multi_agent 字段），初判用 |
+| `screening/prompts/content_verify.txt` | 当前 | 复核提示词：拿初判结果对照全文改错，复核用 |
+| `scripts/judging/fetch_fulltext.sh`、`content_rejudge.py`、`resolve_fulltext.py` | 当前 | 下载全文；切分片、复核分片、合并、写回 CSV；找不在 arXiv 上的论文的全文。用法见 §5 |
+| `data/judging_runs/content_rejudge/` | 当前 | 核心表 174 篇全文判定的原始输出 |
+| `data/judging_runs/extended_2026/`、`extended_2022_2025/`、`boundary/` | 当前 | 本轮补判：`shards`（分片）、`out_haiku`（初判）、`vshards` + `out_verify`（复核）、`out_final`（合并后，写回 CSV 的就是它） |
+| `data/judging_runs/abstract_only/`、`boundary_driving_by_title/`、`redo/` | 当前 | 按摘要判的 538 篇；按标题排除的 36 篇驾驶论文；5 篇无全文重判 |
 | `data/core/core_selection.csv` → `core_table.csv` | 与 CSV 同步 | 核心表 165 行（保留 + 资源），带 phase、role 列。若有被判为剔除的论文混在其中，或 Seat 与 `paper_list.csv` 不一致，`build_core_table.py` 会报错 |
-| `README.md` | 当前 | 英文 awesome list，按 Pre-execution（Designer、Teacher、Developer）与 Runtime（Controller 三个子章、Supervisor）分节，与 CSV 一致；末尾两份扩展列表仍是旧定义下的结果 |
-| `data/core/extended_2026.csv`、`extended_2022_2025.csv` | **待补判** | 按旧定义合格、没进核心表的 830 + 902 篇，没有按新标准判过 |
+| `README.md` | 当前 | 英文 awesome list：核心表各节 + Real2Sim / VLN / Multi-agent 三章 + 资源；末尾「More papers」两节现在由 `paper_list.csv` 里不在核心表的保留论文生成（按 Seat · role 折叠） |
+| `data/core/extended_2026.csv`、`extended_2022_2025.csv` | 补判的输入 | 按旧定义合格、没进核心表的 830 + 902 篇；新结论已写进 `paper_list.csv`，这两个文件只作来源 |
 | `data/core/fine_labels.csv` | 旧标准 | 12,230 篇候选按旧 rubric 的逐篇判定，verdict 为 core / precursor / boundary / resource / out |
 | `data/candidates/candidates.csv` | 原始候选 | 14 篇种子论文的前向引用，13,579 篇 |
 | `data/candidates/s2_sweep_2026.jsonl` | 原始候选 | 2026 年关键词检索，11,778 篇 |
@@ -121,15 +136,17 @@
 | 列 | 含义 |
 |---|---|
 | verdict | 保留 / 资源 / 剔除 |
+| topic | 横跨 Seat 的专题；目前只写「多智能体」（Real2Sim、VLN 仍在 `core_selection.csv` 的 theme 列） |
+| id | 补判新加论文的候选 id（`c…` / `s…` / `t…` / `gap:…`）；核心表的 174 篇为空 |
 | phase, seat, role | 阶段（执行前 / 运行时）、Seat、角色（§1.3）。资源：被评测的 Seat，role 为「评测」。剔除：`-` |
-| key, year, tier | 短名；arXiv 首版年份；tier 为 `2026` 或 `先驱`（2022–2025） |
+| key, year, tier | 短名（补判论文的短名由标题自动生成：冒号前 ≤3 个词，否则取前 6 个词）；arXiv 首版年份；tier 为 `2026` 或 `先驱`（2022–2025） |
 | title, arxiv | 标题与 arXiv 编号 |
 | decision_model | 读全文得到的决策模型，如 "GPT-4o"、"Qwen2.5-VL-3B fine-tuned on …" |
 | model_status | G = 现成通用模型；FT = 作者训练或微调；SPEC = VLA 或专用模型；NONE = 没有 LLM / VLM 决策者 |
 | contribution | 论文主体：AGENT / DATA / BENCH / OTHER |
 | connection | agent 输出什么、交给谁 |
 | arrows | 回路图里的箭头：A→M、A→E、M↔E、E→A。来自之前的一次判定，没有逐篇读全文核对，仅供参考 |
-| reason | 中文判定理由 |
+| reason | 中文判定理由；「仅摘要：」开头的是按摘要判的，「复核改：」开头的是 Sonnet 复核时改过的 |
 | evidence | 论文原句，带节名 |
 | note | 与上一版不同的地方，以及人工改判（含 Seat）的说明 |
 
@@ -137,50 +154,32 @@
 
 ## 4. 下一步（按优先级）
 
-### 4.1 把 list 补全
+### 4.1 需要用户看、或等用户决定的
 
-把 §0 提到的两批论文按同样的方法读全文判定：
-
-| 来源 | 篇数 | 有 arXiv 号 | 没有 arXiv 号 |
-|---|---|---|---|
-| `extended_2026.csv` | 830 | 495 | 335 |
-| `extended_2022_2025.csv` | 902 | 643 | 259 |
-| `fine_labels.csv` 中强模型轮次判为 boundary 的 | 313 | 211 | 102 |
-
-- **有 arXiv 号的约 1,350 篇**可以直接用 §5 的流程。
-  - 下载约需 2.5 小时（每篇约 6 秒）。
-  - 判定分成约 135 个 10 篇的分片。本轮用的是 Sonnet，每个分片约 2–3 分钟、15 万 token。
-  - 想省钱，可以先让 Haiku 初判，再由 Sonnet 复核保留和边界的部分。用户一向的偏好是批量工作用最便宜的模型。
-- **没有 arXiv 号的约 700 篇**多数有 DOI：`c` 开头的 id 查 `candidates.csv` 的 doi 列，`s` 开头的查 `s2_sweep_2026.jsonl`。
-  - 需要另写下载：用 OpenAlex 的 open access 链接（本环境的代理已注入 OpenAlex 凭证）或 Unpaywall 拿 PDF。
-  - 拿不到全文的，只能按摘要判，并在 note 里注明。
-- **边界的 313 篇**在旧定义下被排除，原因是只在离散仿真（ALFRED、VirtualHome、R2R 离散图）里做实验，或者属于自动驾驶。新框架里 Env / Sim 是否包括这些，**要先问用户**。
-- **补判出来的新论文没有短名**：`content_rejudge.py apply` 会用候选 id（如 `c01234`、`s05277`）当 key，之后可以再补短名。
-
-### 4.2 等用户决定的事
-
-1. 上面边界 313 篇的范围问题：离散仿真和自动驾驶算不算。
-2. 几篇边界案例，用户还没表态：
+1. **多智能体的定义**（§1.5）：现在 278 篇，第二条（多个角色 agent）偏宽，用户可能想收紧成「多机器人」为主。
+2. **按摘要判的 404 篇保留论文**：不在 arXiv 上、拿不到全文（多是 IEEE / Elsevier / MDPI 期刊和会议）。摘要常常看不出模型是否被微调，这批的可靠性低于全文判定。要不要保留、或者想办法补全文（有机构订阅的话最简单）。
+3. **152 篇没判的**（`data/core/unjudged_no_text.csv`）：没有全文也没有摘要。
+4. Minecraft / Overcooked 这类游戏环境我按六条规则正常判了，用户没表态。
+5. 上一轮留下的边界案例，用户还没表态：
 
    | 论文 | 现在的结论 | 理由 |
    |---|---|---|
-   | Tool-Aligned VLA Agent | 剔除 | 主体是 VLA 后训练 |
+   | Tool-Aligned VLA Agent | 剔除 | 主体是 VLA 后训练（本轮 Sonnet 复核也判剔除） |
    | AutoRT | 保留 | 原文写明 LLM 未微调，是系统核心 |
    | RoboGen、SUDD、RobotGPT | 保留 | 读全文后看主体是 agent 或经验迁移 |
    | GPT-6 Astra on RoboDojo | 资源 | 全文判为评测研究，但用户举它当「LLM 直接出动作」的例子 |
+   | VLABench、ASIMOV | 剔除 / 资源 | 本轮校准时 Haiku 和 Sonnet 都给了相反结论（VLABench→资源，ASIMOV→剔除），核心表没改，值得再看一眼 |
 
-3. 12 篇 Seat 逐条决定的（§1.3），用户还没看过；主线措辞（草案见 `docs/definition.md` 末尾）。
-4. 之前子 agent 误建了 3 个空会话，是否归档：
-   - `session_013djFc2XBveZ6ad9rat1T8j`
-   - `session_01L6M4LteFn1EGYUVGkBicSQ`
-   - `session_01DcP3xf6pjhGHUGTtG2WJVr`
+6. 12 篇 Seat 逐条决定的（§1.3），用户还没看过；主线措辞（草案见 `docs/definition.md` 末尾）。
+7. 之前子 agent 误建了 3 个空会话，是否归档：`session_013djFc2XBveZ6ad9rat1T8j`、`session_01L6M4LteFn1EGYUVGkBicSQ`、`session_01DcP3xf6pjhGHUGTtG2WJVr`。
 
-### 4.3 list 定稿之后
+### 4.2 list 定稿之后
 
-1. 补判的新论文写进 `paper_list.csv` 后，决定哪些进核心表（`core_selection.csv`），重跑 README。
-2. 按 `docs/definition.md` 写综述正文：先讲收录标准，再按两个阶段、五个 Seat 分章，每章先讲先驱再讲 2026。
-3. 更新 `docs/list_summary.pdf`（`scripts/build_list_summary.py`）。
-4. 补代码和项目链接；可选做一个 GitHub Pages 浏览器。
+1. 从 1,439 篇新保留的论文里挑代表作进核心表（`core_selection.csv`，记得 theme 列），重跑 README。现在它们都在 README 末尾的「More papers」折叠表里。
+2. 补判论文的短名是从标题自动生成的，进核心表的要手工起短名。
+3. 按 `docs/definition.md` 写综述正文：先讲收录标准，再按两个阶段、五个 Seat 分章，每章先讲先驱再讲 2026。
+4. 更新 `docs/list_summary.pdf`（`scripts/build_list_summary.py`；用户现阶段不要 PDF，等用户要了再做）。
+5. 补代码和项目链接；可选做一个 GitHub Pages 浏览器。
 
 ---
 
@@ -191,49 +190,55 @@
 - 读全文需要 `curl` 和 `pdftotext`（poppler-utils）。
 - 生成 PDF 才需要 Node.js 和 Playwright 的 Chromium，现阶段用不到。
 
-**读全文判定的流程**（以补判 2026 扩展列表为例）：
+**读全文判定的流程**（本轮做法：Haiku 初判 + Sonnet 复核）：
 
 ```bash
-# 1. 切分片（每片 10 篇），同时生成 ids.txt；没有 arXiv 号的论文会列出并跳过
-python3 scripts/judging/content_rejudge.py shards data/core/extended_2026.csv work/text work/shards
-# 2. 下载全文（后台跑，日志里每篇一行 ok / FAIL，最后一行 DONE）
-scripts/judging/fetch_fulltext.sh work/shards/ids.txt work/text > work/fetch.log 2>&1 &
-# 3. 每个分片交给一个子 agent，提示词如下：
-#    Follow the instructions in screening/prompts/content_rejudge.txt exactly (read that file first).
-#    INPUT = work/shards/kNN.tsv   OUTPUT = work/out/kNN.txt
-#    Use only Read, Grep and Bash (Bash only to append output lines). Do not use any session, agent, web or
-#    messaging tool. Final reply only: "done <number of lines>".
-# 4. 检查完整性并逐条看改动（全部、只看结论变化、或只看与 CSV 不同的）
-python3 scripts/judging/content_rejudge.py review work/out verdict
-# 5. 人工复核后写回 CSV：新论文追加；已有的只有加 --update 才会覆盖
-python3 scripts/judging/content_rejudge.py apply work/out work/shards
-python3 scripts/build_paper_list.py
+# 1. 切分片（每片 10 篇），同时生成 ids.txt；没有 arXiv 号、也没有 text 列的论文会列出并跳过
+python3 scripts/judging/content_rejudge.py shards data/core/extended_2026.csv work/text work/e26/shards
+# 2. 下载全文（后台跑，日志每篇一行 ok / FAIL，最后一行 DONE）
+scripts/judging/fetch_fulltext.sh work/e26/shards/ids.txt work/text > work/fetch.log 2>&1 &
+# 3. 初判：每个分片一个 Haiku 子 agent，提示词：
+#    Follow the instructions in <repo>/screening/prompts/content_rejudge.txt exactly (read that file first).
+#    INPUT = <repo>/work/e26/shards/kNN.tsv   OUTPUT = <repo>/work/e26/out_haiku/kNN.txt
+#    Use only Read, Grep and Bash (...). Do not use any session, agent, task, web, artifact, scheduling or messaging
+#    tool, and do not create any session. Do not edit any file other than OUTPUT.
+#    Each line has 12 fields ending with multi_agent (Y or N). ... Final reply only: "done <number of lines>".
+# 4. 复核分片：每个初判完成的分片生成一个（明确的 FT/SPEC/NONE 剔除只抽 1/10）
+python3 scripts/judging/content_rejudge.py verify work/e26/out_haiku work/e26/shards work/e26/vshards
+# 5. 复核：每个复核分片一个 Sonnet 子 agent，提示词同上，换成 content_verify.txt，并给 INPUT / PRIOR / OUTPUT
+#    （INPUT = vshards/kNN.tsv，PRIOR = vshards/kNN.prior.txt，OUTPUT = out_verify/kNN.txt）
+# 6. 合并（有复核用复核，没有用初判），看改动，写回 CSV
+python3 scripts/judging/content_rejudge.py merge work/e26/out_haiku work/e26/out_verify work/e26/out_final
+python3 scripts/judging/content_rejudge.py review work/e26/out_final verdict
+python3 scripts/judging/content_rejudge.py apply work/e26/out_final work/e26/shards
+python3 scripts/build_paper_list.py && python3 scripts/build_core_table.py && python3 scripts/build_readme.py
 ```
 
-- **不要用 `--update` 重新应用 `data/judging_runs/content_rejudge/`**。那一轮写回时有人工改判（如 EmbodiedSmith 后来恢复了），原始输出里还是旧结论。
-- 判完一批，把 `work/out/` 和分片复制到 `data/judging_runs/<轮次名>/` 存档。全文文本不要提交，太大。
+- 校准（`data/judging_runs/calibration/`，20 篇已知结论的核心表论文）：Haiku 结论一致 17/20，常把「为当前任务写的规约 / 约束」误归 Designer；Sonnet 复核纠正了关键错误。正式补判里复核了 1,165 篇，改结论 32 篇（2.7%）、改 Seat 或 role 84 篇（7.2%）、改多智能体标记 10 篇。
+- 成本：Haiku 每片（10 篇）约 20 万 token，Sonnet 复核每片约 12 万 token。按摘要判的直接用 Sonnet，每片 20 篇约 8 万 token。
+- **不在 arXiv 上的论文**：`scripts/judging/resolve_fulltext.py` 先按标题查 arXiv API，再查 Semantic Scholar 拿开放获取 PDF。但本机没有 OpenAlex / Semantic Scholar 的 key，两者都很快限流（429），arXiv API 在大量下载 PDF 之后也会限流。本轮最后放弃查找，直接按摘要判（`resolve_fulltext.py` 的 `csv` 格式：key, arxiv, title, year, text；`shards` 会用 text 列的路径和 year）。以后有 key 或订阅时再补全文。
+- 无全文的行（reason 以「无全文」开头）`apply` 会跳过；补好文本后重判，把结果放进复核目录并命名为 `zz_redo.txt`，`merge` 会让它覆盖前面的行。
+- 不要用 `--update` 重新应用 `data/judging_runs/content_rejudge/`（那一轮写回时有人工改判）。
+- 判完一批，把分片和输出复制到 `data/judging_runs/<轮次名>/` 存档。全文文本不要提交，太大。
 
 **改了 CSV 之后，同步核心表和 README**：
-- 先改 `core_selection.csv`：
-  - 去掉判为剔除的行；
-  - 判为资源的，tier 改成 resource。
+- 先改 `core_selection.csv`：去掉判为剔除的行；判为资源的，tier 改成 resource。
 - 然后依次运行：
 
 ```bash
-python3 scripts/build_core_table.py && python3 scripts/build_extended.py && python3 scripts/build_readme.py
+python3 scripts/build_paper_list.py && python3 scripts/build_core_table.py && python3 scripts/build_readme.py
 ```
 
-**子 agent 的坑**：
+（`build_extended.py` 生成的旧扩展列表已经不用了，README 的「More papers」直接读 `paper_list.csv`。）
+
+**子 agent 和下载的坑**：
 - 最多同时跑 20 个子 agent，超出会直接报错。
-- 子 agent 偶尔会违反「只用 Read、Grep、Bash」：
-  - 用 Write 写输出，无害；
-  - Haiku 调用过会话工具，误建过空会话。
-  - 提示词里要明确禁止。
-- 子 agent 有时会在 Seat 后面多写字或写错大小写，`content_rejudge.py` 已做归一化；但 role 必须是 §1.3 里对应 Seat 的那些，否则 apply 会报错。
-- Sonnet 子 agent 偶尔会卡住：转录文件十几分钟不更新，也不写输出。遇到时停掉，重启同一个分片，并在提示里说明「OUTPUT 已存在时只补缺的」。
-- 分片输出只在本地。长任务要分批提交、推送：云端会话的容器会被回收，之前就因此丢过一次中间结果。
-- arXiv 下载要保持每篇间隔 3 秒以上。
-- Semantic Scholar 不带 key，常返回 429。OpenAlex 对 arXiv 预印本的引用覆盖很差，只适合补元数据。
+- 提示词里要明确禁止会话工具（Haiku 误建过空会话）；本轮加了禁令后没再出现。
+- role 必须是 §1.3 里对应 Seat 的那些，否则 apply 会报错；`content_rejudge.py` 已对 Seat 大小写做归一化。
+- **两个下载流不能共用临时文件**：早期两个下载流在同一目录写 `tmp.pdf`，导致一篇论文的文本被换成另一篇（c00628 拿到了 HumanoidGen 的内容，已修正）。`fetch_fulltext.sh` 现在用 `tmp.<pid>.pdf`。下载后可以用标题词核对文本开头。
+- **后台等待别用 `pgrep -f`**：它会匹配到等待命令自己，导致永远等下去。改用检查日志里的 DONE。
+- arXiv 下载要保持每篇间隔 3 秒以上；两路并发时 arXiv API 会开始返回 429。
+- Semantic Scholar、OpenAlex 不带 key 都会限流。
 
 ---
 
@@ -257,3 +262,4 @@ python3 scripts/build_core_table.py && python3 scripts/build_extended.py && pyth
    - 读全文判定。
 
    174 篇读全文重判后，用户又把分类改回两个阶段、五个 Seat（决策 20），收录标准保持最后一轮的。各条决策的完整记录见 `docs/history/definition_round3.md` 开头（决策 1–19）和 `docs/history/HANDOFF_round3.md` §5。
+4. **2026-10-09（第二次）**：用户决定离散具身仿真算、纯文本世界和自动驾驶不算（决策 21），并要求单独建多智能体章节（决策 22）。补判了两份扩展列表和边界论文共 1,890 篇（有 arXiv 的读全文，Haiku 初判 + Sonnet 复核；其余按摘要），清单扩到 2,064 篇。

@@ -1,0 +1,153 @@
+key,title,year,doi,src
+s09770,Adaptive Painting Strategy Generation for Embodied Robotic Painting via LLM-Based AI Agents,2026,10.1109/tmech.2026.3724257,e26
+s00463,Embodied AI Agent Framework for (Re)Programming Robotic Tasks in Flexible Assembly using LLMs and VLMs,2026,10.1016/j.procir.2025.08.187,e26
+s10204,From Natural Language to Nonlinear Programs: An Agentic Framework for Instruction-Guided Trajectory Planning of Wheeled Robots,2026,10.1109/tmech.2026.3708268,e26
+c12240,LLM-Grounded Dynamic Task Planning with Hierarchical Temporal Logic for Human-Aware Multi-Robot Collaboration,2026,10.48550/arXiv.2602.09472,e26
+s02072,LLM-Guided Human-Drone Interaction for Autonomous Mission Execution,2026,10.1016/j.trpro.2026.04.006,e26
+s11330,LLM-Guided Scene Graph-Conditioned Diffusion for Robotic Autonomous Tabletop Arrangement,2026,10.1109/tmm.2026.3734728,e26
+s11348,Enhancing the Worker–Robot Interaction for Construction Task Operation: A Preliminary Study Using Large Language Model-Based Methods,2026,10.1061/9780784486443.073,e26
+s07141,Leveraging Large Language Models for Voice-Activated Robotic Teleoperation in Construction,2026,10.1061/9780784486436.053,e26
+s11711,Visual scene drawing through human–robot natural language interactions using lightweight large language models,2026,10.1007/s44430-026-00025-5,e26
+c11324,AGRI-BT Robot: LLM-Driven Behaviour Trees and VLM Perception for Intelligent Autonomous Greenhouse Operations,2026,10.1016/j.atech.2026.102298,e26
+c04326,Déjà Vu: Unlocking Transparent Action Reasoning for Object-Goal Navigation via Large Language Models,2026,10.1109/ICRA57385.2026.11696038,e26
+c00993,From Language to Deployment: Oﬄine Optimization and Ontology-Guided Behavior Tree Generation for Transparent Robot Applications,2026,10.1109/ICRA57385.2026.11697354,e26
+s02779,LLM-Based Active Perception Control for Occlusion Avoidance and Safe Approach in Harvesting Robots,2026,10.5391/jkiis.2026.36.3.212,e26
+s08936,CityFly: Signmark-guided autonomous UAV navigation with vision language model,2026,10.1016/j.patcog.2026.114651,e26
+s00040,"Open-Vocabulary, Context-Aware Robot Navigation on Construction Sites: Integrating LLM-Driven Value Map Composition with Hierarchical Scene Graphs",2026,10.1061/9780784486979.022,e26
+s04318,Structured LLM-to-action grounding for a dual-wheel-legged robot: A modular real-robot study,2026,10.1016/j.robot.2026.105734,e26
+s03120,Agentic HRC: Achieving context alignment via memory for Human-Robot Collaboration,2026,10.1016/j.rcim.2026.103307,e26
+s01483,Agentic Memory: Enabling Situational Resonance in Human-Robot Collaboration,2026,10.1016/j.procir.2026.02.208,e26
+c11338,"USV-3.0: Cognitive maritime navigation through vision-language models, Human-in-the-Loop learning, and spatio-temporal memory",2026,10.1016/j.oceaneng.2026.125010,e26
+s00141,A Hierarchical Framework of Central-Distributed LLM Negotiation and Specialized Model Orchestration for Multi-Robot Collaborative Assembly,2026,10.1016/j.procir.2026.05.337,e26
+s01915,A Multi-Expert VLM Framework for Cognitive Robotic Manipulation in semi-structured Manufacturing,2026,10.1016/j.procir.2026.03.303,e26
+s06735,A Vision-Language Based Framework for Context-Aware Task Planning in Human-Robot Collaborative Assembly,2026,10.1016/j.procir.2026.02.148,e26
+c12494,AgenticDiffusion: Agentic Diffusion-based Path Planning for Vision-Based UAV Navigation,2026,10.48550/arXiv.2606.04111,e26
+s10282,An MVUN-DP skill library-driven Embodied AI robotic assembly method with LLMs,2026,10.1016/j.rcim.2026.103263,e26
+s10751,CogAssem: A VLM-Driven Architecture Bridging Cognition and Execution for Intelligent Robotic Assembly in Flexible Manufacturing,2026,10.1016/j.procir.2026.02.130,e26
+s11101,Embodied multi-agent system integrating VLA for AR-assisted HRC assembly task reasoning and autonomous execution,2026,10.1016/j.procir.2026.02.159,e26
+c04030,EmergeNav: Structured Embodied Inference for Zero-Shot Vision-and-Language Navigation in Continuous Environments,2026,10.48550/arXiv.2603.16947,e26
+s00014,From Assistant to Agent: A State-Aware VLM Framework for Intelligent Human-Robot Collaboration System,2026,10.1007/978-981-92-2888-1_23,e26
+s10323,GLaMP: A Grounded Language Model-Based Multiagent System for Long-Horizon Robotic Task Planning in Industrial Settings,2026,10.1109/tie.2026.3713552,e26
+s07211,GNN-LLM hybrid cognitive architectures for generative task adaptation in multi-human multi-robot collaborative disassembly,2026,10.1016/j.rcim.2025.103169,e26
+s01779,LMUCS: Lightweight LLM-driven UAV control system with multimodal perception for autonomous material search and localization,2026,10.1016/j.ast.2026.112949,e26
+s00460,Language-Driven Bimanual Cloth Manipulation With LLM Planning and Part-Aware Perception,2026,10.1109/tie.2026.3732441,e26
+s09789,Probing a multi-agent and industrial language model framework of digital twin for human-robot collaborative assembly,2026,10.1016/j.procir.2026.02.160,e26
+s09235,Synergizing Multimodal Large Language Models and GRPO-based Physics-Guided DRL for UAV Swarm Navigation in Dynamic Environments,2026,10.1109/access.2026.3738149,e26
+s08193,Task Assignment Control of Autonomous Cooperative Mobile Robots via Large Language Models: A Proof-of-concept Study,2026,10.9746/sicetr.62.344,e26
+s09685,World Models as Constraints: Heterogeneous Rail Robot Coordination via CA-JEPA and LLM-Based Planning,2026,10.1007/978-981-92-2014-4_16,e26
+c06593,LLM-KGFP: A Chain-of-Thought-Driven Knowledge Graph Planner for Autonomous Rover Operations in Lunar Polar Shadowed Regions,2026,10.1016/j.asr.2026.01.031,e26
+s10906,Interactive Construction Robots for Timber Truss Assembly via Vision-Language Model and Mark-Based Visual Prompting,2026,10.1061/9780784486443.079,e26
+s06825,AR-assisted human-robot collaborative assembly system: Integrating visual language model and deep reinforcement learning for task planning and seamless interactive guidance,2026,10.1016/j.jmsy.2025.11.019,e26
+c02668,Enhancing stability and reliability in LLM-driven robotic manipulation through human skill demonstration and visual tracking,2026,10.1016/j.birob.2026.100305,e26
+c02743,Robotic arm visual-servoing for AI-driven chess gameplay using LLM-based plannner,2026,10.1007/s00521-025-11700-w,e26
+c00629,TRTP: a three-stage robust task planning framework for open worlds via visual-language models and digital twin simulation,2026,10.1007/s10489-026-07143-y,e26
+s00010,"Research on a Robotic Natural Language Intelligent Decision-Making Framework Based on Large Language Models, Thinking Chain Reasoning, and Multi-Agent Collaboration",2026,10.38007/ml.2026.060103,e26
+c01728,VLM-RLPGS: A Cognitive Framework Using Vision–Language Model and Reinforcement Learning for Push–Grasp Synergy,2026,10.1007/s13369-026-11170-9,e26
+c01510,STRAP-LLM: structured task allocation and planning for heterogeneous robots using large language models,2026,10.1007/s11370-025-00676-0,e26
+s01451,Proposal for a real-world cooking robot based on the integration of LLM and visual information,2026,10.1117/12.3102441,e26
+s03642,ChainBot: An Agent System for Autonomous Robotic Object Manipulation by Dynamically Chaining Multiple Foundation Models,2026,10.5302/j.icros.2026.25.0289,e26
+s04146,A Multimodal LLM-Driven Robotic Control System for Adaptive Industrial Manipulation: Integrating Vision-Language Models for Enhanced Manufacturing Flexibility,2026,10.1016/j.cogr.2026.03.002,e26
+c07733,Active Obstacle Separation: Vision-Language Model (VLM) Driven Clearing Decisions for Robotic Harvesting,2026,10.1016/j.atech.2026.102037,e26
+c00600,Enhanced reasoning and task planning for surgical autonomy using multi-modal large language models with gradual learning,2026,10.1016/j.birob.2026.100277,e26
+c01439,Onto-LLM-TAMP: Knowledge-oriented Task and Motion Planning using Large Language Models,2026,10.1016/j.robot.2026.105404,e26
+s03163,Self-hosted multimodal large language models for speech-driven perception and navigation in construction robotics,2026,10.1016/j.autcon.2026.106805,e26
+s07194,Improving Autonomy and Natural Interaction of Pepper Robot via Large Language Models,2026,10.1007/s42979-026-04892-y,e26
+s07667,CCM-FCC: LLM-powered cognition-centered AI agent framework for proactive human-robot collaboration,2026,10.1016/j.rcim.2025.103145,e26
+s10241,From insight to action: Embodied multi-agent system integrating vision language model for digital twin-assisted human-robot collaborative assembly,2026,10.1016/j.jmsy.2026.02.013,e26
+s05088,From insight to autonomous execution: VLM-enhanced embodied agents towards digital twin-assisted human-robot collaborative assembly,2026,10.1016/j.rcim.2025.103176,e26
+c02643,Scene graph-driven reasoning for action planning of humanoid robot,2026,10.1016/j.engappai.2026.114150,e26
+c13500,A cloud-edge collaborative framework with confidence-aware perception and cognitive dual-stream memory for proactive service robot decision-making,2026,10.1016/j.eswa.2026.132623,e26
+s06510,Act or ask: Interactive construction robots via vision-language models with confidence-guided decision deferral,2026,10.1016/j.aei.2026.104454,e26
+s07840,Vision-language guided planning and control for humanoid whole-body manipulation,2026,10.1049/icp.2026.1882,e26
+c12097,Towards Object-Level Multimodal Task Planning for Long-Term Robotic Manipulation with Vision Language Model and Behavior Tree,2026,10.1109/icassp55912.2026.11461939,e26
+c00622,Task2Mission: language-driven task-to-mission mapping for adaptive water quality monitoring,2026,10.1007/s41315-026-00539-6,e26
+s09277,Design and Implementation of a Natural Language-Based Autonomous Robot Control System Using Large Language Models,2026,10.7746/jkros.2026.21.2.131,e26
+s04126,A Hybrid Computing Framework For LLM-based Human-robot Interaction: Generating Action Plans for Robotic Arms,2026,10.22266/ijies2026.0531.59,e26
+s09579,Introducing JARVIS: An LLM based Autonomous Robotic Agent for Near Real-Time Planning and Execution of Novel ADL Tasks,2026,10.11159/cdsr26.140,e26
+c00288,Privacy-aware LLM-assisted Task Planning for Home Robots,2026,10.1109/ICRA57385.2026.11696813,e26
+s08846,SafeNet: A Neural-Symbolic Network for Safe Planning in Robotic Systems using Formal Method-Guided LLM Fine-Tuning,2026,10.1109/ICRA57385.2026.11697001,e26
+c02733,Tool-augmented LLM planning and decoupled scheduling for heterogeneous multi-agent lunar missions: A three-layer architecture,2026,10.1016/j.robot.2026.105581,e26
+s08400,VLION: Vision-Language Guided Interactive Object Navigation with Mobile Manipulation,2026,10.1109/ICRA57385.2026.11696398,e26
+s07786,Phase-Adaptive Large Language Models for Multi-Robot Task Allocation in Dynamic Construction Environments,2026,10.22260/isarc2026/0066,e26
+c04883,Perception-decision-execution coordination mechanism driven dynamic autonomous collaboration method for human-like collaborative robot based on multimodal large language model,2026,10.1016/j.rcim.2025.103167,e26
+c01778,ReflectVLM+: Enhancing VLM-based Robotic Planning via Quantitative Stagnation Detection and Trajectory Refinement,2026,10.1007/s12541-026-01548-y,e26
+c04136,Enabling reliable navigation for lightweight VLMs via a Semantically-Gated Visual servoing framework,2026,10.1016/j.robot.2026.105703,e26
+c00613,A multimodal foundation model-enabled agent for human–robot collaboration in construction,2026,10.1007/s41693-026-00211-2,e26
+c01262,MulPlanLM: multimodal robotic task planning with vision-language models and physical feedback,2026,10.1007/s11370-026-00743-0,e26
+s02731,A human-verifiable execution-time DAG refinement framework for LLM-driven multi-robot construction task planning,2026,10.1007/s10015-026-01138-1,e26
+c12995,Embodied AI in the operating room: a voice-interactive robotic scrub nurse for surgical instrument handoffs,2026,10.1007/s11701-026-03866-9,e26
+c06446,LG-HSS: Language-Guided Hybrid Skill Scheduling for embodied manipulation,2026,10.1016/j.robot.2026.105736,e26
+s01967,A reasoning-LLM-based high-level planning framework for robotic shelf-stocking and disposal tasks,2026,10.1080/01691864.2026.2728199,e26
+c13371,LLM-driven embodied intelligent system for autonomous open-channel hydraulics: design and validation via long-duration PIV measurements,2026,10.1007/s10652-026-10110-3,e26
+s06189,Physical AI for Autonomous Manufacturing: A Dual Process VLM-VLA Framework for Task Assistant Robots,2026,10.1007/s12541-026-01625-2,e26
+s00062,"Vision language model-enhanced embodied intelligence for AR-assisted HRC assembly: Multimodal cognition, task reasoning, and autonomous execution",2026,10.1016/j.jmsy.2026.06.021,e26
+c01213,LLM-augmented progressive search for efficient multi-robot task planning,2026,10.1016/j.aei.2026.105169,e26
+c00493,Speech-guided unmanned aerial vehicle control system based on large language model-structured execution graphs with expert rule constraints,2026,10.1016/j.engappai.2026.116349,e26
+c03962,AgenticRL: Self-Refining Agentic Reinforcement Learning for Vision-Conditioned UAV Navigation,2026,10.48550/arXiv.2606.03963,e26
+t302,"RoboRSI: Stable, Efficient, and Reusable Robot Self-Evolution in Complex Real-World Environments",2026,,e26
+c02068,Agents Trainer: Automatically Training Multi-Agent Reinforcement Learning Models for Drone Swarm Using Language Model-Based Agents,2026,10.1109/TASE.2026.3689345,e26
+c02602,How to Tidy Up a Table: Fusing Visual and Semantic Commonsense Reasoning for Robotic Tasks with Vague Objectives,2023,10.48550/arXiv.2307.11319,e22
+c02509,Integrating Common Sense and Planning with Large Language Models for Room Tidying,2023,,e22
+c01332,Lang2LTL: Translating Natural Language Commands to Temporal Robot Task Specification,2023,10.48550/arXiv.2302.11649,e22
+c00332,Leveraging Commonsense Knowledge from Large Language Models for Task and Motion Planning,2023,,e22
+c00261,Make a Donut: Language-Guided Hierarchical EMD-Space Planning for Zero-shot Deformable Object Manipulation,2023,10.48550/arXiv.2311.02787,e22
+c00237,Open-World Task and Motion Planning via Vision-Language Model Inferred Constraints,2024,10.48550/arXiv.2411.08253,e22
+c00108,Teaching Robots with Show and Tell: Using Foundation Models to Synthesize Robot Policies from Language and Visual Demonstration,2024,,e22
+c00649,Embodied intelligence in manufacturing: leveraging large language models for autonomous industrial robotics,2024,10.1007/s10845-023-02294-y,e22
+c02395,Leveraging large language models for comprehensive locomotion control in humanoid robots design,2024,10.1016/j.birob.2024.100187,e22
+t162,Embodied large language models enable robots to complete long-horizon tasks in unpredictable settings,2025,,e22
+c01437,Grounded Vision-Language Interpreter for Integrated Task and Motion Planning,2025,10.48550/arXiv.2506.03270,e22
+c02139,"ZLATTE: A Geometry-Aware, Learning-Free Framework for Language-Driven Trajectory Reshaping in Human-Robot Interaction",2025,10.48550/arXiv.2509.06031,e22
+c02391,LLM-controller: Dynamic robot control adaptation using large language models,2025,10.1016/j.robot.2024.104913,e22
+c03605,Formation control and path planning of multi-robot systems via large language models,2025,10.1007/s11432-024-4290-4,e22
+c07132,Behavior tree generation and adaptation for a social robot control with LLMs,2025,10.1016/j.robot.2025.105165,e22
+c00064,Human-Assisted Continual Robot Learning with Foundation Models,2023,10.48550/arXiv.2309.14321,e22
+c03634,RoboMemory: A Brain-inspired Multi-memory Agentic Framework for Lifelong Learning in Physical Embodied Systems,2025,10.48550/arXiv.2508.01415,e22
+c06531,"D O A S I C AN , N OT A S I S AY : G ROUNDING L ANGUAGE IN R OBOTIC A FFORDANCES",2022,,e22
+c00095,Grounded Decoding: Guiding Text Generation with Grounded Models for Robot Control,2023,10.48550/arXiv.2303.00855,e22
+c00922,Don't Let Your Robot be Harmful: Responsible Robotic Manipulation,2024,10.48550/arXiv.2411.18289,e22
+c00329,Introspective Planning: Guiding Language-Enabled Agents to Refine Their Own Uncertainty,2024,10.48550/arXiv.2402.06529,e22
+c02591,REBEL: Rule-based and Experience-enhanced Learning with LLMs for Initial Task Allocation in Multi-Human Multi-Robot Teams,2024,10.48550/arXiv.2409.16266,e22
+c01119,Robi Butler: Remote Multimodal Interactions with Household Robot Assistant,2024,10.48550/arXiv.2409.20548,e22
+c00172,Safe Task Planning for Language-Instructed Multi-Robot Systems using Conformal Prediction,2024,10.48550/arXiv.2402.15368,e22
+c00736,"Mitigating Cross-Modal Distraction and Ensuring Geometric Feasibility via Affordance-Guided, Self-Consistent MLLMs for Food Preparation Task Planning",2025,10.48550/arXiv.2503.13055,e22
+c01483,Using Vision Language Models as Closed-Loop Symbolic Planners for Robotic Applications: A Control-Theoretic Perspective,2025,10.48550/arXiv.2511.07410,e22
+c00880,Human–robot interaction through joint robot planning with large language models,2025,10.1007/s11370-024-00570-1,e22
+c00468,Achieving adaptive tasks from human instructions for robots using large language models and behavior trees,2025,10.1016/j.robot.2025.104937,e22
+c06657,ElevNav: Large Language Model-Guided Robot Navigation via 3D Scene Graphs in Elevator Environments,2025,10.3103/S1060992X25700109,e22
+c02483,LLM-MTMP: A large language model-based multi-agent task and motion planning framework for power inspection robots,2025,10.1016/j.jii.2025.101014,e22
+c02498,Prompt2Act: Mapping prompts into sequence of robotic actions with large foundation models,2025,10.1016/j.inffus.2025.103923,e22
+t049,Self-Refined Large Language Model as Automated Reward Function Designer for Deep Reinforcement Learning in Robotics,2023,,e22
+c01135,Towards A Foundation Model for Generalist Robots: Diverse Skill Learning at Scale via Automated Task and Scene Generation,2023,10.48550/arXiv.2305.10455,e22
+c00016,Text2Reward: Automated Dense Reward Function Generation for Reinforcement Learning,2023,10.48550/arXiv.2309.11489,e22
+c02886,Multi-modal LLM-enabled Long-horizon Skill Learning for Robotic Manipulation,2024,10.1109/CIS-RAM61939.2024.10672715,e22
+c03864,TARG: Tree of Action-reward Generation With Large Language Model for Cabinet Opening Using Manipulator,2025,10.1007/s12555-024-0528-6,e22
+c04206,Policy Generating and Value Shaping via Large Language Model for Long-Horizon Manipulation,2025,10.1109/CAC67268.2025.11486604,e22
+c05999,Autonomous Discovery of Robot Structure and Motion Control Through Large Vision Models,2024,10.1109/CIS-RAM61939.2024.10673339,e22
+c02097,Debate2Create: Robot Co-design via Large Language Model Debates,2025,10.48550/arXiv.2510.25850,e22
+c00820,SkillWrapper: Generative Predicate Invention for Skill Abstraction,2025,10.48550/arXiv.2511.18203,e22
+c00059,HiCRISP: A Hierarchical Closed-Loop Robotic Intelligent Self-Correction Planner,2023,10.48550/arXiv.2309.12089,e22
+c00248,Large Language Models to the Rescue: Deadlock Resolution in Multi-Robot Systems,2024,10.48550/arXiv.2404.06413,e22
+c00295,RoboGPT: an LLM-based Embodied Long-term Decision Making agent for Instruction Following Tasks,,,bnd
+c00510,Active Exploration for Embodied Task Planning via Vision-Language Models,2025,10.1109/CAC67268.2025.11486917,bnd
+c00697,Socratic Planner: Inquiry-Based Zero-Shot Planning for Embodied Instruction Following,2024,10.48550/arXiv.2404.15190,bnd
+c00807,EvolveNav: Self-Improving Embodied Reasoning for LLM-Based Vision-Language Navigation,2025,10.48550/arXiv.2506.01551,bnd
+c01235,DyRef: Dynamic Reflection Framework via Graph-Based Complexity for Robotic Planning,2026,10.1109/ICRA57385.2026.11697183,bnd
+c01740,ICAL: Continual Learning of Multimodal Agents by Transforming Trajectories into Actionable Insights,2024,10.48550/arXiv.2406.14596,bnd
+c01876,UvA-DARE (Digital Academic Repository) CaPo: Cooperative Plan Optimization for Efficient Embodied Multi-Agent Cooperation,,,bnd
+c02120,LLM-Based Cooperative Agents using Information Relevance and Plan Validation,2024,10.48550/arXiv.2405.16751,bnd
+c02463,Parameter-efficient action planning with large language models for vision-and-language navigation,2025,10.1016/j.patcog.2025.112462,bnd
+c02830,거대 언어 모델을 이용한 뉴로-심볼릭 작업 재계획법 Neuro-Symbolic Task Replanning using Large Language Models,,,bnd
+c03259,L ARGE L ANGUAGE M ODELS AS D ECISION M AKERS FOR A UTONOMOUS D RIVING,,,bnd
+c03694,Multimodal Embodied Interactive Agent for Cafe Scene,2024,10.48550/arXiv.2402.00290,bnd
+c04207,Enhancing Memory Ability of LLM Agent for Vision-and-Language Navigation,2025,10.1109/CAC67268.2025.11486783,bnd
+c04277,Seeing the details to plan ahead: Grounding LLM tree planning in fine-grained perception for embodied agents,2026,10.1016/j.eswa.2026.133107,bnd
+c04982,RILA: Reflective and Imaginative Language Agent for Zero-Shot Semantic Audio-Visual Navigation,2024,10.1109/CVPR52733.2024.01538,bnd
+c05833,Exploring Large Language Models to Facilitate Variable Autonomy for Human-Robot Teaming,2023,10.48550/arXiv.2312.07214,bnd
+c06635,CMAR-search: Commonsense and Memory Augmented Reasoning for Object Search in Dynamic Interactive Environments,2026,10.1109/ICRA57385.2026.11697035,bnd
+c06886,SurrealDriver: Designing Generative Driver Agent Simulation Framework in Urban Contexts based on Large Language Model,2023,10.48550/arXiv.2309.13193,bnd
+c11123,Coordination of LLM-Embodied Agents for manufacturing task allocation under constraints,2026,10.1016/j.jmsy.2026.04.028,bnd
+c13498,MSNav: Zero-Shot Vision-And-Language Navigation with Dynamic Memory and LLM Spatial Reasoning,2026,10.1109/icassp55912.2026.11463005,bnd
+s00566,ReThinkNav: Zero-Shot Vision-and-Language Navigation with Open-Source LLMs via Contextual Reasoning and Loop Recovery,2026,10.1109/ICRA57385.2026.11695809,bnd
+s03668,LLM-Guided Hybrid Scheduling With Digital Twin Feedback for Heterogeneous Multi-Robot Aircraft Stringer Assembly,2026,10.1109/ticps.2026.3733876,bnd
+t248,Scalable Multi-Robot Collaboration with Large Language Models: Centralized or Decentralized Systems?,2023,,bnd
