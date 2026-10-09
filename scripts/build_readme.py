@@ -2,7 +2,7 @@
 """Generate README.md (the awesome list) from data/core/core_table.csv + data/core/core_meta.json.
 
 Sections follow the user's classification (2026-10-09): two phases, pre-execution (Designer, Teacher, Developer) and
-runtime (Controller split into three sub-types, Supervisor), then the Real2Sim / Sim2Real and VLN chapters. Every section traces its lineage: pioneers (2022-2025) first, then
+runtime (Controller split into three sub-types, Supervisor), then the Real2Sim / Sim2Real, VLN and multi-agent chapters. Every section traces its lineage: pioneers (2022-2025) first, then
 2026. Columns carry the anatomy tags (Carrier, Interface, Topology, Loop, Body).
 
 Usage: python3 scripts/build_readme.py
@@ -69,7 +69,17 @@ def links(r, m):
 
 
 SEAT_ORDER = {"Controller": 0, "Supervisor": 1, "Teacher": 2, "Designer": 3, "Developer": 4}
+ROLE_EN = {"环境/重建": "Environments / reconstruction", "奖励/任务": "Rewards / tasks", "示范/蒸馏": "Demonstration / distillation",
+           "系统/代码": "System / code", "本体/工具": "Embodiment / tools", "编排": "Orchestration", "写策略": "Policy writing",
+           "直接动作": "Direct action", "监控/恢复": "Monitoring / recovery", "评测": "Evaluation"}
+
+
+def more_name(r):
+    a = norm_arxiv(r["arxiv"])
+    t = " ".join(r["title"].split()).replace("|", "/")
+    return f"[{t}](https://arxiv.org/abs/{a})" if a else t
 R2S_THEMES = {"real2sim", "sim2real", "real2sim2real"}  # theme "vln" marks the VLN chapter instead
+is_ma = lambda r: "多智能体" in (r.get("topic") or "")  # multi-agent chapter (user, 2026-10-09); may overlap VLN
 
 
 def is_nav(r):
@@ -117,13 +127,19 @@ def main():
     res = [r for r in rows if r["tier"] == "resource"]
     chapter = lambda r: "r2s" if r.get("theme") in R2S_THEMES else ("vln" if r.get("theme") == "vln" else "")
     r2s, vln = [r for r in core if chapter(r) == "r2s"], [r for r in core if chapter(r) == "vln"]
-    ep = os.path.join(ROOT, "data/core/extended_2026.csv")  # build_extended.py
-    ext = list(csv.DictReader(open(ep))) if os.path.exists(ep) else []
-    ep = os.path.join(ROOT, "data/core/extended_2022_2025.csv")
-    ext_pre = list(csv.DictReader(open(ep))) if os.path.exists(ep) else []
+    ma = [r for r in core if is_ma(r)]
+    # The "More papers" sections: every paper of data/core/paper_list.csv (judged from full text) that is kept or a
+    # resource but not in the curated tables above.
+    lp = os.path.join(ROOT, "data/core/paper_list.csv")
+    plist = list(csv.DictReader(open(lp, encoding="utf-8-sig"))) if os.path.exists(lp) else []
+    curated = {r["key"] for r in rows} | {norm_arxiv(r["arxiv"]) for r in rows if r["arxiv"]}
+    more = [r for r in plist if r["verdict"] in ("保留", "资源") and r["key"] not in curated
+            and norm_arxiv(r["arxiv"]) not in curated]
+    ext = [r for r in more if r["year"] == "2026"]
+    ext_pre = [r for r in more if r["year"] != "2026"]
 
     def in_section(r, seat, sub):
-        return not chapter(r) and r["seat"] == seat and (sub is None or r["sub"] == sub or (
+        return not chapter(r) and not is_ma(r) and r["seat"] == seat and (sub is None or r["sub"] == sub or (
             seat == "Controller" and sub == "orchestrator" and r["sub"] not in ("direct", "lifelong")))
 
     def lineage(pios, news, table_head, fmt):
@@ -143,7 +159,8 @@ def main():
            "**Thesis (draft, under revision).** *Agency spreads around the body: general models, not embodied action "
            "models, fill seat after seat.*", "",
            f"Each seat is traced from its **{len(pio)} pioneers (2022–2025)** to **{len(core)} papers from 2026**, the year "
-           f"most of the field's papers appeared; VLN / embodied navigation ({len(vln)} from 2026) has its own chapter and "
+           f"most of the field's papers appeared; VLN / embodied navigation ({len(vln)} from 2026) and multi-agent systems "
+           f"({len(ma)} from 2026) have their own chapters and "
            f"the Real2Sim / Sim2Real sub-direction a short section ({len(r2s)}), plus **{len(res)} benchmarks and resources**. "
            "Definition and inclusion rules: [docs/definition.md](docs/definition.md); the judged list with evidence: "
            "[docs/paper_list.md](docs/paper_list.md) (both in Chinese).", "",
@@ -163,8 +180,9 @@ def main():
            "(*Loop* = re-decide, authored, or none); (3) at a glance the paper is **about the agent** — datasets, "
            "data-generation platforms and asset pipelines with an LLM inside are not included, benchmarks of general "
            "agents are listed as resources; (4) general models, not embodied foundation models.", "",
-           "Also not included: scalar reward/value models, one-shot annotators, world-model foresight, game/text worlds, "
-           "purely digital agents.", "",
+           "Environments: real robots, physics simulators and discrete embodied simulators (ALFRED, VirtualHome, R2R "
+           "navigation graphs) count; pure text worlds and autonomous driving do not. Also not included: scalar "
+           "reward/value models, one-shot annotators, world-model foresight, purely digital agents.", "",
            "## Seat by period", "",
            "| Phase | Seat | Pioneers 2022–2025 | 2026 |", "|---|---|---|---|"]
     for ph_, s_ in (("pre-execution", "Designer"), ("pre-execution", "Teacher"), ("pre-execution", "Developer"),
@@ -172,7 +190,7 @@ def main():
         n_p = sum(1 for r in pio if r["seat"] == s_)
         n_c = sum(1 for r in core if r["seat"] == s_)
         out.append(f"| {ph_} | {s_} | {n_p} | {n_c} |")
-    out += ["", "Counts include the papers of the Real2Sim / Sim2Real and VLN chapters under their seats.", "",
+    out += ["", "Counts include the papers of the Real2Sim / Sim2Real, VLN and multi-agent chapters under their seats.", "",
             LEGEND, "", "## Contents", ""]
     anchor = lambda t: "#" + re.sub(r"[^a-z0-9 -]", "", t.lower()).replace(" ", "-")
     last = None
@@ -183,6 +201,7 @@ def main():
         out.append(f"  - [{title}]({anchor(title)})")
     out += ["- [Sub-direction: Real2Sim / Sim2Real](#sub-direction-real2sim--sim2real)",
             "- [VLN and embodied navigation](#vln-and-embodied-navigation)",
+            "- [Multi-agent systems](#multi-agent-systems)",
             "- [Benchmarks and resources](#benchmarks-and-resources)"]
     if ext:
         out.append(f"- [More 2026 papers ({len(ext)})](#more-2026-papers)")
@@ -208,6 +227,23 @@ def main():
             "simulation (e.g. Habitat VLN-CE) or on real robots; earlier agents on the discrete R2R graph appear only "
             "among the pioneers. Seats are kept, so the chapter mixes Controllers with a few Teachers and Designers.", ""] + \
            lineage([r for r in pio if chapter(r) == "vln"], vln, seat_head, seat_row_md)
+    out += ["## Multi-agent systems", "",
+            "Systems where multiple agents are the point: general-model agents that allocate, plan or coordinate the "
+            "work of two or more robots (including heterogeneous teams such as drones with ground robots), or a team "
+            "of general-model agents with distinct roles that talk, debate or hand work to each other. A single robot "
+            "driven by a pipeline of prompted calls is not listed here. Seats are kept; multi-agent navigation papers "
+            "also appear in the VLN chapter.", ""] + \
+           lineage([r for r in pio if is_ma(r)], ma, seat_head, seat_row_md)
+    ma_res = [r for r in res if is_ma(r)]
+    if ma_res:
+        out += [f"Multi-agent benchmarks (listed under *Benchmarks and resources*): "
+                + ", ".join(f"**{r['key']}**" for r in sorted(ma_res, key=sort_key)) + ".", ""]
+    ma_more = sorted([r for r in more if is_ma(r) and r["verdict"] == "保留"], key=lambda r: (r["year"], r["key"].lower()))
+    if ma_more:
+        out += [f"<details><summary><b>More multi-agent papers</b> ({len(ma_more)})</summary>", "",
+                "| Paper | Year | Seat · role |", "|---|---|---|"]
+        out += [f"| {more_name(r)} | {r['year']} | {r['seat']} · {ROLE_EN.get(r['role'], r['role'])} |" for r in ma_more]
+        out += ["", "</details>", ""]
     out += ["## Benchmarks and resources", "",
             "| Name | Paper | Year | Venue | Evaluated seat | Body |", "|---|---|---|---|---|---|"]
     for r in sorted(res, key=sort_key):
@@ -217,36 +253,36 @@ def main():
         pj, cd = links(r, m)
         out.append(f"| **{r['key']}** | [{title}](https://arxiv.org/abs/{a}){pj}{cd} | {(m.get('published') or r.get('date') or '')[:4]} | "
                    f"{venue_of(r, m)} | {r['seat']} | {r['body']} |")
-    groups = [(seat, sub, title) for _, seat, sub, title, _ in SECTIONS]
-    groups.append(("vln", None, "VLN and embodied navigation"))
     for xs_all, head_, what in ((ext, "More 2026 papers", "2026 papers"),
                                 (ext_pre, "More papers from 2022–2025", "papers from 2022–2025")):
         if not xs_all:
             continue
         out += ["", f"## {head_}", "",
-                f"{len(xs_all)} further {what} that meet the definition (judged by a verification pass; open-loop ones "
-                "have *Loop* = none) but "
-                "are not in the curated tables above. Tags come from the judging pass and are not hand-checked; "
-                "generated by `scripts/build_extended.py`.", ""]
-        for seat, sub, title in groups:
-            if seat == "vln":
-                xs = [r for r in xs_all if is_nav(r)]
-            else:
-                xs = [r for r in xs_all if r["seat"] == seat and not is_nav(r) and (sub is None or r["sub"] == sub or (
-                    seat == "Controller" and sub == "orchestrator" and r["sub"] not in ("direct", "lifelong")))]
-            if not xs:
-                continue
-            out += [f"<details><summary><b>{title}</b> ({len(xs)})</summary>", "",
-                    "| Paper | Month | Carrier | Loop | Body |", "|---|---|---|---|---|"]
-            for r in sorted(xs, key=lambda r: (r["date"], r["title"])):
-                link = f"https://arxiv.org/abs/{r['arxiv']}" if r["arxiv"] else ""
-                name = f"[{r['title']}]({link})" if link else r["title"]
-                tag = f" `{r['theme']}`" if r.get("theme") else ""
-                out.append(f"| {name}{tag} | {r['date'][:7]} | {r['carrier']} | {r['loop']} | {r['body']} |")
+                f"{len(xs_all)} further {what} that meet the definition but are not in the curated tables above. Each was "
+                "judged from its full text (a first pass, then a verification pass by a stronger model; papers off arXiv "
+                "without an open-access PDF were judged from the abstract); the reasons and quotes are in "
+                "[docs/paper_list.md](docs/paper_list.md). `MA` marks the multi-agent chapter.", ""]
+        for seat in ["Designer", "Teacher", "Developer", "Controller", "Supervisor"]:
+            for role in [x for x in ROLE_EN if x != "评测"]:
+                xs = [r for r in xs_all if r["verdict"] == "保留" and r["seat"] == seat and r["role"] == role]
+                if not xs:
+                    continue
+                out += [f"<details><summary><b>{seat} · {ROLE_EN[role]}</b> ({len(xs)})</summary>", "",
+                        "| Paper | Year | Decision model |", "|---|---|---|"]
+                for r in sorted(xs, key=lambda r: (r["year"], r["key"].lower())):
+                    out.append(f"| {more_name(r)}{' `MA`' if is_ma(r) else ''} | {r['year']} | "
+                               f"{r['decision_model'][:80].replace('|', '/')} |")
+                out += ["", "</details>", ""]
+        xs = [r for r in xs_all if r["verdict"] == "资源"]
+        if xs:
+            out += [f"<details><summary><b>Benchmarks and evaluation studies</b> ({len(xs)})</summary>", "",
+                    "| Paper | Year | Evaluated seat |", "|---|---|---|"]
+            out += [f"| {more_name(r)} | {r['year']} | {r['seat']} |" for r in sorted(xs, key=lambda r: (r["year"], r["key"].lower()))]
             out += ["", "</details>", ""]
     out += ["", "---", "", "Selection pipeline, labels and scripts: see [HANDOFF.md](HANDOFF.md) and `data/core/`.", ""]
     open(os.path.join(ROOT, "README.md"), "w").write("\n".join(out))
-    print(f"README.md: 2026 {len(core)} (real2sim {len(r2s)}, vln {len(vln)}), pioneers {len(pio)}, resources {len(res)}, "
+    print(f"README.md: 2026 {len(core)} (real2sim {len(r2s)}, vln {len(vln)}, multi-agent {len(ma)}), pioneers {len(pio)}, "
+          f"resources {len(res)}, "
           f"more-2026 {len(ext)}, more-2022-2025 {len(ext_pre)}")
 
 

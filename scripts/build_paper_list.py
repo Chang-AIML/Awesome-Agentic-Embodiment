@@ -10,6 +10,9 @@ data platform; every row was judged from the paper's full text (screening/prompt
 Classification (user, 2026-10-09, back to the earlier seats): two phases, pre-execution (Designer, Teacher, Developer)
 and runtime (Controller, Supervisor); `role` says what the agent does within its seat.
 
+Also writes data/core/agent_pool.csv: the kept papers only (phase, seat, role, topic, key, year, title, arxiv,
+decision model, connection, reason), sorted by phase, seat, role and year.
+
 Usage: python3 scripts/build_paper_list.py
 """
 import csv, os
@@ -41,7 +44,8 @@ def table(rows, L):
     L += ["| 论文 | 年 | 角色 | 决策模型 | 理由 | 原文证据 | 备注 |", "|---|---|---|---|---|---|---|"]
     for r in rows:
         name = f"[{r['key']}](https://arxiv.org/abs/{r['arxiv']})" if r["arxiv"] else r["key"]
-        L.append(f"| {name} | {r['year']}{'（先驱）' if r['tier'] == '先驱' else ''} | {r['role']} | "
+        ma = " · 多智能体" if "多智能体" in (r.get("topic") or "") else ""
+        L.append(f"| {name} | {r['year']}{'（先驱）' if r['tier'] == '先驱' else ''} | {r['role']}{ma} | "
                  f"{r['decision_model']}（{r['model_status']}） | {r['reason']} | {r['evidence']} | {r['note']} |")
     L.append("")
 
@@ -60,7 +64,8 @@ def main():
          "收录要求**现成的通用大模型**（未经作者训练或微调）作为 agent 存在并起作用，连到 Policy / Code 或 Env / Sim 其中之一即可"
          "（开环也算）；论文主体必须是 agent，数据生成平台、资产流水线不算；训练过的 VLA、技能、感知模型只能作为 agent 调用的工具。"
          "每篇都读了全文判定，「决策模型」一列写明谁在做决策，括号内 G = 现成通用模型、FT = 作者训练或微调、SPEC = VLA 或专用模型；"
-         "「原文证据」是论文原句。\n",
+         "「原文证据」是论文原句。本清单是精选版（用户 2026-10-09 决定回到精选）；扩展列表中按同一标准补判过的 arXiv 论文"
+         "暂存在 `data/core/extended_judged.csv`，不在 arXiv 上的期刊论文在 `data/core/non_arxiv_papers.csv`，两者暂不进入清单。\n",
          "## 分类：两个阶段，五个 Seat\n",
          "| 阶段 | Seat | 含义 | 篇数 |", "|---|---|---|---|"]
     L += [f"| {ph} | {s} | {d} | {sc[s]} |" for s, ph, d in SEATS]
@@ -79,12 +84,37 @@ def main():
             xs = [r for r in kept if r["seat"] == s]
             L.append(f"### {s}（{len(xs)}）\n\n{sd}\n")
             table(xs, L)
+    ma = [r for r in recs if r["verdict"] != "剔除" and "多智能体" in (r.get("topic") or "")]
+    L.append(f"## 专题：多智能体（{len(ma)}）\n\n多智能体是主系统的核心：通用大模型 agent 协调两个及以上机器人，或系统由分工不同、"
+             "彼此对话或交接工作的多个通用大模型 agent 组成（用户 2026-10-09 要求单独成章；定义见 `definition.md`）。"
+             "这些论文同时列在各自的 Seat 下。\n")
+    L += ["| 论文 | 年 | 结论 | Seat | 角色 | 理由 |", "|---|---|---|---|---|---|"]
+    for r in ma:
+        name = f"[{r['key']}](https://arxiv.org/abs/{r['arxiv']})" if r["arxiv"] else r["key"]
+        L.append(f"| {name} | {r['year']} | {r['verdict']} | {r['seat']} | {r['role']} | {r['reason']} |")
+    L.append("")
     for v in ("资源", "剔除"):
         xs = [r for r in recs if r["verdict"] == v]
         L.append(f"## {v}（{len(xs)}）\n\n{VERDICT_D[v]}\n")
-        table(xs, L) if v == "剔除" else _res(xs, L)
+        _out(xs, L) if v == "剔除" else _res(xs, L)
     open(os.path.join(ROOT, "docs/paper_list.md"), "w").write("\n".join(L) + "\n")
+    # The agent pool: the kept papers only, in reading order (phase, seat, role, year)
+    cols = ["phase", "seat", "role", "topic", "key", "year", "title", "arxiv", "decision_model", "connection", "reason"]
+    pool = sorted(kept, key=lambda r: ([p for p, _, _ in PHASES].index(r["phase"]), SEAT_ORDER.index(r["seat"]),
+                                      ROLES.index(r["role"]), r["year"], r["key"].lower()))
+    with open(os.path.join(ROOT, "data/core/agent_pool.csv"), "w", encoding="utf-8-sig", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore")
+        w.writeheader()
+        w.writerows(pool)
     print("docs/paper_list.md:", dict(vc), dict(pc), dict(sc))
+
+
+def _out(rows, L):
+    L += ["| 论文 | 年 | 决策模型 | 理由 |", "|---|---|---|---|"]
+    for r in rows:
+        name = f"[{r['key']}](https://arxiv.org/abs/{r['arxiv']})" if r["arxiv"] else r["key"]
+        L.append(f"| {name} | {r['year']} | {r['decision_model']}（{r['model_status']}） | {r['reason']} |")
+    L.append("")
 
 
 def _res(rows, L):

@@ -1,0 +1,279 @@
+id,arxiv,title,date
+c00068,2605.26256,Personalizing Embodied Multimodal Large Language Model Agents over Long-term User Interactions,2026-05-25
+c00096,2310.08582,Tree-Planner: Efficient Close-loop Task Planning with Large Language Models,2023-10-12
+c00139,2604.07833,Harnessing Embodied Agents: Runtime Governance for Policy-Constrained Execution,2026-04-09
+c00187,,Framework for LLM-Enabled Construction Robot Task Planning: Knowledge Base Preparation and Robot-LLM Dialogue for Interior Wall Painting,2025-08-27
+c00192,2410.01440,Closed-Loop Long-Horizon Robotic Planning via Equilibrium Sequence Modeling,2024-10-02
+c00206,2603.18271,SG-CoT: An Ambiguity-Aware Robotic Planning Framework using Scene Graph Representations,2026-03-18
+c00214,2309.15943,Scalable Multi-Robot Collaboration with Large Language Models: Centralized or Decentralized Systems?,2023-09-27
+c00227,2407.10031,Long-Horizon Planning for Multi-Agent Robots in Partially Observable Environments,2024-07-14
+c00229,2311.15649,RoboGPT: an intelligent agent of making embodied long-term decisions for daily instruction tasks,2023-11-27
+c00286,2608.04309,Structured LLM Reasoning for Zero-Shot Human--Robot Coordination Under Hidden Goals,2026-08-05
+c00295,,RoboGPT: an LLM-based Embodied Long-term Decision Making agent for Instruction Following Tasks,
+c00320,2407.09792,Language-Augmented Symbolic Planner for Open-World Task Planning,2024-07-13
+c00325,,Leave It to Large Language Models! Correction and Planning with Memory Integration,2023-12-28
+c00326,2509.08222,Exploratory Retrieval-Augmented Planning For Continual Embodied Instruction Following,2025-09-10
+c00337,2508.11286,Scene Graph-Guided Proactive Replanning for Failure-Resilient Embodied Agent,2025-08-15
+c00348,2609.29212,ADM-Planner: LLM-Guided Long-Horizon Planning for Mobile Manipulators with Attention-Enhanced Dynamic Memory,2026-09-24
+c00349,2609.24631,From Semantic Decisions to Feasible Trajectories: Self-Evolving LLM-Guided Optimal Control for Narrow-Space Parking,2026-09-21
+c00356,2311.16714,Embodied Multi-Modal Agent trained by an LLM from a Parallel TextWorld,2023-11-28
+c00363,2307.02485,Building Cooperative Embodied Agents Modularly with Large Language Models,2023-07-05
+c00370,2503.21696,"Embodied-Reasoner: Synergizing Visual Search, Reasoning, and Action for Embodied Interactive Tasks",2025-03-27
+c00386,,NavGemini: a multi-modal LLM agent for vision-and-language navigation,2026-01-06
+c00387,2509.24230,ELHPlan: Efficient Long-Horizon Task Planning for Multi-Agent Collaboration,2025-09-29
+c00402,,Beyond Static Executions: Robust Embodied Task Planning via Dual-Path State-Driven Synergy,2026-05-01
+c00451,2502.20742,Structured Preference Optimization for Vision-Language Long-Horizon Task Planning,2025-02-28
+c00510,,Active Exploration for Embodied Task Planning via Vision-Language Models,2025-09-26
+c00539,2311.00967,Vision-Language Interpreter for Robot Task Planning,2023-11-02
+c00543,,AutoHMA-LLM: Efficient Task Coordination and Execution in Heterogeneous Multi-Agent Systems Using Hybrid Large Language Models,2025-04-01
+c00554,,Text2Reaction : Enabling Reactive Task Planning Using Large Language Models,2024-05-01
+c00581,2504.00775,Visual Environment-Interactive Planning for Embodied Complex-Question Answering,2025-04-01
+c00624,,Executable Natural-Language Task Planning for UGV Patrol via Retrieval-Augmented Constraint-Guided Refinement,2026-05-01
+c00625,,LLM-Assisted Policy Adaptation for Proactive Companion Robots with Continuous Observation,2026-05-01
+c00641,2212.04088,LLM-Planner: Few-Shot Grounded Planning for Embodied Agents with Large Language Models,2022-12-08
+c00655,2310.10021,Bootstrap Your Own Skills: Learning to Solve New Tasks with Large Language Model Guidance,2023-10-16
+c00664,2303.14100,Errors are Useful Prompts: Instruction Guided Task Programming with Verifier-Assisted Iterative Prompting,2023-03-24
+c00665,2310.07889,LangNav: Language as a Perceptual Representation for Navigation,2023-10-11
+c00666,2308.10141,March in Chat: Interactive Prompting for Remote Embodied Referring Expression,2023-08-20
+c00680,2404.14285,LLM-Personalize: Aligning LLM Planners with Human Preferences via Reinforced Self-Training for Housekeeping Robots,2024-04-22
+c00685,,FLTRNN: Faithful Long-Horizon Task Planning for Robotics with Large Language Models,2024-05-13
+c00692,2412.17288,Multi-Modal Grounded Planning and Efficient Replanning For Learning Embodied Agents with A Few Examples,2024-12-23
+c00697,,Socratic Planner: Inquiry-Based Zero-Shot Planning for Embodied Instruction Following,2024
+c00701,2404.15190,Socratic Planner: Self-QA-Based Zero-Shot Planning for Embodied Instruction Following,2024-04-21
+c00704,2511.02424,ReAcTree: Hierarchical LLM Agent Trees with Control Flow for Long-Horizon Task Planning,2025-11-04
+c00707,2409.09536,VernaCopter: Disambiguated Natural-Language-Driven Robot via Formal Specifications,2024-09-14
+c00731,2506.20097,PSALM-V: Automating Symbolic Planning in Interactive Visual Environments with Large Language Models,2025-06-24
+c00745,2609.19315,GAVEL: Graph World Models for Verified and Efficient Long-Horizon LLM Task Planning,2026-09-16
+c00752,,LLM-Driven Cloud-Edge Collaboration for Resilient Multi-UAV Task Planning,2025-12-14
+c00762,,TIGER: Task Planning Framework for Instruction Following of GEneralized Robots,2026
+c00778,2506.01551,EvolveNav: Empowering LLM-Based Vision-Language Navigation via Self-Improving Embodied Reasoning,2025-06-02
+c00807,,EvolveNav: Self-Improving Embodied Reasoning for LLM-Based Vision-Language Navigation,2025
+c00814,2505.19905,EMAC+: Embodied Multimodal Agent for Collaborative Planning with VLM+LLM,2025-05-26
+c00823,2603.24018,ELITE: Experiential Learning and Intent-Aware Transfer for Self-improving Embodied Agents,2026-03-25
+c00887,2503.00870,NeSyC: A Neuro-symbolic Continual Learner For Complex Embodied Tasks In Open Domains,2025-03-02
+c00892,,Nl2Hltl2Plan: Scaling Up Natural Language Understanding for Multi-Robots Through Hierarchical Temporal Logic Task Specifications,2025-10-01
+c00944,2507.06016,Conditional Multi-Stage Failure Recovery for Embodied Agents,2025-07-08
+c00960,2603.23909,DUPLEX: Agentic Dual-System Planning via LLM-Driven Information Extraction,2026-03-25
+c00971,2609.34268,SAGE: Symbolic Action-Gating and Editing for LLM Task Planners,2026-09-28
+c01000,2604.19839,Environmental Understanding Vision-Language Model for Embodied Agent,2026-04-21
+c01015,2606.31339,Verification-Gated Agentic Mission-State Governance for Intelligent Industrial Multi-Robot Systems,2026-06-30
+c01022,2307.06135,SayPlan: Grounding Large Language Models using 3D Scene Graphs for Scalable Task Planning,2023-07-12
+c01061,,RoboGPT: An LLM-Based Long-Term Decision-Making Embodied Agent for Instruction Following Tasks,2025-10-01
+c01068,2408.04168,"Perceive, Reflect, and Plan: Designing LLM Agent for Goal-Directed City Navigation without Instructions",2024-08-08
+c01088,2605.10332,EmbodiSkill: Skill-Aware Reflection for Self-Evolving Embodied Agents,2026-05-11
+c01128,2404.19065,HELPER-X: A Unified Instructable Embodied Agent to Tackle Four Interactive Vision-Language Domains with Memory-Augmented Language Models,2024-04-29
+c01136,2604.07774,RoboAgent: Chaining Basic Capabilities for Embodied Task Planning,2026-04-09
+c01145,2506.19592,Adaptive Domain Modeling with Language Models: A Multi-Agent Approach to Task Planning,2025-06-24
+c01152,,Say’n’Fly: An LLM-Modulo Online Planning Framework to Automate UAV Command and Control,2025-08-25
+c01157,2511.21460,MADRA: Multi-Agent Debate for Risk-Aware Embodied Planning,2025-11-26
+c01186,2503.17703,"RAIDER: Tool-Equipped Large Language Model Agent for Robotic Action Issue Detection, Explanation and Recovery",2025-03-22
+c01188,2409.15658,Long-horizon Embodied Planning with Implicit Logical Inference and Hallucination Mitigation,2024-09-24
+c01203,,Adaptive Tidying Robots: Learning from Interaction and Observation,2025-01-21
+c01235,,DyRef: Dynamic Reflection Framework via Graph-Based Complexity for Robotic Planning,2026-06-01
+c01272,,HAVEN: From Human Guidance to Assistant by Evolution Network in Vision-and-Language Navigation,2025-06-30
+c01374,2507.05135,LERa: Replanning with Visual Feedback in Instruction Following,2025-07-07
+c01385,2308.05295,"Multimodal Pretrained Models for Verifiable Sequential Decision-Making: Planning, Grounding, and Perception",2023-08-10
+c01386,2306.06770,Improving Knowledge Extraction from LLMs for Task Learning through Agent Analysis,2023-06-11
+c01414,,Using Large Language Models to Generate and Apply Contingency Handling Procedures in Collaborative Assembly Applications,2024-05-13
+c01432,,A Simple Baseline for Uncertainty-Aware Language-Oriented Task Planner for Embodied Agents,2024-06-24
+c01451,2410.18893,Creating and Repairing Robot Programs in Open-World Domains,2024-10-24
+c01462,2601.22974,MiTa: A Hierarchical Multi-Agent Collaboration Framework with Memory-integrated and Task Allocation,2026-01-30
+c01477,2605.25851,RePlan-Bot: Multi-Level Replanning for Embodied Instruction Following,2026-05-25
+c01531,2608.07905,GraphThink: Graph-Enhanced LLM Thinking for Long-Horizon Embodied Task Planning,2026-08-08
+c01536,2505.07500,Learning to Reason and Navigate: Parameter Efficient Action Planning with Large Language Models,2025-05-12
+c01537,,Enhancing Robot Task Planning: Integrating Environmental Information and Feedback Insights through Large Language Models,2024-07-28
+c01548,2504.00907,Grounding Multimodal LLMs to Embodied Agents that Ask for Help with Reinforcement Learning,2025-04-01
+c01551,2601.18492,DV-VLN: Dual Verification for Reliable LLM-Based Vision-and-Language Navigation,2026-01-26
+c01562,2403.07376,NavCoT: Boosting LLM-Based Vision-and-Language Navigation via Learning Disentangled Reasoning,2024-03-12
+c01565,2310.08588,Octopus: Embodied Vision-Language Programmer from Environmental Feedback,2023-10-12
+c01592,2605.09487,Kintsugi: Learning Policies by Repairing Executable Knowledge Bases,2026-05-10
+c01598,2607.16247,Self-Evolving Just-In-Time Memory for Proactive Embodied Safety,2026-06-26
+c01604,2609.30523,Containing Behavioral Cascades from Manipulated Claims in LLM-Powered Multi-Robot Systems,2026-09-24
+c01610,2609.23841,Structured World-State Reasoning for Agentic Robotic Search,2026-09-20
+c01634,2401.00125,LLM-Assist: Enhancing Closed-Loop Planning with Language-Based Reasoning,2023-12-30
+c01641,2406.14596,VLM Agents Generate Their Own Memories: Distilling Experience into Embodied Programs of Thought,2024-06-20
+c01648,2309.07726,GRID: Scene-Graph-based Instruction-driven Robotic Task Planning,2023-09-14
+c01656,2409.14908,KARMA: Augmenting Embodied AI Agents with Long-and-Short Term Memory Systems,2024-09-23
+c01662,2408.16090,EPO: Hierarchical LLM Agents with Environment Preference Optimization,2024-08-28
+c01695,2411.04679,CaPo: Cooperative Plan Optimization for Efficient Embodied Multi-Agent Cooperation,2024-11-07
+c01736,2603.16673,When Should a Robot Think? Resource-Aware Reasoning via Reinforcement Learning for Embodied Robotic Decision-Making,2026-03-17
+c01740,,ICAL: Continual Learning of Multimodal Agents by Transforming Trajectories into Actionable Insights,2024
+c01760,2601.20831,MemCtrl: Using MLLMs as Active Memory Controllers on Embodied Agents,2026-01-28
+c01790,2607.09603,Mosaic: Runtime-Efficient Multi-Agent Embodied Planning,2026-07-10
+c01798,,DeepVLN: Vision-and-Language Navigation via Deep Reasoning and Collaborative Mechanisms Based on Large Language Models,2026-01-01
+c01814,,AHead-VLN: A Hierarchical Reasoning Framework Guided by Foresight for Human-Aware Navigation,2026-09-01
+c01815,,High-Level Semantic Instruction-Guided UAV Area Search Using LLM Agents,2026-08-01
+c01821,2605.08330,Hierarchical Prompting with Dual LLM Modules for Robotic Task and Motion Planning,2026-05-08
+c01823,2604.27699,Bridging Values and Behavior: A Hierarchical Framework for Proactive Embodied Agents,2026-04-30
+c01829,,TSASL: Task–Safety–Adaptive Strategy Learning for Language–Driven Robot Control,2025-11-07
+c01844,2608.16447,HaReCAP: Habitual-action Grounding for Recursive Large Language Model Agents,2026-08-17
+c01847,2607.10350,ABot-AgentOS: A General Robotic Agent OS with Lifelong Multi-modal Memory,2026-07-11
+c01860,,LGRobo: Local Action and Global Planning Embodied Artificial Intelligence,2025-12-17
+c01876,,UvA-DARE (Digital Academic Repository) CaPo: Cooperative Plan Optimization for Efficient Embodied Multi-Agent Cooperation,
+c01912,2406.01587,PlanAgent: A Multimodal Large Language Agent for Closed-Loop Vehicle Motion Planning,2024-06-03
+c01915,,Alchemist: LLM-Aided End-User Development of Robot Applications,2024-03-11
+c01916,2312.08566,Learning adaptive planning representations with natural language guidance,2023-12-13
+c01942,2503.10480,World Modeling Makes a Better Planner: Dual Preference Optimization for Embodied Task Planning,2025-03-13
+c01963,2602.16173,Learning Personalized Agents from Human Feedback,2026-02-18
+c01968,2412.11499,Embodied CoT Distillation From LLM To Off-the-shelf Agents,2024-12-16
+c01985,2505.22050,Reinforced Reasoning for Embodied Planning,2025-05-28
+c01998,2506.21230,World-aware Planning Narratives Enhance Large Vision-Language Model Planner,2025-06-26
+c02006,2409.03256,E2CL: Exploration-based Error Correction Learning for Embodied Agents,2024-09-05
+c02108,2509.17116,MCTS-EP: Empowering Embodied Planning with Online Preference Optimization,2025-09-21
+c02109,2508.01917,L3M+P: Lifelong Planning with Large Language Models,2025-08-03
+c02119,2502.11227,Integrating Retrospective Framework in Multi-Robot Collaboration,2025-02-12
+c02120,,LLM-Based Cooperative Agents using Information Relevance and Plan Validation,2024
+c02143,,Structured Decision-and-Recovery for Large Language Model-Based Vision-and-Language Navigation,2026-05-01
+c02247,2605.09387,NEXUS: Continual Learning of Symbolic Constraints for Safe and Robust Embodied Planning,2026-05-10
+c02250,2602.15724,Learning to Retrieve Navigable Candidates for Efficient Vision-and-Language Navigation,2026-02-17
+c02305,2302.00763,Collaborating with language models for embodied reasoning,2023-02-01
+c02340,2310.15127,Open-Ended Instructable Embodied Agents with Memory-Augmented Large Language Models,2023-10-23
+c02392,2404.00756,Recover: A Neuro-Symbolic Framework for Failure Detection and Recovery,2024-03-31
+c02397,2409.11279,P-RAG: Progressive Retrieval Augmented Generation For Planning on Embodied Everyday Task,2024-09-17
+c02405,2503.13966,FlexVLN: Flexible Adaptation for Diverse Vision-and-Language Navigation Tasks,2025-03-18
+c02458,2406.11818,Embodied Instruction Following in Unknown Environments,2024-06-17
+c02463,,Parameter-efficient action planning with large language models for vision-and-language navigation,2025-09-01
+c02515,2303.09031,A Picture is Worth a Thousand Words: Language Models Plan from Pixels,2023-03-16
+c02541,2506.07232,"Learn as Individuals, Evolve as a Team: Multi-agent LLMs Adaptation in Embodied Environments",2025-06-08
+c02599,,Task Planning for Robot Manipulator Using Natural Language Task Input with Large Language Models,2024-08-28
+c02624,2601.22647,Test-Time Mixture of World Models for Embodied Agents in Dynamic Environments,2026-01-30
+c02659,2608.01652,SyncPlan: Long-Horizon LLM Coordination with Explicit Synchronization and Adaptive Correction,2026-08-03
+c02674,2509.26375,SDA-PLANNER: State-Dependency Aware Adaptive Planner for Embodied Task Planning,2025-09-30
+c02677,2507.15782,Interleaved LLM and Motion Planning for Generalized Multi-Object Collection in Large Scene Graphs,2025-07-21
+c02687,2409.08410,Sequential Discrete Action Selection via Blocking Conditions and Resolutions,2024-09-12
+c02780,2608.08884,SHRIMP: Iterative Refinement of Robot Task Plans,2026-08-09
+c02787,2606.04046,Dive into the Scene: Breaking the Perceptual Bottleneck in Vision-Language Decision Making via Focus Plan Generation,2026-06-02
+c02790,,Towards Failure-Resilient Lifelong Learning Agents through Scene Graph-Guided Proactive Replanning,2026-05-25
+c02810,,A Hierarchical Planning Framework Enhanced by Feedback Mechanisms and Multimodal Large Language Models,2025-10-17
+c02823,,Household Task Planning with Multi-Objects State and Relationship Using Large Language Models Based Preconditions Verification,2025
+c02830,,거대 언어 모델을 이용한 뉴로-심볼릭 작업 재계획법 Neuro-Symbolic Task Replanning using Large Language Models,
+c02836,,CLGA: A Collaborative LLM Framework for Dynamic Goal Assignment in Multi-Robot Systems,2025-10-19
+c02936,,Toward edge-intelligent consumer robots: a decoupled RL–LLM architecture for robust navigation under partial observability,2026-06-01
+c03007,2410.22662,EMOS: Embodiment-aware Heterogeneous Multi-robot Operating System with LLM Agents,2024-10-30
+c03083,2503.15108,VIPER: Visual Perception and Explainable Reasoning for Sequential Decision-Making,2025-03-19
+c03145,2505.00831,"SmallPlan: Leverage Small Language Models for Sequential Path Planning with Simulation-Powered, LLM-Guided Distillation",2025-05-01
+c03175,2602.04326,From Assumptions to Actions: Turning LLM Reasoning into Uncertainty-Aware Planning for Embodied Agents,2026-02-04
+c03259,,L ARGE L ANGUAGE M ODELS AS D ECISION M AKERS FOR A UTONOMOUS D RIVING,
+c03369,2305.16986,NavGPT: Explicit Reasoning in Vision-and-Language Navigation with Large Language Models,2023-05-26
+c03399,2401.07314,MapGPT: Map-Guided Prompting with Adaptive Path Planning for Vision-and-Language Navigation,2024-01-14
+c03539,2403.11075,GOMA: Proactive Embodied Cooperative Communication via Goal-Oriented Mental Alignment,2024-03-17
+c03694,,Multimodal Embodied Interactive Agent for Cafe Scene,2024
+c03695,2503.12333,"GameChat: Multi-LLM Dialogue for Safe, Agile, and Socially Optimal Multi-Agent Navigation in Constrained Environments",2025-03-16
+c03778,,Alleviating Action Hallucination for LLM-based Embodied Agents via Inner and Outer Alignment,2024-08-15
+c03829,,"Combining LLM, Non-Monotonic Logical Reasoning, and Human-In-the-loop Feedback in an Assistive AI Agent",2025-08-25
+c03872,,CA-VLN: Collaborative Agents in MLLM-Powered Visual-Language Navigation,2026-02-01
+c03934,2510.16767,T3 Planner: A Self-Correcting LLM Framework for Robotic Motion Planning with Temporal Logic,2025-10-19
+c04008,2503.01007,From Vague Instructions to Task Plans: A Feedback-Driven HRC Task Planning Framework based on LLMs,2025-03-02
+c04131,2608.08523,Discovering Diverse Planning Policies for Multimodal Embodied Agents with Quality-Diversity Optimization,2026-08-09
+c04132,,Causal Abstraction Learning for Multi-Modal Grounded Planning,2026-08-08
+c04147,,LLM-driven behavior generation and negotiation for collective robotic construction,2026-07-10
+c04175,2605.05407,PRISM: Perception Reasoning Interleaved for Sequential Decision Making,2026-05-06
+c04207,,Enhancing Memory Ability of LLM Agent for Vision-and-Language Navigation,2025-09-26
+c04245,2610.07649,OntoPlan: An Ontology-Grounded Scene Representation and Agentic Framework for Scalable Robot Task Planning,2026-10-06
+c04250,2608.16794,Neurosymbolic Embodied Agents,2026-08-17
+c04277,,Seeing the details to plan ahead: Grounding LLM tree planning in fine-grained perception for embodied agents,2026-06-01
+c04307,2508.07606,In-situ Value-aligned Human-Robot Interactions with Physical Constraints,2025-08-11
+c04325,,Active Perception Strategies for Multimodal Integration and Latent Information Reasoning in Robotic Systems,2026-06-01
+c04660,2309.09182,Optimal Scene Graph Planning with Large Language Model Guidance,2023-09-17
+c04982,,RILA: Reflective and Imaginative Language Agent for Zero-Shot Semantic Audio-Visual Navigation,2024-06-16
+c05268,,Collaborative Tree Search for Enhancing Embodied Multi-Agent Collaboration,2025-06-10
+c05764,2410.02742,Grounding Large Language Models In Embodied Environment With Imperfect World Models,2024-10-03
+c05833,,Exploring Large Language Models to Facilitate Variable Autonomy for Human-Robot Teaming,2023
+c05890,2605.14504,When Robots Do the Chores: A Benchmark and Agent for Long-Horizon Household Task Execution,2026-05-14
+c05893,2601.03398,Towards Zero-Knowledge Task Planning via a Language-based Approach,2025-10-19
+c05922,,Federated Self-Evolving Embodied AI Agents,2026-05-01
+c05926,2603.28386,COvolve: Adversarial Co-Evolution of Large-Language-Model-Generated Policies and Environments via Two-Player Zero-Sum Game,2026-03-30
+c06180,2606.18519,As You Wish: Mission Planning with Formal Verification using LLMs in Precision Agriculture,2026-06-01
+c06211,,SRMP-S: Self-Refining Multi-Planner Strategy for Long-Horizon Robotic Tasks,2026-11-01
+c06261,,Interleaved LLM and Motion Planning for Scalable Multi-Object Collection in Large Scene Graphs,2026-07-01
+c06285,,An Autonomous Navigation Framework Based on Dynamic Cognitive Maps and Large Language Models,2026-05-15
+c06398,,"Cyber-Physical GraphRAG: Safe, Real-Time, and Scalable Orchestration of Large-Scale Autonomous Fleets",2026
+c06479,2608.00613,From Failures to Supervision: DynamicEnvPlan for Robust Long-Horizon Embodied Planning,2026-08-01
+c06519,2503.09035,ManeuverGPT Agentic Control for Safe Autonomous Stunt Maneuvers,2025-03-12
+c06557,,ChatHSI: Reliable LLM-Powered Human-Swarm Interaction Framework,2025-12-01
+c06627,,LLM-Guided Task Planning with A*-Based Navigation for Autonomous UAVs,2026-08-01
+c06635,,CMAR-search: Commonsense and Memory Augmented Reasoning for Object Search in Dynamic Interactive Environments,2026-06-01
+c06749,2505.22503,Communication-Efficient Desire Alignment for Embodied Agent-Human Adaptation,2025-05-28
+c06852,2403.12482,Embodied LLM Agents Learn to Cooperate in Organized Teams,2024-03-19
+c06886,,SurrealDriver: Designing Generative Driver Agent Simulation Framework in Urban Contexts based on Large Language Model,2023
+c06887,2305.19352,LLM-BRAIn: AI-driven Fast Generation of Robot Behaviour Tree based on Large Language Model,2023-05-30
+c07026,2506.21669,SEEA-R1: Tree-Structured Reinforcement Fine-Tuning for Self-Evolving Embodied Agents,2025-06-26
+c07372,2605.09341,SkillMAS: Skill Co-Evolution with LLM-based Multi-Agent System,2026-05-10
+c07527,2604.24039,AgenticCache: Cache-Driven Asynchronous Planning for Embodied AI Agents,2026-04-27
+c07798,,Multi-UAV Trajectory Planning for Dynamic Target Search: An LLM-Enhanced Multi-Agent Reinforcement Learning Algorithm,2026
+c07843,2609.35463,A.D.A.M.O. (Agent for language-Driven Actions with Multimodal Observations): A Visual-Symbolic Framework for Virtual Humans,2026-09-28
+c08163,,LoDriver: A Region-Localized Autonomous Driver Using Large Language Models,2025-06-22
+c08418,2307.06082,VELMA: Verbalization Embodiment of LLM Agents for Vision and Language Navigation in Street View,2023-07-12
+c08994,2405.10620,MC-GPT: Empowering Vision-and-Language Navigation with Memory Map and Reasoning Chains,2024-05-17
+c09079,2411.08579,NavAgent: Multi-scale Urban Street View Fusion For UAV Embodied Vision-and-Language Navigation,2024-11-13
+c09121,,ReCA: Integrated Acceleration for Real-Time and Efficient Cooperative Embodied Autonomous Agents,2025-03-30
+c09439,2511.20351,Thinking in 360°: Humanoid Visual Search in the Wild,2025-11-25
+c09443,2507.01378,RALLY: Role-Adaptive LLM-Driven Yoked Navigation for Agentic UAV Swarms,2025-07-02
+c10105,2503.06866,Graphormer-Guided Task Planning: Beyond Static Rules with LLM Safety Perception,2025-03-10
+c10112,2605.07594,"MemCompiler: Compile, Don't Inject - State-Conditioned Memory for Embodied Agents",2026-05-08
+c10241,2505.06513,LLM-Flock: Decentralized Multi-Robot Flocking via Large Language Models and Influence-Based Consensus,2025-05-10
+c10402,,A novel voice in head actor critic reinforcement learning with human feedback framework for enhanced robot navigation,2025-02-28
+c10587,,Robotic Action Planning Using Large Language Models,2024-11-11
+c10607,2602.21670,Hierarchical LLM-Based Multi-Agent Framework with Prompt Optimization for Multi-Robot Task Planning,2026-02-25
+c10815,2602.06038,CommCP: Efficient Multi-Agent Coordination via LLM-Based Communication with Conformal Prediction,2026-02-05
+c10916,,OPEx: A Large Language Model-Powered Framework for Embodied Instruction Following,2024-05-06
+c11038,2408.05802,Egocentric Vision Language Planning,2024-08-11
+c11094,,Boosting Behavior Tree Generation for Robots with Large Language Models and Genetic Programming,2025-04-14
+c11106,2605.11859,EvoNav: Evolutionary Reward Function Design for Robot Navigation with Large Language Models,2026-05-12
+c11123,,Coordination of LLM-Embodied Agents for manufacturing task allocation under constraints,2026-08-01
+c11427,2606.28182,LLawCo: Learning Laws of Cooperation for Modeling Embodied Multi-Agent Behavior,2026-06-26
+c11455,2512.18571,ESearch-R1: Learning Cost-Aware MLLM Agents for Interactive Embodied Search via Reinforcement Learning,2025-12-21
+c11701,2506.16493,Grounding Language Models with Semantic Digital Twins for Robotic Planning,2025-06-19
+c12068,,GenAI for Robot System Engineering,2025-08-17
+c12220,2610.01569,Managing Context and Communication in Distributed Agentic UAV Swarms,2026-10-01
+c12226,2609.05133,A Schema Bounded Language Model for Refining Robot Policies Without Destabilizing Local Learning,2026-09-04
+c12425,2605.18729,Robo-Cortex: A Self-Evolving Embodied Agent via Dual-Grain Cognitive Memory and Autonomous Knowledge Induction,2026-05-18
+c12576,2608.04933,Mimir: A Neuro-Symbolic Memory System with Dynamic Grounding for Embodied Agents in Interactive Environments,2026-08-05
+c12613,,Underwater Data Collection Scheme based on LLMs,2026-05-18
+c13402,2608.30760,PRACTICE: From Experience to Expertise in Self-Evolving Embodied Agents,2026-08-31
+c13490,,UAM-MARL: Uncertainty-Aware Modality-Enhanced Multi-Agent Reinforcement Learning with LLM-Guided Graph Policies,2026-05-25
+c13498,,MSNav: Zero-Shot Vision-And-Language Navigation with Dynamic Memory and LLM Spatial Reasoning,2026-05-03
+c13568,,Pandora: A Large Language Model-Driven Self-Evolving Agent for On-Campus Task Execution,2025-08-18
+c13571,2507.10500,Scene-Aware Conversational ADAS with Generative AI for Real-Time Driver Assistance,2025-07-14
+c13575,,An Agent of Massage Robot for Task Planning Based on Large Language Models,2025-03-21
+s00350,,Air-Monitor: Zero-shot Visual Planning for Air-to-Ground Surveillance based on Multimodal LLMs,2026-06-01
+s00474,2602.10891,Interactive LLM-Assisted Curriculum Learning for Multi-Task Evolutionary Policy Search,2026-02-11
+s00566,,ReThinkNav: Zero-Shot Vision-and-Language Navigation with Open-Source LLMs via Contextual Reasoning and Loop Recovery,2026-06-01
+s01378,2605.04327,From Language to Logic: A Theoretical Architecture for VLM-Grounded Safe Navigation,2026-05-05
+s01785,2603.27583,LLM-Enabled Low-Altitude UAV Natural Language Navigation via Signal Temporal Logic Specification Translation and Repair,2026-03-29
+s02554,,Environment-Driven and LLM-Guided Multi-Robot Task Inference and Allocation Under Temporal Logic Specifications,2026
+s02669,2605.15486,Hybrid LLM-based Intelligent Framework for Robot Task Scheduling,2026-05-15
+s02687,2608.15175,LAPF: LLM-Agent-Based Path Finder Using the UAVScenes Dataset,2026-08-15
+s02923,2607.00255,"SLM, LLM, or Agentic AI? Toward Intelligent UAV-Enabled WPT Systems in Low-Altitude Economy Networks",2026-06-30
+s03668,,LLM-Guided Hybrid Scheduling With Digital Twin Feedback for Heterogeneous Multi-Robot Aircraft Stringer Assembly,2026
+s04189,,Beyond DRL: LLM-enabled In-Context Learning for Aerial Data Collection in Public Safety UAV,2026-06-01
+s04674,,An LLM Based Framework for Automated MILP Modeling in Dynamic Multi-Robot Task Scheduling,2026-10-01
+s05066,2608.28437,LUCID: An Agentic AI Framework on Digital-Twin in the Loop for QoS-Guaranteeing Robotic Control,2026-08-28
+s05299,2607.18604,Intelligent Multi-UAV Navigation in ITNTNs: A Hierarchical LLM Approach,2026-07-21
+s05405,,"Many Minds, One Path: LLM-Augmented Consensus Decision for Distributed Control in Multi-Agent Collaborative Stable Scenarios",2026-03-14
+s05771,,Semantic relevance guided grounding for MLLM-based embodied navigation,2026-08-18
+s05808,2609.18058,Finder: Agentic Closed-Loop Object Finding for Embodied Grounding,2026-09-16
+s05836,,Deployment Method for Emergency Delivery of Multi-Agent UAV Swarms Driven by Large Language Models,2026-03-20
+s05902,2604.16993,Rule-VLN: Bridging Perception and Compliance via Semantic Reasoning and Geometric Rectification,2026-04-18
+s06064,,Future Factories With 6G: Agentic AI and Cyber–Physical Digital Twins,2026-05-01
+s06094,2602.08373,Grounding Generative Planners in Verifiable Logic: A Hybrid Architecture for Trustworthy Embodied AI,2026-02-09
+s06563,,"ROBOT MOTION PLANNING WITH LARGE LANGUAGE MODELS:
+LANGUAGE-TO-PATHS GUIDANCE OVER SUPERFACETS",2026-06-25
+s07027,,LLM-Driven Modeling and Decision Support Methods for Cross-Domain Collaborative Mission Systems,2026-04-17
+s07866,2607.06724,EvoPlan: Evolutionary Neuro-Symbolic Robot Planning with Spatio-Temporal Guarantees,2026-07-07
+s07908,2602.14438,RoboSolver: A Multi-Agent Large Language Model Framework for Solving Robotic Arm Problems,2026-02-16
+s08154,2609.18669,M$^3$P-R1: Reinforcement Learning for Large Language Model Guided Multi-Modal Motion Planning via MIP Code Generation,2026-09-16
+s08345,,A Generative Task Allocation Method for Heterogeneous UAV Swarms Empowered by Heterogeneous Toolchains,2026-04-16
+s08505,2609.11737,Organizational Principles Enable Collective Intelligence in Embodied AI,2026-09-10
+s08546,,LLM-based Reinforcement Learning for Controlling Robot Swarms,2026-04-01
+s08688,,A Digital Twin With Material Characterisation and LLM as High‐Level Orchestrator via Few‐Shot In‐Context Learning for Closed‐Loop Control in Robotic Adaptive 3DCP,2026-01-01
+s08869,,MAPE-KV: Una Arquitectura Neuro-Simbólica Verificada para la Orquestación de Enjambres Robóticos,2026-05-11
+s08976,2603.22866,Aerial Agentic AI: Synergizing LLM and SLM for Low-Altitude Wireless Networks,2026-03-24
+s10150,,Automated Heuristic Generation with Large Language Models for 3D UAV Inspection Routing,2026-06-01
+s10772,2602.04129,KGLAMP: Knowledge Graph-guided Language model for Adaptive Multi-robot Planning and Replanning,2026-02-04
+s11111,2607.11529,"Parse, Search, and Confirmation: Training-Free Aerial Vision-and-Dialog Navigation with Chain-of-Thought Reasoning and Structured Spatial Memory",2026-07-13
+s11226,2601.10744,Explore with Long-term Memory: A Benchmark and Multimodal LLM-based Reinforcement Learning Framework for Embodied Exploration,2026-01-11
+t248,,Scalable Multi-Robot Collaboration with Large Language Models: Centralized or Decentralized Systems?,2023
+t258,2609.35965,"Systematic Multi-Agent Vision-and-Language Navigation: Formulation, Benchmark, and Method",2026
+t259,2609.11737,ORCH: Organizational Principles Enable Collective Intelligence in Embodied AI,2026
+t311,2309.11382,Discuss Before Moving: Visual Language Navigation via Multi-expert Discussions,2023

@@ -114,7 +114,7 @@
 | [Skill2Real](https://arxiv.org/abs/2610.02788) | 2026 | Developer | G | 再决策 | 判定池 | Proposer-Verifier-Governor 依仿真结果保留或回滚技能代码，零样本 sim-to-real |
 | [Agentic RSR](https://arxiv.org/abs/2610.10479) | 2026 | Developer | G | 再决策 | 补漏 | agent 从工作区视频恢复尺度、依视觉反馈迭代重建 MuJoCo 场景，coding agent 再开发策略并回到真机；Real2Sim2Real 全链路 |
 
-## VLN 与具身导航（18）
+## VLN 与具身导航（19）
 
 | 短名 | 年份 | Seat | Carrier | 闭环 | 来源 | 入选理由 |
 |---|---|---|---|---|---|---|
@@ -125,6 +125,7 @@
 | [Open-Nav](https://arxiv.org/abs/2409.18794) | 2024 | Controller | G | 再决策 | 判定池 | 开源 LLM 的零样本 VLN-CE agent，连续环境与真机评测 |
 | [VLMnav](https://arxiv.org/abs/2411.05755) | 2024 | Controller | G | 再决策 | 判定池 | 不做感知、规划、控制的分工，VLM 每一步直接选择导航动作，零样本当端到端导航策略；通用 VLM 直接出导航动作 |
 | [CA-Nav](https://arxiv.org/abs/2412.10137) | 2024 | Controller | G | 编写闭环 | 补漏 | GPT-4 把指令拆成子指令并写成物体 / 位置 / 方向的完成约束，执行中依实时感知检查约束、切换阶段并塑造价值图；零样本 VLN-CE（含真机） |
+| [SPF](https://arxiv.org/abs/2509.22653) | 2025 | Controller | G | 再决策 | 判定池 | See, Point, Fly：冻结的 Gemini 2.0 Flash 每一步在图像上标出航点、转成无人机速度指令（DJI Tello 实机）；通用 VLM 直接出动作的空中导航 |
 | [One Agent to Guide Them All](https://arxiv.org/abs/2602.15400) | 2026 | Controller | G | 再决策 | 判定池 | MLLM 在可交互的度量世界表示上推理并做反事实检查，统一多种 VLN 任务，仿真与真机 |
 | [OnFly](https://arxiv.org/abs/2603.10682) | 2026 | Controller | G | 再决策 | 判定池 | 机载零样本空中 VLN：一个 VLM 生成导航目标，另一个依关键帧监控进度与安全；覆盖无人机 |
 | [HaltNav](https://arxiv.org/abs/2603.12696) | 2026 | Controller | G | 再决策 | 补漏 | MLLM 在轻量拓扑图（osmAG）上把路线拆成子指令，微调的 VLM 在门关闭、拥挤等情况下停止并触发重规划；仿真与真机 Fetch |
@@ -137,7 +138,7 @@
 | [HarnessVLN](https://arxiv.org/abs/2609.15195) | 2026 | Controller | G | 再决策 | 判定池 | 训练无关的 MLLM 规划提案经 harness 验证，执行反馈更新 memory 与拓扑图，统一多种导航任务 |
 | [ASENA](https://arxiv.org/abs/2609.39207) | 2026 | Controller | G | 再决策 | 判定池 | coding agent 写并运行程序、调用导航 VLA 工具、检查结果并修复，经验随任务积累 |
 
-## 先驱（2022–2025）（59）
+## 先驱（2022–2025）（70）
 
 | 短名 | 年份 | Seat | Carrier | 闭环 | 来源 | 入选理由 |
 |---|---|---|---|---|---|---|
@@ -191,15 +192,26 @@
 | [BUMBLE](https://arxiv.org/abs/2410.06237) | 2024 | Controller | G | 再决策 | 补漏 | VLM 统一感知、粗到细技能与双层 memory，楼宇级长程移动操作，90+ 小时真机评测 |
 | [Eurekaverse](https://arxiv.org/abs/2411.01775) | 2024 | Designer | G | 再决策 | 判定池 | LLM 写地形环境代码并依训练结果迭代课程 |
 | [Code-as-Monitor](https://arxiv.org/abs/2412.04455) | 2024 | Supervisor | G | 再决策 | 判定池 | 用户点名：VLM 编写约束监测代码逐帧执行，违例或预测违例时重规划 |
+| [SkillWrapper](https://arxiv.org/abs/2511.18203) | 2025 | Developer | G | 再决策 | 判定池 | GPT-5 驱动机器人探索黑盒技能、发明谓词并按得分保留，学出可用于规划的 PDDL 域（Franka 与双臂真机） |
 | [OmniManip](https://arxiv.org/abs/2501.03841) | 2025 | Controller | G | 编写闭环 | 判定池 | 以物体为中心的交互基元作空间约束，在 6D 位姿跟踪下闭环重解（编写闭环） |
+| [Manual2Skill](https://arxiv.org/abs/2502.10090) | 2025 | Controller | G | 开环 | 判定池 | GPT-4o 读家具说明书生成层级装配图，驱动机械臂完成真实 IKEA 家具装配；训练的位姿估计模型只是工具 |
 | [Video2Policy](https://arxiv.org/abs/2502.09886) | 2025 | Designer | G | 再决策 | 判定池 | 从视频重建仿真任务并依 RL 反馈迭代奖励代码 |
+| [NeSyC](https://arxiv.org/abs/2503.00870) | 2025 | Developer | G | 再决策 | 判定池 | GPT-4o 提出动作前提规则，ASP 求解器按正负例检验，动作失败时反复修订规划知识库（VirtualHome、RLBench、真机） |
 | [RoboGuard](https://arxiv.org/abs/2503.07885) | 2025 | Supervisor | G | 编写闭环 | 判定池 | 两级护栏：先用推理模型把安全规范落到当前场景，再把 LLM 机器人的计划与时序逻辑约束对照、在线修正；抵御越狱攻击（真机） |
 | [Being-0](https://arxiv.org/abs/2503.12533) | 2025 | Controller | G | 再决策 | 判定池 | 基础模型作人形机器人的高层大脑，调用导航与灵巧操作等模块化技能，并依执行反馈调整；人形机器人 agent 的代表（真机） |
+| [GenSwarm](https://arxiv.org/abs/2503.23875) | 2025 | Controller | G | 再决策 | 判定池 | 多个 GPT-4o agent 分工为群体机器人写代码策略、自动部署到真实地面机器人，VLM 看执行视频评审后改进 |
+| [GROVE](https://arxiv.org/abs/2504.04191) | 2025 | Designer | G | 再决策 | 判定池 | o1-preview 沿 Eureka 写任务奖励代码并在训练中迭代重写，配合 VLM 奖励学人形的开放词汇技能；Eureka 到 2026 年奖励 agent 之间的一环 |
+| [Chain-of-Modality](https://arxiv.org/abs/2504.13351) | 2025 | Controller | G | 开环 | 判定池 | Gemini 1.5 Pro / GPT-4o 只靠提示，从一段带力觉或音频的人类视频推理出机器人程序并在真机执行 |
+| [FORTRESS](https://arxiv.org/abs/2505.10547) | 2025 | Supervisor | G | 编写闭环 | 判定池 | Gemini、Claude、DeepSeek-R1 预判失效模式，Molmo 给出兜底目标，构成语义代价；运行时监控触发后规划兜底动作 |
 | [PDDLLM](https://arxiv.org/abs/2505.18382) | 2025 | Developer | G | 再决策 | 判定池 | LLM 结合物理仿真回放，从一条示范中归纳出符号谓词和动作，自动构建 TAMP 的规划域；Developer 构建系统组件的例子 |
+| [RoboMoRe](https://arxiv.org/abs/2506.00276) | 2025 | Developer | G | 再决策 | 判定池 | GPT-4-turbo 同时生成形态参数和奖励函数，在 MuJoCo 里由粗到精迭代、保留最优组合；RoboMorph 到 2026 年本体设计之间的一环 |
+| [LAMARL](https://arxiv.org/abs/2506.01538) | 2025 | Designer | G | 开环 | 判定池 | o1-preview 为多机器人协作写先验策略和奖励代码，再用 MARL 训练（30 台仿真、8 台真机）；多智能体奖励设计的先驱 |
 | [RobotSmith](https://arxiv.org/abs/2506.14763) | 2025 | Developer | G | 再决策 | 补漏 | 提议者与评审者两个 LLM agent 依渲染反馈反复修改工具设计，再在仿真中优化几何与使用轨迹，3D 打印后真机使用；Developer 设计工具的代表 |
 | [VLMgineer](https://arxiv.org/abs/2507.12644) | 2025 | Developer | G | 再决策 | 判定池 | VLM 协同设计工具与动作并以仿真进化评估；硬件侧 Developer |
 | [AquaChat](https://arxiv.org/abs/2507.16841) | 2025 | Controller | G | 再决策 | 补漏 | GPT-4 把用户指令转成水下 ROV 的网箱巡检计划，任务出错时依底层控制反馈重规划（仿真与水池实测）；水下身体的先驱（2026 年有 AquaCap） |
 | [RoboMemory](https://arxiv.org/abs/2508.01415) | 2025 | Controller | G | 再决策 | 判定池 | 统一空间、时间、情景与语义四类记忆的 agent 框架，闭环规划并在交互中持续学习（仿真与真机） |
+| [BLAZER](https://arxiv.org/abs/2510.08572) | 2025 | Teacher | G | 开环 | 判定池 | LLaMA-3.3-70B 零样本在仿真里生成操作计划，经仿真验证成功的示范用来 LoRA 微调 8B 模型并迁移到真机；SUDD 到 GUAVA 之间的一环 |
+| [RoboSafe](https://arxiv.org/abs/2512.21220) | 2025 | Supervisor | G | 再决策 | 判定池 | Gemini-2.5-flash 作安全护栏，从近期轨迹推出可执行的安全谓词，拦截危险动作或触发重规划（AI2-THOR 与真机械臂） |
 
 ## Benchmark 与资源（20）
 

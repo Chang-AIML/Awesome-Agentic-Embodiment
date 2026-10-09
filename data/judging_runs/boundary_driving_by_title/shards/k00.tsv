@@ -1,0 +1,36 @@
+c00161	2310.03026	LanguageMPC: Large Language Models as Decision Makers for Autonomous Driving	-	2023
+c00338	-	LangProp: A code optimization framework using Language Models applied to driving	-	2024
+c00688	2401.10314	LangProp: A code optimization framework using Large Language Models applied to driving	-	2024
+c01234	-	REvolve+: Policy-as-Code Evolution for Autonomous Driving	-	2026
+c01314	2402.06559	Diffusion-ES: Gradient-free Planning with Diffusion for Autonomous Driving and Zero-Shot Instruction Following	-	2024
+c02185	2606.10974	Language-Driven Cost Optimization for Autonomous Driving	-	2026
+c02949	2307.07162	Drive Like a Human: Rethinking Autonomous Driving with Large Language Models	-	2023
+c02950	2309.16292	DiLu: A Knowledge-Driven Approach to Autonomous Driving with Large Language Models	-	2023
+c03664	2507.05754	LeAD: The LLM Enhanced Planning System Converged with End-to-end Autonomous Driving	-	2025
+c03692	2410.12568	Robust RL with LLM-Driven Data Synthesis and Policy Adaptation for Autonomous Driving	-	2024
+c04586	2312.09397	Personalized Autonomous Driving with Large Language Models: Field Experiments	-	2023
+c04637	2404.06345	AgentsCoDriver: Large Language Model Empowered Collaborative Driving with Lifelong Learning	-	2024
+c04706	2406.03008	DriVLMe: Enhancing LLM-based Autonomous Driving Agents with Embodied and Social Experiences	-	2024
+c05044	2403.07470	DrPlanner: Diagnosis and Repair of Motion Planners for Automated Vehicles Using Large Language Models	-	2024
+c05046	-	Large Language Models for Autonomous Driving: Real-World Experiments	-	2023
+c05135	-	Learning Autonomous Driving Tasks via Human Feedbacks with Large Language Models	-	2024
+c05558	2505.04980	LVLM-MPC Collaboration for Autonomous Driving: A Safety-Aware and Task-Scalable Control Architecture	-	2025
+c05748	2409.11981	LMMCoDrive: Cooperative Driving with Large Multimodal Model	-	2024
+c06818	2309.10228	Drive as You Speak: Enabling Human-Like Interaction with Large Language Models in Autonomous Vehicles	-	2023
+c06824	2310.08034	Receive, Reason, and React: Drive as You Say, With Large Language Models in Autonomous Vehicles	-	2023
+c07795	2509.17042	Orchestrate, Generate, Reflect: A VLM-Based Multi-Agent Collaboration Framework for Automated Driving Policy Learning	-	2025
+c07821	2610.03948	Retrieval-Augmented Large Language Model Decision-Making for Autonomous Driving Guided by Chinese Philosophical Wisdom	-	2026
+c07976	2606.12236	DrivingAgent: Design and Scheduling Agents for Autonomous Driving Systems	-	2026
+c07979	2606.03678	EvoDrive: Pareto Evolution for Safety-Critical Autonomous Driving via Self-Improving LLM Agents	-	2026
+c08917	2309.13193	SurrealDriver: Designing LLM-powered Generative Driver Agent Framework based on Human Drivers’ Driving-thinking Data	-	2023
+c08963	2504.13406	LangCoop: Collaborative Driving with Language	-	2025
+c09249	2504.11514	Enhancing Autonomous Driving Systems with On-Board Deployed Large Language Models	-	2025
+c09473	2409.14488	Enhancing LLM-based Autonomous Driving Agents to Mitigate Perception Attacks	-	2024
+c09594	-	REvolve: Reward Evolution with Large Language Models for Autonomous Driving	-	2024
+c09875	2406.10540	Generating and Evolving Reward Functions for Highway Driving with Large Language Models	-	2024
+c10281	2502.08260	FIXDRIVE: Automatically Repairing Autonomous Vehicle Driving Behaviour for $0.08 per Violation	-	2025
+c10330	2601.12672	VILTA: A VLM-in-the-Loop Adversary for Enhancing Driving Policy Robustness	-	2026
+c10605	2501.05057	LearningFlow: Automated Policy Learning Workflow for Urban Driving With Large Language Models	-	2025
+c12225	2609.04807	CoLMIN: LLM-based Multi-Decision Path Negotiation for Cooperative Autonomous Driving	-	2026
+c12321	2609.19903	REARL: A Closed-loop Autonomous Driving Simulation Enhancement Framework with Real Traffic Data and Large Language Models	-	2026
+s07781	-	Agentic AI in Autonomous Driving: LLM-Enhanced RL with Reusable Skills and Adaptive Exploration for Enhanced Safety	-	2026

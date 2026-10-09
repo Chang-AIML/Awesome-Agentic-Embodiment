@@ -12,12 +12,12 @@ while read -r id; do
   [ -s "$D/$id.txt" ] && continue
   ok=0
   for t in 1 2 3; do
-    if curl -sS -L --max-time 120 -o "$D/tmp.pdf" "https://arxiv.org/pdf/$id" \
-       && pdftotext -q "$D/tmp.pdf" "$D/$id.txt" 2>/dev/null && [ -s "$D/$id.txt" ]; then ok=1; break; fi
+    if curl -sS -L --max-time 120 -o "$D/tmp.$$.pdf" "https://arxiv.org/pdf/$id" \
+       && pdftotext -q "$D/tmp.$$.pdf" "$D/$id.txt" 2>/dev/null && [ -s "$D/$id.txt" ]; then ok=1; break; fi
     sleep $((t*5))
   done
-  rm -f "$D/tmp.pdf"
+  rm -f "$D/tmp.$$.pdf"
   [ $ok = 1 ] && echo "ok $id $(wc -c < "$D/$id.txt")" || echo "FAIL $id"
-  sleep 3
+  sleep ${FETCH_SLEEP:-3}
 done < "$IDS"
 echo DONE

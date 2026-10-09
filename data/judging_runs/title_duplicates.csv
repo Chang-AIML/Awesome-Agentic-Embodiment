@@ -1,0 +1,16 @@
+removed_id,removed_key,removed_verdict,kept_key,kept_arxiv,kept_verdict,removed_title
+c01612,AnyBipe (2),保留,AnyBipe,2409.08904,保留,AnyBipe: An Automated End-to-End Framework for Training and Deploying Bipedal Robots Powered by Large Language Models
+c05772,SRDrone,保留,LLM-Driven Self-Refinement for Embodied Drone Task,2508.15501,保留,SRDrone: LLM-Driven Self-Refinement for Embodied Drone Task Planning
+c01291,ProgPrompt (2),保留,ProgPrompt,2209.11302,保留,ProgPrompt: program generation for situated robot task planning using large language models
+c00557,Nadine (2),保留,Nadine,2405.20189,保留,Nadine: A large language model‐driven intelligent social robot with affective capabilities and human‐like memory
+c05882,Towards Text-based Human Search and Approach,保留,SOCRATES,2302.05324,保留,Towards Text-based Human Search and Approach using a Robot Dog
+c01776,CoMuRoS - An LLM-based generalizable hierarchical,保留,LLM-Based Generalizable Hierarchical Task Planning and,2511.22354,保留,CoMuRoS - An LLM-based generalizable hierarchical task planning and execution framework for heterogeneous robot teams with event-driven re-planning
+c06261,Interleaved LLM and Motion Planning for (2),保留,Interleaved LLM and Motion Planning for,2507.15782,保留,Interleaved LLM and Motion Planning for Scalable Multi-Object Collection in Large Scene Graphs
+s06897,Multi-Modal Interactive Control of Robotic Arm (2),保留,Multi-modal Interactive Control of Robotic Arm,2608.08183,保留,Multi-Modal Interactive Control of Robotic Arm Based on Offline Large Language Models (Student Abstract)
+c00285,PFEA (2),保留,PFEA,2510.24109,保留,PFEA: a VLM-based high-level natural language planning and feedback embodied agent for human-centered AI
+s07558,LLM-Guided Adaptive Compensator,保留,LLMs-guided adaptive compensator,2507.20509,保留,LLM-Guided Adaptive Compensator: Bringing Adaptivity to Robotic Feedback Control With Large Language Model
+c03786,Verification and execution of the scientific,保留,Validation of the Scientific Literature via,2410.06384,保留,Verification and execution of the scientific literature via chemputation augmented by large language models
+c00338,LangProp,剔除,LangProp (2),2401.10314,剔除,LangProp: A code optimization framework using Language Models applied to driving
+c01100,Instance-Aware Visual Language Grounding for Consumer,剔除,IVLMap,2403.19336,保留,Instance-Aware Visual Language Grounding for Consumer Robot Navigation
+c00892,Nl2Hltl2Plan (2),剔除,Nl2Hltl2Plan,2408.08188,保留,Nl2Hltl2Plan: Scaling Up Natural Language Understanding for Multi-Robots Through Hierarchical Temporal Logic Task Specifications
+c03018,VLA-Touch (2),剔除,VLA-Touch,2507.17294,保留,VLA-Touch: Enhancing Vision-Language-Action Model With Dual-Level Tactile Feedback

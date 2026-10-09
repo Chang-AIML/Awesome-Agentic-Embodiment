@@ -33,7 +33,7 @@ runtime — controlling it or supervising it (**Seat**).*
 补充：
 - 训练过的 VLA、技能、感知模型可以作为 agent 调用的**工具**（如 Harness VLA 调度冻结的 VLA）。
 - 通用模型**自己当 agent 行动**、再把它的经验蒸馏成策略或小模型的，算 Teacher（如 GUAVA、SUDD）。
-- 有机器人身体；实验在真机或物理仿真中。离散仿真（ALFRED、VirtualHome、R2R 离散图）与自动驾驶暂放边界，是否收录待定。
+- Env / Sim 的范围（用户 2026-10-09 决定）：真机、物理仿真，以及离散具身仿真（ALFRED、VirtualHome、R2R 离散导航图等，agent 在三维场景里有身体）都算；纯文本世界（只有文字观察和动作的 ALFWorld、TextWorld）和自动驾驶（CARLA、nuScenes、highway-env 等）不算。无人机、多机器人调度按上面六条正常判。
 
 ---
 
@@ -69,23 +69,26 @@ runtime — controlling it or supervising it (**Seat**).*
   - Beyond Human Demos 写的护栏代码在运行时过滤指令，归 Supervisor。
 - 资源（benchmark 与评测研究）记录「被评测的 Seat」。
 
-**两个专题**（横跨 Seat，每篇仍标 Seat）：
+**三个专题**（横跨 Seat，每篇仍标 Seat）：
 - **Real2Sim / Sim2Real**：agent 从真实数据重建仿真、在里面练习、再回到真机；只收代表作。
 - **VLN 与具身导航**：以导航为主任务的 agent。
+- **多智能体（multi-agent）**（用户 2026-10-09 要求单独成章）：多智能体是论文主系统的核心，满足其一即可：
+  - 两个及以上机器人或具身智能体（含无人机 + 地面机器人这类异构团队），由通用大模型 agent 分配、规划或协调任务，集中式或每台一个 agent 都算（RoCo、SMART-LLM、AutoRT、ABot-Claw）；
+  - 论文把系统呈现为两个及以上分工不同的通用大模型 agent，彼此对话、辩论、协商或交接工作（AdaHVLA 的多 agent 改进流程）。
+  - 不算：单个机器人上由几次 prompt 调用拼成的流水线（规划器 + 校验器），论文没有称其为多智能体；只有人机对话；单个 agent 调用 subagent 工具（SPINE）。
+  - CSV 里记在 `topic` 列（值为「多智能体」）。
 
 ---
 
 ## 4. 现状（2026-10-09）
 
-核心表 174 篇已按上面的标准逐篇读全文判定：保留 145、资源 20、剔除 9。
-
-保留的 145 篇按阶段和 Seat 分：
+**精选清单**（用户 2026-10-09 决定回到精选，只收 arXiv 论文）：`data/core/paper_list.csv` 共 186 篇，逐篇读全文判定，保留 157、资源 20、剔除 9。保留的论文单独导出为 `data/core/agent_pool.csv`。其中 12 篇 2025 年代表作是用户选定写法 A 后补的（「2025年补一下」），填先驱与 2026 年之间的断档。
 
 | 阶段 | 篇数 | 各 Seat |
 |---|---|---|
-| 执行前 | 53 | Designer 20、Teacher 9、Developer 24 |
-| 运行时 | 92 | Controller 80、Supervisor 12 |
+| 执行前 | 59 | Designer 22、Teacher 10、Developer 27 |
+| 运行时 | 98 | Controller 84、Supervisor 14 |
 
-核心表之外还有约 2,045 篇候选只按旧定义判过，需要按同一标准补判（见 `../HANDOFF.md` §4）。
+保留的 157 篇中先驱（2022–2025）78 篇、2026 年 79 篇；多智能体专题 13 篇（保留 12、资源 1）。扩展列表中按同一标准补判过的其余 1,339 篇暂存在 `data/core/extended_judged.csv`，不进清单。
 
 **主线（草案）**：*Agency spreads around the body: general models, not embodied action models, fill seat after seat.*
