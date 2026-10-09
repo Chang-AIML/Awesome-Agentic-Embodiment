@@ -88,6 +88,7 @@
 | `data/core/layer_classification.csv` | **当前主文件** | list 本身。UTF-8 带 BOM，Excel 可直接打开。列见 §3 |
 | `docs/layer_classification.md` | 当前 | 可读版，由 `scripts/build_layer_table.py` 从 CSV 生成，不要手改 |
 | `docs/agent_loop_framework.png` | 当前 | 用户画的框架图 |
+| `docs/list_summary.pdf` | 当前 | 5 页图文总结：框架、六条标准、三层九类的代表作、清单里的趋势、判例与下一步。由 `scripts/build_list_summary.py` 从 CSV 生成；改了 CSV 后重跑（代表作名单在脚本的 REPS 里，删掉的论文要同步去掉，否则会报错） |
 | `screening/prompts/content_rejudge.txt` | 当前 | 读全文判定的提示词，即上面六条规则的执行版 |
 | `scripts/judging/fetch_fulltext.sh`、`scripts/judging/content_rejudge.py` | 当前 | 下载全文、切分片、汇总、写回 CSV 的工具，用法见 §5 |
 | `data/judging_runs/content_rejudge/` | 当前 | 这 174 篇全文判定的原始输出 |
