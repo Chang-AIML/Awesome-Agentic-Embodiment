@@ -1,14 +1,14 @@
 # 按三层框架给核心表分类
 
-对 `data/core/core_table.csv` 的 174 篇（先驱 70、2026 年 85、资源 19）逐篇按三层框架归类，每篇写了理由。Haiku 逐篇初判（提示词见 `screening/prompts/layer_classify.txt`，原始输出在 `data/judging_runs/layers/`），之后人工逐条复核：改判 5 篇，并在「备注」中标出 14 篇边界情况。机器可读版本：`data/core/layer_classification.csv`（带 BOM，Excel 可直接打开）。
+对 `data/core/core_table.csv` 的 174 篇（先驱 70、2026 年 85、资源 19）逐篇按三层框架归类，每篇写了理由。Haiku 逐篇初判（提示词 `screening/prompts/layer_classify.txt`，原始输出 `data/judging_runs/layers/`），之后人工逐条复核；复核改判和边界情况写在「备注」里。机器可读版本：`data/core/layer_classification.csv`（带 BOM，Excel 可直接打开），改分类就改这个 CSV，再运行 `python3 scripts/build_layer_table.py`。
 
 ## 三层定义
 
 - **L1**（42 篇）：准备层（pre-execution）：执行之前，为机器人创造或重建环境、设计奖励 / 任务、设计本体与工具、修改系统与训练代码；产物在部署前冻结
-- **L2**（102 篇）：中间层（harness）：LLM 不直接出低层动作，隔着一层影响机器人——写出策略代码 / 约束、编排技能或 VLA、把经验迁移 / 蒸馏给策略、在运行时只在异常时介入
+- **L2**（101 篇）：中间层（harness）：LLM 不直接出低层动作，隔着一层影响机器人——写出策略代码 / 约束、编排技能或 VLA、把经验迁移 / 蒸馏给策略、在运行时只在异常时介入
 - **L3**（7 篇）：执行层（General LLM as policy）：执行过程中由通用大模型自己逐步输出动作（关节、位姿、航点、离散动作或语义微动作）
 - **资源**（19 篇）：benchmark、评测研究：不分层，子类写它主要评测哪一层
-- **剔除**（4 篇）：不符合框架：决策者主要是专门训练的模型，或 LLM 作用很弱，或主题在三层之外
+- **剔除**（5 篇）：不符合框架：决策者主要是专门训练的模型，LLM 作用很弱，主体是数据生成或评测平台，或主题在三层之外
 
 ## 总览
 
@@ -20,14 +20,14 @@
 | L1 | 系统/代码 | 14 | 修改训练代码、策略代码库、技能库或 harness，按试验保留或回滚 |
 | L2 | 策略生产者 | 28 | 写出在机器人上运行的策略代码、约束或程序（Code as Policies 一类） |
 | L2 | 编排者 | 48 | 规划并调用技能、工具、运动规划器或 VLA |
-| L2 | 经验迁移 | 14 | agent 的经验、示范或轨迹被蒸馏成策略或更小的模型 |
+| L2 | 经验迁移 | 13 | agent 的经验、示范或轨迹被蒸馏成策略或更小的模型 |
 | L2 | 运行时监控 | 12 | 运行时只在异常时介入：失败检测、安全护栏、恢复、求助 |
 | L3 | 直接动作 | 7 | 通用大模型在执行中直接输出动作 |
 | 资源 | 评测L1 | 3 |  |
 | 资源 | 评测L2 | 8 |  |
 | 资源 | 评测L3 | 4 |  |
 | 资源 | 评测多层 | 4 |  |
-| 剔除 | — | 4 |  |
+| 剔除 | — | 5 |  |
 
 ## 原 Seat 与三层的对应
 
@@ -39,7 +39,7 @@
 | Controller·direct | · | 27 | 7 | · |
 | Controller·lifelong | · | 13 | · | · |
 | Supervisor | 1 | 13 | · | 1 |
-| Teacher | · | 12 | · | · |
+| Teacher | · | 11 | · | 1 |
 | Designer | 21 | · | · | · |
 | Developer | 20 | · | · | · |
 
@@ -55,6 +55,7 @@
 - **AgenticNav**（L2 · 编排者）：边界 L2/L3：每步选目标像素，由 harness 转成运动
 - **HaltNav**（L2 · 编排者）：含微调 VLM（停止判断），全局路线由 MLLM 拆分；若严格只收通用模型，可剔除
 - **Smart-Agriculture Engine**（L2 · 编排者）：偏基础设施，LLM 作用较弱，可剔除
+- **HumanoidGen**（L2 · 经验迁移）：与 RoboTwin 2.0 同类（以数据生成框架为主体），待你决定是否一并剔除
 - **NavGPT**（L3 · 直接动作）：边界 L3/L2：离散图上逐步选下一视点（相当于直接移动）；若看作选路点则归 L2
 - **Agent as Policy**（L3 · 直接动作）：复核改判（原 L2 策略生产者）：论文主张 agent 本身就是策略；也写程序，兼 L2
 - **Astra on RoboDojo**（L3 · 直接动作）：同时是一项评测研究（可放资源）；按其主张归 L3
@@ -64,6 +65,7 @@
 - **VLABench**（资源 · 评测多层）：主要评测训练好的 VLA；在只收通用模型的口径下可删去
 - **LM-Nav**（剔除 · —）：规则 (b)：LLM 只解析一次地标；若把开环先驱都保留，可归 L2 编排者
 - **RoboFAC**（剔除 · —）：规则 (a)；若接受为 agent 角色微调的 VLM，可归 L2 运行时监控
+- **RoboTwin 2.0**（剔除 · —）：用户指出不算（2026-10-09，原 L2 经验迁移）
 - **AgentVLN**（剔除 · —）：复核改判（原 L2 编排者），规则 (a)；若接受微调模型，可归 L2 编排者
 - **Ludi**（剔除 · —）：复核改判（原 L2 编排者），规则 (a)；若接受为 agent 角色微调的通用 VLM，可归 L2 编排者
 
@@ -224,7 +226,7 @@
 | [Tool-Aligned VLA Agent](https://arxiv.org/abs/2605.13119) | 2026 | Controller·orchestrator | high | VLM代理挑选专用VLA工具并下发子任务，依进度反馈事件触发重规划 |  |
 | [VIA](https://arxiv.org/abs/2607.11119) | 2026 | Controller·direct | low | FM看截图后在3D网页界面发直观指令驱动机械臂，摘要截断，保守判L2 |  |
 
-### 经验迁移（14）
+### 经验迁移（13）
 
 | 论文 | 年 | 原分类 | 置信 | 理由 | 备注 |
 |---|---|---|---|---|---|
@@ -232,8 +234,7 @@
 | [SUDD](https://arxiv.org/abs/2307.14535) | 2023（先驱） | Teacher | high | LLM 规划并写成功检查代码，经验证示范蒸馏为多任务扩散策略 |  |
 | [AutoRT](https://arxiv.org/abs/2401.12963) | 2024（先驱） | Controller·orchestrator | med | LLM 提任务指挥机器人队列采数，数据供训练策略，兼 L1 任务设计 |  |
 | [Manipulate-Anything](https://arxiv.org/abs/2406.18915) | 2024（先驱） | Teacher | high | VLM 分解任务并执行、验证、重规划，经验证轨迹训练行为克隆策略 |  |
-| [HumanoidGen](https://arxiv.org/abs/2507.00833) | 2025（先驱） | Teacher | med | LLM 规划空间约束，采集双臂灵巧操作示范，检查回溯后供策略训练 |  |
-| [RoboTwin 2.0](https://arxiv.org/abs/2506.18088) | 2025（先驱） | Teacher | high | MLLM 写任务执行代码并经仿真闭环修正，合成示范训练策略 |  |
+| [HumanoidGen](https://arxiv.org/abs/2507.00833) | 2025（先驱） | Teacher | med | LLM 规划空间约束，采集双臂灵巧操作示范，检查回溯后供策略训练 | 与 RoboTwin 2.0 同类（以数据生成框架为主体），待你决定是否一并剔除 |
 | [CAPEX](https://arxiv.org/abs/2609.33007) | 2026 | Teacher | high | 基础模型按执行经验调整观察与重规划频率，产出示范蒸馏为DP与ACT策略 |  |
 | [EmbodiedSWE](https://arxiv.org/abs/2609.27308) | 2026 | Teacher | med | 编码代理在仿真中迭代写灵巧操作程序，验证通过的解扩展为示范训练VLA |  |
 | [Frontier Demo Generation](https://arxiv.org/abs/2610.03615) | 2026 | Teacher | med | 前沿模型生成含纠错片段的示范训练本地快速策略，部署时把指令交给本地策略执行 |  |
@@ -324,12 +325,13 @@ benchmark、评测研究：不分层，子类写它主要评测哪一层
 
 ## 剔除
 
-不符合框架：决策者主要是专门训练的模型，或 LLM 作用很弱，或主题在三层之外
+不符合框架：决策者主要是专门训练的模型，LLM 作用很弱，主体是数据生成或评测平台，或主题在三层之外
 
 | 论文 | 年 | 原分类 | 置信 | 理由 | 备注 |
 |---|---|---|---|---|---|
 | [LM-Nav](https://arxiv.org/abs/2207.04429) | 2022（先驱） | Controller·orchestrator·vln | high | LLM 仅一次解析指令为地标，其余打分与图搜索由代码决定（作用边缘） | 规则 (b)：LLM 只解析一次地标；若把开环先驱都保留，可归 L2 编排者 |
 | [RoboFAC](https://arxiv.org/abs/2505.12224) | 2025（先驱） | Supervisor | high | 核心是在失败数据上微调的轻量多模态模型，非通用 LLM/VLM 决策 | 规则 (a)；若接受为 agent 角色微调的 VLM，可归 L2 运行时监控 |
+| [RoboTwin 2.0](https://arxiv.org/abs/2506.18088) | 2025（先驱） | Teacher | high | 主体是双臂操作的仿真数据生成器与 benchmark（物体库、域随机化、评测协议），MLLM 写专家代码只是数据流水线中的一环 | 用户指出不算（2026-10-09，原 L2 经验迁移） |
 | [AgentVLN](https://arxiv.org/abs/2603.17670) | 2026 | Controller·orchestrator·vln | low | 以训练过的端侧 VLM 作导航大脑并配技能库，主要贡献是这个专门训练的模型与表示映射 | 复核改判（原 L2 编排者），规则 (a)；若接受微调模型，可归 L2 编排者 |
 | [Ludi](https://arxiv.org/abs/2608.22035) | 2026 | Controller·orchestrator | med | 决策核心是在多轮交互数据上微调的 VLM，论文主体是这个训练出的模型 | 复核改判（原 L2 编排者），规则 (a)；若接受为 agent 角色微调的通用 VLM，可归 L2 编排者 |
 

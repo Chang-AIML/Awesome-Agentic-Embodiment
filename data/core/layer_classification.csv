@@ -121,8 +121,8 @@ L2,经验迁移,RobotGPT,先驱,2023,RobotGPT: Robot Manipulation Learning From 
 L2,经验迁移,SUDD,先驱,2023,Scaling Up and Distilling Down: Language-Guided Robot Skill Acquisition,2307.14535,high,LLM 规划并写成功检查代码，经验证示范蒸馏为多任务扩散策略,,Teacher
 L2,经验迁移,AutoRT,先驱,2024,AutoRT: Embodied Foundation Models for Large Scale Orchestration of Robotic Agents,2401.12963,med,LLM 提任务指挥机器人队列采数，数据供训练策略，兼 L1 任务设计,,Controller·orchestrator
 L2,经验迁移,Manipulate-Anything,先驱,2024,Manipulate-Anything: Automating Real-World Robots using Vision-Language Models,2406.18915,high,VLM 分解任务并执行、验证、重规划，经验证轨迹训练行为克隆策略,,Teacher
-L2,经验迁移,HumanoidGen,先驱,2025,HumanoidGen: Data Generation for Bimanual Dexterous Manipulation via LLM Reasoning,2507.00833,med,LLM 规划空间约束，采集双臂灵巧操作示范，检查回溯后供策略训练,,Teacher
-L2,经验迁移,RoboTwin 2.0,先驱,2025,RoboTwin 2.0: A Scalable Data Generator and Benchmark with Strong Domain Randomization for Robust Bimanual Robotic Manipulation,2506.18088,high,MLLM 写任务执行代码并经仿真闭环修正，合成示范训练策略,,Teacher
+L2,经验迁移,HumanoidGen,先驱,2025,HumanoidGen: Data Generation for Bimanual Dexterous Manipulation via LLM Reasoning,2507.00833,med,LLM 规划空间约束，采集双臂灵巧操作示范，检查回溯后供策略训练,与 RoboTwin 2.0 同类（以数据生成框架为主体），待你决定是否一并剔除,Teacher
+剔除,—,RoboTwin 2.0,先驱,2025,RoboTwin 2.0: A Scalable Data Generator and Benchmark with Strong Domain Randomization for Robust Bimanual Robotic Manipulation,2506.18088,high,主体是双臂操作的仿真数据生成器与 benchmark（物体库、域随机化、评测协议），MLLM 写专家代码只是数据流水线中的一环,用户指出不算（2026-10-09，原 L2 经验迁移）,Teacher
 L2,经验迁移,CAPEX,2026,2026,CAPEX: Efficiently Distilling Foundation Model Behavior into Deployable Robot Policies through Experience-Adaptive Reasoning,2609.33007,high,基础模型按执行经验调整观察与重规划频率，产出示范蒸馏为DP与ACT策略,,Teacher
 L2,经验迁移,EmbodiedSWE,2026,2026,EmbodiedSWE: Coding Agents for Long Horizon Dexterous Robotics,2609.27308,med,编码代理在仿真中迭代写灵巧操作程序，验证通过的解扩展为示范训练VLA,,Teacher
 L2,经验迁移,Frontier Demo Generation,2026,2026,Bridging Frontier Reasoning and Robot Execution: From Autonomous Demonstration Generation to Dense Language Supervision,2610.03615,med,前沿模型生成含纠错片段的示范训练本地快速策略，部署时把指令交给本地策略执行,,Teacher
