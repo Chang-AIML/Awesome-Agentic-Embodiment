@@ -45,17 +45,17 @@ Cells: primary seat (all-seat count, i.e. papers with that seat as primary or se
 
 | Year | n | Controller | Supervisor | Teacher | Designer | Developer | Controller share (all-seat) | effective seats |
 |---|---|---|---|---|---|---|---|---|
-| 2026 | 79 | 38 (53) | 7 (11) | 7 (8) | 10 (16) | 17 (23) | 67% | 3.96 |
+| 2026 | 79 | 37 (52) | 6 (10) | 6 (7) | 10 (16) | 20 (24) | 66% | 3.91 |
 
 Cells: primary seat (all-seat count, i.e. papers with that seat as primary or secondary).
 
 | Seat | G | C |
 |---|---|---|
-| Controller | 36 | 1 |
-| Supervisor | 7 | · |
-| Teacher | 5 | 2 |
+| Controller | 36 | · |
+| Supervisor | 6 | · |
+| Teacher | 6 | · |
 | Designer | 10 | · |
-| Developer | 16 | · |
+| Developer | 19 | · |
 
 ## C. Pioneers (n = 66, 2022-2025)
 

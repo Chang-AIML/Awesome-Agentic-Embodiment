@@ -20,7 +20,7 @@ Three hard rules:
    VLAs, robot foundation models, specialist perception / failure / reward models do not count either.
    - Trained models are fine as TOOLS the general agent calls (skills, VLAs, detectors, planners).
    - Experience transfer counts: if the general model itself acts as the agent (in sim or on the robot) and
-     its own trajectories / experience are distilled into a policy or a smaller model, keep it (L2 经验迁移).
+     its own trajectories / experience are distilled into a policy or a smaller model, keep it (Teacher, role 示范/蒸馏).
      But if the only "agent" at run time is the authors' trained model and no general model acts as an agent
      in the paper's system, exclude.
    - If a paper reports both, judge by its headline system / main results.
@@ -31,16 +31,23 @@ Three hard rules:
    paper (example: RoboTwin 2.0, a bimanual data generator and benchmark whose MLLM writes task code). A
    benchmark or evaluation study whose subject is general LLM / VLM agents is a resource.
 
-Layers (for kept papers):
-- L1 准备层 (before execution): 环境/重建 (generate or reconstruct environments, scenes, sim assets, digital
-  twins) · 奖励/任务 (rewards, success checks, tasks, curricula) · 本体/工具 (robot morphology, hardware, tools)
-  · 系统/代码 (edit training code, policy code bases, skill libraries, harnesses; keep or revert by trials)
-- L2 中间层 (the agent affects the robot through a middle layer): 策略生产者 (writes the policy code /
-  constraints that run on the robot) · 编排者 (plans and calls skills, tools, motion planners, VLAs) ·
-  经验迁移 (its experience / demos / trajectories are distilled into a policy or smaller model) ·
-  运行时监控 (intervenes only on anomalies: failure detection, safety guardrails, recovery, asking for help)
-- L3 执行层: 直接动作 (the general model itself outputs the actions during execution)
-For resources use layer 评测L1 / 评测L2 / 评测L3 for what is evaluated, or "-". For excluded use "-".
+Classification (for kept papers): two phases, five seats (user, 2026-10-09). The phase is decided by when the
+agent's output is produced and used.
+- 执行前 (pre-execution): the agent's output is produced before the robot executes the task and is frozen into
+  the deployed system.
+  · Designer: designs the learning problem. role 环境/重建 (generate or reconstruct environments, scenes, sim
+    assets, digital twins) or 奖励/任务 (rewards, success checks, tasks, curricula).
+  · Teacher: executes the task itself; its verified demos / experience become training targets for a policy or
+    smaller model. role 示范/蒸馏.
+  · Developer: modifies the system itself and keeps or reverts by trials. role 系统/代码 (training code, policy
+    code bases, skill libraries, harnesses, planning domains) or 本体/工具 (morphology, hardware, tools).
+- 运行时 (runtime): the agent acts while the robot executes the task.
+  · Controller: decides what the robot does at each step. role 编排 (plans and calls skills, tools, motion
+    planners, VLAs), 写策略 (writes the policy code / constraints / reward that runs now), or 直接动作 (the general
+    model itself outputs the actions).
+  · Supervisor: intervenes only on anomalies. role 监控/恢复 (failure detection, safety guardrails, recovery,
+    asking for help).
+For resources give the evaluated seat and role 评测. For excluded use "-" for both.
 
 ## How to read each paper
 
@@ -54,7 +61,7 @@ Do not guess from the title; quote the paper.
 
 ## Output: exactly one line per paper, 11 fields separated by |, no | inside fields
 
-key|arxiv|decision_model|model_status|main_contribution|connection|verdict|layer|subtype|evidence|reason
+key|arxiv|decision_model|model_status|main_contribution|connection|verdict|seat|role|evidence|reason
 
 - decision_model: the model(s) that make the agent's decisions in the headline system, with sizes if given
   (e.g. "GPT-4o", "Qwen2.5-VL-3B fine-tuned on AgentVLN-Instruct", "Gemini 1.5 Pro + trained RT-1 skills").
@@ -64,7 +71,7 @@ key|arxiv|decision_model|model_status|main_contribution|connection|verdict|layer
 - main_contribution: AGENT | DATA | BENCH | OTHER
 - connection: ≤15 English words: what the agent outputs and where it goes.
 - verdict: 保留 (G + AGENT + connected) | 资源 (BENCH about general LLM / VLM agents) | 剔除 (anything else)
-- layer / subtype: as above.
+- seat / role: as above.
 - evidence: ≤40 words quoted verbatim from the paper that settle model_status (add the section name).
 - reason: one Chinese sentence explaining the verdict.
 

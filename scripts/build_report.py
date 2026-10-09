@@ -731,7 +731,7 @@ def build_html(fontdir):
       f'<li><b>按你的 agent 回路框架重判（10-09）</b>：通用大模型 agent 必须存在并起作用；箭头不必全有，agent 连到 Policy / Code '
       f'或 Env / Sim 之一即可，所以开环工作（Code as Policies、ReKep 一类）也算。核心表剔除 4 篇（AutoRT、RoboTwin 2.0、'
       f'HumanoidGen、RoboFind），5 篇改为资源；全量统计也把开环论文算进来（2026 年 {c["strong26"]} 篇，闭环占 '
-      f'{round(100 * t26_closed)}%）。逐篇结果见 <code>docs/layer_classification.md</code>。</li>'
+      f'{round(100 * t26_closed)}%）。逐篇结果见 <code>docs/paper_list.md</code>。</li>'
       f'<li><b>只收通用大模型做具身任务</b>：VLA、分层 VLA、WAM、机器人基础模型直接出动作的工作删除（重判 {c["scope"]} 篇，'
       f'{c["scope_out"]} 篇排除）；通用模型直接出动作仍算（如 GPT-6 Astra 在 RoboDojo 上当策略）。</li>'
       f'<li><b>覆盖补全</b>：从未细判的 {c["pre"]:,} 篇、从未粗筛的 {c["pf_screen"]:,} 篇（{c["pf_keep"]} 篇进入判定）全部补判；'

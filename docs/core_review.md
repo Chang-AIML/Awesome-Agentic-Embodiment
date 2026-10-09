@@ -2,7 +2,7 @@
 
 由 `scripts/build_core_table.py` 从 `data/core/core_selection.csv` 生成。要增删或改判，改 selection 文件后重新运行脚本。
 
-## Controller · 编排型（10）
+## Controller · 编排型（9）
 
 | 短名 | 年份 | Seat | Carrier | 闭环 | 来源 | 入选理由 |
 |---|---|---|---|---|---|---|
@@ -14,7 +14,6 @@
 | [AerialClaw](https://arxiv.org/abs/2606.12142) | 2026 | Controller | G | 再决策 | 判定池 | LLM agent 调用无人机的硬技能与 Markdown 软技能，依运行反馈迭代；开源空中 agent 框架 |
 | [Physical Agency](https://arxiv.org/abs/2607.21725) | 2026 | Controller | G | 再决策 | 判定池 | LLM 编排者规划、调用 VLA 与参数化技能，从观测核验结果后重规划，针对通用机器人的「编排缺口」 |
 | [Thea](https://arxiv.org/abs/2608.11246) | 2026 | Controller | G | 再决策 | 判定池 | 把 coding-agent harness 范式迁移到具身：工具化能力 + 场景图上下文；2026 harness 浪潮代表 |
-| [AGRO-SUVIDE](https://arxiv.org/abs/2609.34823) | 2026 | Controller | G | 编写闭环 | 判定池 | 手术清创：coding agent 由一次示范构建技能，运行时监控按前后条件组合循环图；覆盖手术机器人 |
 | [Astra Robot Agents](https://arxiv.org/abs/2610.01939) | 2026 | Controller | G | 再决策 | 判定池 | GPT-6 Astra 把原语与 VLA 组合成带检查和重试的 Python 单元，按需请求观测；少用 65% token、成功率高 14% |
 
 ## Controller · 直接驱动型（10）
@@ -49,7 +48,7 @@
 | 短名 | 年份 | Seat | Carrier | 闭环 | 来源 | 入选理由 |
 |---|---|---|---|---|---|---|
 
-## Supervisor（7）
+## Supervisor（6）
 
 | 短名 | 年份 | Seat | Carrier | 闭环 | 来源 | 入选理由 |
 |---|---|---|---|---|---|---|
@@ -57,18 +56,16 @@
 | [When to Act, Ask, or Learn](https://arxiv.org/abs/2602.22474) | 2026 | Supervisor | G | 再决策 | 判定池 | VLM 验证者在策略的动作样本中挑选，或在不确定时决定澄清、请求人工干预 |
 | [Agentic Task Graph](https://arxiv.org/abs/2605.11951) | 2026 | Supervisor | G | 编写闭环 | 判定池 | 三个 agent 预先写出任务图、恢复分支与可执行监控，从被动恢复转向预判（编写闭环） |
 | [UAV Selective Recovery](https://arxiv.org/abs/2606.14219) | 2026 | Supervisor | G | 再决策 | 判定池 | 无人机任务运行时只在受阻或无进展时调用外部推理者，选择预定义恢复技能；覆盖空中 |
-| [Zetta](https://arxiv.org/abs/2608.16590) | 2026 | Supervisor | G | 再决策 | 判定池 | agent 从 rollout 进化代码化的运行时 critic 与恢复技能，经验证门控保留或回滚 |
 | [FRAMES](https://arxiv.org/abs/2609.22538) | 2026 | Supervisor | G | 再决策 | 判定池 | 人形机器人多视角技能监测与恢复（×R） |
 | [Beyond Human Demos](https://arxiv.org/abs/2609.24996) | 2026 | Supervisor | G | 编写闭环 | 判定池 | LLM 写可执行的护栏代码，在运行时过滤遥操作与策略发出的危险指令（编写闭环） |
 
-## Teacher（6）
+## Teacher（5）
 
 | 短名 | 年份 | Seat | Carrier | 闭环 | 来源 | 入选理由 |
 |---|---|---|---|---|---|---|
-| [GUAVA](https://arxiv.org/abs/2606.18363) | 2026 | Teacher | G→C | 再决策 | 判定池 | 用户点名：前沿 VLM 在 harness 中行动的轨迹蒸馏为 4B agent，同接口 agent→agent 迁移 |
+| [GUAVA](https://arxiv.org/abs/2606.18363) | 2026 | Teacher | G | 再决策 | 判定池 | 用户点名：前沿 VLM 在 harness 中行动的轨迹蒸馏为 4B agent，同接口 agent→agent 迁移 |
 | [EmbodiedSWE](https://arxiv.org/abs/2609.27308) | 2026 | Teacher | G | 再决策 | 判定池 | coding agent 迭代编写调试灵巧操作程序，经验证解扩展为训练示范 |
 | [CAPEX](https://arxiv.org/abs/2609.33007) | 2026 | Teacher | G | 再决策 | 判定池 | 基础模型作为自主示范者，依执行经验重规划并自适应调用频率，行为蒸馏为可部署策略 |
-| [RHD](https://arxiv.org/abs/2609.33378) | 2026 | Teacher | G | 再决策 | 判定池 | 强 agent 的经验提炼成 playbook 供轻量 agent 使用（in-context 迁移） |
 | [SkillWeaver](https://arxiv.org/abs/2609.36171) | 2026 | Teacher | G | 再决策 | 判定池 | VLM agent 调用并参数化 RL 训练的神经交互技能、观察结果后探索，产出的轨迹用于训练 |
 | [Frontier Demo Generation](https://arxiv.org/abs/2610.03615) | 2026 | Teacher | G | 再决策 | 判定池 | 前沿模型自主生成示范，累积纠错的上下文示例，训练出快速的学习策略 |
 
@@ -84,7 +81,7 @@
 | [ROOT](https://arxiv.org/abs/2610.04250) | 2026 | Designer | G | 再决策 | 判定池 | 在奖励程序、策略与 rollout 的持久实验树上搜索奖励，实现用户指定的足式行为 |
 | [EmbodiedSmith](https://arxiv.org/abs/2610.07969) | 2026 | Designer | G | 再决策 | 判定池 | 用户点名：场景生成 agent 与任务生成 agent 互相编辑、经仿真验证迭代的生成式仿真（不是 Real2Sim：没有真实数据重建） |
 
-## Developer（12）
+## Developer（15）
 
 | 短名 | 年份 | Seat | Carrier | 闭环 | 来源 | 入选理由 |
 |---|---|---|---|---|---|---|
@@ -96,8 +93,11 @@
 | [SPINE](https://arxiv.org/abs/2607.13049) | 2026 | Developer | G | 再决策 | 判定池 | 子 agent 建立机器人档案并调试双臂遥操作栈（驱动、接口、控制）；真机系统工程 |
 | [ASPIRE](https://arxiv.org/abs/2607.00272) | 2026 | Developer | G | 再决策 | 判定池 | coding agent 编写并精炼控制程序，从执行轨迹诊断失败，验证后入技能库（56 引） |
 | [Skill-Harness Evolution](https://arxiv.org/abs/2608.11350) | 2026 | Developer | G | 再决策 | 判定池 | 冻结模型从 rollout 进化技能与上下文代码 harness，只保留带来提升的修改 |
+| [Zetta](https://arxiv.org/abs/2608.16590) | 2026 | Developer | G | 再决策 | 判定池 | agent 从 rollout 进化代码化的运行时 critic 与恢复技能，经验证门控保留或回滚 |
 | [Continuum Robot Design](https://arxiv.org/abs/2609.08220) | 2026 | Developer | G | 再决策 | 判定池 | LLM 设计者与评审依物理仿真结果迭代修改腱驱动连续体机器人的设计；硬件侧 Developer |
 | [AdaHVLA](https://arxiv.org/abs/2609.29204) | 2026 | Developer | G | 再决策 | 判定池 | 多 agent 分析 / 修订循环依 rollout 证据编辑协调 VLA 的代码 harness |
+| [RHD](https://arxiv.org/abs/2609.33378) | 2026 | Developer | G | 再决策 | 判定池 | 强 agent 的经验提炼成 playbook 供轻量 agent 使用（in-context 迁移） |
+| [AGRO-SUVIDE](https://arxiv.org/abs/2609.34823) | 2026 | Developer | G | 编写闭环 | 判定池 | 手术清创：coding agent 由一次示范构建技能，运行时监控按前后条件组合循环图；覆盖手术机器人 |
 | [PhysEvo](https://arxiv.org/abs/2610.08995) | 2026 | Developer | G | 再决策 | 补漏 | 冻结的 GPT-6 Astra 执行任务，meta-agent 依轨迹诊断失败、修改工具与技能并测试后保留；RoboDojo 42 任务，并在真机 PiPER 上继续 |
 | [LACE-CRAFT](https://arxiv.org/abs/2610.09283) | 2026 | Developer | G | 再决策 | 补漏 | 反馈、形态、奖励、整合四个 LLM 角色共享实验记录，交叉评审形态-奖励提案，固定任务指标决定保留或回滚；机器人协同设计 |
 
@@ -127,10 +127,10 @@
 | [CA-Nav](https://arxiv.org/abs/2412.10137) | 2024 | Controller | G | 编写闭环 | 补漏 | GPT-4 把指令拆成子指令并写成物体 / 位置 / 方向的完成约束，执行中依实时感知检查约束、切换阶段并塑造价值图；零样本 VLN-CE（含真机） |
 | [One Agent to Guide Them All](https://arxiv.org/abs/2602.15400) | 2026 | Controller | G | 再决策 | 判定池 | MLLM 在可交互的度量世界表示上推理并做反事实检查，统一多种 VLN 任务，仿真与真机 |
 | [OnFly](https://arxiv.org/abs/2603.10682) | 2026 | Controller | G | 再决策 | 判定池 | 机载零样本空中 VLN：一个 VLM 生成导航目标，另一个依关键帧监控进度与安全；覆盖无人机 |
-| [HaltNav](https://arxiv.org/abs/2603.12696) | 2026 | Controller | C | 再决策 | 补漏 | MLLM 在轻量拓扑图（osmAG）上把路线拆成子指令，微调的 VLM 在门关闭、拥挤等情况下停止并触发重规划；仿真与真机 Fetch |
+| [HaltNav](https://arxiv.org/abs/2603.12696) | 2026 | Controller | G | 再决策 | 补漏 | MLLM 在轻量拓扑图（osmAG）上把路线拆成子指令，微调的 VLM 在门关闭、拥挤等情况下停止并触发重规划；仿真与真机 Fetch |
 | [NORM-Nav](https://arxiv.org/abs/2605.16979) | 2026 | Controller | G | 编写闭环 | 判定池 | 约束编程类导航：LLM 把指令解析成结构化行为约束，依实时感知落成代价地图层由规划器执行并在线重规划 |
 | [AgenticNav](https://arxiv.org/abs/2606.10577) | 2026 | Controller | G | 再决策 | 判定池 | VLM 在 harness 中调用动作、深度与 memory 工具，带着自己的推理历史选择目标像素；VLN-CE 闭环 |
-| [LocalNav](https://arxiv.org/abs/2606.27871) | 2026 | Teacher | G→C | 再决策 | 判定池 | 前沿 VLM 导航 agent 轨迹蒸馏到端侧 4B VLM；覆盖 nav 的 Teacher |
+| [LocalNav](https://arxiv.org/abs/2606.27871) | 2026 | Teacher | G | 再决策 | 判定池 | 前沿 VLM 导航 agent 轨迹蒸馏到端侧 4B VLM；覆盖 nav 的 Teacher |
 | [Embodied Agents Take Control](https://arxiv.org/abs/2607.26148) | 2026 | Controller | G | 再决策 | 判定池 | 通用 coding-agent harness 掌管每一步导航动作并自我纠错，零样本可比工业级系统 |
 | [HAM-VLN](https://arxiv.org/abs/2607.29600) | 2026 | Controller | G | 再决策 | 判定池 | MLLM 选择下一个路点并写分层 memory（含失败记录），后续调用再读入 |
 | [Air-Ground VLN](https://arxiv.org/abs/2609.03483) | 2026 | Controller | G | 再决策 | 判定池 | 无人机与地面车的 VLM 在共享鸟瞰地图上推理并互相下发子目标，空地协同 VLN；×N 拓扑 |
