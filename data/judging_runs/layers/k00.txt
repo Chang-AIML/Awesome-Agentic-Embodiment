@@ -1,0 +1,29 @@
+RoboClaw|L2|编排者|med|VLM控制器调用学习到的策略原语完成长程任务，并用EAP自复位循环自主采数
+Thea|L2|编排者|high|agent循环调用封装为工具的机器人能力，以场景图作上下文并用退出码判定结果
+Tool-Aligned VLA Agent|L2|编排者|high|VLM代理挑选专用VLA工具并下发子任务，依进度反馈事件触发重规划
+Physical Agency|L2|编排者|med|LLM编排者拆分子目标、调用VLA与参数化技能，核验观测结果后重规划
+Astra Robot Agents|L2|策略生产者|med|GPT-6 Astra写Python单元串联原语与VLA，含条件检查与局部重试后直接执行
+NovaPlan|L2|编排者|med|VLM拆分子目标并闭环监控、失败时重规划，低层动作由视频关键点几何推算
+Cybo-Waiter|L2|编排者|med|VLM输出带谓词前后条件的JSON子任务序列，交运动原语执行并经3D核验推进
+ABot-Claw|L2|编排者|med|OpenClaw式代理按能力调度异构机器人，记忆检索后由critic驱动局部纠正与重规划
+SpaceMind|L2|编排者|med|VLM代理按动态路由调用技能模块与MCP工具，逐步发出工具调用指令
+AerialClaw|L2|编排者|high|LLM代理调用无人机硬技能与Markdown软技能，依运行反馈闭环更新决策
+Smart-Agriculture Engine|L2|编排者|low|LLM代理经API下发农机、无人机与传感器作业，事件驱动流程引擎为主，偏基础设施
+AGRO-SUVIDE|L2|策略生产者|med|编码agent据单次示范写出技能代码，运行时组合循环图并按前后条件推进或重试
+Show-Harness|L3|无|med|VLM逐步输出离散语义微动作，确定性解释器直接落为局部机器人动作
+CaP-X|L2|策略生产者|med|编码agent写当下执行的控制代码，依视觉差分反馈修正；另有GRPO训练的编码模型
+Agent as Policy|L2|策略生产者|high|通用agent写可执行程序并下发运动指令，依物理结果修订后继续执行
+FAEA|L2|策略生产者|low|通用软件agent在仿真中迭代推理驱动操作，输出形式摘要未写明，保守判L2
+VIA|L2|编排者|low|FM看截图后在3D网页界面发直观指令驱动机械臂，摘要截断，保守判L2
+OpenRUA|L2|策略生产者|high|现成编码agent在ROS 2终端写运动客户端与闭环控制器代码并当场运行
+Astra on RoboDojo|L3|无|high|GPT-6 Astra不经微调直接逐步输出动作作操作策略，RoboDojo 42任务评测
+VLS|L2|策略生产者|med|VLM写分阶段可微奖励函数引导冻结扩散策略采样，执行反馈触发阶段切换并重问VLM
+AquaCap|L2|策略生产者|high|双层代理写条件感知计划与可执行控制程序，失败记忆驱动代码修订
+KPI|L2|策略生产者|med|VLM写参考轨迹与跟踪/柔顺/保持力契约，固定内核据接触误差实时调刚度
+GTA-2|L2|策略生产者|high|四个VLM分工写关键点、轴、控制器组合与参数，零样本一次生成后开环执行
+Embodiment Meets Environment|L2|策略生产者|med|LLM在3D动态场景图上合成任务约束，运行时强制执行并重塑照护技能模板
+Harness VLA|L2|编排者|med|LLM代理以记忆调度冻结VLA原语与解析原语，据执行轨迹学习各原语操作范围
+MessyMem|L2|编排者|med|VLM规划者读写持久3D场景图记忆，据此调用移动操作技能完成多任务
+Teach and Grow|L2|策略生产者|med|GPT-6 Astra与Codex把示范归纳为闭环技能块代码，入库后按场景接地执行
+CaP Great Again|L2|编排者|med|执行agent在回路中选择并参数化编程agent写好的工具，修订跨回合保留（兼 L1）
+PhysMem|L2|编排者|med|VLM规划者记录经验并做定向试验验证物理假设，验证后据此选择技能执行

@@ -1,0 +1,29 @@
+Eureka|L1|奖励/任务|high|LLM 写奖励代码，依 RL 训练统计反思进化，交 RL 训练后部署
+Text2Reward|L1|奖励/任务|high|LLM 一次写出稠密奖励代码，交 RL 训练，可加人类反馈修改
+GenSim|L1|奖励/任务|med|LLM 写仿真任务环境与示范代码，训练前生成；兼 L2
+RoboGen|L1|奖励/任务|high|LLM 提出任务并生成场景、奖励与训练监督，训练前自动化生成
+CurricuLLM|L1|奖励/任务|high|LLM 生成子任务课程与奖励代码，依策略结果推进，交 RL 训练
+Eurekaverse|L1|环境/重建|high|LLM 写地形环境代码，依四足训练结果迭代课程，训练前生成环境
+DrEureka|L1|奖励/任务|high|LLM 写奖励函数与域随机化分布代码，供 sim-to-real 训练
+Video2Policy|L1|奖励/任务|high|LLM 写奖励代码迭代 RL，并从视频重建仿真任务，训练前生成
+Articulate AnyMesh|L1|环境/重建|high|VLM 以视觉提示分割部件并构建关节，把刚体网格转为仿真铰接资产
+RoboMorph|L1|本体/工具|high|LLM 生成模块化机器人形态语法，进化搜索并以 RL 评估，输出硬件设计
+VLMgineer|L1|本体/工具|med|VLM 写代码联合设计工具与动作计划，仿真进化评估后输出工具；兼 L2
+SayPlan|L2|编排者|med|LLM 在3D场景图上语义搜索并输出动作序列，路径规划与模拟反馈重规划
+LLM3|L2|编排者|high|LLM 输出符号动作与连续参数交运动规划器执行，失败原因回传迭代
+ORGANA|L2|编排者|high|LLM 与化学家对话定目标，规划并调度机器人与实验设备技能
+Being-0|L2|编排者|high|基础模型输出任务计划，经 Connector 转为导航与操作技能调用
+Prompt a Robot to Walk|L3|-|high|LLM 以少样本提示逐步直接输出关节级动作，驱动机器人行走
+AutoTAMP|L2|策略生产者|med|LLM 把指令译为 STL 约束交 TAMP 求解，语法语义失败时重提示
+TypeFly|L2|策略生产者|high|LLM 为无人机写 MiniSpec 小程序，程序读取实时感知并带分支循环执行
+LRLL|L1|系统/代码|med|LLM 写策略代码，抽象经验扩充技能库，仿真试验后入库；兼 L2
+Incremental Humanoid Learning|L2|策略生产者|med|LLM 在交互控制台逐句生成调用感知与动作的 Python，纠正写入记忆
+ReMEmbR|L2|编排者|low|LLM 检索时空记忆后输出导航目标交导航栈，主体为记忆问答
+RoboMemory|L2|编排者|high|VLM 闭环规划器输出高层动作，经 critic 与多类记忆修正，交底层技能
+SayNav|L2|编排者|high|LLM 基于 3D 场景图输出导航子目标，交预训练底层规划器执行
+VLMnav|L3|-|high|VLM 每步直接选择移动或转向动作，零样本作端到端导航策略
+RoboGuard|L2|运行时监控|high|LLM 生成情境化安全时序逻辑规范，在线对照并修正计划，属安全护栏
+Real-Time Anomaly Detection|L2|运行时监控|med|快速分类器在 LLM 嵌入上判异常，慢速 LLM 选择回退方案交安全控制
+RoboFAC|剔除|剔除|high|核心是在失败数据上微调的轻量多模态模型，非通用 LLM/VLM 决策
+RobotGPT|L2|经验迁移|med|ChatGPT 写操作代码并经仿真验证，验证通过的执行数据训练策略
+HumanoidGen|L2|经验迁移|med|LLM 规划空间约束，采集双臂灵巧操作示范，检查回溯后供策略训练

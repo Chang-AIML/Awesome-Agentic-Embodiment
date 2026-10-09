@@ -1,0 +1,175 @@
+﻿layer,subtype,key,tier,year,title,arxiv,conf,reason,note,old_seat
+L1,环境/重建,Eurekaverse,先驱,2024,Eurekaverse: Environment Curriculum Generation via Large Language Models,2411.01775,high,LLM 写地形环境代码，依四足训练结果迭代课程，训练前生成环境,,Designer
+L1,环境/重建,OMNI-EPIC,先驱,2024,OMNI-EPIC: Open-endedness via Models of human Notions of Interestingness with Environments Programmed in Code,2405.15568,med,LLM写仿真环境与奖励/成功检测代码，经兴趣判据筛选后供RL课程训练,,Designer
+L1,环境/重建,Articulate AnyMesh,先驱,2025,Articulate AnyMesh: Open-Vocabulary 3D Articulated Objects Modeling,2502.02590,high,VLM 以视觉提示分割部件并构建关节，把刚体网格转为仿真铰接资产,,Designer·real2sim
+L1,环境/重建,Agentic RSR,2026,2026,Agentic RSR: Real-to-Sim-to-Real through Scene Reconstruction and Execution-Grounded Robot Policies,2610.10479,med,LLM代理从视频恢复尺度并迭代重建MuJoCo场景，编码代理另写可执行策略；兼L2,,Developer·real2sim2real
+L1,环境/重建,Agentic Real2Sim,2026,2026,Agentic Real2Sim: Physics-based World Modeling with Vision-Language Agents,2607.19190,high,VLM代理迭代调用工具，从真实录像构建可仿真的物理孪生，供部署前策略微调与评测,,Designer·real2sim
+L1,环境/重建,CoDimRecon,2026,2026,"CoDimRecon: Agentic Reconstruction of Sim-Ready 3D Scenes with Deformable Curves, Surfaces, and Volumes",2609.36024,high,LLM代理从多视角RGB重建可仿真的刚体、铰接与可变形场景，行为测试失配后定向修正,,Designer·real2sim
+L1,环境/重建,EmbodiedSmith,2026,2026,EmbodiedSmith: Scaling Embodied Data through Recursive Self-Improvement Flywheel in Simulation,2610.07969,high,LLM场景与任务生成互相编辑，产出仿真场景与评测环境供部署前训练使用,,Designer·real2sim
+L1,环境/重建,Real2Gym,2026,2026,"Real2Gym: Building Gyms from Videos, Bringing Skills to Robots",2609.37089,med,LLM从示范视频重建可交互仿真环境并写阶段代码，技能经仿真诊断后带回真机；兼L2,,Developer·real2sim2real
+L1,环境/重建,SAGE,2026,2026,SAGE: Scalable Agentic 3D Scene Generation for Embodied AI,2602.10116,high,智能体调用布局与物体生成器，经语义、外观与物理评审迭代生成可仿真3D场景,,Designer
+L1,环境/重建,SceneSmith,2026,2026,SceneSmith: Agentic Generation of Simulation-Ready Indoor Scenes,2602.09153,high,设计、评审与编排三个VLM迭代搭建可仿真室内场景，供机器人学习与评测,,Designer
+L1,环境/重建,Vid2Sid,2026,2026,Vid2Sid: Videos Can Help Close the Sim2Real Gap,2602.19359,med,VLM对比仿真与真实视频，提出物理参数修改以校准仿真器，部署前完成,,Designer·real2sim
+L1,奖励/任务,Eureka,先驱,2023,Eureka: Human-Level Reward Design via Coding Large Language Models,2310.12931,high,LLM 写奖励代码，依 RL 训练统计反思进化，交 RL 训练后部署,,Designer
+L1,奖励/任务,GenSim,先驱,2023,GenSim: Generating Robotic Simulation Tasks via Large Language Models,2310.01361,med,LLM 写仿真任务环境与示范代码，训练前生成；兼 L2,,Designer
+L1,奖励/任务,RoboGen,先驱,2023,RoboGen: Towards Unleashing Infinite Data for Automated Robot Learning via Generative Simulation,2311.01455,high,LLM 提出任务并生成场景、奖励与训练监督，训练前自动化生成,,Designer
+L1,奖励/任务,Text2Reward,先驱,2023,Text2Reward: Reward Shaping with Language Models for Reinforcement Learning,2309.11489,high,LLM 一次写出稠密奖励代码，交 RL 训练，可加人类反馈修改,,Designer
+L1,奖励/任务,Agentic Skill Discovery,先驱,2024,Agentic Skill Discovery,2405.15019,high,LLM提出任务并写奖励供RL学技能，VLM判成功后入库，部署前定型,,Designer
+L1,奖励/任务,CurricuLLM,先驱,2024,CurricuLLM: Automatic Task Curricula Design for Learning Complex Robot Skills Using Large Language Models,2409.18382,high,LLM 生成子任务课程与奖励代码，依策略结果推进，交 RL 训练,,Designer
+L1,奖励/任务,DrEureka,先驱,2024,DrEureka: Language Model Guided Sim-To-Real Transfer,2406.01967,high,LLM 写奖励函数与域随机化分布代码，供 sim-to-real 训练,,Designer·sim2real
+L1,奖励/任务,Video2Policy,先驱,2025,Video2Policy: Scaling up Manipulation Tasks in Simulation through Internet Videos,2502.09886,high,LLM 写奖励代码迭代 RL，并从视频重建仿真任务，训练前生成,,Designer·real2sim
+L1,奖励/任务,FIND,2026,2026,Find Something You Can't Do: Agentic Real-World Reinforcement Learning for Self-Improving VLA Models,2609.32069,med,VLM依近期成功率挑选练习任务并自评结果，为残差强化学习提供任务与奖励信号,,Designer
+L1,奖励/任务,RDA,2026,2026,RDA: Reward Design Agent for Reinforcement Learning,2606.01672,high,VLM观看轨迹并总结失败模式，迭代修改奖励代码，供RL训练使用,,Designer
+L1,奖励/任务,RF-Agent,2026,2026,RF-Agent: Automated Reward Function Design via Language Agent Tree Search,2602.23876,high,LLM在蒙特卡洛树搜索中迭代改写奖励代码，以训练结果为反馈，供RL训练使用,,Designer
+L1,奖励/任务,ROOT,2026,2026,ROOT: Discovering Rewards for User-Specified Embodied Behaviors,2610.04250,high,LLM在持久实验树中改写奖励程序，由视频语言模型提炼行为洞察指导下一轮修改,,Designer
+L1,本体/工具,RoboMorph,先驱,2024,RoboMorph: Evolving Robot Morphology using Large Language Models,2407.08626,high,LLM 生成模块化机器人形态语法，进化搜索并以 RL 评估，输出硬件设计,,Developer
+L1,本体/工具,RobotSmith,先驱,2025,RobotSmith: Generative Robotic Tool Design for Acquisition of Complex Manipulation Skills,2506.14763,high,VLM代理迭代提出工具设计，仿真联合优化后3D打印，部署前定型,,Developer
+L1,本体/工具,VLMgineer,先驱,2025,VLMgineer: Vision Language Models as Robotic Toolsmiths,2507.12644,med,VLM 写代码联合设计工具与动作计划，仿真进化评估后输出工具；兼 L2,,Developer
+L1,本体/工具,Continuum Robot Design,2026,2026,Bridging Language and Physics: Automated Design of Continuum Robots with Large Language Models,2609.08220,high,LLM依仿真物理反馈迭代生成连续体机器人结构设计，部署前交RL训练评估,,Developer
+L1,本体/工具,LACE-CRAFT,2026,2026,LACE-CRAFT: Robot Co-Design with Actor Inheritance and Blackboard Collaboration,2610.09283,high,LLM形态与奖励角色交叉评审成对提案，RL训练后按固定指标保留或回滚,,Developer
+L1,系统/代码,PDDLLM,先驱,2025,One Demo Is All It Takes: Planning Domain Derivation with LLMs from A Single Demonstration,2505.18382,med,LLM从一条示范归纳PDDL谓词与动作，仿真回放校验后交TAMP规划器，部署前定型,,Developer
+L1,系统/代码,ASPIRE,2026,2026,ASPIRE: Agentic /Skills Discovery for Robotics,2607.00272,low,编码代理精炼控制程序，验证后的修复入技能库复用（程序亦可归L2）,,Developer
+L1,系统/代码,AdaHVLA,2026,2026,AdaHVLA: Adaptive Harnesses for Long-Horizon Vision-Language-Action Execution,2609.29204,med,多代理分析与修订循环依rollout证据编辑VLA协调代码harness，保留替代版本,,Developer
+L1,系统/代码,ENPIRE,2026,2026,ENPIRE: Agentic Robot Policy Self-Improvement in the Real World,2606.19980,high,多个编码代理修改策略与训练代码，真机试验结果决定保留或回滚,,Developer
+L1,系统/代码,HARBOR,2026,2026,HARBOR: A Harness Framework for Agentic Robot Reinforcement Learning,2606.08610,med,专职编码代理搭环境、改奖励与超参并训练RL策略，经可执行门控决定保留,,Developer
+L1,系统/代码,PhysEvo,2026,2026,"PhysEvo: Astra Can Act, Let It",2610.08995,med,元智能体依轨迹修改工具与技能并测试保留，产物为部署harness；兼L2,,Developer
+L1,系统/代码,RATs (Playful),2026,2026,Playful Agentic Robot Learning,2606.19419,med,游玩阶段自提任务、生成并验证代码技能，冻结成技能库供测试时检索复用,,Developer
+L1,系统/代码,RHO,2026,2026,RHO: Your Coding Agent is Secretly a Roboticist,2606.16458,med,编码代理训练时搜索多文件策略代码库，依奖励与执行反馈保留改进版本,,Developer
+L1,系统/代码,RPG,2026,2026,"Reconstruct, Practice, Go Real: Guided Self-Improvement for Embodied Agents",2610.02204,high,LLM在仿真练习中改写技能库与system prompt，经跨任务评测保留；测试时兼L2,,Developer·real2sim2real
+L1,系统/代码,SPINE,2026,2026,SPINE: Bridging the Cyber-Physical Gap with Agentic AI,2607.13049,low,子agent改写驱动与接口配置并验证至遥操作成功；部署前调试，非训练代码,,Developer
+L1,系统/代码,SimEX,2026,2026,SimEX: Simulation-Integrated Robotics AutoResearch,2609.38982,med,LLM编码代理在仿真中迭代改进机器人工具箱代码，少量真机试验后修正工具箱与仿真器,,Developer·real2sim2real
+L1,系统/代码,Skill-Harness Evolution,2026,2026,Self-Evolving Embodied Agents via Skill-Harness Evolution,2608.11350,high,冻结模型依目标环境rollout改写技能与上下文代码harness，只保留有提升的修改,,Developer
+L1,系统/代码,Skill2Real,2026,2026,Skill2Real: Agentic Skill Learning for Zero-Shot Sim-to-Real Robot Manipulation,2610.02788,high,LLM提议技能代码修改，仿真证据验证后保留或回滚，冻结技能库迁移真机；兼L2,,Developer·sim2real
+L1,系统/代码,Zetta,2026,2026,Zetta $\zeta$: An Efficient Closed-Loop Embodied Harness for Self-Evolving Physical Intelligence,2608.16590,med,rollout后提出代码化运行时critic与恢复技能，经验证门控保留或回滚,兼 L2 运行时监控：产物是运行时 critic 与恢复技能,Supervisor
+L2,策略生产者,Code as Policies,先驱,2022,Code as Policies: Language Model Programs for Embodied Control,2209.07753,high,LLM 写出带感知反馈循环的 Python 策略程序，直接在机器人上运行,,Controller·direct
+L2,策略生产者,ProgPrompt,先驱,2022,ProgPrompt: Generating Situated Robot Task Plans using Large Language Models,2209.11302,high,LLM 生成带断言与恢复分支的任务程序，程序直接调用技能执行,,Controller·direct
+L2,策略生产者,AutoTAMP,先驱,2023,AutoTAMP: Autoregressive Task and Motion Planning with LLMs as Translators and Checkers,2306.06531,med,LLM 把指令译为 STL 约束交 TAMP 求解，语法语义失败时重提示,,Controller·direct
+L2,策略生产者,ChatGPT for Robotics,先驱,2023,ChatGPT for Robotics: Design Principles and Model Abilities,2306.17582,high,ChatGPT 依提示写机器人代码调用高层函数库，代码直接在机器人上运行,,Controller·direct
+L2,策略生产者,Incremental Humanoid Learning,先驱,2023,Incremental learning of humanoid robot behavior from natural interaction and large language models,2309.04316,med,LLM 在交互控制台逐句生成调用感知与动作的 Python，纠正写入记忆,,Controller·lifelong
+L2,策略生产者,Language to Rewards,先驱,2023,Language to Rewards for Robotic Skill Synthesis,2306.08647,med,LLM 写奖励参数，MPC 执行时在线优化为动作，LLM 不逐步出动作,写的是奖励参数，但由 MPC 在执行中在线优化（不是训练前的 reward 设计），故归 L2,Controller·direct
+L2,策略生产者,SMART-LLM,先驱,2023,SMART-LLM: Smart Multi-Agent Robot Task Planning using Large Language Models,2309.10062,med,LLM 分解任务并分配多机器人，输出可执行 Python 计划代码，开环,,Controller·orchestrator
+L2,策略生产者,TypeFly,先驱,2023,TypeFly: Flying Drones with Large Language Model,2312.14950,high,LLM 为无人机写 MiniSpec 小程序，程序读取实时感知并带分支循环执行,,Controller·direct
+L2,策略生产者,VoxPoser,先驱,2023,VoxPoser: Composable 3D Value Maps for Robotic Manipulation with Language Models,2307.05973,high,LLM 写代码组合三维价值图，交 MPC 闭环执行，属约束式策略,,Controller·direct
+L2,策略生产者,CoPa,先驱,2024,CoPa: General Robotic Manipulation through Spatial Constraints of Parts with Foundation Models,2403.08248,med,VLM 输出部件级空间约束，求解器一次求出末端位姿序列，开环,,Controller·direct
+L2,策略生产者,LRLL,先驱,2024,Lifelong Robot Library Learning: Bootstrapping Composable and Generalizable Skills for Embodied Control with Language Models,2406.18746,med,LLM 写调用技能库的策略代码，并在使用中把经验抽象成新技能、不断扩充技能库,复核改判（原 L1 系统/代码）：技能库在运行中增长，与 Teach and Grow 一致；兼 L1,Controller·lifelong
+L2,策略生产者,MOKA,先驱,2024,MOKA: Open-World Robotic Manipulation through Mark-Based Visual Prompting,2403.03174,low,VLM 在标记图上选关键点与路点，规划器转位姿执行，拿不准时保守归L2,,Controller·direct
+L2,策略生产者,ReKep,先驱,2024,ReKep: Spatio-Temporal Reasoning of Relational Keypoint Constraints for Robotic Manipulation,2409.01652,high,VLM 写出关键点约束的 Python 函数，求解器实时求解末端位姿，闭环,,Controller·direct
+L2,策略生产者,OmniManip,先驱,2025,OmniManip: Towards General Robotic Manipulation via Object-Centric Interaction Primitives as Spatial Constraints,2501.03841,med,VLM 输出交互基元形式的空间约束，求解器双闭环求位姿,,Controller·direct
+L2,策略生产者,AGRO-SUVIDE,2026,2026,AGRO-SUVIDE: Agentic Robotics for Surgical Viscoelastic Debridement,2609.34823,med,编码agent据单次示范写出技能代码，运行时组合循环图并按前后条件推进或重试,,Controller·orchestrator
+L2,策略生产者,Agentic Task Graph,2026,2026,From Reaction to Anticipation: Proactive Failure Recovery through Agentic Task Graph for Robotic Manipulation,2605.11951,med,执行前写出可编译的任务图与恢复分支，交给运行时执行器与低延迟监控,,Supervisor
+L2,策略生产者,AquaCap,2026,2026,AquaCap: A Training-Free Underwater Embodied Agent with Code-as-Policy,2609.23133,high,双层代理写条件感知计划与可执行控制程序，失败记忆驱动代码修订,,Controller·direct
+L2,策略生产者,Astra Robot Agents,2026,2026,"Fewer Tokens, Better Action: GPT-6 Astra Robot Agents with 14% Higher Success Rate but 65% Fewer Tokens",2610.01939,med,GPT-6 Astra写Python单元串联原语与VLA，含条件检查与局部重试后直接执行,,Controller·orchestrator
+L2,策略生产者,CaP-X,2026,2026,CaP-X: A Framework for Benchmarking and Improving Coding Agents for Robot Manipulation,2603.22435,med,编码agent写当下执行的控制代码，依视觉差分反馈修正；另有GRPO训练的编码模型,,Controller·direct
+L2,策略生产者,Embodiment Meets Environment,2026,2026,"Embodiment Meets Environment: Toward Context-Aware, Safe Physical Caregiving Robots",2606.28592,med,LLM在3D动态场景图上合成任务约束，运行时强制执行并重塑照护技能模板,,Controller·direct
+L2,策略生产者,FAEA,2026,2026,Demonstration-Free Robotic Control via LLM Agents,2601.20334,low,通用软件agent在仿真中迭代推理驱动操作，输出形式摘要未写明，保守判L2,,Controller·direct
+L2,策略生产者,GPT-6-Astra XLeRobot,2026,2026,"Robot Manipulation with GPT-6-Astra: Body Knowledge, Experience Reuse, Emergent Skills, and Sim2Real Transfer",2609.31770,med,GPT-6-Astra写控制程序驱动机器人执行，复用身体知识、经验与技能；程序本身即执行策略,,Controller·lifelong
+L2,策略生产者,GTA-2,2026,2026,GTA-2: A Multi-VLM Framework for Synthesizing Robot Manipulation Skills via Grounded Task Axes,2609.09808,high,四个VLM分工写关键点、轴、控制器组合与参数，零样本一次生成后开环执行,,Controller·direct
+L2,策略生产者,KPI,2026,2026,KPI: A Promptable Kernel for Physical Interaction on Humanoids,2609.36151,med,VLM写参考轨迹与跟踪/柔顺/保持力契约，固定内核据接触误差实时调刚度,,Controller·direct
+L2,策略生产者,NORM-Nav,2026,2026,NORM-Nav: Zero-Shot Mobile Robot Navigation with Natural Language Behavioral Constraints,2605.16979,low,LLM逐条把指令解析为结构化约束，编码为代价地图交规划器执行；若只当解析则应剔除,若 LLM 只做一次指令解析，可剔除,Controller·direct·vln
+L2,策略生产者,OpenRUA,2026,2026,OpenRUA: Robot-Use Agents Are Zero-Shot Visuomotor Policies,2610.02459,high,现成编码agent在ROS 2终端写运动客户端与闭环控制器代码并当场运行,,Controller·direct
+L2,策略生产者,Teach and Grow,2026,2026,Teach and Grow: An Agent-Centered Architecture for General Robot Learning,2608.17209,med,GPT-6 Astra与Codex把示范归纳为闭环技能块代码，入库后按场景接地执行,,Controller·lifelong
+L2,策略生产者,VLS,2026,2026,VLS: Steering Pretrained Robot Policies via Vision-Language Models,2602.03973,med,VLM写分阶段可微奖励函数引导冻结扩散策略采样，执行反馈触发阶段切换并重问VLM,,Controller·direct
+L2,编排者,Inner Monologue,先驱,2022,Inner Monologue: Embodied Reasoning through Planning with Language Models,2207.05608,high,LLM 依成功检测与人类反馈，每步输出下一技能指令，闭环,,Controller·orchestrator
+L2,编排者,SayCan,先驱,2022,"Do As I Can, Not As I Say: Grounding Language in Robotic Affordances",2204.01691,high,LLM 按语言与可行性打分选下一技能，执行后依新状态重选,,Controller·orchestrator
+L2,编排者,Socratic Models,先驱,2022,Socratic Models: Composing Zero-Shot Multimodal Reasoning with Language,2204.00598,med,LLM 经语言组合感知模型生成步骤并调用技能，开环无反馈,,Controller·orchestrator
+L2,编排者,ZS-Planners,先驱,2022,Language Models as Zero-Shot Planners: Extracting Actionable Knowledge for Embodied Agents,2201.07207,high,LLM 把指令分解为动作步骤，映射到可执行动作集后交底层执行，开环无反馈,,Controller·orchestrator
+L2,编排者,DROC,先驱,2023,Distilling and Retrieving Generalizable Knowledge for Robot Manipulation via Language Corrections,2311.10678,med,LLM 依语言纠正修订计划与技能参数，检索记忆，经技能执行,,Controller·lifelong
+L2,编排者,KnowNo,先驱,2023,Robots That Ask For Help: Uncertainty Alignment for Large Language Model Planners,2307.01928,high,LLM 对候选技能打分选下一步，共形预测不确定时请人选择,,Controller·orchestrator
+L2,编排者,Look Before You Leap,先驱,2023,Look Before You Leap: Unveiling the Power of GPT-4V in Robotic Vision-Language Planning,2311.17842,high,GPT-4V 看图生成可执行步骤，交技能执行，依视觉反馈重新规划,,Controller·orchestrator
+L2,编排者,RoCo,先驱,2023,RoCo: Dialectic Multi-Robot Collaboration with Large Language Models,2307.04738,med,多 LLM 智能体对话协商，输出技能级指令，由运动规划器执行，闭环重规划,,Controller·orchestrator
+L2,编排者,SayNav,先驱,2023,SayNav: Grounding Large Language Models for Dynamic Planning to Navigation in New Environments,2309.04077,high,LLM 基于 3D 场景图输出导航子目标，交预训练底层规划器执行,,Controller·orchestrator·vln
+L2,编排者,SayPlan,先驱,2023,SayPlan: Grounding Large Language Models using 3D Scene Graphs for Scalable Task Planning,2307.06135,med,LLM 在3D场景图上语义搜索并输出动作序列，路径规划与模拟反馈重规划,,Controller·orchestrator
+L2,编排者,Text2Motion,先驱,2023,Text2Motion: from natural language instructions to feasible plans,2303.12153,high,LLM 生成技能序列，经可行性模型检查后交技能库执行，开环,,Controller·orchestrator
+L2,编排者,TidyBot,先驱,2023,TidyBot: Personalized Robot Assistance with Large Language Models,2305.05658,med,LLM 从示例归纳偏好，并为每件物品给出放置位置，交拾放技能执行,,Controller·orchestrator
+L2,编排者,BUMBLE,先驱,2024,BUMBLE: Unifying Reasoning and Acting with Vision-Language Models for Building-wide Mobile Manipulation,2410.06237,high,VLM 依感知与双层记忆选粗到细技能，逐步重规划，楼宇级移动操作,,Controller·orchestrator
+L2,编排者,CA-Nav,先驱,2024,Constraint-Aware Zero-Shot Vision-Language Navigation in Continuous Environments,2412.10137,high,GPT-4拆分子指令并维护完成约束、切换阶段，导航计划由价值图生成,,Controller·direct·vln
+L2,编排者,COME-robot,先驱,2024,Closed-Loop Open-Vocabulary Mobile Manipulation with GPT-4V,2404.10220,high,GPT-4V 选探索目标与技能，执行后闭环核验并恢复失败,,Controller·orchestrator
+L2,编排者,InstructNav,先驱,2024,InstructNav: Zero-shot System for Generic Instruction Navigation in Unexplored Environment,2406.04882,med,LLM 反复重规划导航链，输出子目标交价值图局部规划器执行,,Controller·direct·vln
+L2,编排者,LLM3,先驱,2024,LLM3: Large Language Model-based Task and Motion Planning with Motion Failure Reasoning,2403.11552,high,LLM 输出符号动作与连续参数交运动规划器执行，失败原因回传迭代,,Controller·orchestrator
+L2,编排者,ORGANA,先驱,2024,ORGANA: A Robotic Assistant for Automated Chemistry Experimentation and Characterization,2401.06949,high,LLM 与化学家对话定目标，规划并调度机器人与实验设备技能,,Controller·orchestrator
+L2,编排者,Open-Nav,先驱,2024,Open-Nav: Exploring Zero-Shot Vision-and-Language Navigation in Continuous Environment with Open-Source LLMs,2409.18794,med,开源 LLM 从候选路点选子目标，交局部控制器执行，每步重决策,,Controller·orchestrator·vln
+L2,编排者,ReMEmbR,先驱,2024,ReMEmbR: Building and Reasoning Over Long-Horizon Spatio-Temporal Memory for Robot Navigation,2409.13682,low,LLM 检索时空记忆后输出导航目标交导航栈，主体为记忆问答,主体是记忆问答，导航只是输出之一,Controller·lifelong
+L2,编排者,VLM-PC,先驱,2024,Commonsense Reasoning for Legged Robot Adaptation with Vision-Language Models,2407.02666,high,VLM 依交互历史选运动技能并重规划，足式机器人越障，闭环,,Controller·orchestrator
+L2,编排者,AquaChat,先驱,2025,AquaChat: An LLM-Guided ROV Framework for Adaptive Inspection of Aquaculture Net Pens,2507.16841,high,GPT-4把指令转为符号任务计划，中层调用ROV控制序列，失败时据反馈重规划,,Controller·orchestrator
+L2,编排者,Being-0,先驱,2025,Being-0: A Humanoid Robotic Agent with Vision-Language Models and Modular Skills,2503.12533,high,基础模型输出任务计划，经 Connector 转为导航与操作技能调用,,Controller·orchestrator
+L2,编排者,RoboMemory,先驱,2025,RoboMemory: A Brain-inspired Multi-memory Agentic Framework for Interactive Environmental Learning in Physical Embodied Systems,2508.01415,high,VLM 闭环规划器输出高层动作，经 critic 与多类记忆修正，交底层技能,,Controller·lifelong
+L2,编排者,ABot-Claw,2026,2026,"ABot-Claw: A Foundation for Persistent, Cooperative, and Self-Evolving Robotic Agents",2604.10096,med,OpenClaw式代理按能力调度异构机器人，记忆检索后由critic驱动局部纠正与重规划,,Controller·orchestrator
+L2,编排者,ASENA,2026,2026,ASENA: Self-evolving Agents for Embodied Navigation,2609.39207,med,编码代理写程序调用导航VLA工具并检查修复，跨任务积累笔记与技能；兼L1,,Controller·lifelong·vln
+L2,编排者,AerialClaw,2026,2026,AerialClaw: An Open-Source Framework for LLM-Driven Autonomous Aerial Agents,2606.12142,high,LLM代理调用无人机硬技能与Markdown软技能，依运行反馈闭环更新决策,,Controller·orchestrator
+L2,编排者,AgenticNav,2026,2026,AgenticNav: Zero-Shot Vision-and-Language Navigation as a Tool-Calling Harness,2606.10577,med,VLM每步经动作工具选RGB目标像素，由harness转为运动；工具调用属L2，兼L3,边界 L2/L3：每步选目标像素，由 harness 转成运动,Controller·direct·vln
+L2,编排者,Air-Ground VLN,2026,2026,Air-Ground Collaborative Vision-and-Language Navigation via Shared Bird's-Eye Maps,2609.03483,med,无人机与地面车的VLM在共享鸟瞰图上推理，互相下发子目标，几何模块执行,,Controller·orchestrator·vln
+L2,编排者,CaP Great Again,2026,2026,"Make Code as Policy Great Again: Frontier Agents Write, Call, and Evolve Robot Tools",2609.39018,med,执行agent在回路中选择并参数化编程agent写好的工具，修订跨回合保留（兼 L1）,,Controller·lifelong
+L2,编排者,Cybo-Waiter,2026,2026,Cybo-Waiter: A Physical Agentic Framework for Humanoid Whole-Body Locomotion-Manipulation,2603.10675,med,VLM输出带谓词前后条件的JSON子任务序列，交运动原语执行并经3D核验推进,,Controller·orchestrator
+L2,编排者,HAM-VLN,2026,2026,HAM-VLN: Harnessing Hierarchical Agentic Memory for Zero-Shot Vision-and-Language Navigation,2607.29600,med,MLLM每步选下一路点并同时写分层记忆（含失败记录），路点由底层执行,,Controller·direct·vln
+L2,编排者,HaltNav,2026,2026,HaltNav: Reactive Visual Halting over Lightweight Topological Priors for Robust Vision-Language Navigation,2603.12696,med,微调MLLM大脑把osmAG全局路线拆为子指令，异常时视觉中止并重规划；兼运行时监控,含微调 VLM（停止判断），全局路线由 MLLM 拆分；若严格只收通用模型，可剔除,Controller·orchestrator·vln
+L2,编排者,Harness VLA,2026,2026,Harness VLA: Steering Frozen VLAs into Reliable Manipulation Primitives via Memory-Guided Agents,2607.08448,med,LLM代理以记忆调度冻结VLA原语与解析原语，据执行轨迹学习各原语操作范围,,Controller·lifelong
+L2,编排者,HarnessVLN,2026,2026,HarnessVLN: Unifying Training-Free Embodied Navigation through an Agent Harness,2609.15195,high,MLLM每步提出子目标，harness校验证据与几何可行性后调度感知、记忆与执行工具,,Controller·orchestrator·vln
+L2,编排者,MessyMem,2026,2026,MessyMem: Learning-from-Doing Memory for Mobile Manipulation,2609.15976,med,VLM规划者读写持久3D场景图记忆，据此调用移动操作技能完成多任务,,Controller·lifelong
+L2,编排者,NovaPlan,2026,2026,NovaPlan: Zero-Shot Long-Horizon Manipulation via Closed-Loop Video Language Planning,2602.20119,med,VLM拆分子目标并闭环监控、失败时重规划，低层动作由视频关键点几何推算,,Controller·orchestrator
+L2,编排者,OnFly,2026,2026,OnFly: Onboard Zero-Shot Aerial Vision-Language Navigation toward Safety and Efficiency,2603.10682,high,机载VLM每步输出导航目标交轨迹规划器，另一VLM依关键帧监控进度与安全,,Controller·direct·vln
+L2,编排者,One Agent to Guide Them All,2026,2026,One Agent to Guide Them All: Empowering MLLMs for Vision-and-Language Navigation via Explicit World Representation,2602.15400,low,MLLM在度量世界表示上推理并做反事实检查后输出导航决策；摘要未说明动作粒度，取保守L2,,Controller·direct·vln
+L2,编排者,PhysMem,2026,2026,PhysMem: Scaling Test-Time Memory for Embodied Physical Reasoning,2602.20323,med,VLM规划者记录经验并做定向试验验证物理假设，验证后据此选择技能执行,,Controller·lifelong
+L2,编排者,Physical Agency,2026,2026,Addressing the Orchestration Gap in Generalist Robots via Physical Agency,2607.21725,med,LLM编排者拆分子目标、调用VLA与参数化技能，核验观测结果后重规划,,Controller·orchestrator
+L2,编排者,RoboClaw,2026,2026,RoboClaw: An Agentic Framework for Scalable Long-Horizon Robotic Tasks,2603.11558,med,VLM控制器调用学习到的策略原语完成长程任务，并用EAP自复位循环自主采数,,Controller·orchestrator
+L2,编排者,RoboFind,2026,2026,RoboFind: Multi-Agent Personalized Object Search for People Who Are Blind or Have Low Vision,2609.20330,med,导航智能体提候选目标，验证智能体比对参考库，协调智能体定恢复与续搜，交四足执行,,Controller·orchestrator·vln
+L2,编排者,Smart-Agriculture Engine,2026,2026,Deploying and Evaluating a Smart-Agriculture Agentic Engine for Full-Season Soybean Farm Operations,2609.00106,low,LLM代理经API下发农机、无人机与传感器作业，事件驱动流程引擎为主，偏基础设施,偏基础设施，LLM 作用较弱，可剔除,Controller·orchestrator
+L2,编排者,SpaceMind,2026,2026,SpaceMind: A Modular and Self-Evolving Embodied Vision-Language Agent Framework for Autonomous On-orbit Servicing,2604.14399,med,VLM代理按动态路由调用技能模块与MCP工具，逐步发出工具调用指令,,Controller·orchestrator
+L2,编排者,Thea,2026,2026,Towards the Harness of Embodied Agents,2608.11246,high,agent循环调用封装为工具的机器人能力，以场景图作上下文并用退出码判定结果,,Controller·orchestrator
+L2,编排者,Tool-Aligned VLA Agent,2026,2026,Towards Long-horizon Embodied Agents with Tool-Aligned Vision-Language-Action Models,2605.13119,high,VLM代理挑选专用VLA工具并下发子任务，依进度反馈事件触发重规划,,Controller·orchestrator
+L2,编排者,VIA,2026,2026,VIA: Visual Interface Agent for Robot Control,2607.11119,low,FM看截图后在3D网页界面发直观指令驱动机械臂，摘要截断，保守判L2,,Controller·direct
+L2,经验迁移,RobotGPT,先驱,2023,RobotGPT: Robot Manipulation Learning From ChatGPT,2312.01421,med,ChatGPT 写操作代码并经仿真验证，验证通过的执行数据训练策略,,Teacher
+L2,经验迁移,SUDD,先驱,2023,Scaling Up and Distilling Down: Language-Guided Robot Skill Acquisition,2307.14535,high,LLM 规划并写成功检查代码，经验证示范蒸馏为多任务扩散策略,,Teacher
+L2,经验迁移,AutoRT,先驱,2024,AutoRT: Embodied Foundation Models for Large Scale Orchestration of Robotic Agents,2401.12963,med,LLM 提任务指挥机器人队列采数，数据供训练策略，兼 L1 任务设计,,Controller·orchestrator
+L2,经验迁移,Manipulate-Anything,先驱,2024,Manipulate-Anything: Automating Real-World Robots using Vision-Language Models,2406.18915,high,VLM 分解任务并执行、验证、重规划，经验证轨迹训练行为克隆策略,,Teacher
+L2,经验迁移,HumanoidGen,先驱,2025,HumanoidGen: Data Generation for Bimanual Dexterous Manipulation via LLM Reasoning,2507.00833,med,LLM 规划空间约束，采集双臂灵巧操作示范，检查回溯后供策略训练,,Teacher
+L2,经验迁移,RoboTwin 2.0,先驱,2025,RoboTwin 2.0: A Scalable Data Generator and Benchmark with Strong Domain Randomization for Robust Bimanual Robotic Manipulation,2506.18088,high,MLLM 写任务执行代码并经仿真闭环修正，合成示范训练策略,,Teacher
+L2,经验迁移,CAPEX,2026,2026,CAPEX: Efficiently Distilling Foundation Model Behavior into Deployable Robot Policies through Experience-Adaptive Reasoning,2609.33007,high,基础模型按执行经验调整观察与重规划频率，产出示范蒸馏为DP与ACT策略,,Teacher
+L2,经验迁移,EmbodiedSWE,2026,2026,EmbodiedSWE: Coding Agents for Long Horizon Dexterous Robotics,2609.27308,med,编码代理在仿真中迭代写灵巧操作程序，验证通过的解扩展为示范训练VLA,,Teacher
+L2,经验迁移,Frontier Demo Generation,2026,2026,Bridging Frontier Reasoning and Robot Execution: From Autonomous Demonstration Generation to Dense Language Supervision,2610.03615,med,前沿模型生成含纠错片段的示范训练本地快速策略，部署时把指令交给本地策略执行,,Teacher
+L2,经验迁移,GUAVA,2026,2026,Guava: Distilling Frontier VLMs into a Compact Agent through a Robotic Manipulation Harness,2606.18363,high,前沿VLM在harness中输出语义动作，其轨迹蒸馏为4B代理，接口不变,,Teacher
+L2,经验迁移,LocalNav,2026,2026,LocalNav: Distilling Frontier VLMs and Embodied RL for On-Device Object Goal Navigation,2606.27871,high,前沿VLM导航推理轨迹用于微调端侧4B模型，部署时由小模型逐步决策,,Teacher·vln
+L2,经验迁移,RHD,2026,2026,Recursive Harness Distillation across Agents for Robot Manipulation,2609.33378,med,强代理把经验提炼为playbook供轻量代理在上下文中使用，依其执行反馈迭代修订,,Teacher
+L2,经验迁移,Robo-COP,2026,2026,Co-Evolving Robot Orchestrators and Policies through Deployment,2610.09228,med,VLM编排者整理自身执行的示范，交给VLA微调，验证变好后才替换策略,,Controller·lifelong
+L2,经验迁移,SkillWeaver,2026,2026,SkillWeaver: Agentic Exploration over Neural Interaction Skills for Scalable Robot Data Generation,2609.36171,med,VLM在仿真中调用并参数化RL技能、观察结果后继续探索，产出的轨迹用于训练,,Teacher
+L2,运行时监控,DoReMi,先驱,2023,DoReMi: Grounding Language Model by Detecting and Recovering from Plan-Execution Misalignment,2307.00329,med,LLM 写执行约束，VLM 持续检测违例并触发恢复与重规划，仅异常时介入,,Supervisor
+L2,运行时监控,REFLECT,先驱,2023,REFLECT: Summarizing Robot Experiences for Failure Explanation and Correction,2306.15724,high,执行失败后 LLM 依经验摘要解释原因，回馈规划器纠正，仅异常时介入,,Supervisor
+L2,运行时监控,Safety Chip,先驱,2023,Plug in the Safety Chip: Enforcing Constraints for LLM-driven Robot Agents,2309.09919,med,LLM 把自然语言安全规范译为 LTL 约束，运行时检查并拦截违规动作,,Supervisor
+L2,运行时监控,Code-as-Monitor,先驱,2024,Code-as-Monitor: Constraint-aware Visual Programming for Reactive and Proactive Robotic Failure Detection,2412.04455,high,VLM 写约束监测代码逐帧运行，违例或预测违例时触发重规划,,Supervisor
+L2,运行时监控,Real-Time Anomaly Detection,先驱,2024,Real-Time Anomaly Detection and Reactive Planning with Large Language Models,2407.08735,med,快速分类器在 LLM 嵌入上判异常，慢速 LLM 选择回退方案交安全控制,,Supervisor
+L2,运行时监控,RoboGuard,先驱,2025,Safety Guardrails for LLM-Enabled Robots,2503.07885,high,LLM 生成情境化安全时序逻辑规范，在线对照并修正计划，属安全护栏,,Supervisor
+L2,运行时监控,Beyond Human Demos,2026,2026,Learning Beyond What Humans Can Demonstrate,2609.24996,med,LLM写护栏代码，在采集与部署时过滤遥操作和策略指令中的危险动作,,Supervisor
+L2,运行时监控,Contextual Safety Reasoning,2026,2026,Contextual Safety Reasoning and Grounding for Open-World Robots,2602.19983,med,VLM从图像推断情境安全规则并落到地图，输出安全集交给CBF实时约束,,Supervisor
+L2,运行时监控,FRAMES,2026,2026,FRAMES: Failure Recovery And Monitoring of Embodied Skills for Humanoid Loco-Manipulation,2609.22538,med,VLM监测代理逐技能判定失败并停止，把证据交给恢复代理，规划代理仍调用技能,,Supervisor
+L2,运行时监控,UAV Selective Recovery,2026,2026,Selective Agentic Recovery for UAV Autonomy with a Persistent Mission Runtime,2606.14219,high,受阻或无进展时，外部推理者从预定义恢复技能中择一，经校验才影响飞行,,Supervisor
+L2,运行时监控,"When to Act, Ask, or Learn",2026,2026,"When to Act, Ask, or Learn: Uncertainty-Aware Policy Steering",2602.22474,med,VLM从扩散策略的候选动作中筛选，不确定时改为提问或请求人工干预,,Supervisor
+L2,运行时监控,WhenToAsk,2026,2026,When Should a Failing Robot Ask? Initiating Corrective Human-Robot Dialogue from Audited Sensor Evidence,2609.21942,low,失败后选择自主恢复、补充感知或发起人机对话，交给恢复层执行；模型未核实,,Supervisor
+L3,直接动作,NavGPT,先驱,2023,NavGPT: Explicit Reasoning in Vision-and-Language Navigation with Large Language Models,2305.16986,med,每步从候选方向中选下一视点，离散图直接移动，属离散运动步（边界，可保守归L2）,边界 L3/L2：离散图上逐步选下一视点（相当于直接移动）；若看作选路点则归 L2,Controller·direct·vln
+L3,直接动作,Prompt a Robot to Walk,先驱,2023,Prompt a Robot to Walk with Large Language Models,2309.09969,high,LLM 以少样本提示逐步直接输出关节级动作，驱动机器人行走,,Controller·direct
+L3,直接动作,VLMnav,先驱,2024,End-to-End Navigation with Vision Language Models: Transforming Spatial Reasoning into Question-Answering,2411.05755,high,VLM 每步直接选择移动或转向动作，零样本作端到端导航策略,,Controller·direct·vln
+L3,直接动作,Agent as Policy,2026,2026,Agent as Policy for Robotic Manipulation,2609.12541,med,通用 agent 在整个执行过程中亲自驱动真机：看视觉证据、下发运动指令、写程序并依物理结果修订,复核改判（原 L2 策略生产者）：论文主张 agent 本身就是策略；也写程序，兼 L2,Controller·direct
+L3,直接动作,Astra on RoboDojo,2026,2026,An Unexpected Robot Policy: Early Evaluations of GPT-6 Astra on RoboDojo and Beyond,2609.24170,high,GPT-6 Astra不经微调直接逐步输出动作作操作策略，RoboDojo 42任务评测,同时是一项评测研究（可放资源）；按其主张归 L3,Controller·direct
+L3,直接动作,Embodied Agents Take Control,2026,2026,Embodied Agents Take Control: Minimal-Interface Zero-Shot Agents Rival Industrial-Scale Policies in Vision-and-Language Navigation,2607.26148,high,编码代理每步直接输出离散动作原语控制机器人，无技能层；加航点工具的混合版兼L2,边界 L3/L2：有航点工具的混合版本兼 L2,Controller·direct·vln
+L3,直接动作,Show-Harness,2026,2026,Show-Harness: Just a VLM Agent Can Play Robots,2609.10522,med,VLM逐步输出离散语义微动作，确定性解释器直接落为局部机器人动作,边界 L3/L2：VLM 逐步出语义微动作，中间只有确定性解释器；若把解释器看作 harness 则归 L2,Controller·direct
+资源,评测L1,EmboCoach-Bench,资源,2026,From Digital to Physical: Digital Agents as Autonomous Coaches for Physical Intelligence,2601.21570,high,评测LLM代理迭代编写、调试RL/IL训练代码与奖励，部署前完成,,Developer
+资源,评测L1,RLE-Bench,资源,2026,RLE-Bench: A Qualifying Exam for Coding Agents as Robot Learning Engineers,2609.34210,med,评测编码代理编写训练代码、harness与机械结构等L1工程产物,,Developer
+资源,评测L1,Video2World,资源,2026,Video2World: Benchmarking Coding Agents for Interactive World Modeling from Embodied Videos,2610.04432,high,评测编码代理从具身视频写出仿真环境与机器人行为代码，属环境重建,,Designer·real2sim
+资源,评测L2,Embodied Agent Interface,资源,2024,Embodied Agent Interface: Benchmarking LLMs for Embodied Decision Making,2410.07166,high,评测LLM输出目标解释、子目标与高层动作序列等规划模块,,Controller
+资源,评测L2,PARTNR,资源,2024,PARTNR: A Benchmark for Planning and Reasoning in Embodied Multi-agent Tasks,2411.00081,high,评测LLM规划者调用技能与世界图完成人机协作家务，含错误恢复,,Controller
+资源,评测L2,SafeAgentBench,资源,2024,SafeAgentBench: A Benchmark for Safe Task Planning of Embodied LLM Agents,2412.13178,high,评测LLM规划者以高层动作生成计划，检验是否拒绝危险任务,,Controller
+资源,评测L2,ASIMOV,资源,2025,Generating Robot Constitutions & Benchmarks for Semantic Safety,2503.08663,med,语义安全 benchmark：评测基础模型作为机器人大脑时能否判断场景与动作是否安全,复核改判（原 剔除）：按规则 benchmark 归资源；对应运行时监控,Supervisor
+资源,评测L2,IS-Bench,资源,2025,IS-Bench: Evaluating Interactive Safety of VLM-Driven Embodied Agents in Daily Household Tasks,2506.16402,med,评测VLM代理在家务执行中识别风险，并按序调用缓解技能,,Supervisor
+资源,评测L2,RoboCerebra,资源,2025,RoboCerebra: A Large-scale Benchmark for Long-horizon Robotic Manipulation Evaluation,2506.06677,high,评测VLM规划者向VLA控制器分派子任务的规划、反思与记忆能力,,Controller
+资源,评测L2,CodeActionBench,资源,2026,CodeActionBench: Evaluating Agentic Code-as-Policy for Embodied Manipulation,2609.33807,high,评测通用模型写可执行代码作为运行策略并迭代修订，代码即策略,,Controller
+资源,评测L2,Orchestration Study,资源,2026,What Matters in Orchestrating Robot Policies: A Systematic Study of Hierarchical VLA Agents,2606.10267,high,系统研究VLM规划者向VLA控制器分派子目标的分层设计选择,,Controller
+资源,评测L3,Astra on VLN-CE,资源,2026,How Far Can GPT-6-Astra Go? Evaluating Capabilities in Zero-Shot Vision-and-Language Navigation,2609.20116,med,评测GPT-6-Astra每步提出转向与前进等微动作，若为航点则归L2,,Controller
+资源,评测L3,LIBERO-Agent,资源,2026,LIBERO-Agent: Evaluating General-Purpose Agents for Direct Embodied Manipulation,2609.39507,high,评测通用agent每步直接发出原生机械臂动作指令，无技能层居中,,Controller
+资源,评测L3,MLLM Drone Agents Eval,资源,2026,"Evaluating Multimodal LLMs as Generalist Vision-Language-Action Agents for Drone Control: Commanding, Approaching, Tracking and Searching",2609.01404,high,评测MLLM每步直接输出飞行与偏航控制指令，无技能库居中,,Controller
+资源,评测L3,RobotWorld,资源,2026,RobotWorld: Benchmarking Multimodal Agents for Robot Use Across Diverse Tasks and Embodiments,2610.10409,med,评测通用agent经机器人接口下达位姿等动作指令并完成多类任务,,Controller
+资源,评测多层,VLABench,资源,2024,VLABench: A Large-Scale Benchmark for Language-Conditioned Robotics Manipulation with Long-Horizon Reasoning Tasks,2412.18194,low,评测训练好的VLA直出动作与LLM语言能力，VLA为专门训练模型，归属存疑,主要评测训练好的 VLA；在只收通用模型的口径下可删去,Controller
+资源,评测多层,EmbodiedBench,资源,2025,EmbodiedBench: Comprehensive Benchmarking Multi-modal Large Language Models for Vision-Driven Embodied Agents,2502.09560,high,评测24个MLLM从高层规划到低层操作的视觉具身agent表现,,Controller
+资源,评测多层,EmbodiedEval,资源,2025,EmbodiedEval: Evaluate Multimodal LLMs as Embodied Agents,2501.11858,low,评测MLLM逐步输出导航与交互动作，动作粒度跨层，归属存疑,,Controller
+资源,评测多层,Frontier VLM Agents Study,资源,2026,Are Frontier VLM Agents Ready to Be Robot Generalists? An Empirical Study with the Embodied Agent Arena,2610.00854,med,评测7个前沿VLM直接选择动作完成几何、规划与操作等跨层任务,,Controller
+剔除,—,LM-Nav,先驱,2022,"LM-Nav: Robotic Navigation with Large Pre-Trained Models of Language, Vision, and Action",2207.04429,high,LLM 仅一次解析指令为地标，其余打分与图搜索由代码决定（作用边缘）,规则 (b)：LLM 只解析一次地标；若把开环先驱都保留，可归 L2 编排者,Controller·orchestrator·vln
+剔除,—,RoboFAC,先驱,2025,RoboFAC: A Comprehensive Framework for Robotic Failure Analysis and Correction,2505.12224,high,核心是在失败数据上微调的轻量多模态模型，非通用 LLM/VLM 决策,规则 (a)；若接受为 agent 角色微调的 VLM，可归 L2 运行时监控,Supervisor
+剔除,—,AgentVLN,2026,2026,AgentVLN: Towards Agentic Vision-and-Language Navigation,2603.17670,low,以训练过的端侧 VLM 作导航大脑并配技能库，主要贡献是这个专门训练的模型与表示映射,复核改判（原 L2 编排者），规则 (a)；若接受微调模型，可归 L2 编排者,Controller·orchestrator·vln
+剔除,—,Ludi,2026,2026,Ludi${}_{\scriptscriptstyle 0.1}$: An Agentic System for Socially Intelligent Robots,2608.22035,med,决策核心是在多轮交互数据上微调的 VLM，论文主体是这个训练出的模型,复核改判（原 L2 编排者），规则 (a)；若接受为 agent 角色微调的通用 VLM，可归 L2 编排者,Controller·orchestrator
