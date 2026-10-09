@@ -79,6 +79,15 @@ def main():
             xs = [r for r in kept if r["seat"] == s]
             L.append(f"### {s}（{len(xs)}）\n\n{sd}\n")
             table(xs, L)
+    ma = [r for r in recs if r["verdict"] != "剔除" and "多智能体" in (r.get("topic") or "")]
+    L.append(f"## 专题：多智能体（{len(ma)}）\n\n多智能体是主系统的核心：通用大模型 agent 协调两个及以上机器人，或系统由分工不同、"
+             "彼此对话或交接工作的多个通用大模型 agent 组成（用户 2026-10-09 要求单独成章；定义见 `definition.md`）。"
+             "这些论文同时列在各自的 Seat 下。\n")
+    L += ["| 论文 | 年 | 结论 | Seat | 角色 | 理由 |", "|---|---|---|---|---|---|"]
+    for r in ma:
+        name = f"[{r['key']}](https://arxiv.org/abs/{r['arxiv']})" if r["arxiv"] else r["key"]
+        L.append(f"| {name} | {r['year']} | {r['verdict']} | {r['seat']} | {r['role']} | {r['reason']} |")
+    L.append("")
     for v in ("资源", "剔除"):
         xs = [r for r in recs if r["verdict"] == v]
         L.append(f"## {v}（{len(xs)}）\n\n{VERDICT_D[v]}\n")

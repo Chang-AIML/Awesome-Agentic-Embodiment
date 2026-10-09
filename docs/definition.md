@@ -33,7 +33,7 @@ runtime — controlling it or supervising it (**Seat**).*
 补充：
 - 训练过的 VLA、技能、感知模型可以作为 agent 调用的**工具**（如 Harness VLA 调度冻结的 VLA）。
 - 通用模型**自己当 agent 行动**、再把它的经验蒸馏成策略或小模型的，算 Teacher（如 GUAVA、SUDD）。
-- 有机器人身体；实验在真机或物理仿真中。离散仿真（ALFRED、VirtualHome、R2R 离散图）与自动驾驶暂放边界，是否收录待定。
+- Env / Sim 的范围（用户 2026-10-09 决定）：真机、物理仿真，以及离散具身仿真（ALFRED、VirtualHome、R2R 离散导航图等，agent 在三维场景里有身体）都算；纯文本世界（只有文字观察和动作的 ALFWorld、TextWorld）和自动驾驶（CARLA、nuScenes、highway-env 等）不算。无人机、多机器人调度按上面六条正常判。
 
 ---
 
@@ -69,9 +69,14 @@ runtime — controlling it or supervising it (**Seat**).*
   - Beyond Human Demos 写的护栏代码在运行时过滤指令，归 Supervisor。
 - 资源（benchmark 与评测研究）记录「被评测的 Seat」。
 
-**两个专题**（横跨 Seat，每篇仍标 Seat）：
+**三个专题**（横跨 Seat，每篇仍标 Seat）：
 - **Real2Sim / Sim2Real**：agent 从真实数据重建仿真、在里面练习、再回到真机；只收代表作。
 - **VLN 与具身导航**：以导航为主任务的 agent。
+- **多智能体（multi-agent）**（用户 2026-10-09 要求单独成章）：多智能体是论文主系统的核心，满足其一即可：
+  - 两个及以上机器人或具身智能体（含无人机 + 地面机器人这类异构团队），由通用大模型 agent 分配、规划或协调任务，集中式或每台一个 agent 都算（RoCo、SMART-LLM、AutoRT、ABot-Claw）；
+  - 论文把系统呈现为两个及以上分工不同的通用大模型 agent，彼此对话、辩论、协商或交接工作（AdaHVLA 的多 agent 改进流程）。
+  - 不算：单个机器人上由几次 prompt 调用拼成的流水线（规划器 + 校验器），论文没有称其为多智能体；只有人机对话；单个 agent 调用 subagent 工具（SPINE）。
+  - CSV 里记在 `topic` 列（值为「多智能体」）。
 
 ---
 

@@ -229,6 +229,24 @@ agent 在任务执行过程中起作用
 | [UAV Selective Recovery](https://arxiv.org/abs/2606.14219) | 2026 | 监控/恢复 | Unnamed off-the-shelf remote LLM reasoner behind an OpenClaw gateway; learned-CVI gate and PPO local policy are the authors' trained tools（G） | 仅在受阻或无进展时才调用的远程LLM智能体选择预定义恢复技能，经验证和安全屏蔽后执行，属异常时介入的运行时监控；LLM型号未披露但无微调迹象，学习的CVI门控只是触发工具(边界案例)。 | The OpenClaw tool acts as an offboard recovery-mode selector. It may choose one recovery skill and return typed JSON, while PMR performs parsing, verification, safety shielding ... before the decision affects the UAV. (Appendix A.1) |  |
 | [When to Act, Ask, or Learn](https://arxiv.org/abs/2602.22474) | 2026 | 监控/恢复 | Gemini-2.0-flash VLM verifier and Gemini-3-flash-preview narrator, off-the-shelf with conformal-prediction calibration; diffusion policy and world model are trained tools（G） | 现成Gemini作为验证器仅做保形预测校准而不训练，负责选择策略动作样本、向用户提问澄清或请求人工干预，核心是不确定性下求助与安全介入，属运行时监控。 | For narrating the imaginations, we use Gemini-3-flash-preview due to its strong video summarization capabilities. For verification, we use Gemini-2.0-flash because it exposes the token logits via the API (Sec. V-A) |  |
 
+## 专题：多智能体（11）
+
+多智能体是主系统的核心：通用大模型 agent 协调两个及以上机器人，或系统由分工不同、彼此对话或交接工作的多个通用大模型 agent 组成（用户 2026-10-09 要求单独成章；定义见 `definition.md`）。这些论文同时列在各自的 Seat 下。
+
+| 论文 | 年 | 结论 | Seat | 角色 | 理由 |
+|---|---|---|---|---|---|
+| [ROOT](https://arxiv.org/abs/2610.04250) | 2026 | 保留 | Designer | 奖励/任务 | 现成Claude与Gemini通过提示和经验树搜索生成并改进奖励程序，无任何微调，属于奖励/任务的智能体工作。 |
+| [AdaHVLA](https://arxiv.org/abs/2609.29204) | 2026 | 保留 | Developer | 系统/代码 | 现成前沿大模型通过提示根据机器人经验修订协调VLA的harness代码并按试验保留或回退，VLA仅作为被调用工具，归系统/代码。 |
+| [ENPIRE](https://arxiv.org/abs/2606.19980) | 2026 | 保留 | Developer | 系统/代码 | 现成通用编码智能体(GPT-5.5/Opus 4.7)作为智能体，编写环境、奖励和训练代码并按真机试验结果迭代，属于系统/代码。 |
+| [Skill2Real](https://arxiv.org/abs/2610.02788) | 2026 | 保留 | Developer | 系统/代码 | 现成通用大模型(Sol/Opus 5/Astra)作为提议者、验证者与治理者，在仿真中习得并冻结代码技能库，无权重训练，属于系统/代码。 |
+| [LACE-CRAFT](https://arxiv.org/abs/2610.09283) | 2026 | 保留 | Developer | 本体/工具 | 智能体由现成GPT-5.6-sol通过提示充当，输出形态与奖励代码进入仿真训练；LACE部分是RL迁移技巧但CRAFT多角色智能体是头条系统之一，故保留，归本体/工具。 |
+| [RoCo](https://arxiv.org/abs/2307.04738) | 2023 | 保留 | Controller | 编排 | 主贡献是 RoCo 方法(附带 RoCoBench 基准)，现成 GPT-4 通过对话与环境反馈产出子任务和路径点并交给运动规划器，属于编排者。 |
+| [SMART-LLM](https://arxiv.org/abs/2309.10062) | 2023 | 保留 | Controller | 编排 | 现成GPT-4等大模型仅靠少样本程序式提示完成多机器人任务分解与分配并调用技能，属于通用大模型编排者；基准数据集只是附带贡献。 |
+| [AutoRT](https://arxiv.org/abs/2401.12963) | 2024 | 保留 | Controller | 编排 | 未微调的通用 LLM/VLM 位于系统核心，通过提示生成任务、按宪法规则过滤并把任务分派给 RT-2、脚本策略或遥操作，属于编排者；数据采集是其用途而非论文主体(边界案例)。 |
+| [ABot-Claw](https://arxiv.org/abs/2604.10096) | 2026 | 保留 | Controller | 编排 | 未经训练的通用 OpenClaw 智能体生成调用技能与服务的 Python 脚本并调度多机器人，属于编排者（具体 LLM 未说明）。 |
+| [Air-Ground VLN](https://arxiv.org/abs/2609.03483) | 2026 | 保留 | Controller | 编排 | 冻结的现成 Gemini 无需训练，输出像素目标与路径点交由几何投影和闭环控制器执行，属于编排者。 |
+| [PARTNR](https://arxiv.org/abs/2411.00081) | 2024 | 资源 | Controller | 评测 | 头条贡献是10万任务的人机协作基准，被评测对象是零样本提示的通用LLM规划器（另有一个微调小模型基线），因此作为评测的资源保留。 |
+
 ## 资源（20）
 
 以通用大模型 agent 为对象的 benchmark 或评测研究（「Seat」为被评测的位置）

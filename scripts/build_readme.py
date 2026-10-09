@@ -2,7 +2,7 @@
 """Generate README.md (the awesome list) from data/core/core_table.csv + data/core/core_meta.json.
 
 Sections follow the user's classification (2026-10-09): two phases, pre-execution (Designer, Teacher, Developer) and
-runtime (Controller split into three sub-types, Supervisor), then the Real2Sim / Sim2Real and VLN chapters. Every section traces its lineage: pioneers (2022-2025) first, then
+runtime (Controller split into three sub-types, Supervisor), then the Real2Sim / Sim2Real, VLN and multi-agent chapters. Every section traces its lineage: pioneers (2022-2025) first, then
 2026. Columns carry the anatomy tags (Carrier, Interface, Topology, Loop, Body).
 
 Usage: python3 scripts/build_readme.py
@@ -70,6 +70,7 @@ def links(r, m):
 
 SEAT_ORDER = {"Controller": 0, "Supervisor": 1, "Teacher": 2, "Designer": 3, "Developer": 4}
 R2S_THEMES = {"real2sim", "sim2real", "real2sim2real"}  # theme "vln" marks the VLN chapter instead
+is_ma = lambda r: "多智能体" in (r.get("topic") or "")  # multi-agent chapter (user, 2026-10-09); may overlap VLN
 
 
 def is_nav(r):
@@ -117,13 +118,14 @@ def main():
     res = [r for r in rows if r["tier"] == "resource"]
     chapter = lambda r: "r2s" if r.get("theme") in R2S_THEMES else ("vln" if r.get("theme") == "vln" else "")
     r2s, vln = [r for r in core if chapter(r) == "r2s"], [r for r in core if chapter(r) == "vln"]
+    ma = [r for r in core if is_ma(r)]
     ep = os.path.join(ROOT, "data/core/extended_2026.csv")  # build_extended.py
     ext = list(csv.DictReader(open(ep))) if os.path.exists(ep) else []
     ep = os.path.join(ROOT, "data/core/extended_2022_2025.csv")
     ext_pre = list(csv.DictReader(open(ep))) if os.path.exists(ep) else []
 
     def in_section(r, seat, sub):
-        return not chapter(r) and r["seat"] == seat and (sub is None or r["sub"] == sub or (
+        return not chapter(r) and not is_ma(r) and r["seat"] == seat and (sub is None or r["sub"] == sub or (
             seat == "Controller" and sub == "orchestrator" and r["sub"] not in ("direct", "lifelong")))
 
     def lineage(pios, news, table_head, fmt):
@@ -143,7 +145,8 @@ def main():
            "**Thesis (draft, under revision).** *Agency spreads around the body: general models, not embodied action "
            "models, fill seat after seat.*", "",
            f"Each seat is traced from its **{len(pio)} pioneers (2022–2025)** to **{len(core)} papers from 2026**, the year "
-           f"most of the field's papers appeared; VLN / embodied navigation ({len(vln)} from 2026) has its own chapter and "
+           f"most of the field's papers appeared; VLN / embodied navigation ({len(vln)} from 2026) and multi-agent systems "
+           f"({len(ma)} from 2026) have their own chapters and "
            f"the Real2Sim / Sim2Real sub-direction a short section ({len(r2s)}), plus **{len(res)} benchmarks and resources**. "
            "Definition and inclusion rules: [docs/definition.md](docs/definition.md); the judged list with evidence: "
            "[docs/paper_list.md](docs/paper_list.md) (both in Chinese).", "",
@@ -172,7 +175,7 @@ def main():
         n_p = sum(1 for r in pio if r["seat"] == s_)
         n_c = sum(1 for r in core if r["seat"] == s_)
         out.append(f"| {ph_} | {s_} | {n_p} | {n_c} |")
-    out += ["", "Counts include the papers of the Real2Sim / Sim2Real and VLN chapters under their seats.", "",
+    out += ["", "Counts include the papers of the Real2Sim / Sim2Real, VLN and multi-agent chapters under their seats.", "",
             LEGEND, "", "## Contents", ""]
     anchor = lambda t: "#" + re.sub(r"[^a-z0-9 -]", "", t.lower()).replace(" ", "-")
     last = None
@@ -183,6 +186,7 @@ def main():
         out.append(f"  - [{title}]({anchor(title)})")
     out += ["- [Sub-direction: Real2Sim / Sim2Real](#sub-direction-real2sim--sim2real)",
             "- [VLN and embodied navigation](#vln-and-embodied-navigation)",
+            "- [Multi-agent systems](#multi-agent-systems)",
             "- [Benchmarks and resources](#benchmarks-and-resources)"]
     if ext:
         out.append(f"- [More 2026 papers ({len(ext)})](#more-2026-papers)")
@@ -208,6 +212,17 @@ def main():
             "simulation (e.g. Habitat VLN-CE) or on real robots; earlier agents on the discrete R2R graph appear only "
             "among the pioneers. Seats are kept, so the chapter mixes Controllers with a few Teachers and Designers.", ""] + \
            lineage([r for r in pio if chapter(r) == "vln"], vln, seat_head, seat_row_md)
+    out += ["## Multi-agent systems", "",
+            "Systems where multiple agents are the point: general-model agents that allocate, plan or coordinate the "
+            "work of two or more robots (including heterogeneous teams such as drones with ground robots), or a team "
+            "of general-model agents with distinct roles that talk, debate or hand work to each other. A single robot "
+            "driven by a pipeline of prompted calls is not listed here. Seats are kept; multi-agent navigation papers "
+            "also appear in the VLN chapter.", ""] + \
+           lineage([r for r in pio if is_ma(r)], ma, seat_head, seat_row_md)
+    ma_res = [r for r in res if is_ma(r)]
+    if ma_res:
+        out += [f"Multi-agent benchmarks (listed under *Benchmarks and resources*): "
+                + ", ".join(f"**{r['key']}**" for r in sorted(ma_res, key=sort_key)) + ".", ""]
     out += ["## Benchmarks and resources", "",
             "| Name | Paper | Year | Venue | Evaluated seat | Body |", "|---|---|---|---|---|---|"]
     for r in sorted(res, key=sort_key):
@@ -246,7 +261,8 @@ def main():
             out += ["", "</details>", ""]
     out += ["", "---", "", "Selection pipeline, labels and scripts: see [HANDOFF.md](HANDOFF.md) and `data/core/`.", ""]
     open(os.path.join(ROOT, "README.md"), "w").write("\n".join(out))
-    print(f"README.md: 2026 {len(core)} (real2sim {len(r2s)}, vln {len(vln)}), pioneers {len(pio)}, resources {len(res)}, "
+    print(f"README.md: 2026 {len(core)} (real2sim {len(r2s)}, vln {len(vln)}, multi-agent {len(ma)}), pioneers {len(pio)}, "
+          f"resources {len(res)}, "
           f"more-2026 {len(ext)}, more-2022-2025 {len(ext_pre)}")
 
 

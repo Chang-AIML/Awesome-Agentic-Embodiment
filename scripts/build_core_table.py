@@ -9,7 +9,8 @@ Inputs:
   data/core/gap_candidates.jsonl, data/core/gap2_candidates.jsonl
                                  gap-fill papers, referenced as id `gap:<arxiv>`
   data/core/paper_list.csv       the full-text judgement of every row (scripts/build_paper_list.py), joined by key into
-                                 phase (执行前 / 运行时) and role; its seat must equal the selection's seat
+                                 phase (执行前 / 运行时), role and topic (多智能体 = the multi-agent chapter); its seat
+                                 must equal the selection's seat
 Output:
   data/core/core_table.csv
 
@@ -19,7 +20,7 @@ import csv, json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 COLS = ["key", "tier", "theme", "seat", "seat2", "sub", "carrier", "interface", "topo", "loop", "closure", "body",
-        "title", "arxiv", "date", "citations", "rep", "id", "source", "why", "added", "phase", "role"]
+        "title", "arxiv", "date", "citations", "rep", "id", "source", "why", "added", "phase", "role", "topic"]
 
 
 def norm_arxiv(a):
@@ -97,7 +98,7 @@ def main():
         row["date"] = m.get("published") or row["date"]
         row["citations"] = m.get("citations") if m.get("citations") is not None else row["citations"]
         lr = plist.get(s["key"], {})
-        row["phase"], row["role"] = lr.get("phase", ""), lr.get("role", "")
+        row["phase"], row["role"], row["topic"] = lr.get("phase", ""), lr.get("role", ""), lr.get("topic", "")
         if lr.get("verdict") == "剔除":
             errs.append(f"{s['key']} is 剔除 in paper_list.csv")
         elif lr and lr["seat"] != row["seat"]:
