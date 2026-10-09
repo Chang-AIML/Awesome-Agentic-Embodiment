@@ -1,0 +1,25 @@
+Agentic Skill Discovery|L1|奖励/任务|high|LLM提出任务并写奖励供RL学技能，VLM判成功后入库，部署前定型
+OMNI-EPIC|L1|环境/重建|med|LLM写仿真环境与奖励/成功检测代码，经兴趣判据筛选后供RL课程训练
+PDDLLM|L1|系统/代码|med|LLM从一条示范归纳PDDL谓词与动作，仿真回放校验后交TAMP规划器，部署前定型
+CA-Nav|L2|编排者|high|GPT-4拆分子指令并维护完成约束、切换阶段，导航计划由价值图生成
+RobotSmith|L1|本体/工具|high|VLM代理迭代提出工具设计，仿真联合优化后3D打印，部署前定型
+AquaChat|L2|编排者|high|GPT-4把指令转为符号任务计划，中层调用ROV控制序列，失败时据反馈重规划
+EmbodiedBench|资源|评测多层|high|评测24个MLLM从高层规划到低层操作的视觉具身agent表现
+Embodied Agent Interface|资源|评测L2|high|评测LLM输出目标解释、子目标与高层动作序列等规划模块
+VLABench|资源|评测多层|low|评测训练好的VLA直出动作与LLM语言能力，VLA为专门训练模型，归属存疑
+RoboCerebra|资源|评测L2|high|评测VLM规划者向VLA控制器分派子任务的规划、反思与记忆能力
+EmbodiedEval|资源|评测多层|low|评测MLLM逐步输出导航与交互动作，动作粒度跨层，归属存疑
+PARTNR|资源|评测L2|high|评测LLM规划者调用技能与世界图完成人机协作家务，含错误恢复
+LIBERO-Agent|资源|评测L3|high|评测通用agent每步直接发出原生机械臂动作指令，无技能层居中
+CodeActionBench|资源|评测L2|high|评测通用模型写可执行代码作为运行策略并迭代修订，代码即策略
+Orchestration Study|资源|评测L2|high|系统研究VLM规划者向VLA控制器分派子目标的分层设计选择
+SafeAgentBench|资源|评测L2|high|评测LLM规划者以高层动作生成计划，检验是否拒绝危险任务
+IS-Bench|资源|评测L2|med|评测VLM代理在家务执行中识别风险，并按序调用缓解技能
+ASIMOV|剔除|剔除|med|剔除(c)：VLM仅离线判定场景与行为安全性并生成宪章，不产生执行动作
+RLE-Bench|资源|评测L1|med|评测编码代理编写训练代码、harness与机械结构等L1工程产物
+EmboCoach-Bench|资源|评测L1|high|评测LLM代理迭代编写、调试RL/IL训练代码与奖励，部署前完成
+Video2World|资源|评测L1|high|评测编码代理从具身视频写出仿真环境与机器人行为代码，属环境重建
+Frontier VLM Agents Study|资源|评测多层|med|评测7个前沿VLM直接选择动作完成几何、规划与操作等跨层任务
+RobotWorld|资源|评测L3|med|评测通用agent经机器人接口下达位姿等动作指令并完成多类任务
+Astra on VLN-CE|资源|评测L3|med|评测GPT-6-Astra每步提出转向与前进等微动作，若为航点则归L2
+MLLM Drone Agents Eval|资源|评测L3|high|评测MLLM每步直接输出飞行与偏航控制指令，无技能库居中

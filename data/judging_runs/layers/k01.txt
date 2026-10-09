@@ -1,0 +1,29 @@
+Robo-COP|L2|经验迁移|med|VLM编排者整理自身执行的示范，交给VLA微调，验证变好后才替换策略
+Ludi|L2|编排者|med|微调VLM在工具循环中调用导航与操作技能，处理澄清与纠正
+FRAMES|L2|运行时监控|med|VLM监测代理逐技能判定失败并停止，把证据交给恢复代理，规划代理仍调用技能
+WhenToAsk|L2|运行时监控|low|失败后选择自主恢复、补充感知或发起人机对话，交给恢复层执行；模型未核实
+Agentic Task Graph|L2|策略生产者|med|执行前写出可编译的任务图与恢复分支，交给运行时执行器与低延迟监控
+Zetta|L1|系统/代码|med|rollout后提出代码化运行时critic与恢复技能，经验证门控保留或回滚
+UAV Selective Recovery|L2|运行时监控|high|受阻或无进展时，外部推理者从预定义恢复技能中择一，经校验才影响飞行
+Contextual Safety Reasoning|L2|运行时监控|med|VLM从图像推断情境安全规则并落到地图，输出安全集交给CBF实时约束
+When to Act, Ask, or Learn|L2|运行时监控|med|VLM从扩散策略的候选动作中筛选，不确定时改为提问或请求人工干预
+Beyond Human Demos|L2|运行时监控|med|LLM写护栏代码，在采集与部署时过滤遥操作和策略指令中的危险动作
+GUAVA|L2|经验迁移|high|前沿VLM在harness中输出语义动作，其轨迹蒸馏为4B代理，接口不变
+RHD|L2|经验迁移|med|强代理把经验提炼为playbook供轻量代理在上下文中使用，依其执行反馈迭代修订
+EmbodiedSWE|L2|经验迁移|med|编码代理在仿真中迭代写灵巧操作程序，验证通过的解扩展为示范训练VLA
+Frontier Demo Generation|L2|经验迁移|med|前沿模型生成含纠错片段的示范训练本地快速策略，部署时把指令交给本地策略执行
+CAPEX|L2|经验迁移|high|基础模型按执行经验调整观察与重规划频率，产出示范蒸馏为DP与ACT策略
+SkillWeaver|L2|经验迁移|med|VLM在仿真中调用并参数化RL技能、观察结果后继续探索，产出的轨迹用于训练
+FIND|L1|奖励/任务|med|VLM依近期成功率挑选练习任务并自评结果，为残差强化学习提供任务与奖励信号
+RF-Agent|L1|奖励/任务|high|LLM在蒙特卡洛树搜索中迭代改写奖励代码，以训练结果为反馈，供RL训练使用
+RDA|L1|奖励/任务|high|VLM观看轨迹并总结失败模式，迭代修改奖励代码，供RL训练使用
+ROOT|L1|奖励/任务|high|LLM在持久实验树中改写奖励程序，由视频语言模型提炼行为洞察指导下一轮修改
+SceneSmith|L1|环境/重建|high|设计、评审与编排三个VLM迭代搭建可仿真室内场景，供机器人学习与评测
+SAGE|L1|环境/重建|high|智能体调用布局与物体生成器，经语义、外观与物理评审迭代生成可仿真3D场景
+ENPIRE|L1|系统/代码|high|多个编码代理修改策略与训练代码，真机试验结果决定保留或回滚
+ASPIRE|L1|系统/代码|low|编码代理精炼控制程序，验证后的修复入技能库复用（程序亦可归L2）
+RHO|L1|系统/代码|med|编码代理训练时搜索多文件策略代码库，依奖励与执行反馈保留改进版本
+HARBOR|L1|系统/代码|med|专职编码代理搭环境、改奖励与超参并训练RL策略，经可执行门控决定保留
+RATs (Playful)|L1|系统/代码|med|游玩阶段自提任务、生成并验证代码技能，冻结成技能库供测试时检索复用
+Skill-Harness Evolution|L1|系统/代码|high|冻结模型依目标环境rollout改写技能与上下文代码harness，只保留有提升的修改
+AdaHVLA|L1|系统/代码|med|多代理分析与修订循环依rollout证据编辑VLA协调代码harness，保留替代版本

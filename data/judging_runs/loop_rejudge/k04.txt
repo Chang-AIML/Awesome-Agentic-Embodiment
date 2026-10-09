@@ -1,0 +1,29 @@
+Eureka|保留|L1|Code|A->M,M<->E,E->A|high|LLM 写奖励代码，训练统计回传后反思进化，闭环在 agent 内
+Text2Reward|保留|L1|Code|A->M,M<->E,E->A|med|LLM 写奖励代码，人类反馈回传后迭代修改，回路靠人工触发
+GenSim|剔除|-|Code|A->M,A->E,M<->E|med|主体是仿真任务与示范生成平台，agent 循环非主贡献
+RoboGen|剔除|-|Code|A->M,A->E,M<->E|med|提议-生成-学习单向流水线，无明确 E->A，主体偏数据生成
+CurricuLLM|保留|L1|Code|A->M,M<->E,E->A|med|LLM 设计子任务课程与奖励代码，依策略结果推进课程
+Eurekaverse|保留|L1|Code|A->M,M<->E,E->A|med|LLM 写地形环境生成代码，依 RL 训练结果迭代更难的课程
+DrEureka|保留|L1|Code|A->M,A->E,M<->E,E->A|high|LLM 写奖励与域随机化分布，依训练结果迭代 sim-to-real 配置
+Video2Policy|剔除|-|Code|A->M,A->E,M<->E,E->A|med|主体是视频到仿真任务的数据扩展平台，LLM 奖励迭代仅为一阶段
+Articulate AnyMesh|剔除|-|-|A->E|med|VLM 一次性分割部件并建关节，无 E->A；主体为资产建模
+RoboMorph|保留|L1|Code|A->M,M<->E,E->A|med|LLM 以语法生成机器人形态，RL 控制评估结果回传后进化迭代
+VLMgineer|保留|L1|Code|A->M,A->E,M<->E,E->A|high|VLM 写工具设计与动作代码，仿真评估结果回传后进化协同设计
+SayPlan|保留|L2|Policy|A->M,M<->E,E->A|med|LLM 在 3D 场景图上语义搜索并调用规划器与技能，仿真反馈触发重规划
+LLM3|保留|L2|Policy|A->M,M<->E,E->A|high|LLM 提出符号动作与连续参数调用运动规划，运动失败原因回传后重推理
+ORGANA|保留|L2|Policy|A->M,M<->E,E->A|med|LLM 与化学家对话定目标并调度机器人与设备，感知结果回传后调整流程
+Being-0|保留|L2|Policy|A->M,M<->E,E->A|med|基础模型做高层规划并调用技能库，执行反馈回传后调整计划
+Prompt a Robot to Walk|保留|L3|None|A->E,E->A|med|LLM 以观测-动作历史为提示，逐步直接输出关节动作，闭环在 LLM 内
+AutoTAMP|保留|L2|Code|A->M,M<->E,E->A|med|LLM 将指令译为时序逻辑约束交规划器，检查失败时回传重新翻译
+TypeFly|剔除|-|Code|A->M,M<->E|med|无 E->A：LLM 一次写出 MiniSpec 程序，条件分支由程序运行时读感知完成
+LRLL|保留|L2|Code|A->M,M<->E,E->A|med|LLM 写策略代码并扩充技能库，仿真探索与经验蒸馏回传，技能库终身增长
+Incremental Humanoid Learning|保留|L2|Code|A->M,M<->E,E->A|high|LLM 在交互控制台生成 Python 语句调用感知与动作，人类纠正回传后写入记忆
+ReMEmbR|剔除|-|Policy|A->M,M<->E|med|以记忆检索问答为主，检索非执行结果，导航目标无回传，无 E->A
+RoboMemory|保留|L2|Policy|A->M,M<->E,E->A|med|通用 VLM 做闭环规划，批评模块回传执行结果，多类记忆辅助长时程决策
+SayNav|保留|L2|Policy|A->M,M<->E,E->A|high|LLM 基于增量 3D 场景图生成导航子目标，新观测回传后动态重规划
+VLMnav|保留|L3|None|A->E,E->A|high|通用 VLM 每步直接选导航动作，零样本当端到端策略，新观测回传后再决策
+RoboGuard|剔除|-|Code|A->M,M<->E|med|无 E->A：安全规范一次生成，控制综合在线修正计划，LLM 不因结果重决策
+Real-Time Anomaly Detection|剔除|-|Policy|A->M,M<->E|med|异常分类器为专用模型，LLM 仅触发时选回退方案，无 E->A 重决策
+RoboFAC|剔除|-|Policy|A->M,E->A|high|决策者为在失败轨迹上微调的专用多模态模型，非通用 LLM/VLM
+RobotGPT|剔除|-|Code|A->M,M<->E|med|最终由训练策略执行，LLM 仅生成并验证示范代码，不在闭环内
+HumanoidGen|剔除|-|Code|A->M,M<->E,E->A|high|主体是双臂灵巧操作的数据与任务生成框架，含基准，agent 循环非主贡献

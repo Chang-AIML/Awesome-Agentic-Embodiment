@@ -8,6 +8,9 @@ Inputs:
   data/core/fine_labels.csv      stage-2 labels for pool ids (c*/t*/seed:*)
   data/core/gap_candidates.jsonl, data/core/gap2_candidates.jsonl
                                  gap-fill papers, referenced as id `gap:<arxiv>`
+  data/core/layer_classification.csv
+                                 the user's three-layer / agent-loop judgement (scripts/build_layer_table.py), joined
+                                 by key into layer, layer_sub and arrows
 Output:
   data/core/core_table.csv
 
@@ -17,7 +20,7 @@ import csv, json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 COLS = ["key", "tier", "theme", "seat", "seat2", "sub", "carrier", "interface", "topo", "loop", "closure", "body",
-        "title", "arxiv", "date", "citations", "rep", "id", "source", "why", "added"]
+        "title", "arxiv", "date", "citations", "rep", "id", "source", "why", "added", "layer", "layer_sub", "arrows"]
 
 
 def norm_arxiv(a):
@@ -67,6 +70,8 @@ def main():
                 gap.setdefault(k, dict(o, id=k, source=name.split("_")[0], citations=""))
     mp = os.path.join(ROOT, "data/core/core_meta.json")  # from fetch_metadata.py; fills v1 date + citations
     meta = json.load(open(mp)) if os.path.exists(mp) else {}
+    lp = os.path.join(ROOT, "data/core/layer_classification.csv")
+    layer = {r["key"]: r for r in csv.DictReader(open(lp, encoding="utf-8-sig"))} if os.path.exists(lp) else {}
     out, errs, seen = [], [], set()
     for s in csv.DictReader(open(os.path.join(ROOT, "data/core/core_selection.csv"))):
         base = fine.get(s["id"]) or gap.get(s["id"])
@@ -92,7 +97,11 @@ def main():
         m = meta.get(row["arxiv"], {})
         row["date"] = m.get("published") or row["date"]
         row["citations"] = m.get("citations") if m.get("citations") is not None else row["citations"]
-        if row["tier"] == "core" and base.get("verdict") not in ("core", None):
+        lr = layer.get(s["key"], {})
+        row["layer"], row["layer_sub"], row["arrows"] = lr.get("layer", ""), lr.get("subtype", ""), lr.get("arrows", "")
+        if lr.get("verdict") == "剔除":
+            errs.append(f"{s['key']} is 剔除 in layer_classification.csv")
+        if row["tier"] == "core" and base.get("verdict") not in ("core", "precursor", None):  # precursor = open loop
             row["why"] += f"（stage-2 判为 {base.get('verdict')}，人工改判 core）"
         key = row["arxiv"] or row["title"].lower()
         if key in seen:

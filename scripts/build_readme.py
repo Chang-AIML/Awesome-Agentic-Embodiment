@@ -131,8 +131,9 @@ def main():
 
     out = ["# Awesome Agentic Embodiment", "",
            "> *Agentic Embodiment studies general-purpose foundation models — LLMs and VLMs, not embodied action models — "
-           "acting as agents that make explicit decisions whose consequences reach a robot body, and that re-decide on "
-           "evidence of those consequences. Its organizing question is where such an agent sits relative to the body's "
+           "acting as agents that make explicit decisions and are connected to a robot body — through the policy, code "
+           "or plans they produce, or by acting on the environment directly. Its organizing question is where such an "
+           "agent sits relative to the body's "
            "deployed policy — steering it, guarding it, teaching it, designing its learning problem, or building its "
            "system (**Seat**).*", "",
            "**Thesis (draft, under revision).** *Agency spreads around the body: general models, not embodied action "
@@ -144,18 +145,23 @@ def main():
            "## Scope and what counts as an agent", "",
            "**Scope.** General-purpose foundation models (LLMs / VLMs such as GPT, Gemini, Claude, Qwen-VL, GPT-6 Astra) "
            "doing embodied work as agents. They may plan, call skills, tools or VLAs, write code or constraints, or emit "
-           "actions directly (LLM-as-policy, e.g. GPT-6 Astra evaluated as a robot policy on RoboDojo). A general model "
-           "fine-tuned for an agent role still counts if it keeps acting through an agent interface (e.g. GUAVA). "
+           "actions directly (LLM-as-policy, e.g. GPT-6 Astra evaluated as a robot policy on RoboDojo). The agent must be "
+           "a general model used as-is: a model the authors trained or fine-tuned does not count; trained VLAs, skills "
+           "and perception models appear only as tools the agent calls, and a general agent's own experience may be "
+           "distilled into a smaller model (e.g. GUAVA). "
            "**Embodied foundation models that produce actions are not included** — VLAs (also with reasoning, memory or "
            "self-correction), hierarchical VLAs, world action models, robot foundation models (π0.5, ECoT, OneTwoVLA, "
            "Hi Robot, Gemini Robotics, PaLM-E); they appear here only as tools called by an agent.", "",
-           "**Agent tests** (all three): (1) **explicit decisions** — plans, skill/tool/VLA calls, code, constraints, "
-           "verdicts, system edits, or actions chosen by the general model; (2) **decision authority** — the model writes "
-           "its options, or picks among them with a control action (stop / retry / replan / ask / keep-revert); "
-           "(3) **closed loop** — the model is called again with its own earlier decisions and evidence of their "
-           "consequences, *or* the constraints or program it wrote read live perception and adapt while the robot acts "
-           "(an *authored* loop, e.g. ReKep, VoxPoser, Code as Policies). Two families are included even when written once "
-           "(*Loop* = none): **constraint / keypoint programming** (ReKep-type) and **agentic Real2Sim**.", "",
+           "**Agent tests**: (1) **a general model is the agent** and makes **explicit decisions** — plans, "
+           "skill/tool/VLA calls, code, constraints, verdicts, system edits, or actions; (2) **decision authority** — "
+           "the model writes its options, or picks among them with a control action (stop / retry / replan / ask / "
+           "keep-revert); (3) **it is connected to the body** — what it decides reaches the policy / code layer or the "
+           "environment, and the agent loop is the "
+           "paper's main contribution (data-generation platforms are not included). Closing the loop is **recorded, not "
+           "required**: *Loop* = re-decide (the model is called again with its earlier decisions and their consequences), "
+           "authored (the constraints or program it wrote read live perception and adapt, e.g. ReKep, VoxPoser, Code as "
+           "Policies) or none (open loop, e.g. ZS-Planners, CoPa). The share of closed-loop papers rises every year "
+           "(see `docs/core_stats.md`).", "",
            "Also not included: scalar reward/value models, one-shot annotators, world-model foresight, game/text worlds, "
            "purely digital agents.", "",
            "## Seat by period", "",
@@ -210,7 +216,8 @@ def main():
         if not xs_all:
             continue
         out += ["", f"## {head_}", "",
-                f"{len(xs_all)} further {what} that meet the definition (judged `core` by a verification pass) but "
+                f"{len(xs_all)} further {what} that meet the definition (judged by a verification pass; open-loop ones "
+                "have *Loop* = none) but "
                 "are not in the curated tables above. Tags come from the judging pass and are not hand-checked; "
                 "generated by `scripts/build_extended.py`.", ""]
         for seat, sub, title in groups:

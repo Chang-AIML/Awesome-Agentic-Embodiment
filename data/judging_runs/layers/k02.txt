@@ -1,0 +1,27 @@
+SPINE|L1|系统/代码|low|子agent改写驱动与接口配置并验证至遥操作成功；部署前调试，非训练代码
+Continuum Robot Design|L1|本体/工具|high|LLM依仿真物理反馈迭代生成连续体机器人结构设计，部署前交RL训练评估
+PhysEvo|L1|系统/代码|med|元智能体依轨迹修改工具与技能并测试保留，产物为部署harness；兼L2
+LACE-CRAFT|L1|本体/工具|high|LLM形态与奖励角色交叉评审成对提案，RL训练后按固定指标保留或回滚
+RPG|L1|系统/代码|high|LLM在仿真练习中改写技能库与system prompt，经跨任务评测保留；测试时兼L2
+SimEX|L1|系统/代码|med|LLM编码代理在仿真中迭代改进机器人工具箱代码，少量真机试验后修正工具箱与仿真器
+EmbodiedSmith|L1|环境/重建|high|LLM场景与任务生成互相编辑，产出仿真场景与评测环境供部署前训练使用
+Agentic Real2Sim|L1|环境/重建|high|VLM代理迭代调用工具，从真实录像构建可仿真的物理孪生，供部署前策略微调与评测
+Real2Gym|L1|环境/重建|med|LLM从示范视频重建可交互仿真环境并写阶段代码，技能经仿真诊断后带回真机；兼L2
+Vid2Sid|L1|环境/重建|med|VLM对比仿真与真实视频，提出物理参数修改以校准仿真器，部署前完成
+Skill2Real|L1|系统/代码|high|LLM提议技能代码修改，仿真证据验证后保留或回滚，冻结技能库迁移真机；兼L2
+CoDimRecon|L1|环境/重建|high|LLM代理从多视角RGB重建可仿真的刚体、铰接与可变形场景，行为测试失配后定向修正
+GPT-6-Astra XLeRobot|L2|策略生产者|med|GPT-6-Astra写控制程序驱动机器人执行，复用身体知识、经验与技能；程序本身即执行策略
+Agentic RSR|L1|环境/重建|med|LLM代理从视频恢复尺度并迭代重建MuJoCo场景，编码代理另写可执行策略；兼L2
+AgenticNav|L2|编排者|med|VLM每步经动作工具选RGB目标像素，由harness转为运动；工具调用属L2，兼L3
+HarnessVLN|L2|编排者|high|MLLM每步提出子目标，harness校验证据与几何可行性后调度感知、记忆与执行工具
+Embodied Agents Take Control|L3|-|high|编码代理每步直接输出离散动作原语控制机器人，无技能层；加航点工具的混合版兼L2
+ASENA|L2|编排者|med|编码代理写程序调用导航VLA工具并检查修复，跨任务积累笔记与技能；兼L1
+One Agent to Guide Them All|L2|编排者|low|MLLM在度量世界表示上推理并做反事实检查后输出导航决策；摘要未说明动作粒度，取保守L2
+HAM-VLN|L2|编排者|med|MLLM每步选下一路点并同时写分层记忆（含失败记录），路点由底层执行
+OnFly|L2|编排者|high|机载VLM每步输出导航目标交轨迹规划器，另一VLM依关键帧监控进度与安全
+AgentVLN|L2|编排者|med|训练过的VLM作大脑调用导航技能库并自我纠错；若为任务专用模型需复核是否剔除
+LocalNav|L2|经验迁移|high|前沿VLM导航推理轨迹用于微调端侧4B模型，部署时由小模型逐步决策
+RoboFind|L2|编排者|med|导航智能体提候选目标，验证智能体比对参考库，协调智能体定恢复与续搜，交四足执行
+NORM-Nav|L2|策略生产者|low|LLM逐条把指令解析为结构化约束，编码为代价地图交规划器执行；若只当解析则应剔除
+Air-Ground VLN|L2|编排者|med|无人机与地面车的VLM在共享鸟瞰图上推理，互相下发子目标，几何模块执行
+HaltNav|L2|编排者|med|微调MLLM大脑把osmAG全局路线拆为子指令，异常时视觉中止并重规划；兼运行时监控

@@ -1,0 +1,27 @@
+SPINE|保留|L2|Code|A->M,M<->E,E->A|low|子 agent 调试遥操作栈，诊断、修复、验证迭代并依真机结果再决策，闭环成立
+Continuum Robot Design|保留|L1|Policy|A->E,M<->E,E->A|med|LLM 设计者依仿真物理状态反馈迭代连续体机器人形态，设计闭环成立
+PhysEvo|保留|L1|Code|A->M,M<->E,E->A|high|冻结通用模型的元智能体依轨迹诊断失败、改写工具与技能，测试后保留并再循环
+LACE-CRAFT|保留|L1|Code|A->M,A->E,M<->E,E->A|med|LLM 角色依共享实验记录与回放交叉评审形态与奖励提案，训练结果反馈后再决策
+RPG|保留|L1|Policy|A->M,M<->E,E->A|high|LLM 依仿真失败诊断改写技能与系统提示，跨任务评测后保留，循环闭合
+SimEX|保留|L1|Code|A->M,A->E,M<->E,E->A|high|编码 agent 在仿真中迭代机器人工具箱，少量真机试验反馈后同时修正工具箱与仿真器
+EmbodiedSmith|剔除|-|-|A->E,E->A|med|主体是仿真数据生成平台，场景与任务生成互改的 agent 循环只是其组件，违反条件4
+Agentic Real2Sim|保留|L1|Code|A->M,M<->E,E->A|med|VLM agent 迭代调用工具从录像重建可仿真孪生，依中间结果修正，环境构建属 L1
+Real2Gym|保留|L1|Code|A->M,M<->E,E->A|med|agent 在仿真中写阶段代码、观察结果并提炼技能与恢复策略，闭环在仿真内成立
+Vid2Sid|保留|L1|None|A->E,E->A|med|VLM 对比仿真与真实视频、诊断差异并直接修改物理参数，迭代闭环
+Skill2Real|保留|L1|Policy|A->M,M<->E,E->A|high|LLM 依特权仿真证据经 PVG 循环诊断并保留或回滚技能代码，零样本迁移真机
+CoDimRecon|保留|L1|Code|A->M,M<->E,E->A|med|agent 会话重建可仿真的可变形场景，行为测试暴露失配后针对性修正，闭环成立
+GPT-6-Astra XLeRobot|保留|L2|Code|A->M,M<->E,E->A|med|GPT-6-Astra 写控制程序驱动机器人，跨试验复用经验与技能，执行结果回传后再写
+Agentic RSR|保留|L1|Code|A->E,A->M,M<->E,E->A|med|agent 迭代修正 MuJoCo 场景，编码 agent 依仿真执行反馈开发策略后再上真机
+AgenticNav|保留|L3|None|A->E,E->A|med|零样本 VLM 直接选像素目标并输出运动，每步观测与深度反馈回传后再决策
+HarnessVLN|保留|L2|Code|A->M,M<->E,E->A|high|MLLM 提出规划经 harness 验证后分派执行工具，执行反馈更新共享记忆与图
+Embodied Agents Take Control|资源|L3|None|A->E,E->A|med|通用编码 agent 逐步直接操控动作的评测研究，无自有方法，面向零样本导航
+ASENA|保留|L2|Code|A->M,M<->E,E->A|med|编码 agent 写并运行程序、调用导航策略工具，依执行结果修复并复用经验
+One Agent to Guide Them All|保留|L3|None|A->E,E->A|med|MLLM 在度量世界表示上反事实推理后直接选动作，执行观测回传后再决策
+HAM-VLN|保留|L3|None|A->E,E->A|med|MLLM 每个路点同时选下一动作并写分层记忆，观测与失败记录回传后再决策
+OnFly|保留|L2|Policy|A->M,M<->E,E->A|med|机载 VLM 生成目标，另一 VLM 依关键帧监控进度并触发恢复，经规划器执行后闭环
+AgentVLN|剔除|-|-|A->M,E->A|low|疑为任务训练的 VLM 作大脑（旧注与边缘部署表述），通用模型条件存疑
+LocalNav|剔除|-|-|A->E,E->A|high|决策者是蒸馏并微调的 4B 本地 VLM，属专用模型而非通用 agent，条件1不满足
+RoboFind|剔除|-|-|A->M,E->A|low|摘要未见通用 LLM/VLM 决策者，候选验证或为参考库比对，决策主体存疑
+NORM-Nav|剔除|-|-|A->M|high|无 E->A：LLM 仅一次解析指令为约束，之后由规划器执行，不再依结果决策
+Air-Ground VLN|保留|L2|Policy|A->M,M<->E,E->A|med|无人机与地面车的 VLM 在共享鸟瞰图上互下子目标，位姿与目标更新后再决策
+HaltNav|保留|L2|Policy|A->M,M<->E,E->A|low|MLLM 大脑拆分子指令，执行中检测阻塞后更新拓扑并重规划；停止模块为微调，存疑

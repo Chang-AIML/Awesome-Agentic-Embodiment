@@ -1,0 +1,35 @@
+ZS-Planners|L2|编排者|high|LLM 把指令分解为动作步骤，映射到可执行动作集后交底层执行，开环无反馈
+Socratic Models|L2|编排者|med|LLM 经语言组合感知模型生成步骤并调用技能，开环无反馈
+TidyBot|L2|编排者|med|LLM 从示例归纳偏好，并为每件物品给出放置位置，交拾放技能执行
+SayCan|L2|编排者|high|LLM 按语言与可行性打分选下一技能，执行后依新状态重选
+Inner Monologue|L2|编排者|high|LLM 依成功检测与人类反馈，每步输出下一技能指令，闭环
+ChatGPT for Robotics|L2|策略生产者|high|ChatGPT 依提示写机器人代码调用高层函数库，代码直接在机器人上运行
+Text2Motion|L2|编排者|high|LLM 生成技能序列，经可行性模型检查后交技能库执行，开环
+Language to Rewards|L2|策略生产者|med|LLM 写奖励参数，MPC 执行时在线优化为动作，LLM 不逐步出动作
+SMART-LLM|L2|策略生产者|med|LLM 分解任务并分配多机器人，输出可执行 Python 计划代码，开环
+Code as Policies|L2|策略生产者|high|LLM 写出带感知反馈循环的 Python 策略程序，直接在机器人上运行
+ProgPrompt|L2|策略生产者|high|LLM 生成带断言与恢复分支的任务程序，程序直接调用技能执行
+VoxPoser|L2|策略生产者|high|LLM 写代码组合三维价值图，交 MPC 闭环执行，属约束式策略
+RoCo|L2|编排者|med|多 LLM 智能体对话协商，输出技能级指令，由运动规划器执行，闭环重规划
+Look Before You Leap|L2|编排者|high|GPT-4V 看图生成可执行步骤，交技能执行，依视觉反馈重新规划
+KnowNo|L2|编排者|high|LLM 对候选技能打分选下一步，共形预测不确定时请人选择
+CoPa|L2|策略生产者|med|VLM 输出部件级空间约束，求解器一次求出末端位姿序列，开环
+MOKA|L2|策略生产者|low|VLM 在标记图上选关键点与路点，规划器转位姿执行，拿不准时保守归L2
+ReKep|L2|策略生产者|high|VLM 写出关键点约束的 Python 函数，求解器实时求解末端位姿，闭环
+OmniManip|L2|策略生产者|med|VLM 输出交互基元形式的空间约束，求解器双闭环求位姿
+BUMBLE|L2|编排者|high|VLM 依感知与双层记忆选粗到细技能，逐步重规划，楼宇级移动操作
+COME-robot|L2|编排者|high|GPT-4V 选探索目标与技能，执行后闭环核验并恢复失败
+AutoRT|L2|经验迁移|med|LLM 提任务指挥机器人队列采数，数据供训练策略，兼 L1 任务设计
+VLM-PC|L2|编排者|high|VLM 依交互历史选运动技能并重规划，足式机器人越障，闭环
+DROC|L2|编排者|med|LLM 依语言纠正修订计划与技能参数，检索记忆，经技能执行
+LM-Nav|剔除|剔除|high|LLM 仅一次解析指令为地标，其余打分与图搜索由代码决定（作用边缘）
+NavGPT|L3|执行层|med|每步从候选方向中选下一视点，离散图直接移动，属离散运动步（边界，可保守归L2）
+InstructNav|L2|编排者|med|LLM 反复重规划导航链，输出子目标交价值图局部规划器执行
+Open-Nav|L2|编排者|med|开源 LLM 从候选路点选子目标，交局部控制器执行，每步重决策
+REFLECT|L2|运行时监控|high|执行失败后 LLM 依经验摘要解释原因，回馈规划器纠正，仅异常时介入
+DoReMi|L2|运行时监控|med|LLM 写执行约束，VLM 持续检测违例并触发恢复与重规划，仅异常时介入
+Safety Chip|L2|运行时监控|med|LLM 把自然语言安全规范译为 LTL 约束，运行时检查并拦截违规动作
+Code-as-Monitor|L2|运行时监控|high|VLM 写约束监测代码逐帧运行，违例或预测违例时触发重规划
+SUDD|L2|经验迁移|high|LLM 规划并写成功检查代码，经验证示范蒸馏为多任务扩散策略
+Manipulate-Anything|L2|经验迁移|high|VLM 分解任务并执行、验证、重规划，经验证轨迹训练行为克隆策略
+RoboTwin 2.0|L2|经验迁移|high|MLLM 写任务执行代码并经仿真闭环修正，合成示范训练策略

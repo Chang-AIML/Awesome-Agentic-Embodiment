@@ -23,24 +23,31 @@
 > 2026-10-08 用户第三次追加的决策（覆盖第 6、10 条中「聚焦 2026」的说法）：
 > 12. **研究对象是通用大模型做具身任务**：LLM / VLM（GPT、Gemini、Claude、Qwen-VL、GPT-6 Astra 等）作为 agent 完成具身任务。它可以输出计划、调用技能 / 工具 / VLA、写代码或约束，也可以直接输出动作，例如 GPT-6 Astra 在 RoboDojo 上直接当策略。**具身大模型直接做动作的工作不收**：VLA（含带推理、子任务、memory、自我纠错的 VLA）、分层 VLA、WAM、机器人基础模型，只能作为被 agent 调用的工具出现。见 §2.0。
 > 13. **论文故事不只聚焦 2026**：2026 年论文最多，但 2022–2025 年的先驱同样重要，是每个 seat 的源头。核心表与正文按 seat 讲「先驱 → 2026」的脉络。
+>
+> 2026-10-09 用户的决策（编号接 `docs/history/HANDOFF_round3.md` §5 的 14、15）：
+> 16. **三层框架与 agent 回路图**（`agent_loop_framework.png`）：Agent → Policy / Code / None → Env / Sim，agent 也可直接作用于 Env / Sim，Env / Sim 的信息回到 agent。**通用大模型 agent 必须存在，并在其中扮演角色**。L1 准备层（造环境、重建、设计奖励与任务、改系统）、L2 中间层（策略生产者、编排者、经验迁移、运行时监控）、L3 执行层（通用模型直接出动作）。逐篇结果见 `layer_classification.md`。
+> 17. **箭头不必全有**：agent 只要连到 Policy / Code 或 Env / Sim 之一即可。**闭环不再是收录条件**，只记录形式（再决策 / 编写闭环 / 开环）。§2.1 第 3 条据此改写；决策 2 的「前驱 = 开环」、决策 8 和 9 的两个例外随之不再需要。
+> 18. **主体是数据生成平台的不收**（RoboTwin 2.0、HumanoidGen）；agent 循环本身是主体的生成式仿真（GenSim、RoboGen、EmbodiedSmith）算 L1。
+> 19. **agent 必须是现成的通用大模型**（用户：「我说的是通用大模型，而不是被训练过的小模型」）：作者训练、微调或蒸馏出的模型不算 agent，即使底座是通用模型（AgentVLN、Ludi、RoboFAC 剔除）；训练过的 VLA、技能、感知模型只能作为 agent 调用的工具；通用模型自己作为 agent 行动、其经验再蒸馏成小模型的算 L2 经验迁移（GUAVA、LocalNav）。§2.0 中「为 agent 角色微调后仍算」的说法作废。每篇按全文判定（`layer_classification.md`）。
 
 ---
 
 ## 1. 一句话定义
 
 *Agentic Embodiment studies general-purpose foundation models — LLMs and VLMs, not embodied action
-models — acting as agents that make explicit decisions whose consequences reach a robot body, and that
-re-decide on evidence of those consequences. Its organizing question is where such an agent sits relative
+models — acting as agents that make explicit decisions and are connected to a robot body — through the
+policy, code or plans they produce, or by acting on the environment directly. Its organizing question is
+where such an agent sits relative
 to the body's deployed policy — steering it, guarding it, teaching it, designing its learning problem, or
 building its system (**Seat**).*
 
-中文：Agentic Embodiment 研究通用基础模型（LLM / VLM，而不是具身动作模型）作为 agent 做出的显式决策。这些决策的后果会作用到机器人身体上，agent 会依据后果的证据重新决策。全文围绕一个问题组织：这个 agent 相对于机器人部署的策略坐在哪里（**Seat**）。
+中文：Agentic Embodiment 研究通用基础模型（LLM / VLM，而不是具身动作模型）作为 agent 做出的显式决策。这些决策经由它产出的策略、代码或计划，或直接作用于环境，到达机器人身体；agent 是否依据后果再决策只记录、不要求（决策 17）。全文围绕一个问题组织：这个 agent 相对于机器人部署的策略坐在哪里（**Seat**）。
 
 **推论**：agentic embodiment 不等于 agentic robot。ENPIRE 部署出去的策略里没有 agent，但它仍是核心样本，因为 agent 坐在 Developer 的位置。
 
 ---
 
-## 2. 什么算 agent：范围 + 三条判定
+## 2. 什么算 agent：范围 + 三条判定（第 3 条按决策 17 改写）
 
 ### 2.0 范围：通用大模型，不是具身大模型（决策 12）
 
@@ -50,7 +57,7 @@ building its system (**Seat**).*
 
 ### 2.1 三条判定
 
-三条**全部满足**才算 agent。判定对象是「模型 + harness + 环」构成的过程，不是权重本身。
+三条**全部满足**才算 agent。判定对象是「模型 + harness」构成的过程，不是权重本身。
 
 1. **显式决策**：输出可检查的离散决策，如计划、子任务、带参数的 skill / tool / VLA 调用、代码、约束、verdict（continue / stop / retry / ask / keep / revert）、对系统的编辑。
    标量分数、embedding、latent、action chunk 都不算。只输出这些的模型是「器官」（organ），如奖励模型、价值模型、打分器。
@@ -58,13 +65,11 @@ building its system (**Seat**).*
    - 备选项由模型自己生成，如计划、代码、调用参数。
    - 或者模型在选项中做选择，且其中至少有一个**控制行为**：stop、retry、replan、ask、keep / revert，或在异质 skill 之间切换。
    只在代码枚举的同类候选（哪个 frontier、哪个采样点）上打分，控制流归代码，不算。
-3. **闭环**：满足下面两种形式之一。
+3. **连到身体**（决策 17）：agent 的决策到达 Policy / Code 层（写出或选择策略、程序、计划、约束、技能或 VLA 调用），或直接作用于 Env / Sim（直接出动作、搭建或修改环境）；并且 agent 回路是论文的主体，不是数据生成平台或离线评测。**闭环不是收录条件**，按下面三种形式记录在「闭环」一列：
+   - **开环**（none）：计划、程序或约束一次写成，执行结果不回到模型，也不由模型写的逻辑处理。例：ZS-Planners、Socratic Models、CoPa、MOKA。
    - **再决策**（re-decide）：同一次运行中，模型至少被再次调用一次；再次调用时，输入里有它**自己先前的决策记录**和这些决策的**后果证据**，并且可以修订先前的决策。例：Inner Monologue、Code-as-Monitor。
    - **编写闭环**（authored loop）：模型写出的可执行 artifact（约束、程序、在线优化的目标函数、监控条件、成功判据）在机器人执行时读取实时感知，并依据结果改变行为：重新求解、在阶段之间前进或回溯、断言失败后执行恢复动作、否决危险动作、检查失败后重试。随结果而变的那部分逻辑必须由模型写出；触发它的机制（求解器、回溯、重试循环）可以是固定框架。例：ReKep 的关键点约束以约 10 Hz 重新求解，路径约束被破坏时回溯到前一阶段；VoxPoser、Code as Policies（带感知反馈循环的程序）、ProgPrompt（带断言和恢复动作的程序）、Language to Rewards。
-   后果证据须来自执行后的观测、工具返回、verifier 事件、训练或评测统计，或人类反馈。只来自模型自己的预测（world model、执行前的可行性检查）不够。
-   **两种都不算**：artifact 的内容不随执行时的状态改变，例如一串技能名或地标、一次算出的抓取位姿或路点；一个计划交给各自闭环的技能去执行（那个环不是模型写的）；每步重新推理、但看不到自己先前决策的模型。（VLA 本身已按 §2.0 排除。）
-   **两个例外（决策 8、9）**：约束 / 关键点编程类（模型写约束或代价函数交给求解器）和 agentic Real2Sim（模型重建可交互仿真场景）即使一次写成、不再闭环，也按 agent 收录，「闭环」一列记开环。见 §5 和 §6.1。
-   Designer 和 Developer 的闭环仍要求依据训练或试验结果重新设计、重新修改（Eureka 迭代；一次写成的奖励或任务代码不算）。
+   记为闭环时，后果证据须来自执行后的观测、工具返回、verifier 事件、训练或评测统计，或人类反馈；只来自模型自己的预测（world model、执行前的可行性检查）的记开环。artifact 的内容不随执行时的状态改变（一串技能名或地标、一次算出的抓取位姿或路点）、计划交给各自闭环的技能执行、每步重新推理但看不到自己先前决策的，都记开环。Designer 和 Developer 依据训练或试验结果重新设计、重新修改的记再决策（Eureka 迭代），一次写成的奖励或任务代码记开环。
 
 **三个常见误区**
 - RL 微调不等于 agency：SimpleVLA-RL 一类判 OUT。
@@ -114,7 +119,7 @@ Carrier 只剩两列后，Seat × Carrier 网格的信息量很小，副轴是�
 Controller 在候选中占一半以上，正文按以下三类拆分（原「训练过的 carrier」子章随决策 12 取消，C 类论文按功能归入下面三类）：
 
 1. **编排型**（orchestrator）：调用 skill、tool 或 VLA-as-tool。例：SayCan、Harness VLA。
-2. **直接驱动型**（direct driver）：输出语义微动作、原生指令、当下执行的代码或约束。例：Show-Harness、CaP-X、ReKep。这一子章也承接 robot-use agent 社区的命名。子章内部按闭环形式再分组：编写闭环（Code as Policies → VoxPoser → ReKep，模型写一次，程序或约束在执行中闭环）、再决策（CaP-X、Show-Harness，模型被反复调用），以及一次求解的约束 / 关键点编程（CoPa、MOKA 一类，决策 8 收录，闭环一列记开环）。
+2. **直接驱动型**（direct driver）：输出语义微动作、原生指令、当下执行的代码或约束。例：Show-Harness、CaP-X、ReKep。这一子章也承接 robot-use agent 社区的命名。子章内部按闭环形式再分组：编写闭环（Code as Policies → VoxPoser → ReKep，模型写一次，程序或约束在执行中闭环）、再决策（CaP-X、Show-Harness，模型被反复调用），以及一次求解的约束 / 关键点编程（CoPa、MOKA 一类，闭环一列记开环）。
 3. **lifelong / memory 型**：评测期间写入并读取 memory、skill 库或 harness，越用越好。
 
 ---
@@ -124,12 +129,12 @@ Controller 在候选中占一半以上，正文按以下三类拆分（原「训
 | 层级 | 条件 | 去向 |
 |---|---|---|
 | **CORE** | arXiv 首版在 **2026 年**；满足 §2 三条判定；有机器人身体；至少一个主要实验在真机或物理仿真中进行（失败可能由接触、滑动、碰撞等物理原因引起）；agentic 部分是论文 headline 的自变量。agentic Real2Sim 按 §6.1 的规则判定 | 核心表，按 Seat 分节；Real2Sim / Sim2Real 与 VLN 各自成章 |
-| **先驱**（PIONEER） | arXiv 首版在 2022–2025 年的奠基作或代表作。满足 §2 三条判定的（如 SayCan、Code-as-Monitor、ReKep），和只满足判定 1、2 的开环工作（如 ZS-Planners、Socratic Models、CoPa）都可以收，用「闭环」一列区分 | 与 2026 年论文一起按 seat 呈现（决策 13）：每个 seat 先讲先驱，再讲 2026 |
+| **先驱**（PIONEER） | arXiv 首版在 2022–2025 年的奠基作或代表作，满足 §2 三条判定；闭环的（如 SayCan、Code-as-Monitor、ReKep）和开环的（如 ZS-Planners、Socratic Models、CoPa）都收，用「闭环」一列区分 | 与 2026 年论文一起按 seat 呈现（决策 13）：每个 seat 先讲先驱，再讲 2026 |
 | **BOUNDARY** | agent 成立，但只在离散或脚本化仿真中（ALFRED、AI2-THOR、VirtualHome、TDW、R2R 离散图、Habitat magic grasp）；或属于自动驾驶 | 边界一节讨论，lineage 表 |
 | **RESOURCE** | benchmark、testbed、能力研究，被测对象是 agent | 单独的资源表 |
 | **OUT** | 其余全部 | 不收录 |
 
-**先驱的典型成员**：满足闭环的有 SayCan、Inner Monologue、Code as Policies、VoxPoser、ReKep、Eureka、REFLECT、Code-as-Monitor；不满足闭环、但开创了方向的有 ZS-Planners、Socratic Models、KnowNo、CoPa、RoboGen。具身大模型（PaLM-E、RT-2、ECoT、π0.5、Hi Robot）按决策 12 不收，只在正文作为对照。2026 年不满足闭环的论文不收录（约束编程与 agentic Real2Sim 两个例外除外）。
+**先驱的典型成员**：闭环的有 SayCan、Inner Monologue、Code as Policies、VoxPoser、ReKep、Eureka、REFLECT、Code-as-Monitor；开环的有 ZS-Planners、Socratic Models、KnowNo、CoPa、RoboGen。具身大模型（PaLM-E、RT-2、ECoT、π0.5、Hi Robot）按决策 12 不收，只在正文作为对照。决策 17 之后，2026 年的开环论文同样收录（如 GTA-2、Agentic Task Graph），「闭环」一列记 none。
 
 ### 6.1 Real2Sim / Sim2Real 专题板块（子方向）
 
@@ -146,7 +151,7 @@ agent 搭建、校准、利用仿真并把结果迁移到真机的工作，单�
 这类工作的评测（如 Video2World）进资源表，并在本节交叉引用。
 
 **agentic Real2Sim 的判定（决策 9）**：基础模型 agent 为机器人任务重建或搭建可交互仿真，即从真实图像、视频或扫描出发，自己决定选哪些资产、摆放位姿、铰接结构、物理参数，或直接写仿真代码，重建结果用于机器人学习、数据生成或评测。这类工作一律进 CORE，Seat 记 Designer（重建后再改进解法的记 Developer），theme 记 real2sim。
-- 构建过程通常是「渲染或仿真 → 与真实观测比对或检查可执行性 → 修改」，这本身满足 §2 第 3 条的闭环。
+- 构建过程通常是「渲染或仿真 → 与真实观测比对或检查可执行性 → 修改」，「闭环」一列记再决策。
 - 一次构建、不再迭代的 agentic 管线也收，「闭环」一列记 none，读者可以区分。
 - 没有基础模型做构建决策的重建方法（Gaussian splatting、NeRF、经典 system identification）不算。
 
@@ -194,10 +199,11 @@ harness 和 multi-agent 都不是类别：harness 属于 Interface，multi-agent
 
 原主线：***"Agency spreads around the body — and loop closure, not weights, makes a carrier an agent."***
 
-决策 12 之后，「not weights」不再成立：研究对象限定为通用大模型。主线待用户确认，候选：
+决策 12 之后，「not weights」不再成立：研究对象限定为通用大模型；决策 17 之后，「loop closure makes a carrier an agent」也不再成立：开环也算 agent。闭环改为第二条趋势（闭环论文的占比 2023 年 38% → 2026 年 56%，见 `core_stats.md` A2）。主线待用户确认，候选：
 
 - ***"General models become embodied agents through the loops built around them — and agency spreads around the body, seat by seat."***
 - ***"Agency spreads around the body: general models, not embodied action models, fill seat after seat."***
+- ***"Agency spreads around the body, and the loop is closing."***（加上闭环这条趋势）
 
 agency 没有从机器人身上迁走，而是在身体周围逐个占据新的 seat：
 
@@ -209,7 +215,7 @@ agency 没有从机器人身上迁走，而是在身体周围逐个占据新的 
 | 2025 | Teacher |
 | 2026 | 五个 seat 全部有人占据 |
 
-一个通用模型能不能坐进某个 seat，取决于它在 harness 里是否做显式决策、并且闭环：要么带着自身记录、依据后果再决策，要么它写出的约束或程序在执行时依据后果调整。这条脉络从 2022 年的先驱开始（SayCan、Code as Policies、Inner Monologue），在 2026 年铺满五个 seat。
+一个通用模型能不能坐进某个 seat，取决于它在 harness 里是否做显式决策、并且连到身体（经由策略 / 代码层或直接作用于环境）；闭环与否是第二条趋势，不是门槛。这条脉络从 2022 年的先驱开始（SayCan、Code as Policies、Inner Monologue），在 2026 年铺满五个 seat。
 
 > 注：上述时间线与比例来自有偏的测试集（按方向搜集，2026 年偏多），**必须在最终核心集上重算**后才能写进正文。
 

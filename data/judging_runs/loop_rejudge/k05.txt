@@ -1,0 +1,25 @@
+Agentic Skill Discovery|保留|L1|Code|A->M,M<->E,E->A|high|LLM写奖励函数与任务提案，训练与VLM验证结果回传LLM再提下一任务
+OMNI-EPIC|保留|L1|Code|A->E,A->M,M<->E,E->A|med|基础模型写环境与奖励代码，按归档与有趣性回传生成下一任务，形成开放课程
+PDDLLM|剔除|-|Code|A->M,M<->E|low|无 E->A：LLM 从示范归纳规划域后交运动规划器执行，摘要未见回传修订
+CA-Nav|剔除|-|Code|A->M,M<->E|med|无 E->A：GPT-4 一次拆解指令并写约束，执行中靠感知检查切换子指令
+RobotSmith|保留|L1|Policy|A->E,M<->E,E->A|med|VLM 提议者与评审者依渲染反馈迭代设计工具，仿真中联合优化几何与使用轨迹
+AquaChat|保留|L2|Policy|A->M,M<->E,E->A|med|GPT-4 生成 ROV 巡检计划，任务出错时依底层控制反馈触发重规划
+EmbodiedBench|资源|-|Policy|A->M,A->E,M<->E,E->A|med|评测 24 个 MLLM 作为视觉具身 agent 的高层规划与低层操作闭环表现
+Embodied Agent Interface|剔除|-|-|-|med|无 E->A：LLM 各模块输出离线逐项评测，未在闭环中执行与回传
+VLABench|剔除|-|None|A->E,E->A|high|决策者为专用 VLA 而非通用 LLM/VLM，主体是操作评测基准
+RoboCerebra|资源|-|Policy|A->M,M<->E,E->A|med|评测 VLM 规划者编排 VLA 控制器，含反思与记忆的闭环长程任务
+EmbodiedEval|资源|-|None|A->E,E->A|med|交互式评测 MLLM 具身 agent 的导航、交互与问答闭环表现
+PARTNR|资源|-|Policy|A->M,M<->E,E->A|med|评测 LLM 规划者调用技能与工具的人机协作闭环，含失败恢复
+LIBERO-Agent|资源|-|None|A->E,E->A|high|评测通用 agent 直接发出原生动作指令操作机器人，观测回传后再决策
+CodeActionBench|资源|-|Code|A->M,M<->E,E->A|high|评测通用模型以代码为策略操作机器人，依执行反馈迭代修改程序
+Orchestration Study|资源|-|Policy|A->M,M<->E,E->A|low|对 VLM 规划者编排 VLA 控制器的设计做受控评测，主体为研究而非新方法
+SafeAgentBench|资源|-|Policy|A->M,M<->E,E->A|med|750 个安全任务评测 LLM 具身 agent 的规划与拒绝危险指令能力
+IS-Bench|资源|-|Policy|A->M,M<->E,E->A|med|评测 VLM 家务 agent 执行中能否按正确顺序规避动态风险
+ASIMOV|剔除|-|Code|A->M|med|无 E->A：宪章与安全数据离线生成与判定，主体是基准与数据集
+RLE-Bench|资源|-|Code|A->M,A->E,M<->E,E->A|high|评测编码 agent 作为机器人学习工程师，依多模态反馈迭代改进产物
+EmboCoach-Bench|资源|-|Code|A->M,M<->E,E->A|high|评测 LLM agent 以可执行代码迭代编写与调试具身策略的闭环
+Video2World|资源|-|Code|A->E,A->M,M<->E,E->A|med|评测编码 agent 从具身视频端到端搭建可交互仿真，依执行反馈迭代
+Frontier VLM Agents Study|资源|-|None|A->E,E->A|med|评测七个前沿 VLM agent 的几何、空间与操作闭环表现，含多轮复查
+RobotWorld|资源|-|Code|A->M,M<->E,E->A|med|评测通用多模态 agent 经机器人接口执行 84 个跨形态任务的闭环
+Astra on VLN-CE|资源|-|None|A->E,E->A|med|评测 GPT-6-Astra 作为零样本 VLN-CE 决策者，观测与执行反馈闭环
+MLLM Drone Agents Eval|资源|-|None|A->E,E->A|high|评测 MLLM 直接作为无人机控制闭环 agent，覆盖接近、跟踪、搜索与编队
