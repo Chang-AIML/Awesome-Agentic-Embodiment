@@ -164,3 +164,15 @@ gap:2609.20116,Astra on VLN-CE,resource,Controller,-,-,GPT-6-Astra 在零样本 
 s10690,MLLM Drone Agents Eval,resource,Controller,-,-,评测 MLLM 作为无人机的通用视觉-语言-动作 agent；覆盖空中,,,,r3
 c01563,AutoRT,pioneer,Controller,orchestrator,G,VLM 描述场景、LLM 为机器人车队提出任务并按规则筛选，大规模调度真机采数据（1:N，开环）,,none,,r3
 s11012,EmbodiedSmith,core,Designer,-,G,用户点名：场景生成 agent 与任务生成 agent 互相编辑、经仿真验证迭代的生成式仿真（不是 Real2Sim：没有真实数据重建）,,,,r3
+c01972,GROVE,pioneer,Designer,-,G,o1-preview 沿 Eureka 写任务奖励代码并在训练中迭代重写，配合 VLM 奖励学人形的开放词汇技能；Eureka 到 2026 年奖励 agent 之间的一环,2504.04191,re-decide,,r4-2025
+c03021,LAMARL,pioneer,Designer,-,G,o1-preview 为多机器人协作写先验策略和奖励代码，再用 MARL 训练（30 台仿真、8 台真机）；多智能体奖励设计的先驱,2506.01538,none,,r4-2025
+c02132,BLAZER,pioneer,Teacher,-,G,LLaMA-3.3-70B 零样本在仿真里生成操作计划，经仿真验证成功的示范用来 LoRA 微调 8B 模型并迁移到真机；SUDD 到 GUAVA 之间的一环,2510.08572,none,,r4-2025
+c00887,NeSyC,pioneer,Developer,-,G,GPT-4o 提出动作前提规则，ASP 求解器按正负例检验，动作失败时反复修订规划知识库（VirtualHome、RLBench、真机）,2503.00870,re-decide,,r4-2025
+c00820,SkillWrapper,pioneer,Developer,-,G,GPT-5 驱动机器人探索黑盒技能、发明谓词并按得分保留，学出可用于规划的 PDDL 域（Franka 与双臂真机）,2511.18203,re-decide,,r4-2025
+c09985,RoboMoRe,pioneer,Developer,-,G,GPT-4-turbo 同时生成形态参数和奖励函数，在 MuJoCo 里由粗到精迭代、保留最优组合；RoboMorph 到 2026 年本体设计之间的一环,2506.00276,re-decide,,r4-2025
+c06985,Manual2Skill,pioneer,Controller,orchestrator,G,GPT-4o 读家具说明书生成层级装配图，驱动机械臂完成真实 IKEA 家具装配；训练的位姿估计模型只是工具,2502.10090,none,,r4-2025
+c00105,Chain-of-Modality,pioneer,Controller,direct,G,Gemini 1.5 Pro / GPT-4o 只靠提示，从一段带力觉或音频的人类视频推理出机器人程序并在真机执行,2504.13351,none,,r4-2025
+c01106,GenSwarm,pioneer,Controller,direct,G,多个 GPT-4o agent 分工为群体机器人写代码策略、自动部署到真实地面机器人，VLM 看执行视频评审后改进,2503.23875,re-decide,,r4-2025
+c01336,SPF,pioneer,Controller,direct,G,"See, Point, Fly：冻结的 Gemini 2.0 Flash 每一步在图像上标出航点、转成无人机速度指令（DJI Tello 实机）；通用 VLM 直接出动作的空中导航",2509.22653,re-decide,vln,r4-2025
+c01371,FORTRESS,pioneer,Supervisor,-,G,Gemini、Claude、DeepSeek-R1 预判失效模式，Molmo 给出兜底目标，构成语义代价；运行时监控触发后规划兜底动作,2505.10547,authored,,r4-2025
+c01992,RoboSafe,pioneer,Supervisor,-,G,Gemini-2.5-flash 作安全护栏，从近期轨迹推出可执行的安全谓词，拦截危险动作或触发重规划（AI2-THOR 与真机械臂）,2512.21220,re-decide,,r4-2025

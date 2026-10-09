@@ -82,13 +82,13 @@ runtime — controlling it or supervising it (**Seat**).*
 
 ## 4. 现状（2026-10-09）
 
-**精选清单**（用户 2026-10-09 决定回到精选，只收 arXiv 论文）：`data/core/paper_list.csv` 共 174 篇，逐篇读全文判定，保留 145、资源 20、剔除 9。保留的论文单独导出为 `data/core/agent_pool.csv`。
+**精选清单**（用户 2026-10-09 决定回到精选，只收 arXiv 论文）：`data/core/paper_list.csv` 共 186 篇，逐篇读全文判定，保留 157、资源 20、剔除 9。保留的论文单独导出为 `data/core/agent_pool.csv`。其中 12 篇 2025 年代表作是用户选定写法 A 后补的（「2025年补一下」），填先驱与 2026 年之间的断档。
 
 | 阶段 | 篇数 | 各 Seat |
 |---|---|---|
-| 执行前 | 53 | Designer 20、Teacher 9、Developer 24 |
-| 运行时 | 92 | Controller 80、Supervisor 12 |
+| 执行前 | 59 | Designer 22、Teacher 10、Developer 27 |
+| 运行时 | 98 | Controller 84、Supervisor 14 |
 
-保留的 145 篇中先驱（2022–2025）66 篇、2026 年 79 篇；多智能体专题 11 篇（保留 10、资源 1）。扩展列表中按同一标准补判过的 1,351 篇暂存在 `data/core/extended_judged.csv`，不进清单。
+保留的 157 篇中先驱（2022–2025）78 篇、2026 年 79 篇；多智能体专题 13 篇（保留 12、资源 1）。扩展列表中按同一标准补判过的其余 1,339 篇暂存在 `data/core/extended_judged.csv`，不进清单。
 
 **主线（草案）**：*Agency spreads around the body: general models, not embodied action models, fill seat after seat.*
