@@ -170,14 +170,16 @@
 16. 用户提出新的分层判断：**L1** 给机器人创造环境、重建、设计 reward（Developer 与 Designer），执行前的准备；**L2** 策略的生产者（CaP）、蒸馏（经验迁移）、LLM 隔着一层 harness 影响机器人、运行时监控（异常时介入）；**L3** 通用 LLM 在执行中直接当策略。随后用户画了 agent 回路框架图（`docs/agent_loop_framework.png`）：通用大模型 agent 必须存在并在回路中扮演角色。第一版重判：保留 113、待定·开环 28、资源 20、剔除 13。
 17. **箭头不必全有**（用户：「agent必须要和其中部件有所连接即可，无论是环境还是policy」）：agent 连到 Policy / Code 或 Env / Sim 之一即可，闭环不再是收录条件。28 篇待定·开环全部保留；LM-Nav、ReMEmbR 恢复；Embodied Agent Interface、VLABench、ASIMOV、WhenToAsk（查原文：决策者是现成 VLM，主贡献是评测）改为资源。全量判定中的 precursor（只差闭环）也算满足定义，统计与扩展列表随之扩大。
 18. **数据生成平台不收**（用户：「robotwin也不能算啊」）：RoboTwin 2.0、AutoRT、HumanoidGen 剔除；RoboFind 查原文后剔除（决策回路是 Uni-NaVid、DINO 阈值验证和确定性恢复，通用模型只在示教阶段整理目标）。只为 agent 角色微调过的通用模型（载体 C）算：AgentVLN（Qwen2.5-VL-3B 指令微调后调用技能、自我纠正）、Ludi、RoboFAC 恢复（用户问「AgentVLN为什么要剔除」后由我提出，用户未反对）；专门训练成感知模型、没有 agent 角色的不算（用户问过的 RoboTracer，不在候选里）。
-最终：保留 146（L1 41、L2 99、L3 6，其中开环 31、载体 C 4），资源 24，剔除 4。核心表 170 行。
+当时结果：保留 146、资源 24、剔除 4，核心表 170 行。
+19. **agent 必须是现成的通用大模型**（用户：「RoboFAC也不算啊，我说的是通用大模型，而不是被训练过的小模型，我建议你读读内容」），推翻第 18 条里「载体 C 算」的部分。据此下载 174 篇全文（arXiv PDF → pdftotext），18 个 Sonnet 子 agent 逐篇读方法与实验设置，写出决策模型、是否经作者训练（G / FT / SPEC）、论文主体（AGENT / DATA / BENCH）和原文证据（提示词 `screening/prompts/content_rejudge.txt`，原始输出 `data/judging_runs/content_rejudge/`）。改判 15 篇：AgentVLN、Ludi、RoboFAC（FT）、EmbodiedSmith（数据引擎，用户曾点名）、Articulate AnyMesh（资产流水线）、Tool-Aligned VLA Agent（主体是 VLA 后训练）、VLABench（评测 VLA）剔除；CaP-X、Smart-Agriculture Engine 改为资源；FAEA、Embodied Agents Take Control、EmboCoach-Bench、EmbodiedSWE、Orchestration Study 从资源改为保留（全文显示主体是 agent 系统）；AutoRT 恢复（未微调的 LLM 是系统核心，数据采集只是用途）。另有 49 篇改层或子类。
+最终：保留 144（L1 42、L2 88、L3 14），资源 20，剔除 10；核心表 164 行。用户说「之前survey的定义方式有问题，我们先把list做好」「给我csv就行」：现阶段交付物是 `data/core/layer_classification.csv`；`docs/progress_report.pdf` 与 `docs/survey_brief.pdf` 仍是 Seat 定义下的旧版，没有重新生成（`build_brief.py` 的 LINES 里还有已剔除的论文，重跑前要先改）。
 
 **2026-10-08（第三轮，第四批）**
 
 14. **agentic Real2Sim 只是一个子方向**：Real2Sim / Sim2Real 只收 9 篇代表作，其余进扩展列表；补漏时也只作为十条脉络之一。
 15. 用户问「你覆盖得全面了吗」：回答是此前不全面（2022–2025 年有 3,003 篇保留的候选没判过，4,376 篇候选没粗筛过，268 篇 Haiku 判定没复核过），本轮已全部补齐（§2）。先驱从 46 篇补到 70 篇：新增 21 篇（3 篇来自第三轮联网补漏），另有 Being-0、LRLL、OMNI-EPIC 是第二轮收过、这次重新收回的。
 
-尚未回复的问题（见报告「需要你决定」）：是否把三层（L1 / L2 / L3）换成 README 与报告的主轴（现在仍按 Seat 组织，层只是 `core_table.csv` 的一列）；载体 C 的规则（第 18 条）是否认可；主线措辞；副轴是否从 Carrier（只剩 G / C）换成 Interface；审阅新增论文（标「新」）；是否收闭环驾驶 agent；是否开 PR 合并到 main。另需用户确认：子 agent 误建的 3 个空会话是否归档（§7）。另有 13 个细节决策，见 `docs/definition_open_decisions.md`。
+尚未回复的问题：是否用同样的标准（读全文）补判核心表之外满足旧定义的约 1,700 篇（2026 年 830、2022–2025 年 902）和旧定义的边界 313 篇，把 list 补全；EmbodiedSmith、AutoRT 等边界案例；是否把三层（L1 / L2 / L3）换成 README 与报告的主轴（现在仍按 Seat 组织，层只是 `core_table.csv` 的一列）；主线措辞；副轴是否从 Carrier（只剩 G / C）换成 Interface；审阅新增论文（标「新」）；是否收闭环驾驶 agent；是否开 PR 合并到 main。另需用户确认：子 agent 误建的 3 个空会话是否归档（§7）。另有 13 个细节决策，见 `docs/definition_open_decisions.md`。
 
 ---
 

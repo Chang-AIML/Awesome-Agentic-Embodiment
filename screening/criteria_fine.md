@@ -10,7 +10,12 @@ re-decision by the model. Papers first judged with the strict A.3 were re-judged
 Revision 2026-10-09 (user decision 17): closing the loop is **no longer required** — the agent only has to
 connect to the policy / code layer or to the environment. Keep the verdicts below unchanged so earlier and
 later passes stay comparable: `precursor` now means "meets the definition, open loop" and is counted with
-`core` in the statistics and extended lists. Data-generation platforms (RoboTwin 2.0, AutoRT) stay `out`.
+`core` in the statistics and extended lists. Data-generation platforms (RoboTwin 2.0) stay `out`.
+
+Revision 2026-10-09 (user decision 19): the agent must be a general large model used as-is. A model the
+authors trained, fine-tuned or distilled is not the agent, even on a general base (AgentVLN, Ludi, RoboFAC are
+`out`); carrier C below no longer qualifies on its own. Judge from the full text when the abstract does not
+name the decision model (prompt: screening/prompts/content_rejudge.txt).
 
 ## Step 0 — scope: general foundation models, not embodied foundation models (user decision 2026-10-08)
 
@@ -111,7 +116,7 @@ tag `[real2sim]` (or `[real2sim2real]`). The agent's explicit decisions are its 
 - **precursor**: Step A.1 and A.2 hold but A.3 fails (open-loop plan/program/constraint, per-step
   decisions without own history, prediction-only checks), with a robot body. Typical: ZS-Planners,
   Socratic Models, LM-Nav, TidyBot, CoPa, MOKA, Instruct2Act, SMART-LLM, KnowNo, Text2Motion, Text2Reward,
-  RoboGen, GenSim. (ECoT, pi0.5 are out by Step 0; AutoRT is out as a data-collection platform, decision 18.)
+  AutoRT, RoboGen, GenSim. (ECoT, pi0.5 are out by Step 0.)
 - **boundary**: an agent holds but the best experiment is only in discrete/scripted simulation
   (ALFRED, AI2-THOR, VirtualHome, TEACh, TDW transport, R2R discrete graph, Habitat magic-grasp
   rearrangement, symbolic primitives), OR the domain is autonomous driving.

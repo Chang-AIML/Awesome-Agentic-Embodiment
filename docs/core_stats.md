@@ -41,33 +41,33 @@ Cells: primary seat (all-seat count, i.e. papers with that seat as primary or se
 
 Cells: primary seat (all-seat count, i.e. papers with that seat as primary or secondary).
 
-## B. Curated core table (n = 79, all 2026; quota-driven, not trend evidence)
+## B. Curated core table (n = 78, all 2026; quota-driven, not trend evidence)
 
 | Year | n | Controller | Supervisor | Teacher | Designer | Developer | Controller share (all-seat) | effective seats |
 |---|---|---|---|---|---|---|---|---|
-| 2026 | 79 | 40 (54) | 7 (11) | 6 (7) | 10 (15) | 16 (23) | 68% | 3.87 |
+| 2026 | 78 | 38 (53) | 7 (11) | 7 (8) | 9 (15) | 17 (23) | 68% | 3.94 |
 
 Cells: primary seat (all-seat count, i.e. papers with that seat as primary or secondary).
 
 | Seat | G | C |
 |---|---|---|
-| Controller | 37 | 3 |
+| Controller | 36 | 1 |
 | Supervisor | 7 | · |
-| Teacher | 4 | 2 |
-| Designer | 10 | · |
+| Teacher | 5 | 2 |
+| Designer | 9 | · |
 | Developer | 16 | · |
 
-## C. Pioneers (n = 67, 2022-2025)
+## C. Pioneers (n = 66, 2022-2025)
 
 | Year | n | Controller | Supervisor | Teacher | Designer | Developer | Controller share (all-seat) | effective seats |
 |---|---|---|---|---|---|---|---|---|
 | 2022 | 7 | 7 (7) | · | · | · | · | 100% | 1.00 |
 | 2023 | 26 | 17 (19) | 3 (4) | 2 (2) | 4 (5) | · | 73% | 2.82 |
-| 2024 | 23 | 14 (16) | 2 (2) | 1 (1) | 5 (5) | 1 (3) | 70% | 3.26 |
-| 2025 | 11 | 4 (4) | 2 (2) | · | 2 (3) | 3 (3) | 36% | 3.89 |
+| 2024 | 24 | 15 (17) | 2 (3) | 1 (1) | 5 (5) | 1 (3) | 71% | 3.33 |
+| 2025 | 9 | 4 (4) | 1 (1) | · | 1 (2) | 3 (3) | 44% | 3.60 |
 
 Cells: primary seat (all-seat count, i.e. papers with that seat as primary or secondary).
 
 
-Pioneers by year: 2022: 7, 2023: 26, 2024: 23, 2025: 11
-Loop form: core/authored: 10, core/none: 1, core/re-decide: 68, pioneer/authored: 12, pioneer/none: 14, pioneer/re-decide: 41
+Pioneers by year: 2022: 7, 2023: 26, 2024: 24, 2025: 9
+Loop form: core/-: 1, core/authored: 10, core/none: 1, core/re-decide: 66, pioneer/authored: 12, pioneer/none: 14, pioneer/re-decide: 40

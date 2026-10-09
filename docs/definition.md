@@ -27,7 +27,8 @@
 > 2026-10-09 用户的决策（编号接 `HANDOFF.md` §5 的 14、15）：
 > 16. **三层框架与 agent 回路图**（`agent_loop_framework.png`）：Agent → Policy / Code / None → Env / Sim，agent 也可直接作用于 Env / Sim，Env / Sim 的信息回到 agent。**通用大模型 agent 必须存在，并在其中扮演角色**。L1 准备层（造环境、重建、设计奖励与任务、改系统）、L2 中间层（策略生产者、编排者、经验迁移、运行时监控）、L3 执行层（通用模型直接出动作）。逐篇结果见 `layer_classification.md`。
 > 17. **箭头不必全有**：agent 只要连到 Policy / Code 或 Env / Sim 之一即可。**闭环不再是收录条件**，只记录形式（再决策 / 编写闭环 / 开环）。§2.1 第 3 条据此改写；决策 2 的「前驱 = 开环」、决策 8 和 9 的两个例外随之不再需要。
-> 18. **主体是数据生成平台的不收**（RoboTwin 2.0、AutoRT、HumanoidGen）；只为 agent 角色微调过的通用模型（载体 C，如 AgentVLN、RoboFAC）算；专门训练成感知或动作模型、没有 agent 角色的不算（RoboTracer）。
+> 18. **主体是数据生成平台的不收**（RoboTwin 2.0、HumanoidGen、EmbodiedSmith）。
+> 19. **agent 必须是现成的通用大模型**（用户：「我说的是通用大模型，而不是被训练过的小模型」）：作者训练、微调或蒸馏出的模型不算 agent，即使底座是通用模型（AgentVLN、Ludi、RoboFAC 剔除）；训练过的 VLA、技能、感知模型只能作为 agent 调用的工具；通用模型自己作为 agent 行动、其经验再蒸馏成小模型的算 L2 经验迁移（GUAVA、LocalNav）。§2.0 中「为 agent 角色微调后仍算」的说法作废。每篇按全文判定（`layer_classification.md`）。
 
 ---
 

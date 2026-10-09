@@ -1,7 +1,6 @@
 id,key,tier,seat,sub,carrier,why,arxiv,loop,theme,added
 c00168,RoboClaw,core,Controller,orchestrator,G,单 VLM 控制器统一数据采集、策略学习与执行，编排学习型原语并自复位（43 引）,,,,
 c00811,Thea,core,Controller,orchestrator,G,把 coding-agent harness 范式迁移到具身：工具化能力 + 场景图上下文；2026 harness 浪潮代表,,,,
-c00904,Tool-Aligned VLA Agent,core,Controller,orchestrator,G,VLM agent 规划并挑选专用 VLA 作为工具，依事件触发的进度反馈与失败重规划；VLA-as-tool 编排的代表,,,,r3
 c00256,Physical Agency,core,Controller,orchestrator,G,LLM 编排者规划、调用 VLA 与参数化技能，从观测核验结果后重规划，针对通用机器人的「编排缺口」,,,,r3
 c00150,Astra Robot Agents,core,Controller,orchestrator,G,GPT-6 Astra 把原语与 VLA 组合成带检查和重试的 Python 单元，按需请求观测；少用 65% token、成功率高 14%,,,,r3
 s00392,NovaPlan,core,Controller,orchestrator,G,闭环视频-语言规划：VLM 分解子目标、监控执行、失败时重规划，零样本长程真机操作,,,,r3
@@ -9,12 +8,12 @@ c00196,Cybo-Waiter,core,Controller,orchestrator,G,人形全身移动操作：VLM
 c01120,ABot-Claw,core,Controller,orchestrator,G,基于 OpenClaw 的具身 agent 调度异构机器人，持久 memory 与 critic 驱动的局部纠正；1:N 拓扑代表,,,,r3
 c01553,SpaceMind,core,Controller,orchestrator,G,卫星在轨服务：VLM agent 调度技能与 MCP 工具并自我进化，UE5 仿真与物理实验室验证；覆盖太空机器人,,,,r3
 s05604,AerialClaw,core,Controller,orchestrator,G,LLM agent 调用无人机的硬技能与 Markdown 软技能，依运行反馈迭代；开源空中 agent 框架,,,,r3
-c13403,Smart-Agriculture Engine,core,Controller,orchestrator,G,事件驱动的 LLM agent 经农机、无人机与传感器 API 管理整季大豆种植，真实农场部署；覆盖农业,,,,r3
+c13403,Smart-Agriculture Engine,resource,Controller,orchestrator,G,事件驱动的 LLM agent 经农机、无人机与传感器 API 管理整季大豆种植，真实农场部署；覆盖农业,,,,r3
 c06162,AGRO-SUVIDE,core,Controller,orchestrator,G,手术清创：coding agent 由一次示范构建技能，运行时监控按前后条件组合循环图；覆盖手术机器人,,,,r3
 c00180,Show-Harness,core,Controller,direct,G,用户点名：前沿 VLM 输出语义微动作由确定性解释器执行，零样本真机,,,,
-t076,CaP-X,core,Controller,direct,G,coding agent 写当下执行的控制代码并依视觉差分反馈修正；CaP 的闭环继承者与评测框架,,,,
+t076,CaP-X,resource,Controller,direct,G,coding agent 写当下执行的控制代码并依视觉差分反馈修正；CaP 的闭环继承者与评测框架,,,,
 c00453,Agent as Policy,core,Controller,direct,G,通用 agent 写程序、发运动指令并依物理结果修订，直接驱动真机,,,,
-c00191,FAEA,resource,Controller,direct,G,软件工程 agent 框架不改动直接用于操作（LIBERO 等），robot-use agent 代表,,,,
+c00191,FAEA,core,Controller,direct,G,软件工程 agent 框架不改动直接用于操作（LIBERO 等），robot-use agent 代表,,,,
 c01718,VIA,core,Controller,direct,G,FM 通过浏览器式 3D 界面像操作软件一样驱动机械臂；接口新颖,,,,
 t128,OpenRUA,core,Controller,direct,G,现成 coding agent 在终端工作区写 ROS 2 代码并当场运行；robot-use agent 本身就是零样本视觉运动策略,,,,r3
 c00452,Astra on RoboDojo,resource,Controller,direct,G,用户点名：通用 LLM（GPT-6 Astra 等）不经微调直接当操作策略（LLM as policy），在 RoboDojo 全部 42 个任务上评测，排名超过 40 个公开策略,,,,r3
@@ -29,7 +28,6 @@ c00595,Teach and Grow,core,Controller,lifelong,G,coding agent 把少量示范变
 c01216,CaP Great Again,core,Controller,lifelong,G,编程 agent 依执行反馈编写、进化机器人工具，执行 agent 调用；Code as Policies 的 2026 版,,,,r3
 s01312,PhysMem,core,Controller,lifelong,G,VLM 规划者记录经验、提出物理原理假设并用针对性试验验证，测试时 memory 扩展物理推理,,,,r3
 gap:2610.09228,Robo-COP,core,Controller,lifelong,G,VLM 编排者在部署中从自己的执行里整理示范、决定何时微调 VLA，只有经验证变好才采用新策略；编排者与策略共同进化,,,,r3
-c00981,Ludi,core,Controller,orchestrator,C,微调的 VLM 决策核心配工具循环 harness，处理澄清、纠正与社交互动（C）；覆盖社交机器人,,,,r3
 c02774,FRAMES,core,Supervisor,-,G,人形机器人多视角技能监测与恢复（×R）,,,,
 t270,WhenToAsk,resource,Supervisor,-,G,失败后在恢复、补充感知和向人求助之间选择；人机对话式恢复,,,,
 c00702,Agentic Task Graph,core,Supervisor,-,G,三个 agent 预先写出任务图、恢复分支与可执行监控，从被动恢复转向预判（编写闭环）,,,,r3
@@ -40,7 +38,7 @@ s07595,"When to Act, Ask, or Learn",core,Supervisor,-,G,VLM 验证者在策略�
 c01196,Beyond Human Demos,core,Supervisor,-,G,LLM 写可执行的护栏代码，在运行时过滤遥操作与策略发出的危险指令（编写闭环）,,,,r3
 c01707,GUAVA,core,Teacher,-,G→C,用户点名：前沿 VLM 在 harness 中行动的轨迹蒸馏为 4B agent，同接口 agent→agent 迁移,,,,
 c00481,RHD,core,Teacher,-,G,强 agent 的经验提炼成 playbook 供轻量 agent 使用（in-context 迁移）,,,,
-t014,EmbodiedSWE,resource,Teacher,-,G,coding agent 迭代编写调试灵巧操作程序，经验证解扩展为训练示范,,,,
+t014,EmbodiedSWE,core,Teacher,-,G,coding agent 迭代编写调试灵巧操作程序，经验证解扩展为训练示范,,,,
 c06161,Frontier Demo Generation,core,Teacher,-,G,前沿模型自主生成示范，累积纠错的上下文示例，训练出快速的学习策略,,,,r3
 c00281,CAPEX,core,Teacher,-,G,基础模型作为自主示范者，依执行经验重规划并自适应调用频率，行为蒸馏为可部署策略,,,,r3
 s06667,SkillWeaver,core,Teacher,-,G,VLM agent 调用并参数化 RL 训练的神经交互技能、观察结果后探索，产出的轨迹用于训练,,,,r3
@@ -63,7 +61,6 @@ gap:2610.08995,PhysEvo,core,Developer,-,G,冻结的 GPT-6 Astra 执行任务，m
 gap:2610.09283,LACE-CRAFT,core,Developer,-,G,反馈、形态、奖励、整合四个 LLM 角色共享实验记录，交叉评审形态-奖励提案，固定任务指标决定保留或回滚；机器人协同设计,,,,r3
 c00155,RPG,core,Developer,-,G,用户点名：从数据集重建练习任务，在仿真中诊断失败、写新技能并修改 system prompt，经跨任务评测保留后回到真机,,,real2sim2real,r3
 c00495,SimEX,core,Developer,-,G,用户点名：coding agent 在仿真中迭代机器人工具箱代码，再借少量真机试验同时修正工具箱与仿真器（robotics AutoResearch）,,,real2sim2real,
-s11012,EmbodiedSmith,core,Designer,-,G,用户点名：场景生成与任务生成互相编辑的递归自改进飞轮，规模化产出仿真数据与评测环境,,,real2sim,r3
 s00077,Agentic Real2Sim,core,Designer,-,G,VLM agent 从真实录像出发，迭代调用工具构建可仿真的物理孪生；agentic Real2Sim 的代表,,,real2sim,r3
 c00201,Real2Gym,core,Developer,-,G,agent 从示范视频重建场景、写阶段代码，依仿真结果诊断修正后把技能带回真机,,,real2sim2real,r3
 c03222,Vid2Sid,core,Designer,-,G,VLM 对比仿真与真实视频、诊断差异并提出物理参数修改，缩小 sim2real 差距,,,real2sim,r3
@@ -73,12 +70,11 @@ c00362,GPT-6-Astra XLeRobot,core,Controller,lifelong,G,GPT-6-Astra 写控制程�
 gap:2610.10479,Agentic RSR,core,Developer,-,G,agent 从工作区视频恢复尺度、依视觉反馈迭代重建 MuJoCo 场景，coding agent 再开发策略并回到真机；Real2Sim2Real 全链路,,,real2sim2real,r3
 c01104,AgenticNav,core,Controller,direct,G,VLM 在 harness 中调用动作、深度与 memory 工具，带着自己的推理历史选择目标像素；VLN-CE 闭环,,,vln,r3
 c01426,HarnessVLN,core,Controller,orchestrator,G,训练无关的 MLLM 规划提案经 harness 验证，执行反馈更新 memory 与拓扑图，统一多种导航任务,,,vln,r3
-c06679,Embodied Agents Take Control,resource,Controller,direct,G,通用 coding-agent harness 掌管每一步导航动作并自我纠错，零样本可比工业级系统,,,vln,r3
+c06679,Embodied Agents Take Control,core,Controller,direct,G,通用 coding-agent harness 掌管每一步导航动作并自我纠错，零样本可比工业级系统,,,vln,r3
 c04069,ASENA,core,Controller,lifelong,G,coding agent 写并运行程序、调用导航 VLA 工具、检查结果并修复，经验随任务积累,,,vln,r3
 s03802,One Agent to Guide Them All,core,Controller,direct,G,MLLM 在可交互的度量世界表示上推理并做反事实检查，统一多种 VLN 任务，仿真与真机,,,vln,r3
 s11144,HAM-VLN,core,Controller,direct,G,MLLM 选择下一个路点并写分层 memory（含失败记录），后续调用再读入,,,vln,r3
 s06980,OnFly,core,Controller,direct,G,机载零样本空中 VLN：一个 VLM 生成导航目标，另一个依关键帧监控进度与安全；覆盖无人机,,,vln,r3
-s05277,AgentVLN,core,Controller,orchestrator,C,训练过的 VLM 作大脑调用导航技能库，带自我纠错与主动探索（C）,,,vln,r3
 c03976,LocalNav,core,Teacher,-,G→C,前沿 VLM 导航 agent 轨迹蒸馏到端侧 4B VLM；覆盖 nav 的 Teacher,,,vln,
 c05659,NORM-Nav,core,Controller,direct,G,约束编程类导航：LLM 把指令解析成结构化行为约束，依实时感知落成代价地图层由规划器执行并在线重规划,,,vln,r3
 s11075,Air-Ground VLN,core,Controller,orchestrator,G,无人机与地面车的 VLM 在共享鸟瞰地图上推理并互相下发子目标，空地协同 VLN；×N 拓扑,,,vln,r3
@@ -124,7 +120,6 @@ c00434,CurricuLLM,pioneer,Designer,-,G,LLM 生成子任务课程与奖励代码�
 c00809,Eurekaverse,pioneer,Designer,-,G,LLM 写地形环境代码并依训练结果迭代课程,,re-decide,,
 c00791,DrEureka,pioneer,Designer,-,G,奖励 + domain randomization 设计，四足 sim-to-real,,re-decide,sim2real,
 c00870,Video2Policy,pioneer,Designer,-,G,从视频重建仿真任务并依 RL 反馈迭代奖励代码,,re-decide,real2sim,
-c08731,Articulate AnyMesh,pioneer,Designer,-,G,VLM 视觉提示分割部件并构建关节，把刚体网格变成可仿真的铰接资产；agentic Real2Sim 的先驱（开环）,,none,real2sim,r3
 c01684,RoboMorph,pioneer,Developer,-,G,LLM 进化机器人形态（硬件），最早的 Developer,,re-decide,,
 c09484,VLMgineer,pioneer,Developer,-,G,VLM 协同设计工具与动作并以仿真进化评估；硬件侧 Developer,,re-decide,,
 c01022,SayPlan,pioneer,Controller,orchestrator,G,LLM 在 3D 场景图上做语义搜索并规划，场景图模拟器的反馈触发迭代重规划；大尺度环境规划的代表（530 引；证据主要在符号层面，按 rubric 属边界）,,re-decide,,r3c
@@ -142,7 +137,6 @@ c01030,SayNav,pioneer,Controller,orchestrator,G,LLM 基于逐步构建的 3D 场
 c08742,VLMnav,pioneer,Controller,direct,G,不做感知、规划、控制的分工，VLM 每一步直接选择导航动作，零样本当端到端导航策略；通用 VLM 直接出导航动作,,re-decide,vln,r3c
 c00859,RoboGuard,pioneer,Supervisor,-,G,两级护栏：先用推理模型把安全规范落到当前场景，再把 LLM 机器人的计划与时序逻辑约束对照、在线修正；抵御越狱攻击（真机）,,authored,,r3c
 c00656,Real-Time Anomaly Detection,pioneer,Supervisor,-,G,快慢两级：小模型实时判断观测是否异常，LLM 慢推理选择回退方案并接入安全控制；运行时监控的代表（107 引，开环）,,none,,r3c
-c08846,RoboFAC,pioneer,Supervisor,-,C,在大规模失败轨迹上微调的 VLM 分析失败原因并给出纠正指令，在真机上纠正 VLA 的执行；Supervisor 中 carrier C 的例子,,re-decide,,r3c
 c01293,RobotGPT,pioneer,Teacher,-,G,ChatGPT 生成并在仿真中验证操作代码，用通过验证的执行数据训练更稳定的策略；Teacher 的早期代表（124 引）,,re-decide,,r3c
 c00810,Agentic Skill Discovery,pioneer,Designer,-,G,LLM 提出新任务并写奖励，VLM 验证技能是否学会，学会的进入技能库、再据此提出下一个任务（仿真与真机）,,re-decide,,r3c
 t336,OMNI-EPIC,pioneer,Designer,-,G,基础模型按人类的「有趣」标准不断写出新环境与奖励代码，形成开放式课程训练智能体；Designer 的开放式学习一支,2405.15568,re-decide,,
@@ -152,20 +146,20 @@ gap:2506.14763,RobotSmith,pioneer,Developer,-,G,提议者与评审者两个 LLM 
 gap:2507.16841,AquaChat,pioneer,Controller,orchestrator,G,GPT-4 把用户指令转成水下 ROV 的网箱巡检计划，任务出错时依底层控制反馈重规划（仿真与水池实测）；水下身体的先驱（2026 年有 AquaCap）,,re-decide,,r3c
 gap:2502.09560,EmbodiedBench,resource,Controller,-,-,24 个 MLLM 作为视觉驱动具身 agent 的综合评测，从高层规划到低层操作,,,,
 gap:2410.07166,Embodied Agent Interface,resource,Controller,-,-,把 LLM 具身决策拆成目标解释、子目标分解、动作序列、转移建模四个模块逐项评测,,,,
-c01624,VLABench,resource,Controller,-,-,语言条件操作的大规模长程推理 benchmark（228 引）,,,,
 gap:2506.06677,RoboCerebra,resource,Controller,-,-,评测 VLM 规划者编排 VLA 控制器的长程 benchmark,,,,
 c06897,EmbodiedEval,resource,Controller,-,-,交互式评测 MLLM 作为具身 agent（导航、交互、问答）,,,,
 t279,PARTNR,resource,Controller,-,-,人机协作规划与推理 benchmark（F1，作为资源收录）,,,,
 c02705,LIBERO-Agent,resource,Controller,-,-,评测通用 agent 直接发出原生动作指令操作机器人,,,,
 gap:2609.33807,CodeActionBench,resource,Controller,-,-,agentic Code-as-Policy 的 25 任务 benchmark，含隐藏物理结果,,,,
-c03076,Orchestration Study,resource,Controller,-,-,对 VLM 规划者 + VLA 分层 agent 的系统性受控研究,,,,
+c03076,Orchestration Study,core,Controller,-,-,对 VLM 规划者 + VLA 分层 agent 的系统性受控研究,,,,
 gap:2412.13178,SafeAgentBench,resource,Controller,-,-,750 个危险/安全任务，测试具身 LLM agent 是否拒绝危险指令,,,,
 c01650,IS-Bench,resource,Supervisor,-,-,交互式安全评测：VLM 驱动家务 agent 在过程中是否规避风险,,,,
 gap:2503.08663,ASIMOV,resource,Supervisor,-,-,自动生成机器人宪章与语义安全 benchmark,,,,
 c02169,RLE-Bench,resource,Developer,-,-,coding agent 作为机器人学习工程师的资格考试,,,,
-gap:2601.21570,EmboCoach-Bench,resource,Developer,-,-,32 个 RL/IL 任务，LLM agent 迭代编写、调试训练代码,,,,
+gap:2601.21570,EmboCoach-Bench,core,Developer,-,-,32 个 RL/IL 任务，LLM agent 迭代编写、调试训练代码,,,,
 s04733,Video2World,resource,Designer,-,-,用户点名：评测 coding agent 能否从具身视频端到端构建可交互仿真（222 个重建实例）；与 Real2Sim 章交叉引用,,,real2sim,r3
 c00279,Frontier VLM Agents Study,resource,Controller,-,-,七个前沿 VLM agent 在几何、空间与操作任务上的实证研究：它们离机器人通才还有多远,,,,r3
 gap:2610.10409,RobotWorld,resource,Controller,-,-,84 个机器人使用任务，覆盖操作、移动操作、足式、驾驶与空中控制，带交互预算与可执行成功检查,,,,r3
 gap:2609.20116,Astra on VLN-CE,resource,Controller,-,-,GPT-6-Astra 在零样本 VLN-CE 闭环中的能力评测（R2R-CE 成功率 52%），与 RoboDojo 评测互补,,,,r3
 s10690,MLLM Drone Agents Eval,resource,Controller,-,-,评测 MLLM 作为无人机的通用视觉-语言-动作 agent；覆盖空中,,,,r3
+c01563,AutoRT,pioneer,Controller,orchestrator,G,VLM 描述场景、LLM 为机器人车队提出任务并按规则筛选，大规模调度真机采数据（1:N，开环）,,none,,r3

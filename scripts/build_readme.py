@@ -145,8 +145,10 @@ def main():
            "## Scope and what counts as an agent", "",
            "**Scope.** General-purpose foundation models (LLMs / VLMs such as GPT, Gemini, Claude, Qwen-VL, GPT-6 Astra) "
            "doing embodied work as agents. They may plan, call skills, tools or VLAs, write code or constraints, or emit "
-           "actions directly (LLM-as-policy, e.g. GPT-6 Astra evaluated as a robot policy on RoboDojo). A general model "
-           "fine-tuned for an agent role still counts if it keeps acting through an agent interface (e.g. GUAVA). "
+           "actions directly (LLM-as-policy, e.g. GPT-6 Astra evaluated as a robot policy on RoboDojo). The agent must be "
+           "a general model used as-is: a model the authors trained or fine-tuned does not count; trained VLAs, skills "
+           "and perception models appear only as tools the agent calls, and a general agent's own experience may be "
+           "distilled into a smaller model (e.g. GUAVA). "
            "**Embodied foundation models that produce actions are not included** — VLAs (also with reasoning, memory or "
            "self-correction), hierarchical VLAs, world action models, robot foundation models (π0.5, ECoT, OneTwoVLA, "
            "Hi Robot, Gemini Robotics, PaLM-E); they appear here only as tools called by an agent.", "",
