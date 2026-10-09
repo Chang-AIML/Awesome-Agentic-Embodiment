@@ -10,15 +10,12 @@
 - **项目**：一个 awesome list 和一篇 survey，主题是 *agentic embodiment*，即通用大模型（LLM / VLM）作为 agent 做具身任务。
 - **现阶段以 list 为主。** 用户原话：「之前survey的定义方式有问题，我们先把list做好」「给我csv就行」。
 - **分类**：两个阶段、五个 Seat（§1.3），外加三个横跨 Seat 的专题：Real2Sim / Sim2Real、VLN、**多智能体**（用户 2026-10-09 要求单独成章，§1.5）。
-- **当前交付物**：`data/core/paper_list.csv`，共 2,053 篇：保留 1,574、资源 27、剔除 452。
-  - 核心表 174 篇（保留 145、资源 20、剔除 9）：逐篇读全文，结论沿用上一轮。
-  - 本轮补判两份扩展列表 + 边界论文：
-    - 有 arXiv 版本的读全文：Haiku 初判，Sonnet 复核（复核主要纠正 Seat）；
-    - 不在 arXiv 上的 527 篇按摘要判，理由以「仅摘要」开头（保留 392）；
-    - 边界论文里标题即可确定是自动驾驶的 36 篇按标题排除；
-    - 候选池里同一篇论文有时有两条记录（arXiv 版 + 期刊版，或 DOI 是 `10.48550/arXiv…` 的副本）：arXiv DOI 的 29 条副本没再收；期刊版与 arXiv 版标题几乎相同的 15 对，删掉按摘要判的那条，保留读过全文的（记录在 `data/judging_runs/title_duplicates.csv`、`arxiv_doi_duplicates.csv`）；
-    - 119 篇既无全文也无摘要，没判，列在 `data/core/unjudged_no_text.csv`。
-  - 保留的按 Seat：Designer 132、Teacher 43、Developer 105、Controller 1,224、Supervisor 70；多智能体 278 篇。
+- **只收 arXiv 论文**（用户 2026-10-09：「你不用管这些期刊，可以主要focus在arxiv」）。不在 arXiv 上的期刊 / 会议论文移到 `data/core/non_arxiv_papers.csv`（528 篇，多按摘要判过，留作参考），`unjudged_no_text.csv` 的 119 篇也不再追。
+- **当前交付物**：
+  - `data/core/agent_pool.csv`：**agent 池子**，即保留的 1,185 篇，按阶段 → Seat → 角色 → 年份排好，最方便看。
+  - `data/core/paper_list.csv`：全部判过的 arXiv 论文 1,525 篇（保留 1,185、资源 26、剔除 314），带决策模型、理由和原文证据。
+  - 核心表 174 篇（保留 145、资源 20、剔除 9）沿用上一轮；本轮新增保留 1,040 篇，都是读全文判的（Haiku 初判 + Sonnet 复核），只有 3 篇因 PDF 下载失败按摘要判。
+  - 保留的按 Seat：Designer 114、Teacher 38、Developer 95、Controller 878、Supervisor 60；多智能体 210 篇。
 - **还没做完 / 需要用户看的**：见 §4。
 
 ---
@@ -100,7 +97,7 @@
   - 通用大模型 agent 分配、规划或协调两个及以上机器人（含异构团队）；
   - 论文把系统呈现为两个及以上分工不同、互相对话或交接工作的通用大模型 agent。
   - 单个机器人上的几次 prompt 调用流水线、只有人机对话、单 agent 调 subagent 工具，都不算。
-- 结果：保留的论文里 278 篇是多智能体（核心表 11 篇：RoCo、SMART-LLM、AutoRT、ABot-Claw、Air-Ground VLN、AdaHVLA、ENPIRE、LACE-CRAFT、ROOT、Skill2Real、PARTNR）。第二条标准偏宽，按「多个角色 agent」收进来的论文不少，用户可能想收紧。
+- 结果：保留的论文里 210 篇是多智能体（核心表 11 篇：RoCo、SMART-LLM、AutoRT、ABot-Claw、Air-Ground VLN、AdaHVLA、ENPIRE、LACE-CRAFT、ROOT、Skill2Real、PARTNR）。第二条标准偏宽，按「多个角色 agent」收进来的论文不少，用户可能想收紧。
 
 ---
 
@@ -108,8 +105,10 @@
 
 | 文件 | 状态 | 说明 |
 |---|---|---|
-| `data/core/paper_list.csv` | **当前主文件** | list 本身，2,053 篇。UTF-8 带 BOM，Excel 可直接打开。列见 §3 |
-| `data/core/unjudged_no_text.csv` | 当前 | 119 篇没判的（无全文、无摘要），带 DOI，以后可以手动找全文 |
+| `data/core/agent_pool.csv` | **当前** | agent 池子：保留的 1,185 篇，由 `build_paper_list.py` 生成，不要手改 |
+| `data/core/non_arxiv_papers.csv` | 参考 | 不在 arXiv 上的 528 篇（用户决定不收），保留原判定 |
+| `data/core/paper_list.csv` | **当前主文件** | list 本身，1,525 篇 arXiv 论文。UTF-8 带 BOM，Excel 可直接打开。列见 §3 |
+| `data/core/unjudged_no_text.csv` | 参考 | 119 篇没判的（无全文、无摘要），带 DOI，以后可以手动找全文 |
 | `docs/paper_list.md` | 当前 | 可读版，由 `scripts/build_paper_list.py` 从 CSV 生成，不要手改 |
 | `docs/definition.md` | 当前 | 定义：收录标准六条 + 两个阶段、五个 Seat。旧版在 `docs/history/definition_round3.md` |
 | `docs/agent_loop_framework.png` | 当前 | 用户画的回路图（收录标准） |
@@ -157,11 +156,10 @@
 
 ### 4.1 需要用户看、或等用户决定的
 
-1. **多智能体的定义**（§1.5）：现在 278 篇，第二条（多个角色 agent）偏宽，用户可能想收紧成「多机器人」为主。
-2. **按摘要判的 392 篇保留论文**：不在 arXiv 上、拿不到全文（多是 IEEE / Elsevier / MDPI 期刊和会议）。摘要常常看不出模型是否被微调，这批的可靠性低于全文判定（例：c03744 按摘要判保留，找到 arXiv 全文后改判剔除；另有 3 篇期刊版按摘要判剔除、arXiv 版读全文却是保留）。要不要保留、或者想办法补全文（有机构订阅的话最简单）。
-3. **119 篇没判的**（`data/core/unjudged_no_text.csv`）：没有全文也没有摘要，多是 2026 年的 Elsevier / IEEE / Springer 论文。等 arXiv / Semantic Scholar 限流恢复后可以再用 `resolve_fulltext.py` 查一次。
-4. Minecraft / Overcooked 这类游戏环境我按六条规则正常判了，用户没表态。
-5. 上一轮留下的边界案例，用户还没表态：
+1. **多智能体的定义**（§1.5）：现在 210 篇，第二条（多个角色 agent）偏宽，用户可能想收紧成「多机器人」为主。
+2. （已按用户决定处理）期刊论文不收；按摘要判的、没判的都移出了主清单。
+3. Minecraft / Overcooked 这类游戏环境我按六条规则正常判了，用户没表态。
+4. 上一轮留下的边界案例，用户还没表态：
 
    | 论文 | 现在的结论 | 理由 |
    |---|---|---|
@@ -171,12 +169,12 @@
    | GPT-6 Astra on RoboDojo | 资源 | 全文判为评测研究，但用户举它当「LLM 直接出动作」的例子 |
    | VLABench、ASIMOV | 剔除 / 资源 | 本轮校准时 Haiku 和 Sonnet 都给了相反结论（VLABench→资源，ASIMOV→剔除），核心表没改，值得再看一眼 |
 
-6. 12 篇 Seat 逐条决定的（§1.3），用户还没看过；主线措辞（草案见 `docs/definition.md` 末尾）。
-7. 之前子 agent 误建了 3 个空会话，是否归档：`session_013djFc2XBveZ6ad9rat1T8j`、`session_01L6M4LteFn1EGYUVGkBicSQ`、`session_01DcP3xf6pjhGHUGTtG2WJVr`。
+5. 12 篇 Seat 逐条决定的（§1.3），用户还没看过；主线措辞（草案见 `docs/definition.md` 末尾）。
+6. 之前子 agent 误建了 3 个空会话，是否归档：`session_013djFc2XBveZ6ad9rat1T8j`、`session_01L6M4LteFn1EGYUVGkBicSQ`、`session_01DcP3xf6pjhGHUGTtG2WJVr`。
 
 ### 4.2 list 定稿之后
 
-1. 从 1,429 篇新保留的论文里挑代表作进核心表（`core_selection.csv`，记得 theme 列），重跑 README。现在它们都在 README 末尾的「More papers」折叠表里。
+1. 从 1,040 篇新保留的论文里挑代表作进核心表（`core_selection.csv`，记得 theme 列），重跑 README。现在它们都在 README 末尾的「More papers」折叠表里。
 2. 补判论文的短名是从标题自动生成的，进核心表的要手工起短名。
 3. 按 `docs/definition.md` 写综述正文：先讲收录标准，再按两个阶段、五个 Seat 分章，每章先讲先驱再讲 2026。
 4. 更新 `docs/list_summary.pdf`（`scripts/build_list_summary.py`；用户现阶段不要 PDF，等用户要了再做）。
@@ -263,4 +261,4 @@ python3 scripts/build_paper_list.py && python3 scripts/build_core_table.py && py
    - 读全文判定。
 
    174 篇读全文重判后，用户又把分类改回两个阶段、五个 Seat（决策 20），收录标准保持最后一轮的。各条决策的完整记录见 `docs/history/definition_round3.md` 开头（决策 1–19）和 `docs/history/HANDOFF_round3.md` §5。
-4. **2026-10-09（第二次）**：用户决定离散具身仿真算、纯文本世界和自动驾驶不算（决策 21），并要求单独建多智能体章节（决策 22）。补判了两份扩展列表和边界论文共 1,890 篇（有 arXiv 的读全文，Haiku 初判 + Sonnet 复核；其余按摘要），清单扩到 2,053 篇（含去重）。
+4. **2026-10-09（第二次）**：用户决定离散具身仿真算、纯文本世界和自动驾驶不算（决策 21），并要求单独建多智能体章节（决策 22）。补判了两份扩展列表和边界论文共 1,890 篇（有 arXiv 的读全文，Haiku 初判 + Sonnet 复核；其余按摘要），清单扩到 2,053 篇（含去重）。随后用户决定只收 arXiv 论文（决策 23），主清单变为 1,525 篇，agent 池子 1,185 篇。

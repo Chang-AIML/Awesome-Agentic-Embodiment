@@ -82,23 +82,19 @@ runtime — controlling it or supervising it (**Seat**).*
 
 ## 4. 现状（2026-10-09）
 
-清单（`data/core/paper_list.csv`）共 2,053 篇：保留 1,574、资源 27、剔除 452。
+**只收 arXiv 论文**（用户 2026-10-09）。清单（`data/core/paper_list.csv`）共 1,525 篇：保留 1,185、资源 26、剔除 314。保留的论文单独导出为 `data/core/agent_pool.csv`。
 
 - 核心表 174 篇：逐篇读全文判定（保留 145、资源 20、剔除 9）。
-- 补判的扩展列表和边界论文：
-  - 有 arXiv 版本的读全文，Haiku 初判、Sonnet 复核；
-  - 不在 arXiv 上、拿不到全文的 527 篇按摘要判，理由以「仅摘要」开头（其中保留 392 篇）；
-  - 边界里标题即可确定是自动驾驶的按标题排除；
-  - 同一工作的期刊版和 arXiv 版只留读过全文的一条（去掉的记在 `judging_runs/title_duplicates.csv`）；
-  - 另有 119 篇既无全文也无摘要，未判，列在 `data/core/unjudged_no_text.csv`。
+- 补判的扩展列表和边界论文：读全文，Haiku 初判、Sonnet 复核；边界里标题即可确定是自动驾驶的按标题排除；同一工作的重复记录只留一条。
+- 不在 arXiv 上的 528 篇移到 `data/core/non_arxiv_papers.csv`，不再收录。
 
-保留的 1,574 篇按阶段和 Seat 分：
+保留的 1,185 篇按阶段和 Seat 分：
 
 | 阶段 | 篇数 | 各 Seat |
 |---|---|---|
-| 执行前 | 280 | Designer 132、Teacher 43、Developer 105 |
-| 运行时 | 1,294 | Controller 1,224、Supervisor 70 |
+| 执行前 | 247 | Designer 114、Teacher 38、Developer 95 |
+| 运行时 | 938 | Controller 878、Supervisor 60 |
 
-其中 278 篇属于多智能体专题。
+其中 210 篇属于多智能体专题。
 
 **主线（草案）**：*Agency spreads around the body: general models, not embodied action models, fill seat after seat.*
