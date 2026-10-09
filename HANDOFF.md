@@ -1,6 +1,6 @@
 # 交接文档：Awesome Agentic Embodiment
 
-> 最后更新：2026-10-09（第二次）。本轮在分支 `claude/extended-rejudge` 上：补判了扩展列表和边界论文，加了多智能体专题。
+> 最后更新：2026-10-09（第三次）。本轮在分支 `claude/extended-rejudge` 上：补判了扩展列表和边界论文、加了多智能体专题；随后用户决定**回到精选清单**（决策 24），补判结果暂存一边，并开始写综述方案。
 > 旧版交接（第一至三轮，按 Seat × Carrier 定义做的部分）原样保留在 `docs/history/HANDOFF_round3.md`，里面有更早的检索漏斗、各轮判定和踩坑的细节，需要时再查。
 
 ---
@@ -11,11 +11,13 @@
 - **现阶段以 list 为主。** 用户原话：「之前survey的定义方式有问题，我们先把list做好」「给我csv就行」。
 - **分类**：两个阶段、五个 Seat（§1.3），外加三个横跨 Seat 的专题：Real2Sim / Sim2Real、VLN、**多智能体**（用户 2026-10-09 要求单独成章，§1.5）。
 - **只收 arXiv 论文**（用户 2026-10-09：「你不用管这些期刊，可以主要focus在arxiv」）。不在 arXiv 上的期刊 / 会议论文移到 `data/core/non_arxiv_papers.csv`（528 篇，多按摘要判过，留作参考），`unjudged_no_text.csv` 的 119 篇也不再追。
+- **回到精选清单**（用户 2026-10-09：「太多了，不可能有这么多的，我心目中总共最多也就100多篇」「可以回到之前的精选吧，剩余的先不管了」）。
 - **当前交付物**：
-  - `data/core/agent_pool.csv`：**agent 池子**，即保留的 1,185 篇，按阶段 → Seat → 角色 → 年份排好，最方便看。
-  - `data/core/paper_list.csv`：全部判过的 arXiv 论文 1,525 篇（保留 1,185、资源 26、剔除 314），带决策模型、理由和原文证据。
-  - 核心表 174 篇（保留 145、资源 20、剔除 9）沿用上一轮；本轮新增保留 1,040 篇，都是读全文判的（Haiku 初判 + Sonnet 复核），只有 3 篇因 PDF 下载失败按摘要判。
-  - 保留的按 Seat：Designer 114、Teacher 38、Developer 95、Controller 878、Supervisor 60；多智能体 210 篇。
+  - `data/core/paper_list.csv`：精选清单 174 篇（保留 145、资源 20、剔除 9），逐篇读全文判定，带决策模型、理由和原文证据。
+  - `data/core/agent_pool.csv`：保留的 145 篇，按阶段 → Seat → 角色 → 年份排好。
+  - 保留的按 Seat：Designer 20、Teacher 9、Developer 24、Controller 80、Supervisor 12（先驱 66、2026 年 79）；多智能体 11 篇（保留 10、资源 1）。
+  - **综述写作方案**（中文，约 5 页，Claude Doc「Agentic Embodiment 综述写作方案」）：等用户讨论。
+- **暂存、先不管的**：`data/core/extended_judged.csv`，扩展列表和边界论文按同一标准补判过的 1,351 篇 arXiv 论文（其中判保留 1,040 篇）。用户觉得数量远超预期，可能是收录规则偏宽或误判（抽样约一成边缘误判，见 §7 第 5 条），以后要用时先收紧规则再挑。
 - **还没做完 / 需要用户看的**：见 §4。
 
 ---
@@ -105,9 +107,10 @@
 
 | 文件 | 状态 | 说明 |
 |---|---|---|
-| `data/core/agent_pool.csv` | **当前** | agent 池子：保留的 1,185 篇，由 `build_paper_list.py` 生成，不要手改 |
+| `data/core/agent_pool.csv` | **当前** | 保留的 145 篇，由 `build_paper_list.py` 生成，不要手改 |
+| `data/core/extended_judged.csv` | 暂存 | 补判过、未进清单的 1,351 篇 arXiv 论文（列同 `paper_list.csv`，`id` 列为扩展列表的原始 id）。用户决定先不管（决策 24） |
 | `data/core/non_arxiv_papers.csv` | 参考 | 不在 arXiv 上的 528 篇（用户决定不收），保留原判定 |
-| `data/core/paper_list.csv` | **当前主文件** | list 本身，1,525 篇 arXiv 论文。UTF-8 带 BOM，Excel 可直接打开。列见 §3 |
+| `data/core/paper_list.csv` | **当前主文件** | list 本身，精选的 174 篇。UTF-8 带 BOM，Excel 可直接打开。列见 §3。注意 `content_rejudge.py apply` 默认写进这个文件，补判的新结果要先写到别处 |
 | `data/core/unjudged_no_text.csv` | 参考 | 119 篇没判的（无全文、无摘要），带 DOI，以后可以手动找全文 |
 | `docs/paper_list.md` | 当前 | 可读版，由 `scripts/build_paper_list.py` 从 CSV 生成，不要手改 |
 | `docs/definition.md` | 当前 | 定义：收录标准六条 + 两个阶段、五个 Seat。旧版在 `docs/history/definition_round3.md` |
@@ -117,11 +120,11 @@
 | `screening/prompts/content_verify.txt` | 当前 | 复核提示词：拿初判结果对照全文改错，复核用 |
 | `scripts/judging/fetch_fulltext.sh`、`content_rejudge.py`、`resolve_fulltext.py` | 当前 | 下载全文；切分片、复核分片、合并、写回 CSV；找不在 arXiv 上的论文的全文。用法见 §5 |
 | `data/judging_runs/content_rejudge/` | 当前 | 核心表 174 篇全文判定的原始输出 |
-| `data/judging_runs/extended_2026/`、`extended_2022_2025/`、`boundary/` | 当前 | 本轮补判：`shards`（分片）、`out_haiku`（初判）、`vshards` + `out_verify`（复核）、`out_final`（合并后，写回 CSV 的就是它） |
+| `data/judging_runs/extended_2026/`、`extended_2022_2025/`、`boundary/` | 暂存 | 本轮补判：`shards`（分片）、`out_haiku`（初判）、`vshards` + `out_verify`（复核）、`out_final`（合并后，写回 CSV 的就是它） |
 | `data/judging_runs/abstract_only/`、`boundary_driving_by_title/`、`redo/` | 当前 | 按摘要判的 538 篇；按标题排除的 36 篇驾驶论文；5 篇无全文重判 |
 | `data/core/core_selection.csv` → `core_table.csv` | 与 CSV 同步 | 核心表 165 行（保留 + 资源），带 phase、role 列。若有被判为剔除的论文混在其中，或 Seat 与 `paper_list.csv` 不一致，`build_core_table.py` 会报错 |
-| `README.md` | 当前 | 英文 awesome list：核心表各节 + Real2Sim / VLN / Multi-agent 三章 + 资源；末尾「More papers」两节现在由 `paper_list.csv` 里不在核心表的保留论文生成（按 Seat · role 折叠） |
-| `data/core/extended_2026.csv`、`extended_2022_2025.csv` | 补判的输入 | 按旧定义合格、没进核心表的 830 + 902 篇；新结论已写进 `paper_list.csv`，这两个文件只作来源 |
+| `README.md` | 当前 | 英文 awesome list：核心表各节 + Real2Sim / VLN / Multi-agent 三章 + 资源；末尾「More papers」两节由 `paper_list.csv` 里不在核心表的保留论文生成，回到精选后为空、不显示 |
+| `data/core/extended_2026.csv`、`extended_2022_2025.csv` | 补判的输入 | 按旧定义合格、没进核心表的 830 + 902 篇；新结论在 `extended_judged.csv`，这两个文件只作来源 |
 | `data/core/fine_labels.csv` | 旧标准 | 12,230 篇候选按旧 rubric 的逐篇判定，verdict 为 core / precursor / boundary / resource / out |
 | `data/candidates/candidates.csv` | 原始候选 | 14 篇种子论文的前向引用，13,579 篇 |
 | `data/candidates/s2_sweep_2026.jsonl` | 原始候选 | 2026 年关键词检索，11,778 篇 |
@@ -156,7 +159,8 @@
 
 ### 4.1 需要用户看、或等用户决定的
 
-1. **多智能体的定义**（§1.5）：现在 210 篇，第二条（多个角色 agent）偏宽，用户可能想收紧成「多机器人」为主。
+0. **综述写作方案**：等用户在 Claude Doc 上讨论（章节结构、主线措辞、每章篇幅、是否需要从暂存的 1,351 篇里补代表作）。
+1. **多智能体的定义**（§1.5）：精选里 11 篇；在补判的扩展论文里这条标准判出了 210 篇，第二条（多个角色 agent）偏宽，用户可能想收紧成「多机器人」为主。
 2. （已按用户决定处理）期刊论文不收；按摘要判的、没判的都移出了主清单。
 3. Minecraft / Overcooked 这类游戏环境我按六条规则正常判了，用户没表态。
 4. 上一轮留下的边界案例，用户还没表态：
@@ -174,9 +178,9 @@
 
 ### 4.2 list 定稿之后
 
-1. 从 1,040 篇新保留的论文里挑代表作进核心表（`core_selection.csv`，记得 theme 列），重跑 README。现在它们都在 README 末尾的「More papers」折叠表里。
+1. （用户要时再做）从暂存的 `extended_judged.csv` 里挑代表作进核心表（`core_selection.csv`，记得 theme 列），先写进 `paper_list.csv` 再重跑 README。
 2. 补判论文的短名是从标题自动生成的，进核心表的要手工起短名。
-3. 按 `docs/definition.md` 写综述正文：先讲收录标准，再按两个阶段、五个 Seat 分章，每章先讲先驱再讲 2026。
+3. 按讨论后的写作方案写综述正文：先讲收录标准，再按两个阶段、五个 Seat 分章，每章先讲先驱再讲 2026。
 4. 更新 `docs/list_summary.pdf`（`scripts/build_list_summary.py`；用户现阶段不要 PDF，等用户要了再做）。
 5. 补代码和项目链接；可选做一个 GitHub Pages 浏览器。
 
@@ -262,3 +266,4 @@ python3 scripts/build_paper_list.py && python3 scripts/build_core_table.py && py
 
    174 篇读全文重判后，用户又把分类改回两个阶段、五个 Seat（决策 20），收录标准保持最后一轮的。各条决策的完整记录见 `docs/history/definition_round3.md` 开头（决策 1–19）和 `docs/history/HANDOFF_round3.md` §5。
 4. **2026-10-09（第二次）**：用户决定离散具身仿真算、纯文本世界和自动驾驶不算（决策 21），并要求单独建多智能体章节（决策 22）。补判了两份扩展列表和边界论文共 1,890 篇（有 arXiv 的读全文，Haiku 初判 + Sonnet 复核；其余按摘要），清单扩到 2,053 篇（含去重）。随后用户决定只收 arXiv 论文（决策 23），主清单变为 1,525 篇，agent 池子 1,185 篇。
+5. **2026-10-09（第三次）**：用户看了 agent 池子后认为数量远超预期（「心目中总共最多也就100多篇」），决定回到精选清单 174 篇（决策 24）。补判的 1,351 篇移到 `data/core/extended_judged.csv` 暂存。那次补判的经验：六条规则本身偏宽，几乎所有「LLM 调技能」的论文都能进；Sonnet 复核抽 40 篇约一成边缘误判；只看摘要的判定不可靠（同一论文的重复记录有 3 对结论相反）。之后开始写综述方案。
