@@ -12,15 +12,15 @@
 
 | 结论 | 篇数 | 含义 |
 |---|---|---|
-| 保留 | 144 | 现成的通用大模型（未经作者训练或微调）作为 agent 存在并起作用（连到 Policy / Code 或 Env / Sim），且 agent 是论文的主体 |
+| 保留 | 145 | 现成的通用大模型（未经作者训练或微调）作为 agent 存在并起作用（连到 Policy / Code 或 Env / Sim），且 agent 是论文的主体 |
 | 资源 | 20 | 以通用大模型 agent 为对象的 benchmark 或评测研究 |
-| 剔除 | 10 | 决策者是作者训练或微调的模型、VLA 或专用模型，或论文主体是数据生成平台、资产流水线或 VLA 训练 |
+| 剔除 | 9 | 决策者是作者训练或微调的模型、VLA 或专用模型，或论文主体是数据生成平台、资产流水线或 VLA 训练 |
 
 保留的论文按三层分：
 
 | 层 | 子类 | 篇数 | 含义 |
 |---|---|---|---|
-| L1 | 环境/重建 | 8 | 生成或重建环境、场景、仿真资产、数字孪生 |
+| L1 | 环境/重建 | 9 | 生成或重建环境、场景、仿真资产、数字孪生 |
 | L1 | 奖励/任务 | 12 | 设计奖励、成功判据、任务与课程 |
 | L1 | 本体/工具 | 5 | 设计机器人形态、硬件或工具 |
 | L1 | 系统/代码 | 17 | 修改训练代码、策略代码库、技能库或 harness，按试验保留或回滚 |
@@ -30,13 +30,13 @@
 | L2 | 运行时监控 | 12 | 运行时只在异常时介入：失败检测、安全护栏、恢复、求助 |
 | L3 | 直接动作 | 14 | 通用大模型在执行中直接输出动作 |
 
-保留的 144 篇中，31 篇开环（「箭头」一列没有 E→A，多为 2022–2024 的先驱，如 Code as Policies、ReKep）。
+保留的 145 篇中，31 篇开环（「箭头」一列没有 E→A，多为 2022–2024 的先驱，如 Code as Policies、ReKep）。
 
-## 保留 · L1（42）
+## 保留 · L1（43）
 
 准备层：执行之前，agent 为机器人创造或重建环境、设计奖励 / 任务、设计本体与工具、修改系统与训练代码；反馈是训练或仿真结果
 
-### 环境/重建（8）
+### 环境/重建（9）
 
 | 论文 | 年 | 决策模型 | 理由 | 原文证据 | 备注 |
 |---|---|---|---|---|---|
@@ -45,6 +45,7 @@
 | [Video2Policy](https://arxiv.org/abs/2502.09886) | 2025（先驱） | GPT-4o (VLM) writes task code and reward functions; Grounding DINO, SAM-2, InstantMesh and FoundationPose as perception tools（G） | 现成GPT-4o据视频重建信息生成任务场景代码并迭代改写奖励；虽自称数据引擎，但核心是该大模型管线，故保留。 | After extracting the visual information from the video into a task JSON file, we can build the task scene in simulation and learn policies based on GPT-4o. (Sec. 3.2 Task Code Generation and RL) | 全文复核改层：原为 L1 奖励/任务 |
 | [Agentic Real2Sim](https://arxiv.org/abs/2607.19190) | 2026 | Gemma 4 31B open-weight VLM (main backend; GPT-5.4, Claude Haiku 4.5, Qwen 3.6 35B swapped in) orchestrating SAM 3 / SAM 3D / FoundationPose tools via LangChain（G） | 现成 VLM(可互换后端)作为智能体编排感知与仿真工具，把真实录像重建为可仿真数字孪生，属于 L1 环境重建；π0.5 微调只是下游应用。 | "The framework's agentic decisions can be driven by an openweight VLM backend at a small fraction of the cost of frontier models, while attaining a comparable conversion success rate." (Abstract) |  |
 | [CoDimRecon](https://arxiv.org/abs/2609.36024) | 2026 | GPT-6 Astra agent (Blender authoring, simulator skills, behavioral tests), off-the-shelf with reasoning effort xhigh（G） | 通用 GPT-6 Astra 智能体通过代码/Blender 与仿真技能重建含可变形物体的可仿真场景，并用仿真行为测试迭代修正，属于 L1 环境重建。 | "GPT-6 Astra shares our agent backbone but reconstructs directly from RGB; Sec. 4.3 studies the effect of our reference inputs." (Section 4.2, Results, Comparison with Baselines) |  |
+| [EmbodiedSmith](https://arxiv.org/abs/2610.07969) | 2026 | gpt-5.6-sol (high reasoning effort) as Task Plan Agent; VLMs for scene parsing, asset canonicalization and review（G） | 现成 gpt-5.6-sol 任务 agent 与场景生成互相编辑、经仿真验证迭代，生成可仿真的场景与任务；论文自述核心是 agentic refinement loop，和 GenSim、RoboGen 同属 L1 造环境 | "We use gpt-5.6-sol with high reasoning effort as the task generation agent for all generation experiments." (Appendix C.4, Agent Configuration and Evaluation Protocol) | 全文复核后恢复（10-09）：不是 Real2Sim——输入是资产库和生成的参考图，没有真实数据重建，也没有真机实验；原标的 real2sim 主题已去掉。第一遍按「数据生成引擎」剔除，但其主体是 agent 循环，与 RoboTwin 2.0（MLLM 只是基准中的一个模块）不同 |
 | [SAGE](https://arxiv.org/abs/2602.10116) | 2026 | gpt-oss-120b as agent LLM (with Qwen3-VL-30B-A3B-Instruct for vision-language reasoning), off-the-shelf via MCP tools（G） | 通用开源 LLM/VLM 作为智能体通过 MCP 调用生成器与仿真内批评器自我修正，生成可仿真场景，属于 L1 环境生成；下游扩散策略只是数据用途。 | "Specifically, we adopt gpt-oss-120b [36] as both the agent LLM and the integrated LLM, and Qwen3VL-30B-A3B-Instruct [48] for vision–language reasoning." (Section 4.1.1, Implementation Details) |  |
 | [SceneSmith](https://arxiv.org/abs/2602.09153) | 2026 | GPT-5.2 for all designer, critic and orchestrator agents and VLM calls (high reasoning effort)（G） | 通用 GPT-5.2 以设计者/批评者/编排者多智能体方式分层生成含物理属性的可仿真室内场景，属于 L1 环境生成，主题就是智能体系统而非数据集。 | "All agents and VLM calls use GPT-5.2. Designers and critics use high reasoning effort for thorough analysis, while planners use low reasoning for efficient coordination." (Appendix A.2, Model Configuration) |  |
 | [Vid2Sid](https://arxiv.org/abs/2602.19359) | 2026 | Google Gemini 2.5 Pro (VLM-in-the-loop, default decoding, no training)（G） | 现成Gemini 2.5 Pro通过提示迭代诊断视频差异并修改仿真物理参数，属于校准数字孪生的通用大模型智能体。 | We use Google Gemini 2.5 Pro [9] with default decoding settings (temperature 1.0, top-P 0.95), held fixed across all seeds and domains (Sec. III-F1 Prompt Design). |  |
@@ -260,7 +261,7 @@
 | [RobotWorld](https://arxiv.org/abs/2610.10409) | 2026 | GPT-6 Astra, Claude Opus 5.5, Kimi K3, DeepSeek V4.1 Flash, Gemini 3.8 Flash (off-the-shelf agents)（G） | 论文是评测现成通用多模态智能体在84个跨本体任务上直接输出动作的RobotWorld基准，评测对象为通用大模型智能体，属于资源。 | Sec 5.1: "We evaluate GPT-6 Astra, Claude Opus 5.5, Kimi K3, DeepSeek V4.1 Flash and Gemini 3.8 Flash on all 84 tasks ... It issues direct robot-tool calls and replans from the returned feedback; environment-side code control is disabled." | 全文复核改层：原为 -  |
 | [Smart-Agriculture Engine](https://arxiv.org/abs/2609.00106) | 2026 | Qwen3.6-35B-A3B and DeepSeek-V4-Flash (off-the-shelf) inside nine controller scaffolds (ReAct, Reflexion, LATS ...)（G） | 核心是农场事件引擎加100个场景与KTC评测套件，用于评估通用LLM智能体直接调用农机工具的表现，属于评测资源而非新智能体方法。 | Sec 2.4: "We integrate nine controller architectures and evaluate them over the scenario suite ... We run frontier API backends (Qwen3.6-35B-A3B [33], DeepSeek-V4-Flash [8])." Abstract: "evaluate nine state-of-the-art agent controllers across one hundred full-season soybean scenarios". | 全文复核改判：原为保留（L2 编排者） |
 
-## 剔除（10）
+## 剔除（9）
 
 决策者是作者训练或微调的模型、VLA 或专用模型，或论文主体是数据生成平台、资产流水线或 VLA 训练
 
@@ -272,7 +273,6 @@
 | [RoboTwin 2.0](https://arxiv.org/abs/2506.18088) | 2025（先驱） | DeepSeek-V3 (program synthesis) + moonshot-v1-32k-vision-preview (multimodal error localization), prompted off-the-shelf（G） | 论文头条是可扩展的双臂数据生成器、RoboTwin-OD 资产库和基准，MLLM 只是其中写任务代码的组件，属于数据/基准论文，按规则 3 剔除。 | "We use the DeepSeek-V3 model for program synthesis and the moonshot-v1-32k-vision-preview model for multimodal error localization and verification." (Appendix G, Experimental Details for Code Generation) |  |
 | [VLABench](https://arxiv.org/abs/2412.18194) | 2024 | Fine-tuned VLAs (OpenVLA, Octo, RDT-1B) are the main subjects; also GPT-4o / GPT-4-turbo / InternVL2 / Qwen2-VL via VoxPoser, CoPA workflows and DSL skill API（SPEC） | 头条是主要面向预训练VLA动作策略的操作基准（VLM工作流仅为其中一条评测线），评测主体是VLA这类专用模型而非通用LLM智能体，故剔除。 | "VLABench is a large-scale language-conditioned manipulation benchmark to evaluate the comprehensive skill learning and generalization ability of action policies especially pre-trained vision-language-action models." (Figure 1 caption) | 全文复核改判：原为资源 |
 | [AgentVLN](https://arxiv.org/abs/2603.17670) | 2026 | Qwen2.5-VL-3B instruction-tuned on AgentVLN-Instruct (plus LLaVA-Video-178K) as VLM-as-Brain calling navigation skills（FT） | 决策模型是作者在自建数据集上指令微调的 3B 小模型而非现成通用大模型，故剔除。 | Sec 4.2: "We adopt Qwen2.5-VL-3B as the brain of AgentVLN. During the instruction-tuning phase, we freeze the model's visual encoder and multimodal projection layer." Sec 4.1: dataset AgentVLN-Instruct built for finetuning. | 全文复核改判：原为保留（L2 编排者） |
-| [EmbodiedSmith](https://arxiv.org/abs/2610.07969) | 2026 | gpt-5.6-sol (high reasoning effort) as Task Plan Agent; VLMs for scene parsing, asset canonicalization and review（G） | 标题与摘要均把贡献定位为可扩展的具身数据生成引擎(资产/场景/任务/演示流水线)，通用模型只是其中组件，按规则 3 属数据生成平台而剔除。 | "We use gpt-5.6-sol with high reasoning effort as the task generation agent for all generation experiments." (Appendix C.4, Agent Configuration and Evaluation Protocol) | 全文复核改判：原为保留（L1 环境/重建） |
 | [Ludi](https://arxiv.org/abs/2608.22035) | 2026 | Qwen3.5-4B (deployed) / 9B fine-tuned with LoRA on 14,432 synthetic interaction trajectories; GR00T N1.7 VLA skills（FT） | 决策核心是作者用LoRA微调的小型Qwen3.5，GPT-5.6仅作对照基线，不属于未经训练的通用大模型，故剔除。 | At the center of Ludi0.1 is a Qwen3.5 vision-language model (VLM), fine-tuned specifically to serve as the reasoning core of the agent; we fine-tuned Qwen3.5 at the 4B and 9B scales (Sec 3, 3.2) | 全文复核改判：原为保留（L2 编排者） |
 | [RoboFind](https://arxiv.org/abs/2609.20330) | 2026 | Uni-NaVid VLN navigator + Grounding DINO/DINOv2 verifier + deterministic recovery controller; GPT-6 Astra used only offline to turn teaching videos into a target profile（SPEC） | 运行时的决策者是专用 VLN 模型 Uni-NaVid、检测与嵌入相似度验证器以及确定性控制器，GPT-6 Astra 仅在任务前离线解析示教视频生成目标描述，通用大模型并不充当执行智能体(边界案例)。 | "GPT-6 Astra analyzes the videos to generate a structured target profile" ... "The Navigation Agent uses UniNaVid [21] to search for and approach potential targets." (Section III-C, Multi-Agent Framework) |  |
 | [Tool-Aligned VLA Agent](https://arxiv.org/abs/2605.13119) | 2026 | High-level VLM planner (unnamed in main results; Gemini 3 Flash, GPT 5.4, Qwen3.5/Qwen3VL in ablation) + OpenVLA-OFT/pi0.5 VLA tools post-trained with TAPT (LoRA, SFT, GRPO)（G） | 头条贡献是对VLA工具做工具对齐后训练(TAPT)与调用接口，主要结果衡量训练后VLA的成功率，通用VLM规划器未命名且可替换，并非以智能体本身为主体(边界案例)。 | Abstract: "VLAs-as-Tools improves the success rate of π0.5 by 4.8 points on LIBERO-Long and 23.1 points on RoboTwin, and further enhances invocation fidelity by 15.0 points". Headline gains come from TAPT-trained VLA tools. | 全文复核改判：原为保留（L2 编排者） |

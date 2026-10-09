@@ -4,7 +4,7 @@
 
 **Thesis (draft, under revision).** *Agency spreads around the body: general models, not embodied action models, fill seat after seat.*
 
-Each seat is traced from its **66 pioneers (2022–2025)** to **78 papers from 2026**, the year most of the field's papers appeared; VLN / embodied navigation (11 from 2026) has its own chapter and the Real2Sim / Sim2Real sub-direction a short section (8), plus **20 benchmarks and resources**. Definition and inclusion rules: [docs/definition.md](docs/definition.md) (Chinese).
+Each seat is traced from its **66 pioneers (2022–2025)** to **79 papers from 2026**, the year most of the field's papers appeared; VLN / embodied navigation (11 from 2026) has its own chapter and the Real2Sim / Sim2Real sub-direction a short section (8), plus **20 benchmarks and resources**. Definition and inclusion rules: [docs/definition.md](docs/definition.md) (Chinese).
 
 ## Scope and what counts as an agent
 
@@ -21,7 +21,7 @@ Also not included: scalar reward/value models, one-shot annotators, world-model 
 | Controller | runtime | 43 | 38 | 1 |
 | Supervisor | runtime | 6 | 7 | · |
 | Teacher | pre-deployment | 3 | 7 | 2 |
-| Designer | pre-deployment | 10 | 9 | · |
+| Designer | pre-deployment | 10 | 10 | · |
 | Developer | pre-deployment | 4 | 17 | · |
 
 Counts include the papers of the Real2Sim / Sim2Real and VLN chapters under their seats.
@@ -226,6 +226,7 @@ Before deployment, the agent designs the learning problem: rewards, tasks, envir
 | **RDA** | [RDA: Reward Design Agent for Reinforcement Learning](https://arxiv.org/abs/2606.01672) | 2026 | arXiv | G | problem-spec | ×1 | re-decide | E | manip/sim | – |
 | **FIND** | [Find Something You Can't Do: Agentic Real-World Reinforcement Learning for Self-Improving VLA Models](https://arxiv.org/abs/2609.32069) | 2026 | arXiv | G | problem-spec | ×1 | re-decide | E | manip/real | – |
 | **ROOT** | [ROOT: Discovering Rewards for User-Specified Embodied Behaviors](https://arxiv.org/abs/2610.04250) | 2026 | arXiv | G | problem-spec | ×1 | re-decide | E | loco/sim | – |
+| **EmbodiedSmith** | [EmbodiedSmith: Scaling Embodied Data through Recursive Self-Improvement Flywheel in Simulation](https://arxiv.org/abs/2610.07969) | 2026 | arXiv | G | problem-spec | ×R | re-decide | E | manip/sim | – |
 
 ## Developer
 

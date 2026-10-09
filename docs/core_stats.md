@@ -41,11 +41,11 @@ Cells: primary seat (all-seat count, i.e. papers with that seat as primary or se
 
 Cells: primary seat (all-seat count, i.e. papers with that seat as primary or secondary).
 
-## B. Curated core table (n = 78, all 2026; quota-driven, not trend evidence)
+## B. Curated core table (n = 79, all 2026; quota-driven, not trend evidence)
 
 | Year | n | Controller | Supervisor | Teacher | Designer | Developer | Controller share (all-seat) | effective seats |
 |---|---|---|---|---|---|---|---|---|
-| 2026 | 78 | 38 (53) | 7 (11) | 7 (8) | 9 (15) | 17 (23) | 68% | 3.94 |
+| 2026 | 79 | 38 (53) | 7 (11) | 7 (8) | 10 (16) | 17 (23) | 67% | 3.96 |
 
 Cells: primary seat (all-seat count, i.e. papers with that seat as primary or secondary).
 
@@ -54,7 +54,7 @@ Cells: primary seat (all-seat count, i.e. papers with that seat as primary or se
 | Controller | 36 | 1 |
 | Supervisor | 7 | · |
 | Teacher | 5 | 2 |
-| Designer | 9 | · |
+| Designer | 10 | · |
 | Developer | 16 | · |
 
 ## C. Pioneers (n = 66, 2022-2025)
@@ -70,4 +70,4 @@ Cells: primary seat (all-seat count, i.e. papers with that seat as primary or se
 
 
 Pioneers by year: 2022: 7, 2023: 26, 2024: 24, 2025: 9
-Loop form: core/-: 1, core/authored: 10, core/none: 1, core/re-decide: 66, pioneer/authored: 12, pioneer/none: 14, pioneer/re-decide: 40
+Loop form: core/-: 1, core/authored: 10, core/none: 1, core/re-decide: 67, pioneer/authored: 12, pioneer/none: 14, pioneer/re-decide: 40

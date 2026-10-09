@@ -163,3 +163,4 @@ gap:2610.10409,RobotWorld,resource,Controller,-,-,84 个机器人使用任务，
 gap:2609.20116,Astra on VLN-CE,resource,Controller,-,-,GPT-6-Astra 在零样本 VLN-CE 闭环中的能力评测（R2R-CE 成功率 52%），与 RoboDojo 评测互补,,,,r3
 s10690,MLLM Drone Agents Eval,resource,Controller,-,-,评测 MLLM 作为无人机的通用视觉-语言-动作 agent；覆盖空中,,,,r3
 c01563,AutoRT,pioneer,Controller,orchestrator,G,VLM 描述场景、LLM 为机器人车队提出任务并按规则筛选，大规模调度真机采数据（1:N，开环）,,none,,r3
+s11012,EmbodiedSmith,core,Designer,-,G,用户点名：场景生成 agent 与任务生成 agent 互相编辑、经仿真验证迭代的生成式仿真（不是 Real2Sim：没有真实数据重建）,,,,r3

@@ -72,7 +72,7 @@
 | [SkillWeaver](https://arxiv.org/abs/2609.36171) | 2026 | Teacher | G | 再决策 | 判定池 | VLM agent 调用并参数化 RL 训练的神经交互技能、观察结果后探索，产出的轨迹用于训练 |
 | [Frontier Demo Generation](https://arxiv.org/abs/2610.03615) | 2026 | Teacher | G | 再决策 | 判定池 | 前沿模型自主生成示范，累积纠错的上下文示例，训练出快速的学习策略 |
 
-## Designer（6）
+## Designer（7）
 
 | 短名 | 年份 | Seat | Carrier | 闭环 | 来源 | 入选理由 |
 |---|---|---|---|---|---|---|
@@ -82,6 +82,7 @@
 | [RDA](https://arxiv.org/abs/2606.01672) | 2026 | Designer | G | 再决策 | 判定池 | VLM agent 观看轨迹、总结失败模式并迭代修改奖励 |
 | [FIND](https://arxiv.org/abs/2609.32069) | 2026 | Designer | G | 再决策 | 判定池 | 真机 agentic RL：VLM 依近期成功率选择练习任务并自评结果 |
 | [ROOT](https://arxiv.org/abs/2610.04250) | 2026 | Designer | G | 再决策 | 判定池 | 在奖励程序、策略与 rollout 的持久实验树上搜索奖励，实现用户指定的足式行为 |
+| [EmbodiedSmith](https://arxiv.org/abs/2610.07969) | 2026 | Designer | G | 再决策 | 判定池 | 用户点名：场景生成 agent 与任务生成 agent 互相编辑、经仿真验证迭代的生成式仿真（不是 Real2Sim：没有真实数据重建） |
 
 ## Developer（12）
 
