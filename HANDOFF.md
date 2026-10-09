@@ -1,6 +1,6 @@
 # 交接文档：Awesome Agentic Embodiment
 
-> 最后更新：2026-10-09（第三次）。本轮在分支 `claude/extended-rejudge` 上：补判了扩展列表和边界论文、加了多智能体专题；随后用户决定**回到精选清单**（决策 24），补判结果暂存一边，并开始写综述方案。
+> 最后更新：2026-10-10。清单已定稿为精选 186 篇（决策 24、25），已合并进 `main`。**现在进入写综述阶段**，按 `docs/survey_workflow.md` 的九步流程推进，下一步是第 3 步「论文卡片」（§4.2）。
 > 旧版交接（第一至三轮，按 Seat × Carrier 定义做的部分）原样保留在 `docs/history/HANDOFF_round3.md`，里面有更早的检索漏斗、各轮判定和踩坑的细节，需要时再查。
 
 ---
@@ -8,7 +8,7 @@
 ## 0. 现状
 
 - **项目**：一个 awesome list 和一篇 survey，主题是 *agentic embodiment*，即通用大模型（LLM / VLM）作为 agent 做具身任务。
-- **现阶段以 list 为主。** 用户原话：「之前survey的定义方式有问题，我们先把list做好」「给我csv就行」。
+- **现阶段：写综述。** list 先做好了（用户早先说「我们先把list做好」）；2026-10-10 用户给了一套九步写作流程，记在 `docs/survey_workflow.md`（流程原文要点、逐步进度、下一步的具体做法）。用户说「我会让那边去做」：后续由新会话按这份文件接着做。
 - **分类**：两个阶段、五个 Seat（§1.3），外加三个横跨 Seat 的专题：Real2Sim / Sim2Real、VLN、**多智能体**（用户 2026-10-09 要求单独成章，§1.5）。
 - **只收 arXiv 论文**（用户 2026-10-09：「你不用管这些期刊，可以主要focus在arxiv」）。不在 arXiv 上的期刊 / 会议论文移到 `data/core/non_arxiv_papers.csv`（528 篇，多按摘要判过，留作参考），`unjudged_no_text.csv` 的 119 篇也不再追。
 - **回到精选清单**（用户 2026-10-09：「太多了，不可能有这么多的，我心目中总共最多也就100多篇」「可以回到之前的精选吧，剩余的先不管了」）。
@@ -16,7 +16,7 @@
   - `data/core/paper_list.csv`：精选清单 186 篇（保留 157、资源 20、剔除 9），逐篇读全文判定，带决策模型、理由和原文证据。其中 12 篇是补的 2025 年代表作（决策 25），带原扩展列表的 `id`，其余行 `id` 为空。
   - `data/core/agent_pool.csv`：保留的 157 篇，按阶段 → Seat → 角色 → 年份排好。
   - 保留的按 Seat：Designer 22、Teacher 10、Developer 27、Controller 84、Supervisor 14（先驱 78、2026 年 79）；多智能体 13 篇（保留 12、资源 1）。
-  - **综述写作方案**（中文，约 5 页，Claude Doc「Agentic Embodiment 综述写作方案」：https://claude.ai/code/artifact/3814a79d-0de1-4954-9f8f-025f386674c9）：七节，包括定义与主线、收录标准、Seat 框架图、文献概况、12 章结构、7 个待讨论问题、下一步。用户已选写法 A；其余问题等用户讨论。
+  - **综述写作方案**（中文，约 5 页，Claude Doc「Agentic Embodiment 综述写作方案」：https://claude.ai/code/artifact/3814a79d-0de1-4954-9f8f-025f386674c9）：七节，包括定义与主线、收录标准、Seat 框架图、文献概况、12 章结构、7 个待讨论问题、下一步。用户已选写法 A；其余问题等用户讨论。仓库里有快照 `docs/survey_plan.md`（不一定是最新，以原文档为准）。
 - **暂存、先不管的**：`data/core/extended_judged.csv`，扩展列表和边界论文按同一标准补判过的 1,351 篇 arXiv 论文（其中判保留 1,040 篇；补进精选的 12 篇 2025 年代表作已移出，现余 1,339 篇）。用户觉得数量远超预期，可能是收录规则偏宽或误判（抽样约一成边缘误判，见 §7 第 5 条），以后要用时先收紧规则再挑。
 - **还没做完 / 需要用户看的**：见 §4。
 
@@ -112,6 +112,9 @@
 | `data/core/non_arxiv_papers.csv` | 参考 | 不在 arXiv 上的 528 篇（用户决定不收），保留原判定 |
 | `data/core/paper_list.csv` | **当前主文件** | list 本身，精选的 186 篇。UTF-8 带 BOM，Excel 可直接打开。列见 §3。注意 `content_rejudge.py apply` 默认写进这个文件，补判的新结果要先写到别处 |
 | `data/core/unjudged_no_text.csv` | 参考 | 119 篇没判的（无全文、无摘要），带 DOI，以后可以手动找全文 |
+| `docs/survey_workflow.md` | **当前** | 九步写作流程、逐步进度、下一步做法。接手先读它 |
+| `docs/survey_plan.md` | 当前 | 综述写作方案的快照（定义与主线、收录标准、框架、文献概况、章节与页数、待定问题）；原文档在 Claude Doc |
+| `work/` | 本机，不上传 | 全文文本（gitignore）：177 篇保留 + 资源的全文在 `work/text_kept/`、`work/text/`、`work/text_bnd/`，文件名为 `<arXiv 号>.txt`。换机器用 `fetch_fulltext.sh` 重下 |
 | `docs/paper_list.md` | 当前 | 可读版，由 `scripts/build_paper_list.py` 从 CSV 生成，不要手改 |
 | `docs/definition.md` | 当前 | 定义：收录标准六条 + 两个阶段、五个 Seat。旧版在 `docs/history/definition_round3.md` |
 | `docs/agent_loop_framework.png` | 当前 | 用户画的回路图（收录标准） |
@@ -157,32 +160,45 @@
 
 ## 4. 下一步（按优先级）
 
-### 4.1 需要用户看、或等用户决定的
+### 4.1 需要用户决定的
 
-0. **综述写作方案**：用户已定写法 A（每个角色详写 3–5 篇，其余进对照表，正文约 20 页），并补了 2025 年代表作（决策 25）。方案第六节其余几条（主线、边界案例、多智能体定义、游戏环境、发表形式）还等用户定。
-1. **多智能体的定义**（§1.5）：精选里 11 篇；在补判的扩展论文里这条标准判出了 210 篇，第二条（多个角色 agent）偏宽，用户可能想收紧成「多机器人」为主。
-2. （已按用户决定处理）期刊论文不收；按摘要判的、没判的都移出了主清单。
-3. Minecraft / Overcooked 这类游戏环境我按六条规则正常判了，用户没表态。
-4. 上一轮留下的边界案例，用户还没表态：
+写综述之前最好定下来的（详见 `docs/survey_plan.md` 第六节）：
+
+1. **发表形式和语言**：arXiv 英文综述还是投期刊。它决定篇幅上限、正文语言和卡片语言（卡片默认中文，数字和原文引用保留英文）。
+2. **主线**：建议用「Agency spreads around the body」，数据支撑见方案第三、四节；备选是只按 Seat 中性梳理。
+3. **主对比表的列**、**背景文献名单**（VLA、具身基础模型、相关综述）：做到第 4 步、第 2 步时拿候选给用户选。
+4. **多智能体的定义**（§1.5）：精选里 13 篇；在补判的扩展论文里这条标准判出了 210 篇，第二条（多个角色 agent）偏宽，建议收紧成「协调多个机器人」为主。
+5. Minecraft / Overcooked 这类游戏环境我按六条规则正常判了，用户没表态。
+6. 上一轮留下的边界案例，用户还没表态：
 
    | 论文 | 现在的结论 | 理由 |
    |---|---|---|
-   | Tool-Aligned VLA Agent | 剔除 | 主体是 VLA 后训练（本轮 Sonnet 复核也判剔除） |
+   | Tool-Aligned VLA Agent | 剔除 | 主体是 VLA 后训练（Sonnet 复核也判剔除） |
    | AutoRT | 保留 | 原文写明 LLM 未微调，是系统核心 |
    | RoboGen、SUDD、RobotGPT | 保留 | 读全文后看主体是 agent 或经验迁移 |
    | GPT-6 Astra on RoboDojo | 资源 | 全文判为评测研究，但用户举它当「LLM 直接出动作」的例子 |
-   | VLABench、ASIMOV | 剔除 / 资源 | 本轮校准时 Haiku 和 Sonnet 都给了相反结论（VLABench→资源，ASIMOV→剔除），核心表没改，值得再看一眼 |
+   | VLABench、ASIMOV | 剔除 / 资源 | 校准时 Haiku 和 Sonnet 都给了相反结论（VLABench→资源，ASIMOV→剔除），核心表没改，值得再看一眼 |
 
-5. 12 篇 Seat 逐条决定的（§1.3），用户还没看过；主线措辞（草案见 `docs/definition.md` 末尾）。
-6. 之前子 agent 误建了 3 个空会话，是否归档：`session_013djFc2XBveZ6ad9rat1T8j`、`session_01L6M4LteFn1EGYUVGkBicSQ`、`session_01DcP3xf6pjhGHUGTtG2WJVr`。
+7. 12 篇 Seat 逐条决定的（§1.3），用户还没看过。
+8. 之前子 agent 误建了 3 个空会话，是否归档：`session_013djFc2XBveZ6ad9rat1T8j`、`session_01L6M4LteFn1EGYUVGkBicSQ`、`session_01DcP3xf6pjhGHUGTtG2WJVr`。
 
-### 4.2 list 定稿之后
+已经定了的：写法 A（每个角色详写 3–5 篇，其余进对照表，正文约 20 页）；补 2025 年代表作（已补 12 篇，决策 25）；期刊论文不收；扩展列表的其余论文先不管。
 
-1. （用户要时再做）从暂存的 `extended_judged.csv` 里挑代表作进核心表（`core_selection.csv`，记得 theme 列），先写进 `paper_list.csv` 再重跑 README。
-2. 补判论文的短名是从标题自动生成的，进核心表的要手工起短名。
-3. 按讨论后的写作方案写综述正文：先讲收录标准，再按两个阶段、五个 Seat 分章，每章先讲先驱再讲 2026。
-4. 更新 `docs/list_summary.pdf`（`scripts/build_list_summary.py`；用户现阶段不要 PDF，等用户要了再做）。
-5. 补代码和项目链接；可选做一个 GitHub Pages 浏览器。
+### 4.2 写综述（按 `docs/survey_workflow.md`）
+
+具体做法都在那份文件的「下一步的具体做法」里，这里只列顺序：
+
+1. **第 3 步：论文卡片**，177 篇。先做 Controller 和 Developer，给用户看格式。
+2. **第 2 步补完**：写 `scripts/build_bib.py` 生成 `survey/refs.bib`，并在 `paper_list.csv` 加 `bibkey` 列；背景文献由用户确认后入库。**引用只能来自这个库。**
+3. **第 4 步收尾**：对比表的列（用户选）、`docs/glossary.md`。
+4. **第 5 步**：每节一句话观点和论文名单，给用户确认。
+5. **第 6 步起**：在 `survey/` 下写 LaTeX，先写 Controller、Developer 两章样章；之后统稿、独立核查（核查前重跑一次 2026 年检索）、图表、用户终审。
+
+### 4.3 清单的零碎事（不急）
+
+1. （用户要时再做）从暂存的 `extended_judged.csv` 里挑代表作进核心表：改 `core_selection.csv`（记得 theme 列），先写进 `paper_list.csv`，再重跑 README。补判论文的短名是从标题自动生成的，进核心表的要手工起短名。
+2. 更新 `docs/list_summary.pdf`（`scripts/build_list_summary.py`）。用户现阶段不要 PDF，等用户要了再做。
+3. 补代码和项目链接；可选做一个 GitHub Pages 浏览器。
 
 ---
 
@@ -243,6 +259,8 @@ python3 scripts/build_paper_list.py && python3 scripts/build_core_table.py && py
 - arXiv 下载要保持每篇间隔 3 秒以上；两路并发时 arXiv API 会开始返回 429。
 - Semantic Scholar、OpenAlex 不带 key 都会限流。
 
+**推送到 GitHub**：本机 `gh` 的登录已失效（`gh auth status` 报错），开不了 PR；`git push` 走 SSH，可以用。之前的合并要么走 PR，要么在本地 `git merge --no-ff` 后推 `main`。推送和合并前要先问用户。
+
 ---
 
 ## 6. 和用户合作
@@ -275,3 +293,4 @@ python3 scripts/build_paper_list.py && python3 scripts/build_core_table.py && py
    - Supervisor：FORTRESS、RoboSafe。
 
    另有三篇看过后没收：GenDexHand（复核从剔除改判保留，主体接近数据生成平台）、UAV-VLA（只离线生成飞行计划）、Agentic Robot（运行时的进度判断和恢复由微调的 Qwen 验证器做）。
+7. **2026-10-10**：用户让把分支推到 GitHub 并合并进 `main`（合并提交 `17532d0`；`gh` 登录失效，所以是本地合并后推送）。随后用户给了一套九步写作流程，盘点进度后记进 `docs/survey_workflow.md`；综述方案的快照存为 `docs/survey_plan.md`。用户说后续工作交给新会话去做。
