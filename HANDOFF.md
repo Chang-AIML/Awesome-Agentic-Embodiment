@@ -106,7 +106,7 @@
 | `scripts/core_stats.py` → `docs/core_stats.md` | 按年份统计 seat（A：全部强模型 core；B：核心表） |
 | `scripts/build_report.py` | 生成中文进展报告 `docs/progress_report.pdf`（约 21 页）。图用内联 SVG / HTML，经 `scripts/print_pdf.cjs` 用 Playwright 的 Chromium 打印；字体 Noto Sans SC 首次运行时从 Google Fonts 下载到 `~/.cache/aae-report-fonts` |
 | `scripts/build_brief.py` → `docs/survey_brief.pdf` | 五页图文综述预览（概览与 Seat 图、范围与判定、脉络地图、五个 Seat 卡片、趋势与开放问题），复用 `build_report.py` 的图、配色与字体；改 selection 后与报告一起重跑 |
-| `docs/layer_classification.md`、`data/core/layer_classification.csv` | 用户 2026-10-09 提出的三层框架（L1 准备层 / L2 harness 中间层 / L3 通用模型直接当策略）下，对 174 篇核心表的逐篇归类与理由；Haiku 初判（`data/judging_runs/layers/`，提示词 `screening/prompts/layer_classify.txt`），人工复核改判 5 篇、标出边界情况，待用户确认 |
+| `docs/layer_classification.md`、`data/core/layer_classification.csv`、`docs/agent_loop_framework.png` | 按用户 2026-10-09 的 agent 回路框架图（Agent → Policy / Code / None → Env / Sim，信息回到 agent）重判 174 篇：保留（分 L1 / L2 / L3）、待定·开环、资源、剔除，每篇有理由与箭头。Haiku 初判（`data/judging_runs/loop_rejudge/`，提示词 `screening/prompts/loop_rejudge.txt`），人工复核。改 CSV 后运行 `scripts/build_layer_table.py`。上一版（只按三层分类）在 git 历史与 `data/judging_runs/layers/` |
 | `docs/definition.md` | **正文版定义**：范围（通用大模型）、三条 agent 判定（含两个例外）、5 Seat × Carrier（G / C）、Controller 三个子章、层级、Real2Sim / Sim2Real 子方向（§6.1）、VLN 章（§6.2）、anatomy 列、主线 |
 | `docs/definition_draft.md` 等 | 定义草稿（附录与标注指南）、选型理由、13 个细节决策、353 篇测试集判定 |
 | `data/definition/` | 测试集论文与对 GUAVA、ENPIRE、CaM、harness 的深入调研 |
@@ -166,7 +166,7 @@
 
 **2026-10-09（三层框架，待确认）**
 
-16. 用户提出新的分层判断：**L1** 给机器人创造环境、重建、设计 reward（Developer 与 Designer），执行前的准备；**L2** 策略的生产者（CaP）、蒸馏（经验迁移）、LLM 隔着一层 harness 影响机器人、运行时监控（异常时介入）；**L3** 通用 LLM 在执行中直接当策略。已按此给核心表逐篇归类（`docs/layer_classification.md`），是否用它替代 Seat 作主轴尚未定。
+16. 用户提出新的分层判断：**L1** 给机器人创造环境、重建、设计 reward（Developer 与 Designer），执行前的准备；**L2** 策略的生产者（CaP）、蒸馏（经验迁移）、LLM 隔着一层 harness 影响机器人、运行时监控（异常时介入）；**L3** 通用 LLM 在执行中直接当策略。随后用户画了 agent 回路框架图（`docs/agent_loop_framework.png`）：通用大模型 agent 必须存在并在回路中扮演角色。据此重判后保留 113、待定·开环 28、资源 20、剔除 13；「环境信息必须回到 agent」是否必需（决定 Code as Policies、ReKep 一类和开环先驱的去留）待用户定。
 
 **2026-10-08（第三轮，第四批）**
 

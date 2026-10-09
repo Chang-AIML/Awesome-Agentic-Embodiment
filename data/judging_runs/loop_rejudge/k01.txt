@@ -1,0 +1,29 @@
+Robo-COP|保留|L2|Policy|A->M,M<->E,E->A|med|VLM 编排者依自身执行整理示范、决定微调 VLA，验证变好才采用，结果回传
+Ludi|剔除|-|Policy|A->M,M<->E,E->A|high|决策核心是为社交多轮交互微调的 VLM，非通用 agent（条件1不符）
+FRAMES|保留|L2|Policy|A->M,M<->E,E->A|med|规划与恢复 agent 选技能，监测失败后反馈恢复 agent 重新决策
+WhenToAsk|剔除|-|Policy|E->A,A->M|low|摘要未说明决策者是否为通用 LLM/VLM（模型未核实），无法确认条件1
+Agentic Task Graph|剔除|-|Code|A->M,M<->E|med|无 E->A：任务图与恢复分支执行前一次写定，运行时只触发不再回调 agent
+Zetta|保留|L2|Code|A->M,M<->E,E->A|med|agent 在滚动中提出并验证可执行的运行时 critic 与恢复技能，结果回传迭代
+UAV Selective Recovery|保留|L2|Policy|A->M,M<->E,E->A|med|外部推理者仅在受阻时调用、选预定义恢复技能，执行结果回传再决策
+Contextual Safety Reasoning|保留|L2|Code|A->M,M<->E,E->A|med|VLM 随视觉观测持续推断情境安全规则并写成 CBF 约束，观测回传
+When to Act, Ask, or Learn|剔除|-|Policy|A->M,M<->E,E->A|med|VLM 只对扩散策略采样的候选动作打分筛选，角色不足（条件2不符）
+Beyond Human Demos|保留|L2|Code|A->M,M<->E,E->A|med|LLM 编写护栏代码过滤遥操作与策略指令，依轨迹反馈迭代修订
+GUAVA|保留|L2|Policy|A->M,M<->E,E->A|low|前沿通用 VLM 在感知-推理-动作循环中调用原语，4B 蒸馏版为次要验证
+RHD|保留|L2|Policy|A->M,M<->E,E->A|med|强 agent 把经验写成 playbook 指导轻量 agent 调用 VLA，执行反馈回传修订
+EmbodiedSWE|资源|-|Code|A->M,M<->E,E->A|low|基准评测前沿编码 agent 的仿真反馈闭环，另含数据生成与 VLA 训练
+Frontier Demo Generation|保留|L2|Policy|A->M,M<->E,E->A|med|前沿模型生成示范并累积纠错示例，执行结果回传，训练快速本地策略
+CAPEX|保留|L2|Policy|A->M,M<->E,E->A|med|基础模型作自主示范者，依前次执行经验自适应决定观察与重规划频率
+SkillWeaver|保留|L2|Policy|A->M,M<->E,E->A|med|VLM agent 调用并参数化 RL 技能，观察结果后反思、树搜索探索，轨迹用于训练
+FIND|保留|L1|Policy|A->M,M<->E,E->A|med|VLM 依近期成功率选练习任务并自评结果，驱动真机残差 RL 改进冻结的 VLA
+RF-Agent|保留|L1|Code|A->M,M<->E,E->A|high|LLM 语言智能体经 MCTS 迭代改写奖励代码，训练结果回传驱动下一轮
+RDA|保留|L1|Code|A->M,M<->E,E->A|high|VLM 观看轨迹、总结失败模式并迭代修改奖励代码，训练反馈回传
+ROOT|保留|L1|Code|A->M,M<->E,E->A|med|LLM 在持久实验树上搜索奖励程序，依视频观测诊断行为并回传修订
+SceneSmith|保留|L1|None|A->E,E->A|med|设计者与评审 VLM agent 迭代搭建可仿真室内场景，评审结果回传修改
+SAGE|保留|L1|None|A->E,E->A|med|agent 调用布局与物体生成器搭场景，评审物理与语义检查后自我修正
+ENPIRE|保留|L1|Code|A->M,M<->E,E->A|med|coding agent 依日志修改策略与训练代码，真机结果决定保留或回滚
+ASPIRE|保留|L2|Code|A->M,M<->E,E->A|high|coding agent 写控制程序，依执行轨迹诊断修复并验证后入技能库
+RHO|保留|L1|Code|A->M,M<->E,E->A|high|coding agent 训练期搜索多文件策略仓库，依环境奖励与执行反馈迭代
+HARBOR|保留|L1|Code|A->E,A->M,M<->E,E->A|med|专职 coding agent 搭环境、写奖励、调参训练 RL，门控与经验回传迭代
+RATs (Playful)|保留|L2|Code|A->M,M<->E,E->A|med|编码 agent 游玩中自提任务、执行验证并蒸馏代码技能库，测试时复用
+Skill-Harness Evolution|保留|L2|Code|A->M,M<->E,E->A|med|冻结 LLM 依目标环境 rollout 进化技能与代码 harness，仅保留有效修改
+AdaHVLA|保留|L2|Code|A->M,M<->E,E->A|med|多 agent 依 rollout 证据修订协调 VLA 的代码 harness，修订图迭代

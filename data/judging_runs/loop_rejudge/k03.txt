@@ -1,0 +1,35 @@
+ZS-Planners|剔除|-|None|A->E|high|LLM 一次生成动作计划后开环执行，执行结果不回馈，无 E->A
+Socratic Models|剔除|-|Policy|A->M,M<->E|high|多模型语言组合的开环规划，LLM 一次规划后调用技能，无 E->A
+TidyBot|剔除|-|Policy|A->M,M<->E|high|LLM 归纳偏好并一次性决定摆放位置，执行结果不回馈，无 E->A
+SayCan|剔除|-|Policy|A->M,M<->E,E->A|med|LLM 仅对代码枚举的技能打分，选择由代码完成，非真实决策角色
+Inner Monologue|保留|L2|Policy|A->M,M<->E,E->A|high|LLM 生成语言步骤调用技能，成功检测与人反馈回灌形成闭环
+ChatGPT for Robotics|保留|L2|Code|A->M,M<->E,E->A|med|ChatGPT 写机器人代码并依执行与人反馈迭代修正，闭环在对话中
+Text2Motion|剔除|-|Policy|A->M,M<->E|high|LLM 生成技能序列，执行前预测可行性，无 E->A（开环）
+Language to Rewards|保留|L1|Code|A->M,M<->E,E->A|med|LLM 写奖励参数，仿真结果与人反馈回流后迭代修订奖励
+SMART-LLM|剔除|-|Code|A->M,M<->E|med|LLM 一次生成多机器人任务计划代码，执行后不回馈，无 E->A
+Code as Policies|剔除|-|Code|A->M,M<->E|med|LLM 一次写出策略程序，感知反馈在程序内部，LLM 不再被调用，无 E->A
+ProgPrompt|剔除|-|Code|A->M,M<->E|high|LLM 一次生成带断言与恢复动作的程序，执行中不再调用 LLM，无 E->A
+VoxPoser|剔除|-|Code|A->M,M<->E|med|LLM 写值图组合代码，MPC 在环内闭环但不再调用 LLM，无 E->A
+RoCo|保留|L2|Policy|A->M,M<->E,E->A|med|多 LLM 智能体对话协商计划，IK 等执行失败反馈后重规划
+Look Before You Leap|保留|L2|Policy|A->M,M<->E,E->A|high|GPT-4V 看图规划并调用技能，执行后依视觉反馈重新规划
+KnowNo|剔除|-|Policy|A->M,M<->E|med|LLM 对代码枚举的选项打分，共形预测不确定时由人替代决策
+CoPa|剔除|-|Code|A->M,M<->E|high|VLM 一次输出部件空间约束，求解后开环执行，无 E->A
+MOKA|剔除|-|Policy|A->M,M<->E|med|VLM 一次预测关键点与路点，规划器转动作后开环执行，无 E->A
+ReKep|剔除|-|Code|A->M,M<->E|high|VLM 一次写出关键点约束，求解器运行时重解，无 E->A
+OmniManip|剔除|-|Code|A->M,M<->E|low|VLM 写空间约束，求解器在位姿跟踪下重解，无 VLM 执行反馈
+BUMBLE|保留|L2|Policy|A->M,M<->E,E->A|high|VLM 统一感知与技能选择，依执行反馈与双层记忆重规划
+COME-robot|保留|L2|Policy|A->M,M<->E,E->A|high|GPT-4V 闭环开放词表移动操作，执行监测失败后回溯重规划
+AutoRT|剔除|-|Policy|A->M,M<->E|high|LLM 提议任务、大规模真机采数据，主体是数据采集平台
+VLM-PC|保留|L2|Policy|A->M,M<->E,E->A|high|VLM 依交互历史选择并规划未来技能，执行后持续重规划
+DROC|保留|L2|Code|A->M,M<->E,E->A|high|LLM 依人类语言纠正修订计划与技能代码，蒸馏检索经验后再执行
+LM-Nav|剔除|-|Policy|A->M,M<->E|high|LLM 只把指令解析为地标一次，导航由预训练模型完成，无 E->A
+NavGPT|保留|L3|None|A->E,E->A|med|纯 LLM 每步依观测从候选方向中选移动，新观测回流后再决策
+InstructNav|保留|L2|Policy|A->M,M<->E,E->A|high|LLM 生成导航链并反复重规划，价值图引导的局部规划器执行
+Open-Nav|保留|L3|None|A->E,E->A|med|开源 LLM 每步依观测选路点并推进，观测回流后逐步决策
+REFLECT|保留|L2|Policy|A->M,M<->E,E->A|low|LLM 归因执行失败并指导规划器重规划，失败证据回流（事后重试）
+DoReMi|保留|L2|Code|A->M,M<->E,E->A|high|LLM 写计划与约束，VLM 监测违例后触发 LLM 重规划
+Safety Chip|保留|L2|Code|A->M,M<->E,E->A|low|LLM 把安全规范译为 LTL 约束，运行时违例推理回馈 LLM 修订
+Code-as-Monitor|保留|L2|Code|A->M,M<->E,E->A|med|VLM 写监测代码逐帧检查约束，违例或预测违例时触发重规划
+SUDD|剔除|-|Code|A->M,M<->E|med|LLM 写计划与成功检查代码，主体为数据生成与策略蒸馏，失败重试不回馈 LLM
+Manipulate-Anything|剔除|-|Policy|A->M,M<->E,E->A|med|VLM 分解、验证并重规划，但主体是示范数据生成平台
+RoboTwin 2.0|剔除|-|Code|A->M,M<->E,E->A|high|MLLM 写任务代码并仿真修正，主体是数据生成器与基准（裁定剔除）

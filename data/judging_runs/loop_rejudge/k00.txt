@@ -1,0 +1,29 @@
+RoboClaw|保留|L2|Policy|A->M,M<->E,E->A|med|单 VLM 控制器编排学习型原语并依执行结果重新决策，闭环在执行与采集中
+Thea|保留|L2|Policy|A->M,M<->E,E->A|med|agent 循环调用机器人能力工具，场景图与执行评估结果回传后继续决策
+Tool-Aligned VLA Agent|保留|L2|Policy|A->M,M<->E,E->A|med|VLM agent 选择并调度 VLA 工具，进度反馈触发重规划；另含 VLA 后训练
+Physical Agency|保留|L2|Policy|A->M,M<->E,E->A|high|LLM 编排者调用 VLA 与参数化技能，观测核验结果后重规划并恢复失败
+Astra Robot Agents|保留|L2|Code|A->M,M<->E,E->A|high|GPT-6 Astra 编写调用原语与 VLA 的代码单元，执行反馈回传后再规划
+NovaPlan|保留|L2|Policy|A->M,M<->E,E->A|med|VLM 规划者分解子目标并闭环监控执行，失败后重规划；视频关键点驱动底层动作
+Cybo-Waiter|保留|L2|Code|A->M,M<->E,E->A|high|VLM 编译带前后条件的子任务程序，3D 条件检查反馈驱动推进与重规划
+ABot-Claw|保留|L2|Policy|A->M,M<->E,E->A|med|通用 agent 调度异构机器人，批评家反馈驱动局部纠正与重规划；记忆为辅
+SpaceMind|保留|L2|Policy|A->M,M<->E,E->A|med|VLM agent 调度技能与 MCP 工具，闭环运行结果回传并沉淀为技能文件
+AerialClaw|保留|L2|Policy|A->M,M<->E,E->A|high|LLM agent 调用无人机硬技能与软技能，运行反馈回传后迭代更新决策
+Smart-Agriculture Engine|保留|L2|Policy|A->M,M<->E,E->A|low|事件驱动 LLM agent 经农机与传感器 API 执行作业，事件回传后再决策；平台属性偏强
+AGRO-SUVIDE|剔除|-|Code|A->M|med|无 E->A：编码智能体一次构建技能，运行时由确定性监控模块判断推进或重试
+Show-Harness|保留|L3|None|A->E,E->A|med|前沿 VLM 直接输出语义微动作（解释器仅做落地），观测回传后逐步决策
+CaP-X|保留|L2|Code|A->M,M<->E,E->A|low|通用编码 agent 写控制代码并依视觉差分反馈修订；另含基准与 GRPO 训练，主体存疑
+Agent as Policy|保留|L2|Code|A->M,M<->E,E->A|high|通用 agent 编写程序并发出运动指令，依物理结果修订，真机闭环
+FAEA|资源|L2|Code|A->M,M<->E,E->A|med|未修改的通用 LLM agent 框架直接做操作，属无自有方法的评测；闭环存在
+VIA|保留|L3|None|A->E,E->A|med|FM agent 经浏览器式 3D 界面下发直观指令，截图观察结果后调整，闭环在执行中
+OpenRUA|保留|L2|Code|A->M,M<->E,E->A|med|现成编码 agent 在终端写 ROS 2 控制代码并运行，文件与运行输出回传后迭代
+Astra on RoboDojo|资源|L3|None|A->E,E->A|low|通用 LLM 不经微调直接当操作策略并做 42 任务评测，无自有方法；E->A 摘要未明示
+VLS|保留|L2|Code|A->M,M<->E,E->A|med|VLM 编写可微奖励引导冻结策略采样，执行反馈触发阶段切换并重新查询 VLM
+AquaCap|保留|L2|Code|A->M,M<->E,E->A|high|双层 agent 生成控制程序，失败感知 memory 诊断后闭环重规划并改写代码
+KPI|剔除|-|Code|A->M|med|无 E->A：VLM 一次写出轨迹与契约，接触刚度由固定内核自适应，agent 不再决策
+GTA-2|剔除|-|Code|A->M|med|无 E->A：多 VLM 一次求解技能与控制器参数，零样本开环执行，执行结果不回传
+Embodiment Meets Environment|剔除|-|Code|A->M,M<->E|med|无 E->A：LLM 合成任务约束，运行时由求解器强制执行，agent 不基于反馈再决策
+Harness VLA|保留|L2|Policy|A->M,M<->E,E->A|med|记忆增强的 LLM agent 调用冻结 VLA 原语并重试、重摆放，跨 episode 记忆回传
+MessyMem|保留|L2|Policy|A->M,M<->E,E->A|low|VLM 规划者调用技能，交互结果更新持久场景图并供后续决策；闭环经记忆间接成立
+Teach and Grow|保留|L2|Code|A->M,M<->E,E->A|med|Astra 与 Codex 把示范编成闭环技能块，物理反馈指导后续动作与恢复，验证后入库
+CaP Great Again|保留|L2|Code|A->M,M<->E,E->A|high|编程 agent 编写机器人工具，执行 agent 调用并依每次执行结果保留模型级决策
+PhysMem|保留|L2|Policy|A->M,M<->E,E->A|med|VLM 规划者记录经验并提出物理假设，经交互验证后再用于决策，闭环成立
