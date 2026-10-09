@@ -7,6 +7,11 @@ supports; when a detail is unclear, pick the most likely reading and lower `conf
 Revision 2026-10-08 (user decision): step A.3 accepts an **authored closed loop** as well as
 re-decision by the model. Papers first judged with the strict A.3 were re-judged with this version.
 
+Revision 2026-10-09 (user decision 17): closing the loop is **no longer required** — the agent only has to
+connect to the policy / code layer or to the environment. Keep the verdicts below unchanged so earlier and
+later passes stay comparable: `precursor` now means "meets the definition, open loop" and is counted with
+`core` in the statistics and extended lists. Data-generation platforms (RoboTwin 2.0, AutoRT) stay `out`.
+
 ## Step 0 — scope: general foundation models, not embodied foundation models (user decision 2026-10-08)
 
 The survey studies **general-purpose foundation models** (LLMs / VLMs / MLLMs such as GPT, Gemini, Claude,
@@ -105,8 +110,8 @@ tag `[real2sim]` (or `[real2sim2real]`). The agent's explicit decisions are its 
   headline contribution.
 - **precursor**: Step A.1 and A.2 hold but A.3 fails (open-loop plan/program/constraint, per-step
   decisions without own history, prediction-only checks), with a robot body. Typical: ZS-Planners,
-  Socratic Models, LM-Nav, TidyBot, CoPa, MOKA, Instruct2Act, SMART-LLM, ECoT, pi0.5, KnowNo, AutoRT,
-  Text2Motion, Text2Reward, RoboGen, GenSim.
+  Socratic Models, LM-Nav, TidyBot, CoPa, MOKA, Instruct2Act, SMART-LLM, KnowNo, Text2Motion, Text2Reward,
+  RoboGen, GenSim. (ECoT, pi0.5 are out by Step 0; AutoRT is out as a data-collection platform, decision 18.)
 - **boundary**: an agent holds but the best experiment is only in discrete/scripted simulation
   (ALFRED, AI2-THOR, VirtualHome, TEACh, TDW transport, R2R discrete graph, Habitat magic-grasp
   rearrangement, symbolic primitives), OR the domain is autonomous driving.

@@ -35,10 +35,9 @@ LINES = [
       "Harness VLA", "PhysMem", "MessyMem", "Robo-COP"]),
     ("Supervisor", "监督者", "Supervisor",
      ["REFLECT", "DoReMi", "Safety Chip", "Real-Time Anomaly Detection", "Code-as-Monitor", "RoboGuard", "RoboFAC",
-      "Agentic Task Graph", "Zetta", "WhenToAsk", "Beyond Human Demos"]),
+      "Agentic Task Graph", "Zetta", "Beyond Human Demos"]),
     ("Teacher", "教师", "Teacher",
-     ["SUDD", "RobotGPT", "Manipulate-Anything", "RoboTwin 2.0", "HumanoidGen",
-      "GUAVA", "EmbodiedSWE", "CAPEX", "Frontier Demo Generation"]),
+     ["SUDD", "RobotGPT", "Manipulate-Anything", "GUAVA", "CAPEX", "Frontier Demo Generation"]),
     ("Designer", "设计者", "Designer",
      ["Eureka", "Text2Reward", "GenSim", "RoboGen", "Agentic Skill Discovery", "OMNI-EPIC", "CurricuLLM",
       "Eurekaverse", "SceneSmith", "SAGE", "RF-Agent", "FIND", "ROOT"]),
@@ -141,7 +140,7 @@ figcaption { font-size: 7.9pt; margin-top: 3pt; }
 .ibar .tr { height: 7pt; background: #f0efea; border-radius: 0 3px 3px 0; position: relative; }
 .ibar .fl { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 0 3px 3px 0; background: #3987e5; }
 .ibar .n { text-align: right; color: #0b0b0b; font-variant-numeric: tabular-nums; }
-.tiles { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8pt; margin: 6pt 0 8pt; }
+.tiles { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8pt; margin: 6pt 0 8pt; }
 .tile { border-radius: 8px; background: #f5f9fe; padding: 7pt 10pt 8pt; }
 .tile .v { font-size: 20pt; font-weight: 700; line-height: 1.1; letter-spacing: -0.3pt; color: #0b0b0b; }
 .tile .v span { color: #898781; font-weight: 400; font-size: 13pt; margin: 0 3pt; }
@@ -313,7 +312,7 @@ def lineage(rows, trend):
            '<col style="width:17.5%"><col style="width:13.5%"><col style="width:26%"></colgroup><tr><th></th>']
     for y in YEARS:
         out.append(f'<th><span class="y">{y}</span><div class="bar" style="width:{max(3, 100 * n[y] / top):.1f}%"></div>'
-                   f'<span class="bn">{n[y]} 篇 core</span></th>')
+                   f'<span class="bn">{n[y]} 篇</span></th>')
     out.append("</tr>")
     for name, sub, seat, keys in LINES:
         xs = [byk[k] for k in keys]
@@ -328,9 +327,9 @@ def lineage(rows, trend):
     out.append("</table>")
     out.append('<div class="legend"><span class="chip" style="--c:#2a78d6">实心</span>再决策　'
                '<span class="chip au" style="--c:#2a78d6">空心</span>编写闭环　'
-               '<span class="chip op" style="--c:#2a78d6">虚线</span>开环（开创了方向，不满足闭环）　'
+               '<span class="chip op" style="--c:#2a78d6">虚线</span>开环　'
                '颜色 = Seat　★ 你点名的论文　◆ Real2Sim 章　△ VLN 章　'
-               '表头的条形 = 该年全部判为 core 的论文数（2026 年全量检索）</div>')
+               '表头的条形 = 该年全部满足定义的论文数（含开环；2026 年全量检索）</div>')
     return "".join(out)
 
 
@@ -348,7 +347,7 @@ def scard(rows, seat, name, zh, when, pios, news, text, share=None, col=None):
            f'<div class="ln2"><span class="tg">源头</span>{chips(pios)}<span class="arr">→</span>'
            f'<span class="tg">2026</span>{chips(news)}</div><p>{text}</p>']
     if share is not None:
-        out.append(f'<div class="share">2026 年全部 core 论文中以此为主 seat<span class="tr">'
+        out.append(f'<div class="share">2026 年全部满足定义的论文中以此为主 seat<span class="tr">'
                    f'<span class="fl" style="width:{share:.0f}%"></span></span><b>{share:.0f}%</b></div>')
     out.append("</div>")
     return "".join(out)
@@ -383,12 +382,13 @@ def build_html(fontdir):
           (f"{n_res}", "个 benchmark<br>与资源"), (f"{eff0:.2f} → {eff1:.2f}", "每年的有效 seat 数<br>2022 → 2026")]
     a('<div class="kp">' + "".join(f'<div><div class="v">{v}</div><div class="l">{l}</div></div>' for v, l in kp) + '</div>')
     a('<div class="abs3">'
-      '<div><b>研究对象</b>通用大模型（LLM / VLM）作为 agent 驱动机器人：规划、调用技能与 VLA、写代码与约束，必要时直接输出动作，'
-      '并依据执行后果重新决策。具身大模型（VLA、WAM）只作为被调用的工具出现。</div>'
+      '<div><b>研究对象</b>通用大模型（LLM / VLM）作为 agent 驱动机器人：规划、调用技能与 VLA、写代码与约束，必要时直接输出动作；'
+      'agent 只要连到策略 / 代码层或环境即可，是否依据执行后果再决策只记录、不要求。具身大模型（VLA、WAM）只作为被调用的工具出现。</div>'
       '<div><b>组织方式</b>按 agent 相对于机器人部署策略的位置（Seat）分成五类；每类从 2022–2025 年的先驱讲到 2026 年，'
       '另设 VLN 与 Real2Sim 两个专题。每篇另记接口、闭环形式、拓扑与 carrier。</div>'
-      f'<div><b>主要发现</b>2022 年的工作全部坐在 Controller；此后 Supervisor、Teacher、Designer、Developer 相继出现，'
-      f'有效 seat 数从 {eff0:.2f} 升到 {eff1:.2f}，Controller 始终是多数：seat 在增加，而不是迁移。</div></div>')
+      f'<div><b>主要发现</b>2022 年的工作几乎都坐在 Controller（{t["2022"]["prim"]["Controller"]} / {t["2022"]["n"]} 篇）；此后 Supervisor、Teacher、Designer、Developer 相继出现，'
+      f'有效 seat 数从 {eff0:.2f} 升到 {eff1:.2f}，Controller 始终是多数：seat 在增加，而不是迁移；'
+      f'闭环论文的占比也从 2023 年的 {100 * t["2023"]["closed"]:.0f}% 升到 {100 * t["2026"]["closed"]:.0f}%。</div></div>')
     toc = [("01", "范围与定义", "两条路线；什么算 agent；三种闭环形式；边界案例"),
            ("02", "脉络地图", f"{n_pio} 篇先驱到 {n_core} 篇 2026 年论文，按年份排开"),
            ("03", "五个 Seat 与两个专题", "每个位置何时起作用、产出交给谁、怎么演变"),
@@ -405,33 +405,33 @@ def build_html(fontdir):
       '具身大模型输出计划也不算。</p>')
     a(f'<figure>{fig_routes()}</figure>')
     a('<h2 style="margin-top:9pt">什么算 agent：一个范围，三条判定</h2>')
-    a('<p class="lead">判定对象是「模型 + harness + 环」构成的过程，而不是权重本身；四项全部满足才收录。</p>')
+    a('<p class="lead">判定对象是「模型 + harness」构成的过程，不是权重本身；四项全部满足才收录，③ 开环也算。</p>')
     cards = [("scope", "⓪", "通用大模型", "决策者是 LLM / VLM，原样使用，或为 agent 角色微调后仍通过工具、技能、代码行动",
               ["GPT-6 Astra 直接出动作", "GUAVA 蒸馏出的 4B agent"], ["VLA（π0.5、ECoT）", "分层 VLA（Hi Robot）、WAM"]),
              ("", "①", "显式决策", "输出可检查的决策：计划、技能 / 工具 / VLA 调用、代码、约束、裁决、系统编辑或动作",
               ["SayCan 选择技能", "Code as Policies 写程序"], ["奖励模型、价值模型、打分器", "embedding、latent"]),
              ("", "②", "决策权", "自己写出选项；或在含停止、重试、重规划、求助、保留 / 回滚的选项中做选择",
-              ["Inner Monologue 重规划", "WhenToAsk 决定求助"], ["只给代码枚举的候选打分", "（PIVOT、按 frontier 打分）"]),
-             ("", "③", "闭环", "带着自己的决策与后果被再次调用；或写下的约束 / 程序在执行中读实时感知并调整",
-              ["Inner Monologue（再决策）", "ReKep（编写闭环）"], ["一次写成的技能序列", "只靠自身预测的「检查」"])]
+              ["Inner Monologue 重规划", "KnowNo 不确定时求助"], ["只给代码枚举的候选打分", "（PIVOT、按 frontier 打分）"]),
+             ("", "③", "连到身体", "决策到达策略 / 代码层，或直接作用于环境；闭环只记录",
+              ["CoPa 一次写出约束", "ZS-Planners 开环计划"], ["只做离线问答或评测", "数据生成平台"])]
     parts = []
     for cls, no, title, rule, yes, no_ in cards:
         parts.append(f'<div class="tcard {cls}"><span class="no">{no}</span><h4>{title}</h4><div class="rule">{esc(rule)}</div>'
                      + "".join(f'<div class="yes">✓ {esc(x)}</div>' for x in yes)
                      + "".join(f'<div class="no2">✗ {esc(x)}</div>' for x in no_) + '</div>')
     a('<div class="flow4">' + '<div class="arr">→</div>'.join(parts) + '</div>')
-    a('<h3>三种闭环形式（脉络图里卡片的三种样式）</h3>')
+    a('<h3>三种闭环形式（只记录，不作为收录条件；脉络图里卡片的三种样式）</h3>')
     loops = [("re", "chip", "再决策", "同一次运行中，模型带着自己先前的决策和后果证据被再次调用，可以修订决策。",
               "SayCan、Inner Monologue、Eureka"),
              ("au", "chip au", "编写闭环", "模型只写一次约束或程序，执行时由求解器读实时感知重解或回溯；随结果而变的逻辑是模型写的。",
               "ReKep（约 10 Hz 重解）、VoxPoser、Code as Policies"),
-             ("op", "chip op", "开环（只收先驱）", "计划或约束一次写成、不回到模型；作为开创方向的先驱收录。",
+             ("op", "chip op", "开环", "计划、程序或约束一次写成，执行结果不回到模型；按你的框架同样收录。",
               "ZS-Planners、Socratic Models、CoPa、MOKA")]
     a('<div class="loops">' + "".join(
         f'<div class="lcard"><h4><span class="{cls}" style="--c:#2a78d6">{title}</span></h4>{loop_icon(kind)}'
         f'<div class="d">{esc(d)}</div><div class="ex">{esc(ex)}</div></div>' for kind, cls, title, d, ex in loops) + '</div>')
-    a('<div class="notes"><div><b>两个例外。</b>约束 / 关键点编程（VLM 写约束交给求解器，如 CoPa、MOKA）和 agentic Real2Sim'
-      '（agent 从真实数据重建可交互的仿真场景）即使一次写成也收录，标为开环。</div>'
+    a('<div class="notes"><div><b>开环也算。</b>箭头不必全有，agent 连到 Policy / Code 或 Env / Sim 之一即可；'
+      '专门训练的感知或动作模型（如 RoboTracer）仍不算。</div>'
       '<div><b>不收。</b>' + "".join(f'<span class="pill">{x}</span>' for x in
                                        ("VLA 与分层 VLA", "世界动作模型", "机器人基础模型", "奖励 / 价值模型", "游戏与文本世界",
                                         "纯数字 agent")) +
@@ -479,7 +479,7 @@ def build_html(fontdir):
                 "从事后解释失败，到把自然语言安全规范译成时序逻辑在运行时强制执行，再到预先写好恢复分支（Agentic Task Graph）、"
                 "从 rollout 中进化监控器并经验证才保留（Zetta）。", share26["Supervisor"]),
           scard(rows, "Teacher", "Teacher", "教师", "部署前，亲自执行；经检验的经验成为训练目标",
-                ["SUDD", "RobotGPT", "RoboTwin 2.0"], ["GUAVA", "CAPEX"],
+                ["SUDD", "RobotGPT", "Manipulate-Anything"], ["GUAVA", "CAPEX"],
                 "先是 LLM 规划并检验、生成示范数据蒸馏成策略；2026 年出现 agent 教 agent：前沿 VLM 在 harness 中的轨迹"
                 "蒸馏成同一套接口的 4B agent（GUAVA）。", share26["Teacher"]),
           scard(rows, "Designer", "Designer", "设计者", "部署前，设计学习问题：奖励、任务、场景、课程",
@@ -500,7 +500,7 @@ def build_html(fontdir):
                 "agent 从真实录像重建可仿真的孪生，在里面练习、诊断、改进，再把技能带回真机（Real2Sim2Real）；"
                 "与 Designer、Developer 交叉。", col=MUTED)]
     iface = Counter(r["interface"] for r in csv.DictReader(open(os.path.join(R.ROOT, "data/core/fine_labels.csv")))
-                    if r["verdict"] == "core" and r.get("pass") in R.STRONG and R.year_of(r) == "2026")
+                    if r["verdict"] in R.QUALIFY and r.get("pass") in R.STRONG and R.year_of(r) == "2026")
     tot = sum(iface.values())
     ib = [("skill-call", "技能调用"), ("code", "代码"), ("problem-spec", "问题规格"), ("constraint", "约束"),
           ("system-edit", "系统编辑"), ("micro-action", "语义微动作"), ("vla-call", "VLA 调用")]
@@ -508,7 +508,7 @@ def build_html(fontdir):
                    f'</span></span><span class="n">{iface[k]}</span></div>' for k, zh in ib)
     cs.append('<div class="scard" style="--c:#0b0b0b"><div class="hd"><span class="nm">每篇还记四个维度</span></div>'
               '<div class="when">接口 · 闭环形式 · 拓扑（单 agent、1:N 调度多机、×N 多 agent）· carrier（G 原样 / C 微调）</div>'
-              f'<p style="margin-bottom:3pt">harness 与 multi-agent 不是类别，而是这些维度上的取值。下图：2026 年 {tot} 篇 core 论文的接口分布，'
+              f'<p style="margin-bottom:3pt">harness 与 multi-agent 不是类别，而是这些维度上的取值。下图：2026 年 {tot} 篇满足定义的论文的接口分布，'
               'VLA 调用与系统编辑是两年间增长最快的两类。</p>' + bars + '</div>')
     a('<div class="cards">' + "".join(cs) + '</div>')
     a('</section>')
@@ -517,7 +517,7 @@ def build_html(fontdir):
     a('<section class="page">')
     a('<div class="kicker">04 <span>· 趋势与开放问题</span></div>')
     a('<h2>seat 在增加，而不是迁移</h2>')
-    a(f'<p class="lead">核心表按名额挑选，不能当趋势证据；这里用全部经 Sonnet 判定或复核为 core、有日期的 {sum(x["n"] for x in trend)} 篇论文。'
+    a(f'<p class="lead">核心表按名额挑选，不能当趋势证据；这里用全部经 Sonnet 判定或复核、满足定义（闭环与开环）、有日期的 {sum(x["n"] for x in trend)} 篇论文。'
       '2026 年是全量检索；2022–2025 年来自种子论文的引用邻域与联网补漏，所以只比较各年内部的结构。</p>')
     a('<div class="tiles">'
       f'<div class="tile"><div class="v">{eff0:.2f}<span>→</span>{eff1:.2f}</div><div class="l">有效 seat 数，2022 → 2026</div>'
@@ -526,13 +526,16 @@ def build_html(fontdir):
       '<div class="l">含 Controller 的论文占比，2023 → 2026</div><div class="s">逐年下降，但始终是多数：新 seat 出现时，旧的没有被取代</div></div>'
       f'<div class="tile"><div class="v">{dev["2024"]:.0f}%<span>→</span>{dev["2026"]:.0f}%</div>'
       '<div class="l">以 Developer 为主 seat 的占比，2024 → 2026</div><div class="s">2026 年与 Designer 并列第二大 seat，各占约十分之一</div></div>'
+      f'<div class="tile"><div class="v">{100 * t["2023"]["closed"]:.0f}%<span>→</span>{100 * t["2026"]["closed"]:.0f}%</div>'
+      '<div class="l">闭环论文的占比，2023 → 2026</div><div class="s">逐年上升：' + "、".join(f"{100 * t[y]['closed']:.0f}%" for y in YEARS[1:])
+      + '；先驱多是一次写成的计划或程序</div></div>'
       '</div>')
     a(f'<figure>{R.fig_share(trend)}<figcaption><b>图 2　各年份主 seat 的占比。</b>每篇论文按主 seat 计一次；n 为该年的论文数。'
-      '2022 年全部是 Controller；Supervisor、Teacher、Designer 在 2023 年出现，Developer 在 2024 年后成形。</figcaption></figure>')
+      '2022 年几乎全是 Controller；Teacher、Designer 在 2023 年出现，Supervisor 在 2023 年后增多，Developer 在 2024 年后成形。</figcaption></figure>')
     a('<h2 style="margin-top:6pt">开放问题</h2>')
     probs = [("评测", "agent 与策略怎么比", "RoboDojo 让通用模型当策略、与公开策略同榜；闭环质量、token 成本与延迟还没有统一的度量。"),
              ("边界", "通用模型还是 VLA", "通用模型直接出动作与 VLA 越来越像。现在按「模型是什么」判定，需要更可操作的标准。"),
-             ("安全", "监督者太少", f"Supervisor 只占 2026 年 core 论文的 {share26['Supervisor']:.0f}%；运行时护栏、越狱攻击下的物理风险刚开始被研究。"),
+             ("安全", "监督者太少", f"Supervisor 只占 2026 年论文的 {share26['Supervisor']:.0f}%；运行时护栏、越狱攻击下的物理风险刚开始被研究。"),
              ("自我改进", "保留还是回滚", "Developer 与 Designer 用试验决定去留（ENPIRE、PhysEvo）；试验成本、统计可靠性与回滚本身的安全缺少研究。"),
              ("练习场", "自己搭的仿真可信吗", "agent 从录像重建仿真并在其中练习（RPG、Agentic RSR）；重建的保真度决定技能能否回到真机。"),
              ("教给谁", "从教策略到教 agent", "GUAVA 把前沿 VLM 蒸馏成 4B agent；小模型是否保留了 agency、能否跨身体迁移，尚无答案。")]

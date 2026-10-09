@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
-"""Extended lists: every paper a strong-model pass judged `core` that is not in the curated table,
-one file for 2026 and one for the pioneer years 2022-2025.
+"""Extended lists: every paper a strong-model pass judged `core` (closed loop) or `precursor` (open loop) that is
+not in the curated table, one file for 2026 and one for the pioneer years 2022-2025.
+
+Open-loop papers count since 2026-10-09: the agent only has to connect to the policy / code or to the environment
+(user's agent-loop diagram, docs/layer_classification.md); `loop` = none marks them. Papers the diagram judgement
+excluded (verdict 剔除 in data/core/layer_classification.csv) are left out.
 
 The curated table (core_table.csv) is quota-driven (~100 rows). The awesome list also shows the rest
 of the papers that meet the definition, so coverage of a year does not depend on the quota.
@@ -41,16 +45,22 @@ def main():
     table = list(csv.DictReader(open(os.path.join(ROOT, "data/core/core_table.csv"))))
     taken = {norm_arxiv(r["arxiv"]) for r in table if r["arxiv"]} | {norm_title(r["title"]) for r in table}
     taken |= {r["id"] for r in table}
+    lp = os.path.join(ROOT, "data/core/layer_classification.csv")
+    if os.path.exists(lp):  # excluded by the agent-loop judgement: keep them out of the extended lists too
+        for r in csv.DictReader(open(lp, encoding="utf-8-sig")):
+            if r["verdict"] == "剔除":
+                taken |= {norm_arxiv(r["arxiv"]), norm_title(r["title"])} - {""}
     rows = []
     for r in csv.DictReader(open(os.path.join(ROOT, "data/core/fine_labels.csv"))):
-        if r["verdict"] == "core" and r["pass"] in STRONG:
+        if r["verdict"] in ("core", "precursor") and r["pass"] in STRONG:
             rows.append(dict(r, theme=theme_of(r["reason"])))
     for name in ("gap_candidates.jsonl", "gap2_candidates.jsonl", "gap3_candidates.jsonl"):
         p = os.path.join(ROOT, "data/core", name)
         if os.path.exists(p):
             for o in map(json.loads, open(p)):
-                if o.get("verdict") == "core":
+                if o.get("verdict") in ("core", "precursor"):
                     rows.append(dict(o, id="gap:" + norm_arxiv(o["arxiv"]), theme=(o.get("theme") or "").strip("-"),
+                                     loop=o.get("loop") or ("none" if o["verdict"] == "precursor" else ""),
                                      **{"pass": name.split("_")[0]}))
     from collections import Counter
     for name, years in (("extended_2026.csv", {"2026"}), ("extended_2022_2025.csv", {"2022", "2023", "2024", "2025"})):
@@ -69,7 +79,8 @@ def main():
             w = csv.DictWriter(f, fieldnames=COLS)
             w.writeheader()
             w.writerows(out)
-        print(f"{name}: {len(out)} rows;", dict(Counter(r["seat"] for r in out)))
+        print(f"{name}: {len(out)} rows;", dict(Counter(r["seat"] for r in out)),
+              "open loop", sum(r["loop"] == "none" for r in out))
 
 
 if __name__ == "__main__":

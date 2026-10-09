@@ -47,6 +47,7 @@ def norm_arxiv(a):
     return re.sub(r"v\d+$", "", (a or "").strip().lower().replace("arxiv:", ""))
 
 
+QUALIFY = ("core", "precursor")  # verdicts that meet the definition; precursor = open loop (2026-10-09 rule)
 STRONG = {"out", "recheck", "verify", "verify_s2", "recheck_r3b", "recheck_scope", "verify_pre", "verify_pf", "audit_out",
           "recheck_direct"}  # judging passes run with the strong model (see build_extended.py)
 
@@ -102,8 +103,9 @@ def load():
             ver_core_kept += h[k - 1][1] == "core" and h[k][1] == "core"
     r3b = [r for r in fine if r.get("pass") == "recheck_r3b"]  # ReKep-type and agentic Real2Sim re-judged as agents
     scope = [r for r in fine if any(p_ == "recheck_scope" for p_, _ in hist(r))]  # general vs embodied model (decision 12)
-    strong26 = [r for r in fine if r["verdict"] == "core" and r.get("pass") in STRONG and year_of(r) == "2026"]
-    strong_pre = [r for r in fine if r["verdict"] == "core" and r.get("pass") in STRONG
+    # papers that meet the definition: closed loop (core) or, since 2026-10-09, open loop (precursor)
+    strong26 = [r for r in fine if r["verdict"] in QUALIFY and r.get("pass") in STRONG and year_of(r) == "2026"]
+    strong_pre = [r for r in fine if r["verdict"] in QUALIFY and r.get("pass") in STRONG
                   and year_of(r) in ("2022", "2023", "2024", "2025")]
     # coverage completion (round 3, after "is the coverage complete?"): never fine-judged and never coarse-screened
     # candidates, an audit of cheap-model out verdicts, and a re-judge of general models that emit actions directly
@@ -137,13 +139,14 @@ def load():
              scope_core_out=sum(1 for r in scope if r["verdict"] == "out" and len(hist(r)) > 1 and hist(r)[-2][1] == "core"),
              r3b_con=sum(1 for r in r3b if r["verdict"] == "core" and r["interface"] == "constraint"),
              r3b_r2s=sum(1 for r in r3b if r["verdict"] == "core" and re.match(r"\s*\[real2sim", r["reason"])))
-    # trend corpus: every stage-2 core verdict in the judging pool
-    prim, alls, n = defaultdict(Counter), defaultdict(Counter), Counter()
+    # trend corpus: every strong-pass paper that meets the definition (closed or open loop)
+    prim, alls, n, closed = defaultdict(Counter), defaultdict(Counter), Counter(), Counter()
     for r in fine:
-        if r["verdict"] != "core" or r.get("pass") not in STRONG:
+        if r["verdict"] not in QUALIFY or r.get("pass") not in STRONG:
             continue
         y = year_of(r)
         n[y] += 1
+        closed[y] += r["verdict"] == "core" and r["loop"] != "none"
         prim[y][r["seat"]] += 1
         for s in {r["seat"]} | {x for x in re.split(r"[+,;/ ]+", r["seat2"]) if x in SEATS}:
             alls[y][s] += 1
@@ -153,7 +156,7 @@ def load():
             continue
         tot = sum(alls[y].values())
         eff = math.exp(-sum(v / tot * math.log(v / tot) for v in alls[y].values() if v))
-        trend.append(dict(year=y, n=n[y], prim=prim[y], alls=alls[y], eff=eff))
+        trend.append(dict(year=y, n=n[y], prim=prim[y], alls=alls[y], eff=eff, closed=closed[y] / n[y]))
     # agreement with the first-round test-set placements (first pass only)
     agree = defaultdict(Counter)
     for r in fine:
@@ -285,11 +288,11 @@ def fig_pipeline(c):
         (f"{c['gap1'] + c['gap2'] + c['gap3']}", "篇联网补漏",
          f"公认工作 {c['gap1']} 篇；2026 年少见身体形态、小 seat 与 Real2Sim {c['gap2']} 篇；"
          f"2022–2025 年先驱 {c['gap3']} 篇；全部经 arXiv 核验", "联网 agent"),
-        (f"{c['strong26']}", "篇 2026 年 core",
-         f"经 Sonnet 判定或复核为 core 的 2026 年论文；{t['core']} 篇进核心表，其余 {c['ext']} 篇列入 README 的扩展列表",
+        (f"{c['strong26']}", "篇 2026 年满足定义",
+         f"经 Sonnet 判定或复核、满足定义的 2026 年论文（闭环与开环）；{t['core']} 篇进核心表，其余 {c['ext']} 篇列入 README 的扩展列表",
          "Sonnet"),
-        (f"{c['strong_pre']}", "篇 2022–2025 年 core",
-         f"经 Sonnet 判定或复核为 core 的 2022–2025 年论文；挑出的先驱进核心表，其余 {c['ext_pre']} 篇列入 README 的 "
+        (f"{c['strong_pre']}", "篇 2022–2025 年满足定义",
+         f"经 Sonnet 判定或复核、满足定义的 2022–2025 年论文（闭环与开环）；挑出的先驱进核心表，其余 {c['ext_pre']} 篇列入 README 的 "
          "2022–2025 扩展列表", "Sonnet"),
         (f"{t['pioneer']} + {t['core']} + {t['resource']}", "先驱 + 2026 + 资源",
          f"人工挑选；{c['verified']} 篇全部经 arXiv 核验，标题一致", "人工"),
@@ -312,13 +315,13 @@ def fig_flow():
     qs = [("⓪ 通用大模型做具身任务", ["决策者是 LLM / VLM（GPT、Gemini、Claude、Astra），", "原样使用或为 agent 角色微调；直接出动作也算"]),
           ("① 显式决策", ["输出可检查的决策：计划、技能 / 工具 / VLA", "调用、代码、约束、裁决、系统编辑或动作"]),
           ("② 决策权", ["自己写出选项；或在含 stop / retry / replan /", "ask 等控制行为的选项中做选择"]),
-          ("③ 闭环（满足其一，或属两个例外）", ["再决策；或编写闭环（写的约束 / 程序依结果调整）。", "例外：约束编程、agentic Real2Sim 一次写成也收"]),
+          ("③ 连到身体（闭环只记录，不要求）", ["决策到达 Policy / Code，或直接作用于环境；", "闭环形式记为再决策、编写闭环或开环"]),
           ("④ 机器人身体与保真度", ["真机，或失败可能由物理原因引起的仿真", "（接触、滑动、碰撞）"])]
     exits = [("OUT · 具身大模型", ["VLA、分层 VLA、WAM、机器人基础模型", "（π0.5、Hi Robot、MEM、PaLM-E）"], "#f4f3ef", BASE),
              ("OUT · 器官", ["打分器、奖励 / 价值模型、一次性标注、", "world model 预测"], "#f4f3ef", BASE),
              ("OUT · 没有决策权", ["只给代码枚举的同类候选打分，", "控制流归代码（SG-Nav、PIVOT）"], "#f4f3ef", BASE),
-             ("先驱（若为 2025 年前的奠基作）", ["开环计划、无自身记录的逐步推理：", "ZS-Planners、Socratic、KnowNo"],
-              tint(MUTED, 0.16), MUTED),
+             ("OUT · 不连到身体或主体不是 agent", ["只做离线问答或评测；主体是数据生成平台", "（RoboTwin 2.0、AutoRT）"],
+              "#f4f3ef", BASE),
              ("BOUNDARY · 边界", ["离散或脚本化仿真（ALFRED、AI2-THOR）、", "自动驾驶；进 lineage 表"], "#f4f3ef", BASE)]
     y = 66
     b.append(arrow("M185,46 L185,63"))
@@ -328,7 +331,7 @@ def fig_flow():
         b.append(arrow(f"M350,{y + 32} L407,{y + 32}", "否", 372, y + 26))
         b.append(arrow(f"M185,{y + 64} L185,{y + 85}", "是", 193, y + 79))
         y += 88
-    b.append(box(20, y, 330, 64, "全部满足", ["2022–2025 年的代表作 → 先驱；2026 年 → 2026 论文", "两者按 Seat 一起讲「先驱 → 2026」"],
+    b.append(box(20, y, 330, 64, "全部满足（开环也算）", ["2022–2025 年的代表作 → 先驱；2026 年 → 2026 论文", "两者按 Seat 一起讲「先驱 → 2026」"],
                  fill=tint(COLOR["Controller"], 0.12), stroke=COLOR["Controller"]))
     return svg(W, y + 70, "".join(b), "agent 判定流程图", width="72%")
 
@@ -421,7 +424,7 @@ def fig_quarters(rows):
     out.append("</table>")
     out.append('<div class="binlegend"><span class="chip" style="--c:#2a78d6">实心</span>再决策　'
                '<span class="chip au" style="--c:#2a78d6">空心</span>编写闭环　'
-               '<span class="chip op" style="--c:#2a78d6">虚线</span>开环（约束编程、Real2Sim 例外）　'
+               '<span class="chip op" style="--c:#2a78d6">虚线</span>开环　'
                '★ 用户点名　◆ Real2Sim / Sim2Real 章　△ VLN 章</div>')
     return "".join(out)
 
@@ -442,7 +445,7 @@ def fig_pioneers(rows):
     out.append("</table>")
     out.append('<div class="binlegend"><span class="chip" style="--c:#2a78d6">实心</span>再决策　'
                '<span class="chip au" style="--c:#2a78d6">空心</span>编写闭环　'
-               '<span class="chip op" style="--c:#2a78d6">虚线</span>开环（开创了方向，但不满足闭环）　★ 用户点名</div>')
+               '<span class="chip op" style="--c:#2a78d6">虚线</span>开环　★ 用户点名</div>')
     return "".join(out)
 
 
@@ -690,6 +693,7 @@ def build_html(fontdir):
     themed_ctl = sum(1 for r in core if r["seat"] == "Controller" and r.get("theme"))
     n_core, n_pio, n_res = len(core), len(pio), len(res)
     t = {x["year"]: x for x in trend}
+    t26_closed = t["2026"]["closed"] if "2026" in t else 0
     dev = {y: x["alls"]["Developer"] / x["n"] for y, x in t.items()}
     ctl = {y: x["alls"]["Controller"] / x["n"] for y, x in t.items()}
     late = [y for y in ("2023", "2024", "2025", "2026") if y in ctl]
@@ -705,13 +709,13 @@ def build_html(fontdir):
 
     # ---------------------------------------------------------- page 1: summary
     a('<h1>Agentic Embodiment 综述 · 第三轮进展</h1>')
-    a('<div class="sub">从先驱到 2026：定义、分类与核心论文表 · 2026-10-08 · 分支 claude/jolly-thompson-g43dno</div>')
+    a('<div class="sub">从先驱到 2026：定义、分类与核心论文表 · 2026-10-09 · 分支 claude/jolly-thompson-g43dno</div>')
     a('<div class="defn"><b>一句话定义</b>　Agentic Embodiment 研究通用基础模型（LLM / VLM，而不是具身动作模型）作为 agent 做出的显式决策：'
-      '决策的后果作用到机器人身体上，agent 再依据后果的证据重新决策。全文围绕一个问题组织：这个 agent 相对于机器人部署的策略坐在哪里'
-      '（<b>Seat</b>）。'
+      '决策经由它产出的策略、代码或计划，或直接作用于环境，到达机器人身体；是否依据结果再决策只记录、不要求。'
+      '全文围绕一个问题组织：这个 agent 相对于机器人部署的策略坐在哪里（<b>Seat</b>）。'
       '<div class="en">Agentic Embodiment studies general-purpose foundation models — LLMs and VLMs, not embodied action models — '
-      'acting as agents that make explicit decisions whose consequences reach a robot body, and that re-decide on evidence of those '
-      'consequences. Its organizing question is where such an agent sits relative to the body\'s deployed policy — steering it, '
+      'acting as agents that make explicit decisions and are connected to a robot body — through the policy, code or plans they '
+      'produce, or by acting on the environment directly. Its organizing question is where such an agent sits relative to the body\'s deployed policy — steering it, '
       'guarding it, teaching it, designing its learning problem, or building its system (Seat).</div></div>')
     a('<div class="thesis">主线（草案，待你确认）：Agency spreads around the body — general models, not embodied action models, '
       'fill seat after seat.</div>')
@@ -724,6 +728,10 @@ def build_html(fontdir):
       + '</div>')
     added = [r["key"] for r in rows if r["tier"] == "pioneer" and r.get("added") == "r3c"]
     a('<div class="callout"><h3>这一轮按你的意见做的改动</h3><ul>'
+      f'<li><b>按你的 agent 回路框架重判（10-09）</b>：通用大模型 agent 必须存在并起作用；箭头不必全有，agent 连到 Policy / Code '
+      f'或 Env / Sim 之一即可，所以开环工作（Code as Policies、ReKep 一类）也算。核心表剔除 4 篇（AutoRT、RoboTwin 2.0、'
+      f'HumanoidGen、RoboFind），5 篇改为资源；全量统计也把开环论文算进来（2026 年 {c["strong26"]} 篇，闭环占 '
+      f'{round(100 * t26_closed)}%）。逐篇结果见 <code>docs/layer_classification.md</code>。</li>'
       f'<li><b>只收通用大模型做具身任务</b>：VLA、分层 VLA、WAM、机器人基础模型直接出动作的工作删除（重判 {c["scope"]} 篇，'
       f'{c["scope_out"]} 篇排除）；通用模型直接出动作仍算（如 GPT-6 Astra 在 RoboDojo 上当策略）。</li>'
       f'<li><b>覆盖补全</b>：从未细判的 {c["pre"]:,} 篇、从未粗筛的 {c["pf_screen"]:,} 篇（{c["pf_keep"]} 篇进入判定）全部补判；'
@@ -735,9 +743,9 @@ def build_html(fontdir):
       f'<li><b>规模</b>：先驱 {n_pio} + 2026 年 {n_core} = {n_pio + n_core} 篇，资源 {n_res} 个；表外满足定义的论文列在 README '
       f'扩展列表（2026 年 {c["ext"]} 篇，2022–2025 年 {c["ext_pre"]} 篇）。</li></ul></div>')
     a('<div class="callout ask"><h3>需要你决定</h3><ol>'
-      '<li><b>主线的措辞</b>：只收通用大模型之后，原主线里的「not weights」不再成立。候选：'
+      '<li><b>主线的措辞</b>：只收通用大模型之后，原主线里的「not weights」不再成立；开环也算之后，「闭环让模型成为 agent」也不再成立。候选：'
       '「Agency spreads around the body — general models, not embodied action models, fill seat after seat」；'
-      '或「General models become embodied agents through the loops built around them」。</li>'
+      '或加上第 7 节的第二条趋势：「…… and the loop is closing」（闭环占比逐年上升）。</li>'
       '<li><b>副轴</b>：Carrier 只剩 G（原样使用）和 C（为 agent 角色微调）两类，信息量很小。建议改用 Interface（技能调用 / 冻结 VLA / '
       '代码 / 约束 / 直接动作 / 问题规格 / 系统编辑）做副轴。</li>'
       '<li><b>审阅新增论文</b>：附录 A 中标「新」的论文都是这一轮加入的，有不同意的告诉我。</li>'
@@ -750,7 +758,8 @@ def build_html(fontdir):
     a('<p>第一轮收割了 14 篇种子论文的前向引用，并做了粗筛和短名单；第二轮逐篇判定并挑出了第一版核心表。这一轮按你的意见改了闭环判定，'
       '对 2026 年做了全量检索（2026 年论文最多）：收割候选中的 2026 年论文全部判定，再用关键词检索补上没引用种子的论文；'
       '另有两轮联网搜索。之后按「ReKep 这一类都算」「agentic Real2Sim 都算」重判了相关论文，把 VLN 单列一章，'
-      '最后按「只收通用大模型」删去具身大模型，并补全 2022–2025 年的先驱。下图是完整的筛选漏斗，右栏标出每一步由谁完成。</p>')
+      '最后按「只收通用大模型」删去具身大模型，补全 2022–2025 年的先驱，并按你的 agent 回路框架重判核心表（开环也算）。'
+      '下图是完整的筛选漏斗，右栏标出每一步由谁完成。</p>')
     a(f'<figure>{fig_pipeline(c)}<figcaption><b>图 1　筛选漏斗。</b>引用收割只能找到引用了种子论文的工作，'
       '很多 2026 年的新论文不在里面，所以加了 2026 年关键词检索和两轮联网搜索。批量判定用便宜的 Haiku，凡是 Haiku 判为 core、'
       '前驱或边界的都由 Sonnet 从头重判；核心表的论文都用 arXiv API 核对过编号和标题。</figcaption></figure>')
@@ -773,8 +782,9 @@ def build_html(fontdir):
     a('<div class="section"><h2>2　定义：什么算 agent</h2>')
     a('<p>先看<b>模型是什么</b>：研究对象是通用大模型（LLM / VLM）做具身任务，它可以出计划、调工具、写代码，也可以直接出动作；'
       '具身大模型（VLA、分层 VLA、WAM、机器人基础模型）直接出动作的工作不收。界线确实模糊，所以判断看模型是不是通用大模型，'
-      '不看输出是计划还是动作。再看<b>过程</b>：「模型 + harness + 环」是否满足三条判定。下图是逐篇判定时的顺序：</p>')
-    a(f'<figure>{fig_flow()}<figcaption><b>图 2　agent 判定流程。</b>⓪ 是范围，①–③ 是三条 agent 判定，必须全部满足；'
+      '不看输出是计划还是动作。再看<b>过程</b>：通用模型是否作为 agent 做出决策，并连到策略 / 代码层或环境。下图是逐篇判定时的顺序：</p>')
+    a(f'<figure>{fig_flow()}<figcaption><b>图 2　agent 判定流程。</b>⓪ 是范围，①–③ 是 agent 判定，必须全部满足（③ 只要求连到身体，'
+      '闭环形式只记录）；'
       '④ 决定进核心还是只作边界讨论。最后按 arXiv 首版年份分为先驱（2022–2025）和 2026，两者按 seat 一起呈现。</figcaption></figure>')
     a('<div class="callout"><h3>「编写闭环」：以 ReKep 为例</h3>'
       '<p class="small">GPT-4o 只被调用一次，写出各阶段的子目标约束和路径约束（Python 函数）。执行时求解器以约 10 Hz 依跟踪到的关键点重解；'
@@ -782,10 +792,10 @@ def build_html(fontdir):
       f'<p class="small" style="margin:0">核心表中的编写闭环：2026 年 {len(authored_core)} 篇'
       + (f'（{"、".join(r["key"] for r in authored_core[:6])}{"等" if len(authored_core) > 6 else ""}）' if authored_core else '')
       + f'；先驱 {len(authored_pio)} 篇（{"、".join(r["key"] for r in authored_pio)}）。</p></div>')
-    a('<div class="callout"><h3>两个例外：约束编程与 agentic Real2Sim</h3>'
-      '<p class="small">下面两类即使模型只写一次、不再闭环，也按 agent 收录，「闭环」一列记开环：（1）<b>约束 / 关键点编程</b>：'
-      'VLM 写出约束、关键点、可供性或代价函数，由求解器转成动作（CoPa、MOKA 一类）；（2）<b>agentic Real2Sim</b>：agent 从真实数据重建'
-      '可交互的仿真场景，自己决定资产、位姿、铰接、物理参数或仿真代码。没有基础模型做决策的重建方法（NeRF、经典辨识）仍不算。</p>'
+    a('<div class="callout"><h3>开环也算（10-09）</h3>'
+      '<p class="small">按你的框架，箭头不必全有：agent 只要连到 Policy / Code 或 Env / Sim 之一即可。所以模型只写一次、不再依据结果修改的'
+      '工作也收录，「闭环」一列记开环：一次写成的计划或程序（SayCan、Code as Policies）、约束 / 关键点编程（CoPa、MOKA）、'
+      '一次构建的 agentic Real2Sim。没有通用大模型做决策的方法（NeRF 重建、专门训练的感知模型如 RoboTracer）仍不算。</p>'
       f'<p class="small" style="margin:0">2026 核心中开环的 {len(open_core)} 篇'
       + (f'：{"、".join(r["key"] for r in open_core[:8])}{"等" if len(open_core) > 8 else ""}' if open_core else '') + '。</p></div>')
     a('<p class="small"><b>三个常见误区</b>：RL 微调不等于 agency（SimpleVLA-RL 一类没有显式决策，判 OUT）；'
@@ -811,7 +821,7 @@ def build_html(fontdir):
     # ---------------------------------------------------------- 4 overview
     a('<div class="section"><h2>4　核心论文全景：从先驱到 2026</h2>')
     a(f'<p>{n_pio} 篇先驱是每个 seat 的源头：2022 年只有 Controller（SayCan、Code as Policies、Inner Monologue），'
-      '之后 Supervisor、Designer、Teacher、Developer 依次出现。虚线卡片是开创了方向、但不满足闭环判定的工作。</p>')
+      '之后 Supervisor、Designer、Teacher、Developer 依次出现。虚线卡片是开环的工作（agent 的输出不再依据结果修改）。</p>')
     a(f'<figure>{fig_pioneers(rows)}<figcaption><b>图 5　先驱按 Seat 与年份分布。</b>2022 年只有 Controller；'
       '之后 Supervisor、Designer、Teacher、Developer 依次出现。</figcaption></figure>')
     a(f'<p>2026 年论文最多：{n_core} 篇按 seat 和季度排开（Q1 {q["1"]}、Q2 {q["2"]}、Q3 {q["3"]}、Q4 {q["4"]} 篇）。'
@@ -846,7 +856,7 @@ def build_html(fontdir):
 
     # ---------------------------------------------------------- 6 trends
     a('<div class="section"><h2>7　趋势证据</h2>')
-    a(f'<p>核心表是按名额挑的，不能当趋势证据。所以下面用全部经 Sonnet 判定或复核为 core 的论文统计（{sum(x["n"] for x in trend)} 篇，'
+    a(f'<p>核心表是按名额挑的，不能当趋势证据。所以下面用全部经 Sonnet 判定或复核、满足定义的论文统计（闭环与开环，{sum(x["n"] for x in trend)} 篇，'
       f'年份取 arXiv 首版）。2026 年是全量检索（{t["2026"]["n"]} 篇）；2022–2025 年收割到的候选也已全部判定，'
       '但只来自种子论文的引用邻域和三轮联网补漏，没有像 2026 年那样做关键词检索，所以只看各年内部的结构，不比较绝对数量。</p>')
     a(f'<figure>{fig_share(trend)}<figcaption><b>图 8　各年份主 seat 的占比。</b>每篇论文按主 seat 计一次。'
@@ -862,15 +872,19 @@ def build_html(fontdir):
       f'</div><figcaption><b>图 9　主线的两个支撑。</b>左：seat 越来越分散（{trend[0]["eff"]:.2f} → {trend[-1]["eff"]:.2f}）。'
       f'右：含 Controller 的论文占比在 2023 年后保持在 {pct(min(ctl[y] for y in late))}–{pct(max(ctl[y] for y in late))}。'
       '两者合起来就是「seat 在增加，而不是迁移」。</figcaption></figure>')
+    late_cl = [x for x in trend if x["year"] >= "2023"]
+    a(f'<p>第二条趋势是<b>闭环在增加</b>：闭环（再决策或编写闭环）论文的占比从 2023 年的 {pct(late_cl[0]["closed"])} 逐年升到 '
+      f'2026 年的 {pct(late_cl[-1]["closed"])}（2022 年只有 {t["2022"]["n"] if "2022" in t else 0} 篇，不计）。'
+      '先驱多是一次写成的计划或程序，2026 年的 agent 越来越多地依据执行结果再决策。</p>')
     th = "".join(f"<th class='num'>{s}</th>" for s in SEATS)
     tr = "".join(
         f"<tr><td>{x['year']}</td><td class='num'>{x['n']}</td>"
         + "".join(f"<td class='num'>{x['prim'][s]}（{x['alls'][s]}）</td>" for s in SEATS)
         + f"<td class='num'>{pct(ctl[x['year']])}</td><td class='num'>{pct(dev[x['year']])}</td>"
-          f"<td class='num'>{x['eff']:.2f}</td></tr>" for x in trend)
+          f"<td class='num'>{x['eff']:.2f}</td><td class='num'>{pct(x['closed'])}</td></tr>" for x in trend)
     a('<table class="tbl"><colgroup><col style="width:7%"><col style="width:6%"></colgroup>'
       f'<tr><th>年份</th><th class="num">n</th>{th}<th class="num">含 Controller</th><th class="num">含 Developer</th>'
-      f'<th class="num">有效 seat 数</th></tr>{tr}</table>')
+      f'<th class="num">有效 seat 数</th><th class="num">闭环占比</th></tr>{tr}</table>')
     a('<p class="note" style="margin-top:4pt">各 seat 一栏：主 seat 篇数（括号内为主 seat 或次 seat 含该 seat 的篇数）。'
       '投稿前仍应按草稿 §10 的方案，从候选中分层随机抽样、两人盲标后复核这两个趋势。</p>')
     a('<div style="break-inside: avoid"><h2 style="margin-top:14pt">8　下一步</h2><ol>'
