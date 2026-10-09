@@ -16,7 +16,7 @@
   - `data/core/paper_list.csv`：精选清单 174 篇（保留 145、资源 20、剔除 9），逐篇读全文判定，带决策模型、理由和原文证据。
   - `data/core/agent_pool.csv`：保留的 145 篇，按阶段 → Seat → 角色 → 年份排好。
   - 保留的按 Seat：Designer 20、Teacher 9、Developer 24、Controller 80、Supervisor 12（先驱 66、2026 年 79）；多智能体 11 篇（保留 10、资源 1）。
-  - **综述写作方案**（中文，约 5 页，Claude Doc「Agentic Embodiment 综述写作方案」）：等用户讨论。
+  - **综述写作方案**（中文，约 5 页，Claude Doc「Agentic Embodiment 综述写作方案」：https://claude.ai/code/artifact/3814a79d-0de1-4954-9f8f-025f386674c9）：七节，包括定义与主线、收录标准、Seat 框架图、文献概况、12 章结构、7 个待讨论问题、下一步。文中留了一条评论，请用户在 A（每个角色详写 3–5 篇）和 B（145 篇全写）之间选一个；等用户讨论。
 - **暂存、先不管的**：`data/core/extended_judged.csv`，扩展列表和边界论文按同一标准补判过的 1,351 篇 arXiv 论文（其中判保留 1,040 篇）。用户觉得数量远超预期，可能是收录规则偏宽或误判（抽样约一成边缘误判，见 §7 第 5 条），以后要用时先收紧规则再挑。
 - **还没做完 / 需要用户看的**：见 §4。
 
@@ -99,7 +99,7 @@
   - 通用大模型 agent 分配、规划或协调两个及以上机器人（含异构团队）；
   - 论文把系统呈现为两个及以上分工不同、互相对话或交接工作的通用大模型 agent。
   - 单个机器人上的几次 prompt 调用流水线、只有人机对话、单 agent 调 subagent 工具，都不算。
-- 结果：保留的论文里 210 篇是多智能体（核心表 11 篇：RoCo、SMART-LLM、AutoRT、ABot-Claw、Air-Ground VLN、AdaHVLA、ENPIRE、LACE-CRAFT、ROOT、Skill2Real、PARTNR）。第二条标准偏宽，按「多个角色 agent」收进来的论文不少，用户可能想收紧。
+- 结果：精选清单里 11 篇（RoCo、SMART-LLM、AutoRT、ABot-Claw、Air-Ground VLN、AdaHVLA、ENPIRE、LACE-CRAFT、ROOT、Skill2Real、PARTNR）；补判的扩展论文里有 210 篇，第二条标准偏宽，按「多个角色 agent」收进来的论文不少，用户可能想收紧。
 
 ---
 
