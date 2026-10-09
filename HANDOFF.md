@@ -1,6 +1,6 @@
 # 交接文档：Awesome Agentic Embodiment
 
-> 最后更新：2026-10-09。工作分支 `claude/jolly-thompson-g43dno`，**尚未合并到 main**。
+> 最后更新：2026-10-09。全部工作已合并到 **main**（之前在分支 `claude/jolly-thompson-g43dno` 上做）。接手后从 main 拉新分支继续。
 > 旧版交接（第一至三轮，按 Seat × Carrier 定义做的部分）原样保留在 `docs/history/HANDOFF_round3.md`，里面有更早的检索漏斗、各轮判定和踩坑的细节，需要时再查。
 
 ---
@@ -158,8 +158,7 @@
    | GPT-6 Astra on RoboDojo | 资源 | 全文判为评测研究，但用户举它当 L3 的例子 |
 
 3. list 做完后：README 是否改成按 L1 / L2 / L3 分节；survey 的定义和主线怎么重写。
-4. 是否开 PR 合并到 main。
-5. 之前子 agent 误建了 3 个空会话，是否归档：
+4. 之前子 agent 误建了 3 个空会话，是否归档：
    - `session_013djFc2XBveZ6ad9rat1T8j`
    - `session_01L6M4LteFn1EGYUVGkBicSQ`
    - `session_01DcP3xf6pjhGHUGTtG2WJVr`
