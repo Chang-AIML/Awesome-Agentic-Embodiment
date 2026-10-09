@@ -82,21 +82,22 @@ runtime — controlling it or supervising it (**Seat**).*
 
 ## 4. 现状（2026-10-09）
 
-清单（`data/core/paper_list.csv`）共 2,064 篇：保留 1,584、资源 25、剔除 455。
+清单（`data/core/paper_list.csv`）共 2,053 篇：保留 1,574、资源 27、剔除 452。
 
 - 核心表 174 篇：逐篇读全文判定（保留 145、资源 20、剔除 9）。
-- 补判 1,890 篇（两份扩展列表 1,732 篇 + 边界 313 篇中可判的部分）：
-  - 有 arXiv 版本的 1,319 篇读全文，Haiku 初判、Sonnet 复核；
-  - 不在 arXiv 上的 538 篇只能按摘要判，理由以「仅摘要」开头（其中保留 404 篇）；
-  - 边界里标题即可确定是自动驾驶的 36 篇按标题排除；
-  - 另有 152 篇既无全文也无摘要，未判，列在 `data/core/unjudged_no_text.csv`。
+- 补判的扩展列表和边界论文：
+  - 有 arXiv 版本的读全文，Haiku 初判、Sonnet 复核；
+  - 不在 arXiv 上、拿不到全文的 527 篇按摘要判，理由以「仅摘要」开头（其中保留 392 篇）；
+  - 边界里标题即可确定是自动驾驶的按标题排除；
+  - 同一工作的期刊版和 arXiv 版只留读过全文的一条（去掉的记在 `judging_runs/title_duplicates.csv`）；
+  - 另有 119 篇既无全文也无摘要，未判，列在 `data/core/unjudged_no_text.csv`。
 
-保留的 1,584 篇按阶段和 Seat 分：
+保留的 1,574 篇按阶段和 Seat 分：
 
 | 阶段 | 篇数 | 各 Seat |
 |---|---|---|
-| 执行前 | 281 | Designer 133、Teacher 43、Developer 105 |
-| 运行时 | 1,303 | Controller 1,233、Supervisor 70 |
+| 执行前 | 280 | Designer 132、Teacher 43、Developer 105 |
+| 运行时 | 1,294 | Controller 1,224、Supervisor 70 |
 
 其中 278 篇属于多智能体专题。
 

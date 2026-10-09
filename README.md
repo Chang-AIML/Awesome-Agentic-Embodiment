@@ -43,8 +43,8 @@ Counts include the papers of the Real2Sim / Sim2Real, VLN and multi-agent chapte
 - [VLN and embodied navigation](#vln-and-embodied-navigation)
 - [Multi-agent systems](#multi-agent-systems)
 - [Benchmarks and resources](#benchmarks-and-resources)
-- [More 2026 papers (631)](#more-2026-papers)
-- [More papers from 2022–2025 (813)](#more-papers-from-20222025)
+- [More 2026 papers (624)](#more-2026-papers)
+- [More papers from 2022–2025 (812)](#more-papers-from-20222025)
 
 ## Pre-execution
 
@@ -382,6 +382,7 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 | [Leveraging Large Language Model for Heterogeneous Ad Hoc Teamwork Collaboration](https://arxiv.org/abs/2406.12224) | 2024 | Controller · Orchestration |
 | [LiP-LLM: Integrating Linear Programming and Dependency Graph With Large Language Models for Multi-Robot Task Planning](https://arxiv.org/abs/2410.21040) | 2024 | Controller · Orchestration |
 | [LLCoach: Generating Robot Soccer Plans using Multi-Role Large Language Models](https://arxiv.org/abs/2406.18285) | 2024 | Controller · Orchestration |
+| [LLM-Based Cooperative Agents using Information Relevance and Plan Validation](https://arxiv.org/abs/2405.16751) | 2024 | Controller · Orchestration |
 | [LLM2Swarm: Robot Swarms that Responsively Reason, Plan, and Collaborate through LLMs](https://arxiv.org/abs/2410.11387) | 2024 | Controller · Orchestration |
 | [Long-horizon Locomotion and Manipulation on a Quadrupedal Robot with Large Language Models](https://arxiv.org/abs/2404.05291) | 2024 | Controller · Orchestration |
 | [Long-Horizon Planning for Multi-Agent Robots in Partially Observable Environments](https://arxiv.org/abs/2407.10031) | 2024 | Controller · Orchestration |
@@ -516,7 +517,6 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 | [CoEnv: Driving Embodied Multi-Agent Collaboration via Compositional Environment](https://arxiv.org/abs/2604.05484) | 2026 | Controller · Orchestration |
 | Collaborative LLM-Based Agents for Autonomous Multi-UAV Mission Execution | 2026 | Controller · Orchestration |
 | [CommCP: Efficient Multi-Agent Coordination via LLM-Based Communication with Conformal Prediction](https://arxiv.org/abs/2602.06038) | 2026 | Controller · Orchestration |
-| CoMuRoS - An LLM-based generalizable hierarchical task planning and execution framework for heterogeneous robot teams with event-driven re-planning | 2026 | Controller · Orchestration |
 | [Containing Behavioral Cascades from Manipulated Claims in LLM-Powered Multi-Robot Systems](https://arxiv.org/abs/2609.30523) | 2026 | Supervisor · Monitoring / recovery |
 | [Coordinated Control of Multiple Construction Machines Using LLM-Generated Behavior Trees with Flag-Based Synchronization](https://arxiv.org/abs/2602.01041) | 2026 | Controller · Orchestration |
 | [D-VLC: Decentralized Vision-Language Collaboration for Heterogeneous Embodied Multi-Robot Systems in Unknown Environments](https://arxiv.org/abs/2607.29009) | 2026 | Controller · Orchestration |
@@ -645,7 +645,7 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 
 ## More 2026 papers
 
-631 further 2026 papers that meet the definition but are not in the curated tables above. Each was judged from its full text (a first pass, then a verification pass by a stronger model; papers off arXiv without an open-access PDF were judged from the abstract); the reasons and quotes are in [docs/paper_list.md](docs/paper_list.md). `MA` marks the multi-agent chapter.
+624 further 2026 papers that meet the definition but are not in the curated tables above. Each was judged from its full text (a first pass, then a verification pass by a stronger model; papers off arXiv without an open-access PDF were judged from the abstract); the reasons and quotes are in [docs/paper_list.md](docs/paper_list.md). `MA` marks the multi-agent chapter.
 
 <details><summary><b>Designer · Environments / reconstruction</b> (16)</summary>
 
@@ -727,7 +727,7 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 
 </details>
 
-<details><summary><b>Developer · System / code</b> (50)</summary>
+<details><summary><b>Developer · System / code</b> (49)</summary>
 
 | Paper | Year | Decision model |
 |---|---|---|
@@ -774,7 +774,6 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 | [RoboReact: Agentic Skill Distillation from Generated Egocentric Videos for Generalizable Whole-Body Manipulation](https://arxiv.org/abs/2608.03387) | 2026 | GPT-5.6-ultra or GPT-5.1-mini as frozen Codex policy editor (VLM) |
 | [Scale and Selection: What Makes Automatic Harness Evolution Work for Visual-Interface Robot Agents](https://arxiv.org/abs/2609.39304) `MA` | 2026 | Codex with GPT-5.6 Sol as task agent and as optimizer agent revising its harness |
 | [Self-Evolving Scientific Agent Designs Physically Reasoned White-Box Fluid Control](https://arxiv.org/abs/2606.08405) | 2026 | gpt-5.6-sol via Codex (EvE design agents, xhigh reasoning) |
-| SRDrone: LLM-Driven Self-Refinement for Embodied Drone Task Planning | 2026 | unnamed general LLM (behavior-tree planner with self-refinement) |
 | [Test-Driven Agentic Framework for Reliable Robot Controller](https://arxiv.org/abs/2603.00455) | 2026 | GPT-5.2, GPT-4.1, Claude Sonnet/Opus-4.5 as Learner; GPT-4o as Optimizer (no fin |
 | [VASO: Formally Verifiable Self-Evolving Skills for Physical AI Agents](https://arxiv.org/abs/2606.05395) | 2026 | GPT-5-nano (skill generator Fskill) + GPT-4o-mini (planner Fplan) |
 | [VersualRL: Closed-Loop Verbal Reinforcement Learning with Visual Execution Feedback for Task-Level Robot Planning](https://arxiv.org/abs/2603.22169) | 2026 | LLM actor (model not named in text) + Gemini-3-Pro-Preview VLM critic (best conf |
@@ -792,7 +791,7 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 
 </details>
 
-<details><summary><b>Controller · Orchestration</b> (359)</summary>
+<details><summary><b>Controller · Orchestration</b> (355)</summary>
 
 | Paper | Year | Decision model |
 |---|---|---|
@@ -880,7 +879,6 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 | [CoEnv: Driving Embodied Multi-Agent Collaboration via Compositional Environment](https://arxiv.org/abs/2604.05484) `MA` | 2026 | GPT-5 (VLM planner) and Claude Code (code agent), no training |
 | Collaborative LLM-Based Agents for Autonomous Multi-UAV Mission Execution `MA` | 2026 | LLM server with structured prompts (model not named in abstract) |
 | [CommCP: Efficient Multi-Agent Coordination via LLM-Based Communication with Conformal Prediction](https://arxiv.org/abs/2602.06038) `MA` | 2026 | LLaMA3-8B-Instruct (LLM relevance and answers) plus Prismatic-VLM-13B (VLM perce |
-| CoMuRoS - An LLM-based generalizable hierarchical task planning and execution framework for heterogeneous robot teams with event-driven re-planning `MA` | 2026 | centralized task-manager LLM + robot-level LLMs (Grok 3 and other LLMs compared) |
 | Constrained Behavior Tree Generation for Safe LLM-Driven Robot Navigation | 2026 | unnamed LLM (restricted JSON behavior-tree generator) |
 | [Contract-Grounded Behavior Tree Synthesis via Coding Agents](https://arxiv.org/abs/2607.12220) | 2026 | Sonnet 4.6 and Gemma4:31b (Ollama), general LLMs as reasoning models inside Clau |
 | Control semántico de un robot rehabilitador mediante modelos de lenguaje | 2026 | Unnamed LLM-based agentic layer (training not mentioned) |
@@ -973,7 +971,6 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 | [IntenBot: Flexible and Imprecise Multimodal Input for LLMs to Understand User Intentions for Casual and Human-Like HRI](https://arxiv.org/abs/2605.04585) | 2026 | GPT-4o (intent disambiguation); builder LLM for behaviour tree (model not named) |
 | [Intent at a Glance: Gaze-Guided Robotic Manipulation via Foundation Models](https://arxiv.org/abs/2601.05336) | 2026 | Gemini Pro as default intent VLM; Gemini 2.5 Pro for grasp selection |
 | Intent-driven LLM ensemble planning for flexible multi-robot manipulation `MA` | 2026 | Ensemble of LLMs (up to 6, unnamed) + LLM verifier + deterministic filter |
-| Interleaved LLM and Motion Planning for Scalable Multi-Object Collection in Large Scene Graphs | 2026 | LLM (not named in abstract) with motion planning |
 | IRAZON: Iterative ReAct With LLMs for Adaptive Zero-Shot Object Goal Navigation | 2026 | LLM (unnamed) in ReAct-style Observe-Think-Act-Assess loop |
 | [IROSA: Interactive Robot Skill Adaptation Using Natural Language](https://arxiv.org/abs/2603.03897) | 2026 | Qwen2.5-VL-72B-Instruct as LLM backend selecting and parameterizing skill tools |
 | [JOIN: Anchor-Grasp-Conditioned Joining via Opposition, Inference, and Navigation for Bimanual Assistive Manipulation](https://arxiv.org/abs/2606.11151) | 2026 | Gemini Robotics-ER 1.6 (prompted, zero-shot) |
@@ -1023,7 +1020,6 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 | Modular Framework for Responsive and Explainable Robotic Assistance with Intention Prediction Using Human-Centric Digital Twins | 2026 | Gemini 3.1 Flash Lite and heavier reasoning-tier multimodal LLMs, grounded by SO |
 | [MoMaStage: Skill-State Graph Guided Planning and Closed-Loop Execution for Long-Horizon Indoor Mobile Manipulation](https://arxiv.org/abs/2603.08383) | 2026 | Qwen3.6 Flash (frozen; ablations Gemini 3.6 Flash and GPT-5.4 nano) |
 | [Mosaic: Runtime-Efficient Multi-Agent Embodied Planning](https://arxiv.org/abs/2607.09603) `MA` | 2026 | GPT-4o, Claude Sonnet 4.5 or Gemini 3 Flash as one planner/actor/verifier LLM, p |
-| Multi-Modal Interactive Control of Robotic Arm Based on Offline Large Language Models (Student Abstract) | 2026 | ChatGLM (offline open-source LLM, Socratic Models) |
 | [Multi-Task Visual Perception Network with LLM Conditioning for Autonomous Navigation](https://arxiv.org/abs/2609.14297) | 2026 | Gemini Pro (prompted general LLM) + perception tools (YOLOv8, ESANet, OSNet) and |
 | Multimodal Human–Robot Interaction Using Human Pose Estimation and Local Large Language Models | 2026 | Local LLM (unnamed) interpreting spoken commands, plus human pose estimation pip |
 | [Multimodal Large Language Models for Real-Time Situated Reasoning](https://arxiv.org/abs/2602.01880) | 2026 | GPT-4o with image and text prompts, step-by-step reasoning, choosing clean / obs |
@@ -1047,7 +1043,6 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 | [PEACE: A Planner-Executor Agent with Constraint Enforcement for UAVs](https://arxiv.org/abs/2606.00104) | 2026 | off-the-shelf LLM (model not named in text) |
 | Perception–Awareness–Decision: Socially‑Aware Robot Navigation and Interaction | 2026 | VLMs + LLMs (models not named in abstract) in PAD decision layer |
 | [PerceptTwin: Semantic Scene Reconstruction for Iterative LLM Planning and Verification](https://arxiv.org/abs/2606.04226) | 2026 | GPT-5 / GPT-5 Mini as SMART-LLM planner and LLM judge |
-| PFEA: a VLM-based high-level natural language planning and feedback embodied agent for human-centered AI | 2026 | VLM planner, translator and evaluator (unnamed) with Chain-of-Objects Reasoning |
 | [Physical Agentic AI: An Architecture for Orchestrating a Robot Crew with LLMs](https://arxiv.org/abs/2608.22657) `MA` | 2026 | gpt-5.4-mini (Mission Planner, temperature 0.1, prompt-grounded on retrieved ski |
 | [Plan Along the Way: Event-Triggered Foundation-Model Planning for TAMP Execution in Partially Observable Manipulation](https://arxiv.org/abs/2608.28075) | 2026 | Qwen3-4B/8B/32B LLM and Qwen3-VL-4B/8B/32B-Thinking VLM, zero-shot or ICL prompt |
 | PLAN-MVP: Planning for Learning-Enabled Autonomous Navigation and Manipulation via Perception | 2026 | Zero-shot VLM as high-level reasoning brain + classical IK/detection modules |
@@ -1158,7 +1153,7 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 
 </details>
 
-<details><summary><b>Controller · Policy writing</b> (82)</summary>
+<details><summary><b>Controller · Policy writing</b> (80)</summary>
 
 | Paper | Year | Decision model |
 |---|---|---|
@@ -1208,7 +1203,6 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 | LLM-Based Adaptive Control Code Generation Framework with Digital Twin-Integrated Verification for Heterogeneous Robot Systems | 2026 | Unnamed LLM |
 | LLM-driven behavior generation and negotiation for collective robotic construction `MA` | 2026 | LLM agent (model not named in abstract) |
 | LLM-DTS: Resilience Formation Control Via Semantic Reasoning and Adaptive Topology Switching `MA` | 2026 | Unnamed LLM as cognitive reasoner over MPC |
-| LLM-Guided Adaptive Compensator: Bringing Adaptivity to Robotic Feedback Control With Large Language Model | 2026 | LLM (unnamed), zero-shot with open prompts |
 | LLM-in-the-Loop Variable Impedance Control: Towards Safe Generalized and Personalized Robotic Interactions | 2026 | unnamed LLM prompted with few-shot examples plus an evaluator |
 | LLM‐Integrated Human–Robot Interaction System for Microrobots | 2026 | ChatGPT-5 and other off-the-shelf LLMs (prompted, not trained) |
 | [LMPath: Language-Mediated Priors and Path Generation for Aerial Exploration](https://arxiv.org/abs/2605.13782) | 2026 | GPT-4o-mini (LLM semantic labels) with SAM 3 (segmentation tool) |
@@ -1240,7 +1234,6 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 | [The Robot’s Inner Critic: Self-Refinement of Social Behaviors through VLM-based Replanning](https://arxiv.org/abs/2603.20164) | 2026 | GPT-4o as both VLM and LLM (temperature 0), MuJoCo robot models |
 | Twin-BT: An LLM-Based Behavior Tree Framework Integrating Digital Twin and Deterministic Semantic Verification for Robotics | 2026 | LLM (unnamed) generating behavior trees with digital-twin verification feedback |
 | [V2-STRep: VLM-Grounded Structured Task Representations for Reusable Robot Skills Acquired from Generated Videos](https://arxiv.org/abs/2609.20582) | 2026 | GPT-6 Astra (VLM infers task representation; Wan 2.7 video generator) |
-| Verification and execution of the scientific literature via chemputation augmented by large language models | 2026 | Unnamed LLM-based research agent workflow generating XDL code for Chemputer |
 | Video-Grounded Verification for Long-Horizon Visual Imitation Learning | 2026 | unnamed VLM for plan and code generation and verification (abstract names no mod |
 | [VLCP: Vision Language Control Policy Closed-Loop Code Replanning for Robot Manipulation](https://arxiv.org/abs/2608.16978) | 2026 | GPT-5.5 (frozen, replanning model) |
 | Winnie-the-Pooh-Powered: How LLMs and Well-Known Characters Can Create Adaptive Personalities for Aquatic Social Robot Interactions | 2026 | GPT writing Python control scripts via prompts |
@@ -1351,7 +1344,7 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 
 ## More papers from 2022–2025
 
-813 further papers from 2022–2025 that meet the definition but are not in the curated tables above. Each was judged from its full text (a first pass, then a verification pass by a stronger model; papers off arXiv without an open-access PDF were judged from the abstract); the reasons and quotes are in [docs/paper_list.md](docs/paper_list.md). `MA` marks the multi-agent chapter.
+812 further papers from 2022–2025 that meet the definition but are not in the curated tables above. Each was judged from its full text (a first pass, then a verification pass by a stronger model; papers off arXiv without an open-access PDF were judged from the abstract); the reasons and quotes are in [docs/paper_list.md](docs/paper_list.md). `MA` marks the multi-agent chapter.
 
 <details><summary><b>Designer · Environments / reconstruction</b> (6)</summary>
 
@@ -1366,7 +1359,7 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 
 </details>
 
-<details><summary><b>Designer · Rewards / tasks</b> (66)</summary>
+<details><summary><b>Designer · Rewards / tasks</b> (65)</summary>
 
 | Paper | Year | Decision model |
 |---|---|---|
@@ -1400,7 +1393,6 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 | [SDS - See it, Do it, Sorted: Quadruped Skill Synthesis from Single Video Demonstration](https://arxiv.org/abs/2410.11571) `MA` | 2024 | GPT-4o (VLM; reward-function writer and rollout evaluator) |
 | [Training Fast Robot Policies with Slow Foundation Models](https://arxiv.org/abs/2406.05881) | 2024 | llama-3.3-70b-versatile as LLM + llama-4-scout-17b-16e-instruct as VLM, both fro |
 | [Video2Reward: Generating Reward Function from Videos for Legged Robot Behavior Learning](https://arxiv.org/abs/2412.05515) | 2024 | LLM (model not named in main text; prompted only) |
-| AnyBipe: An Automated End-to-End Framework for Training and Deploying Bipedal Robots Powered by Large Language Models | 2025 | LLM (not named in abstract) for reward generation and training supervision |
 | Application of LLM Guided Reinforcement Learning in Formation Control with Collision Avoidance `MA` | 2025 | LLMs (not named in abstract) generating and adjusting reward functions |
 | [AURA: Autonomous Upskilling with Retrieval-Augmented Agents](https://arxiv.org/abs/2506.02507) `MA` | 2025 | GPT o4-mini (high-level planner); GPT-4.1 (stage-level LLM and feedback) |
 | [Automated Generation of MDPs Using Logic Programming and LLMs for Robotic Applications](https://arxiv.org/abs/2511.23143) | 2025 | GPT-4o and GPT-5-mini (few-shot KB, action and reward generation) + Storm policy |
@@ -1462,7 +1454,7 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 
 </details>
 
-<details><summary><b>Developer · System / code</b> (26)</summary>
+<details><summary><b>Developer · System / code</b> (27)</summary>
 
 | Paper | Year | Decision model |
 |---|---|---|
@@ -1487,6 +1479,7 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 | [PSALM-V: Automating Symbolic Planning in Interactive Visual Environments with Large Language Models](https://arxiv.org/abs/2506.20097) | 2025 | GPT-4o (default LLM) |
 | [Robot builds a robot's brain: AI generated drone command and control station hosted in the sky](https://arxiv.org/abs/2508.02962) | 2025 | Claude Sonnet 3.5/3.7, Gemini 2.5, ChatGPT 4.0 (prompted coding in IDEs), used a |
 | [SAS-Prompt: Large Language Models as Numerical Optimizers for Robot Self-Improvement](https://arxiv.org/abs/2504.20459) | 2025 | LLM with SAS Prompt (unnamed in robot tests; Gemini 1.5 Pro in optimization test |
+| [SkillWrapper: Generative Predicate Invention for Skill Abstraction](https://arxiv.org/abs/2511.18203) | 2025 | GPT-5 (off-the-shelf, prompted) |
 | Towards Autonomous Design of UAV Path Planning Algorithms via DeepSeek | 2025 | DeepSeek (general-purpose LLM) |
 | [UniDomain: Pretraining a Unified PDDL Domain from Real-World Demonstrations for Generalizable Robot Task Planning](https://arxiv.org/abs/2507.21545) | 2025 | GPT-4.1 via API (temp 0.0) in planning evaluation; domain-pretraining VLM/LLM no |
 | [Unifying Deep Predicate Invention with Pre-trained Foundation Models](https://arxiv.org/abs/2512.17992) | 2025 | GPT-4o (default; proposes predicate effect hypotheses; Gemini 2.5 Flash-Lite and |
@@ -1506,7 +1499,7 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 
 </details>
 
-<details><summary><b>Controller · Orchestration</b> (478)</summary>
+<details><summary><b>Controller · Orchestration</b> (475)</summary>
 
 | Paper | Year | Decision model |
 |---|---|---|
@@ -1551,7 +1544,6 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 | [Multimodal Grounding for Embodied AI via Augmented Reality Headsets for Natural Language Driven Task Planning](https://arxiv.org/abs/2304.13676) | 2023 | GPT-3 text-davinci-003 (5-shot UMRF prompting via OpenAI API) |
 | [OceanChat: Piloting Autonomous Underwater Vehicles in Natural Language](https://arxiv.org/abs/2309.16052) | 2023 | GPT-4 (LLM planner, prompted with action set; no training) |
 | [Open-Ended Instructable Embodied Agents with Memory-Augmented Large Language Models](https://arxiv.org/abs/2310.15127) | 2023 | GPT-4 (gpt-4-0613) with retrieved language-program memory as prompt examples |
-| ProgPrompt: program generation for situated robot task planning using large language models | 2023 | LLM (unnamed in abstract) prompted with program-like specifications and example  |
 | [Prompt, Plan, Perform: LLM-based Humanoid Control via Quantized Imitation Learning](https://arxiv.org/abs/2309.11359) | 2023 | Llama, GPT-4, Falcon prompted as planner (PPO-trained motion policy used as a to |
 | [QwenGrasp: A Usage of Large Vision-Language Model for Target-Oriented Grasping](https://arxiv.org/abs/2309.16426) | 2023 | Qwen-VL (pre-trained, used as-is with preloaded prompts) + pre-trained REGNet gr |
 | [Robot-Enabled Construction Assembly with Automated Sequence Planning based on ChatGPT: RoboGPT](https://arxiv.org/abs/2304.11018) | 2023 | ChatGPT-4 via API (prompting only, no training) |
@@ -1659,6 +1651,7 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 | [LIT: Large Language Model Driven Intention Tracking for Proactive Human-Robot Collaboration - A Robot Sous-Chef Application](https://arxiv.org/abs/2406.13787) | 2024 | LLaVA-13B (Vicuna backbone) used as both LLM and VLM |
 | [LLCoach: Generating Robot Soccer Plans using Multi-Role Large Language Models](https://arxiv.org/abs/2406.18285) `MA` | 2024 | GPT-4 Turbo (vision coach) + GPT-3.5 Turbo (plan refinement and synchronization) |
 | [LLM-as-BT-Planner: Leveraging LLMs for Behavior Tree Generation in Robot Task Planning](https://arxiv.org/abs/2409.10444) | 2024 | GPT-4 (in-context learning, main results); fine-tuned Mistral-7B, Llama2-13B, GP |
+| [LLM-Based Cooperative Agents using Information Relevance and Plan Validation](https://arxiv.org/abs/2405.16751) `MA` | 2024 | GPT-4o-mini (also GPT-3.5, Llama-3.1-8B-Instruct as swappable backbones, no trai |
 | [LLM-based Robot Task Planning with Exceptional Handling for General Purpose Service Robots](https://arxiv.org/abs/2405.15646) | 2024 | Baidu ERNIE-Bot 4.0 (off-the-shelf) |
 | [LLM-BT: Performing Robotic Adaptive Tasks based on Large Language Models and Behavior Trees](https://arxiv.org/abs/2404.05134) | 2024 | ChatGPT (prompted for task steps) + authors' BERT keyword parser tool |
 | [LLM-guided Task and Motion Planning using Knowledge-based Reasoning](https://arxiv.org/abs/2412.07493) | 2024 | GPT-4 used as-is with ontology-enriched prompts (also GPT, Gemini, LLaMA, Cohere |
@@ -1672,7 +1665,6 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 | [Multi-Modal Grounded Planning and Efficient Replanning For Learning Embodied Agents with A Few Examples](https://arxiv.org/abs/2412.17288) | 2024 | GPT-4-0125-preview prompted with retrieved examples (GPT-3.5, LLaMA2-13B and Vic |
 | [Multimodal Human-Autonomous Agents Interaction Using Pre-Trained Language and Visual Foundation Models](https://arxiv.org/abs/2403.12273) | 2024 | Off-the-shelf GPT-2 as LLMNode (BERT and LLaMA also tried) |
 | [MultiTalk: Introspective and Extrospective Dialogue for Human-Environment-LLM Alignment](https://arxiv.org/abs/2409.16455) `MA` | 2024 | GPT-4o (Planner and Analyzer, two prompted instances) |
-| Nadine: A large language model‐driven intelligent social robot with affective capabilities and human‐like memory | 2024 | LLM (unnamed) in an LLM-agent frame (social robotics reasoning and acting) |
 | Natural Language Navigation Task Allocation for Robot Based on Agents | 2024 | LLM-based agent (unnamed) |
 | [Nl2Hltl2Plan: Scaling Up Natural Language Understanding for Multi-Robots Through Hierarchical Temporal Logic Task Representation](https://arxiv.org/abs/2408.08188) | 2024 | GPT-4 (task tree, API action sequences); Mistral-7B-Instruct-v0.2 fine-tuned onl |
 | [OceanPlan: Hierarchical Planning and Replanning for Natural Language AUV Piloting in Large-scale Unexplored Ocean Environments](https://arxiv.org/abs/2403.15369) | 2024 | Unnamed LLM planner and VLM (no model named) feeding HTN planner; DQN motion pol |
@@ -1723,7 +1715,6 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 | [Towards Coarse-grained Visual Language Navigation Task Planning Enhanced by Event Knowledge Graph](https://arxiv.org/abs/2408.02535) | 2024 | ChatGPT（子任务规划，检索增强提示）+ 作者训练的Transformer动作模型 |
 | [Towards Efficient LLM Grounding for Embodied Multi-Agent Collaboration](https://arxiv.org/abs/2405.14314) `MA` | 2024 | GPT-4-Turbo as LLM planner (prompted); critic network trained by authors as feed |
 | [Towards Human Awareness in Robot Task Planning with Large Language Models](https://arxiv.org/abs/2404.11267) | 2024 | LLM (model not named; prompted, no training described) |
-| Towards Text-based Human Search and Approach using a Robot Dog | 2024 | Socratic composition of pre-trained foundation models (LLM/VLM, unnamed) plus a  |
 | [Trust the PRoC3S: Solving Long-Horizon Robotics Problems with LLMs and Constraint Satisfaction](https://arxiv.org/abs/2406.05572) | 2024 | GPT-4 (gpt-4-0125-preview), prompted |
 | [TrustNavGPT: Modeling Uncertainty to Improve Trustworthiness of Audio-Guided LLM-Based Robot Navigation](https://arxiv.org/abs/2408.01867) | 2024 | 未具名的LLM（思维链+少样本上下文学习，选项对数概率）；Whisper与现成检测器为工具 |
 | [VADER: Visual Affordance Detection and Error Recovery for Multi Robot Human Collaboration](https://arxiv.org/abs/2405.16021) `MA` | 2024 | PaLM (LMP planner, prompted) with PaLI/CLIP/ViLD VQA |
@@ -1865,7 +1856,6 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 | [Lang2manip: A Tool for LLM-Based Symbolic-To-Geometric Planning for Manipulation](https://arxiv.org/abs/2512.17062) | 2025 | GPT-4 (text planner, prompted; framework claimed model-agnostic) |
 | Lang2Pose: Language-Based Visual Servoing and Pose Control for Autonomous Pick-and-Place in Real and Simulated Environments | 2025 | Unnamed LLM in a ROS 2 pipeline with FoundationPose and MoveIt 2 |
 | [LangPert: Detecting and Handling Task-level Perturbations for Robust Object Rearrangement](https://arxiv.org/abs/2504.09893) | 2025 | Llama 3.1-8B in-context planner + fine-tuned BLIP-3 monitor (VLM tool) |
-| Language-Conditioned Open-Vocabulary Mobile Manipulation with Pretrained Models | 2025 | Unnamed pretrained LLM and VLM (task planning and grounding), with learned manip |
 | [Language-Grounded Hierarchical Planning and Execution with Multi-Robot 3D Scene Graphs](https://arxiv.org/abs/2506.07454) `MA` | 2025 | off-the-shelf LLM (end-to-end model not named; ablation covers GPT-4o, GPT-4.1,  |
 | [Language-Guided Long Horizon Manipulation with LLM-based Planning and Visual Perception](https://arxiv.org/abs/2509.02324) | 2025 | GPT-4o task planner (in-context and CoT prompting) calling DoRA-tuned SigLIP2 pe |
 | [Language-in-the-Loop Culvert Inspection on the Erie Canal](https://arxiv.org/abs/2509.21370) | 2025 | GPT-5 (ROI proposals and post-re-imaging assessment, via OpenAI API) |
@@ -2227,12 +2217,14 @@ Multi-agent benchmarks (listed under *Benchmarks and resources*): **PARTNR**.
 
 </details>
 
-<details><summary><b>Benchmarks and evaluation studies</b> (2)</summary>
+<details><summary><b>Benchmarks and evaluation studies</b> (4)</summary>
 
 | Paper | Year | Evaluated seat |
 |---|---|---|
+| [Exploring Large Language Models to Facilitate Variable Autonomy for Human-Robot Teaming](https://arxiv.org/abs/2312.07214) | 2023 | Controller |
 | Large Language Model for Humanoid Cognition in Proactive Human-Robot Collaboration | 2024 | Controller |
 | [Thinking in 360°: Humanoid Visual Search in the Wild](https://arxiv.org/abs/2511.20351) | 2025 | Controller |
+| [Using Vision Language Models as Closed-Loop Symbolic Planners for Robotic Applications: A Control-Theoretic Perspective](https://arxiv.org/abs/2511.07410) | 2025 | Controller |
 
 </details>
 
