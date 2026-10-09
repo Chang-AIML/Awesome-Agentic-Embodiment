@@ -24,7 +24,7 @@
 > 12. **研究对象是通用大模型做具身任务**：LLM / VLM（GPT、Gemini、Claude、Qwen-VL、GPT-6 Astra 等）作为 agent 完成具身任务。它可以输出计划、调用技能 / 工具 / VLA、写代码或约束，也可以直接输出动作，例如 GPT-6 Astra 在 RoboDojo 上直接当策略。**具身大模型直接做动作的工作不收**：VLA（含带推理、子任务、memory、自我纠错的 VLA）、分层 VLA、WAM、机器人基础模型，只能作为被 agent 调用的工具出现。见 §2.0。
 > 13. **论文故事不只聚焦 2026**：2026 年论文最多，但 2022–2025 年的先驱同样重要，是每个 seat 的源头。核心表与正文按 seat 讲「先驱 → 2026」的脉络。
 >
-> 2026-10-09 用户的决策（编号接 `HANDOFF.md` §5 的 14、15）：
+> 2026-10-09 用户的决策（编号接 `docs/history/HANDOFF_round3.md` §5 的 14、15）：
 > 16. **三层框架与 agent 回路图**（`agent_loop_framework.png`）：Agent → Policy / Code / None → Env / Sim，agent 也可直接作用于 Env / Sim，Env / Sim 的信息回到 agent。**通用大模型 agent 必须存在，并在其中扮演角色**。L1 准备层（造环境、重建、设计奖励与任务、改系统）、L2 中间层（策略生产者、编排者、经验迁移、运行时监控）、L3 执行层（通用模型直接出动作）。逐篇结果见 `layer_classification.md`。
 > 17. **箭头不必全有**：agent 只要连到 Policy / Code 或 Env / Sim 之一即可。**闭环不再是收录条件**，只记录形式（再决策 / 编写闭环 / 开环）。§2.1 第 3 条据此改写；决策 2 的「前驱 = 开环」、决策 8 和 9 的两个例外随之不再需要。
 > 18. **主体是数据生成平台的不收**（RoboTwin 2.0、HumanoidGen）；agent 循环本身是主体的生成式仿真（GenSim、RoboGen、EmbodiedSmith）算 L1。
