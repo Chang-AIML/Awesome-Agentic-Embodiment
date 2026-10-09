@@ -8,12 +8,13 @@
 ## 0. 现状
 
 - **项目**：一个 awesome list 和一篇 survey，主题是 *agentic embodiment*，即通用大模型（LLM / VLM）作为 agent 做具身任务。
-- **现阶段只做 list。** 用户原话：「之前survey的定义方式有问题，我们先把list做好」「给我csv就行」。旧的 survey 定义（Seat × Carrier、闭环判定）已经弃用，报告和简报暂时不要更新。
-- **当前交付物**：`data/core/layer_classification.csv`，共 174 篇。
-  - 保留 145 篇，其中 L1 43、L2 88、L3 14；
+- **现阶段以 list 为主。** 用户原话：「之前survey的定义方式有问题，我们先把list做好」「给我csv就行」。
+- **分类（最终）**：用户试过三层（L1/L2/L3）后反悔，回到两个阶段、五个 Seat：「preexcution / runtime 两层就行；1 可以分 designer、teacher、developer；2 可以分 Controller 和 Supervisor」「但是定义还是可以按照我们最后筛选的paper去定」。所以**收录标准用最后一轮筛选的（§1.2），分类用阶段 + Seat（§1.3）**。
+- **当前交付物**：`data/core/paper_list.csv`，共 174 篇。
+  - 保留 145 篇：执行前 53（Designer 20、Teacher 9、Developer 24），运行时 92（Controller 80、Supervisor 12）；
   - 资源 20 篇（benchmark 与评测研究）；
   - 剔除 9 篇。
-  - 每篇都读了全文判定，附有决策模型和原文证据。可读版是 `docs/layer_classification.md`。
+  - 每篇都读了全文判定，附有决策模型和原文证据。可读版 `docs/paper_list.md`，定义 `docs/definition.md`，5 页图文总结 `docs/list_summary.pdf`。
 - **还没做完**：这 174 篇只是旧定义下挑出来的核心表。下面两批论文还没有按新标准判过（见 §4）：
   - 按旧定义判为合格、但没进核心表的约 1,732 篇；
   - 旧定义的边界论文 313 篇。
@@ -41,24 +42,34 @@
 - **规则 2**：
   - 作者训练、微调或蒸馏出的模型都不算 agent，即使底座是通用模型。
   - 训练过的 VLA、技能和感知模型可以作为 agent 调用的工具。
-  - 通用模型自己当 agent 行动、再把它的经验蒸馏成小模型的，算 L2 经验迁移（如 GUAVA）。
+  - 通用模型自己当 agent 行动、再把它的经验蒸馏成小模型的，算 Teacher（如 GUAVA）。
 - **规则 4**：主体是数据集、数据生成平台、资产流水线或 benchmark，LLM 只是其中一个模块的，不收。以通用大模型 agent 为对象的 benchmark 归「资源」。
-- **规则 5**：VLA、分层 VLA、WAM、机器人基础模型直接出动作的不收，它们只能作为被 agent 调用的工具出现。通用模型直接出动作仍然算（L3）。
+- **规则 5**：VLA、分层 VLA、WAM、机器人基础模型直接出动作的不收，它们只能作为被 agent 调用的工具出现。通用模型直接出动作仍然算（Controller · 直接动作）。
 
-### 1.3 三层分类
+### 1.3 分类：两个阶段，五个 Seat
 
-三层是用户自己的划分。用户原话：
-- L1：「给机器人创造环境，重建，设计reward（developer和designer），pre-exuction（preparation）」
-- L2：「可以是policy的生产者（CAP），蒸馏 （experience transfer）LLM不直接控制robot，隔了一层（harness），runtime monitor（harness）（介于中间 exception）」
-- L3：「General LLM as policy （during excution）」
+阶段由 agent 的产出什么时候产生、什么时候被用决定。每篇只归一个 Seat；`role` 列写 agent 在 Seat 里具体做什么。
 
-各层子类：
+| 阶段 | Seat | 含义 | role |
+|---|---|---|---|
+| 执行前（pre-execution） | Designer | 设计学习问题 | 环境/重建 · 奖励/任务 |
+| | Teacher | 自己先执行，经验蒸馏成策略或小模型 | 示范/蒸馏 |
+| | Developer | 修改系统本身，按试验保留或回滚 | 系统/代码 · 本体/工具 |
+| 运行时（runtime） | Controller | 每一步决定机器人做什么 | 编排 · 写策略 · 直接动作 |
+| | Supervisor | 只在异常时介入 | 监控/恢复 |
 
-| 层 | 子类 |
-|---|---|
-| L1 准备层 | 环境/重建 · 奖励/任务 · 本体/工具 · 系统/代码 |
-| L2 中间层 | 策略生产者 · 编排者 · 经验迁移 · 运行时监控 |
-| L3 执行层 | 直接动作 |
+- **从三层到 Seat 的映射**：全文判定时用的是三层子类，回到 Seat 时按子类映射：
+  - 环境/重建、奖励/任务 → Designer；
+  - 系统/代码、本体/工具 → Developer；
+  - 经验迁移 → Teacher；
+  - 策略生产者、编排者、直接动作 → Controller；
+  - 运行时监控 → Supervisor。
+- **12 篇与旧 Seat 不一致的，逐条决定**：看 agent 的产出主要在哪个阶段被用；拿不准的沿用旧 Seat，理由写在 CSV 的 note 里。
+  - 归 Developer：Agentic RSR、Real2Gym（在重建的仿真里练习、写程序再带回真机）；AGRO-SUVIDE、RHD、Zetta（执行前改技能库或 harness）；PDDLLM。
+  - 归 Controller：Language to Rewards（奖励当场交给 MPC）、LRLL、KnowNo。
+  - 归 Supervisor：Beyond Human Demos（护栏代码在运行时过滤指令）。
+  - 沿用旧分类归 Teacher：Manipulate-Anything、Frontier Demo Generation。
+- **两个专题**横跨 Seat：Real2Sim / Sim2Real（只收代表作）、VLN 与具身导航。
 
 ### 1.4 已经定下来的案例
 
@@ -70,14 +81,14 @@
 | RoboFAC、AgentVLN、Ludi | 剔除 | 决策者是作者微调的 Qwen 小模型（用户直接否决了 RoboFAC） |
 | RoboTracer（不在表内） | 不算 | 专门训练的 3D 空间轨迹 VLM，没有 agent 角色 |
 | RoboFind | 剔除 | 决策回路是 Uni-NaVid、DINO 验证和确定性恢复，通用模型只在示教阶段用到 |
-| Code as Policies、ReKep、VoxPoser、SayCan 等开环先驱 | 保留 | 用户说过 CaP 是 L2 策略生产者、「rekep这一类的都算agent」，并确认箭头不必全有 |
-| EmbodiedSmith | 保留，L1 环境/重建 | 用户追问过。它**不是 Real2Sim**（没有从真实数据重建），是生成式仿真，主体是 agent 循环 |
+| Code as Policies、ReKep、VoxPoser、SayCan 等开环先驱 | 保留，Controller | 用户说过 CaP 是策略的生产者、「rekep这一类的都算agent」，并确认箭头不必全有 |
+| EmbodiedSmith | 保留，Designer（环境/重建） | 用户追问过。它**不是 Real2Sim**（没有从真实数据重建），是生成式仿真，主体是 agent 循环 |
 | agentic Real2Sim（RPG、SimEX、Real2Gym 等） | 保留 | 用户：「agentic real2sim … 都算」，但「只是一个子方向」 |
 
 **用户点名必须收录的论文**：
 - GUAVA、Harness VLA、Show-Harness、ENPIRE、Code-as-Monitor、ReKep、RPG、SimEX、EmbodiedSmith 都已保留。
 - Video2World 是 benchmark，归资源。
-- GPT-6 Astra on RoboDojo（2609.24170）是用户举的「LLM 直接出动作」的例子；全文判为评测研究，现在放在资源（评测 L3）。这一条要跟用户确认。
+- GPT-6 Astra on RoboDojo（2609.24170）是用户举的「LLM 直接出动作」的例子；全文判为评测研究，现在放在资源（被评测的 Seat 为 Controller）。这一条要跟用户确认。
 
 ---
 
@@ -85,42 +96,42 @@
 
 | 文件 | 状态 | 说明 |
 |---|---|---|
-| `data/core/layer_classification.csv` | **当前主文件** | list 本身。UTF-8 带 BOM，Excel 可直接打开。列见 §3 |
-| `docs/layer_classification.md` | 当前 | 可读版，由 `scripts/build_layer_table.py` 从 CSV 生成，不要手改 |
-| `docs/agent_loop_framework.png` | 当前 | 用户画的框架图 |
-| `docs/list_summary.pdf` | 当前 | 5 页图文总结：框架、六条标准、三层九类的代表作、清单里的趋势、判例与下一步。由 `scripts/build_list_summary.py` 从 CSV 生成；改了 CSV 后重跑（代表作名单在脚本的 REPS 里，删掉的论文要同步去掉，否则会报错） |
+| `data/core/paper_list.csv` | **当前主文件** | list 本身。UTF-8 带 BOM，Excel 可直接打开。列见 §3 |
+| `docs/paper_list.md` | 当前 | 可读版，由 `scripts/build_paper_list.py` 从 CSV 生成，不要手改 |
+| `docs/definition.md` | 当前 | 定义：收录标准六条 + 两个阶段、五个 Seat。旧版在 `docs/history/definition_round3.md` |
+| `docs/agent_loop_framework.png` | 当前 | 用户画的回路图（收录标准） |
+| `docs/list_summary.pdf` | 当前 | 5 页图文总结：五个 Seat、收录标准、每个 Seat 的代表作、清单里的趋势、判例与下一步。由 `scripts/build_list_summary.py` 从 CSV 生成；改了 CSV 后重跑（代表作名单在脚本的 REPS 里，改了 Seat 或删了论文要同步，否则会报错） |
 | `screening/prompts/content_rejudge.txt` | 当前 | 读全文判定的提示词，即上面六条规则的执行版 |
 | `scripts/judging/fetch_fulltext.sh`、`scripts/judging/content_rejudge.py` | 当前 | 下载全文、切分片、汇总、写回 CSV 的工具，用法见 §5 |
 | `data/judging_runs/content_rejudge/` | 当前 | 这 174 篇全文判定的原始输出 |
-| `data/core/core_selection.csv` → `core_table.csv` | 与 CSV 同步 | 核心表 165 行（保留 + 资源），带 layer、layer_sub、arrows 列。若有被判为剔除的论文混在其中，`build_core_table.py` 会报错 |
-| `README.md` | 部分过时 | 英文 awesome list。核心部分的论文与 CSV 一致，但分节仍按旧的 Seat；末尾两份扩展列表是旧定义下的结果 |
+| `data/core/core_selection.csv` → `core_table.csv` | 与 CSV 同步 | 核心表 165 行（保留 + 资源），带 phase、role 列。若有被判为剔除的论文混在其中，或 Seat 与 `paper_list.csv` 不一致，`build_core_table.py` 会报错 |
+| `README.md` | 当前 | 英文 awesome list，按 Pre-execution（Designer、Teacher、Developer）与 Runtime（Controller 三个子章、Supervisor）分节，与 CSV 一致；末尾两份扩展列表仍是旧定义下的结果 |
 | `data/core/extended_2026.csv`、`extended_2022_2025.csv` | **待补判** | 按旧定义合格、没进核心表的 830 + 902 篇，没有按新标准判过 |
 | `data/core/fine_labels.csv` | 旧标准 | 12,230 篇候选按旧 rubric 的逐篇判定，verdict 为 core / precursor / boundary / resource / out |
 | `data/candidates/candidates.csv` | 原始候选 | 14 篇种子论文的前向引用，13,579 篇 |
 | `data/candidates/s2_sweep_2026.jsonl` | 原始候选 | 2026 年关键词检索，11,778 篇 |
-| `docs/definition.md`、`screening/criteria_fine.md` | 过时，但记录了决策 | 旧定义，后面打了补丁（决策 16–19）。list 做完后要按 §1 重写 |
-| `docs/progress_report.pdf`、`docs/survey_brief.pdf`、`docs/core_stats.md` | 过时 | 按旧 Seat 定义生成。`build_brief.py` 的 LINES 里还有已剔除的论文，重跑会报错 |
-| `docs/history/` | 历史 | 旧交接文档 |
+| `screening/criteria_fine.md` | 旧标准 | 旧 rubric（摘要级判定），后面打了补丁；补判请用 `content_rejudge.txt` |
+| `docs/progress_report.pdf`、`docs/survey_brief.pdf`、`docs/core_stats.md` | 过时 | 按旧收录标准生成，已被 `list_summary.pdf` 取代。`build_brief.py` 的 LINES 里还有已剔除的论文，重跑会报错 |
+| `docs/history/` | 历史 | 旧交接文档与旧定义 |
 
 ---
 
-## 3. `layer_classification.csv` 的列
+## 3. `paper_list.csv` 的列
 
 | 列 | 含义 |
 |---|---|
 | verdict | 保留 / 资源 / 剔除 |
-| layer, subtype | 保留的论文：L1 / L2 / L3 及子类。资源：被评测的层和「评测Lx」。剔除：`-` |
+| phase, seat, role | 阶段（执行前 / 运行时）、Seat、角色（§1.3）。资源：被评测的 Seat，role 为「评测」。剔除：`-` |
 | key, year, tier | 短名；arXiv 首版年份；tier 为 `2026` 或 `先驱`（2022–2025） |
 | title, arxiv | 标题与 arXiv 编号 |
 | decision_model | 读全文得到的决策模型，如 "GPT-4o"、"Qwen2.5-VL-3B fine-tuned on …" |
 | model_status | G = 现成通用模型；FT = 作者训练或微调；SPEC = VLA 或专用模型；NONE = 没有 LLM / VLM 决策者 |
 | contribution | 论文主体：AGENT / DATA / BENCH / OTHER |
 | connection | agent 输出什么、交给谁 |
-| arrows | 框架图里的箭头：A→M、A→E、M↔E、E→A。这一列来自之前的一次判定，没有逐篇读全文核对，仅供参考 |
+| arrows | 回路图里的箭头：A→M、A→E、M↔E、E→A。来自之前的一次判定，没有逐篇读全文核对，仅供参考 |
 | reason | 中文判定理由 |
 | evidence | 论文原句，带节名 |
-| note | 与上一版不同的地方，以及人工改判的说明 |
-| old_seat | 旧定义下的 Seat，仅供参考 |
+| note | 与上一版不同的地方，以及人工改判（含 Seat）的说明 |
 
 ---
 
@@ -156,9 +167,9 @@
    | Tool-Aligned VLA Agent | 剔除 | 主体是 VLA 后训练 |
    | AutoRT | 保留 | 原文写明 LLM 未微调，是系统核心 |
    | RoboGen、SUDD、RobotGPT | 保留 | 读全文后看主体是 agent 或经验迁移 |
-   | GPT-6 Astra on RoboDojo | 资源 | 全文判为评测研究，但用户举它当 L3 的例子 |
+   | GPT-6 Astra on RoboDojo | 资源 | 全文判为评测研究，但用户举它当「LLM 直接出动作」的例子 |
 
-3. list 做完后：README 是否改成按 L1 / L2 / L3 分节；survey 的定义和主线怎么重写。
+3. 12 篇 Seat 逐条决定的（§1.3），用户还没看过；主线措辞（草案见 `docs/definition.md` 末尾）。
 4. 之前子 agent 误建了 3 个空会话，是否归档：
    - `session_013djFc2XBveZ6ad9rat1T8j`
    - `session_01L6M4LteFn1EGYUVGkBicSQ`
@@ -166,9 +177,9 @@
 
 ### 4.3 list 定稿之后
 
-1. 按三层重排 README：改 `scripts/build_readme.py`，数据源用 `layer_classification.csv`。
-2. 按 §1 重写 `docs/definition.md`。
-3. 重做报告和简报：先改 `scripts/build_brief.py` 的 LINES。
+1. 补判的新论文写进 `paper_list.csv` 后，决定哪些进核心表（`core_selection.csv`），重跑 README。
+2. 按 `docs/definition.md` 写综述正文：先讲收录标准，再按两个阶段、五个 Seat 分章，每章先讲先驱再讲 2026。
+3. 更新 `docs/list_summary.pdf`（`scripts/build_list_summary.py`）。
 4. 补代码和项目链接；可选做一个 GitHub Pages 浏览器。
 
 ---
@@ -196,7 +207,7 @@ scripts/judging/fetch_fulltext.sh work/shards/ids.txt work/text > work/fetch.log
 python3 scripts/judging/content_rejudge.py review work/out verdict
 # 5. 人工复核后写回 CSV：新论文追加；已有的只有加 --update 才会覆盖
 python3 scripts/judging/content_rejudge.py apply work/out work/shards
-python3 scripts/build_layer_table.py
+python3 scripts/build_paper_list.py
 ```
 
 - **不要用 `--update` 重新应用 `data/judging_runs/content_rejudge/`**。那一轮写回时有人工改判（如 EmbodiedSmith 后来恢复了），原始输出里还是旧结论。
@@ -218,7 +229,7 @@ python3 scripts/build_core_table.py && python3 scripts/build_extended.py && pyth
   - 用 Write 写输出，无害；
   - Haiku 调用过会话工具，误建过空会话。
   - 提示词里要明确禁止。
-- 有的子 agent 会把层写成「L1 准备层」之类。`content_rejudge.py` 已经做了归一化，但子类名必须是 §1.3 里的那些，否则 apply 会报错。
+- 子 agent 有时会在 Seat 后面多写字或写错大小写，`content_rejudge.py` 已做归一化；但 role 必须是 §1.3 里对应 Seat 的那些，否则 apply 会报错。
 - Sonnet 子 agent 偶尔会卡住：转录文件十几分钟不更新，也不写输出。遇到时停掉，重启同一个分片，并在提示里说明「OUTPUT 已存在时只补缺的」。
 - 分片输出只在本地。长任务要分批提交、推送：云端会话的容器会被回收，之前就因此丢过一次中间结果。
 - arXiv 下载要保持每篇间隔 3 秒以上。
@@ -239,10 +250,10 @@ python3 scripts/build_core_table.py && python3 scripts/build_extended.py && pyth
 
 1. **第一、二轮**：收集 14 篇种子论文的前向引用，加上 2026 年关键词检索和三轮联网补漏，逐篇判定了 12,230 篇候选（`fine_labels.csv`）。
 2. **第三轮**：按 Seat × Carrier 定义挑出核心表，并出了报告和 5 页简报。
-3. **2026-10-09**：用户提出三层框架和 agent 回路图，规则依次改为：
+3. **2026-10-09**：用户提出 agent 回路图（和一度的三层框架），收录规则依次改为：
    - 开环也算；
    - 数据平台不算；
    - 必须是现成通用大模型；
    - 读全文判定。
 
-   旧定义因此弃用，工作重心转到 list。各条决策的完整记录见 `docs/definition.md` 开头（决策 1–19）和 `docs/history/HANDOFF_round3.md` §5。
+   174 篇读全文重判后，用户又把分类改回两个阶段、五个 Seat（决策 20），收录标准保持最后一轮的。各条决策的完整记录见 `docs/history/definition_round3.md` 开头（决策 1–19）和 `docs/history/HANDOFF_round3.md` §5。

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Generate README.md (the awesome list) from data/core/core_table.csv + data/core/core_meta.json.
 
-Sections follow the survey taxonomy: one per Seat (Controller split into three sub-types), then the
-Real2Sim / Sim2Real and VLN chapters. Every section traces its lineage: pioneers (2022-2025) first, then
+Sections follow the user's classification (2026-10-09): two phases, pre-execution (Designer, Teacher, Developer) and
+runtime (Controller split into three sub-types, Supervisor), then the Real2Sim / Sim2Real and VLN chapters. Every section traces its lineage: pioneers (2022-2025) first, then
 2026. Columns carry the anatomy tags (Carrier, Interface, Topology, Loop, Body).
 
 Usage: python3 scripts/build_readme.py
@@ -12,23 +12,28 @@ from collections import Counter
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECTIONS = [
-    ("Controller", "orchestrator", "Controller · Orchestrators",
-     "Called during evaluated episodes; sequence skills, tools or VLAs-as-tools."),
-    ("Controller", "direct", "Controller · Direct drivers",
-     "Called during evaluated episodes; emit actions, semantic micro-actions, native commands, or code and constraints executed now."),
-    ("Controller", "lifelong", "Controller · Lifelong / memory agents",
-     "Improve memory, skill libraries or harness across evaluated episodes."),
-    ("Supervisor", None, "Supervisor",
-     "Runtime, acts only on exceptions: gates, vetoes, failure detection and recovery, by a separate check process."),
-    ("Teacher", None, "Teacher",
-     "Before deployment, the agent acts; its outcome-checked behaviour becomes the deployed model's training target."),
-    ("Designer", None, "Designer",
-     "Before deployment, the agent designs the learning problem: rewards, tasks, environments, curricula, eval suites."),
-    ("Developer", None, "Developer",
-     "Before deployment, the agent edits the solution: policy code, skill libraries, harness, training code, hardware; keeps or reverts by its own experiments."),
+PHASES = {"pre": ("Pre-execution", "The agent's output is produced before the robot executes the task and is frozen into "
+                                    "the deployed system."),
+          "run": ("Runtime", "The agent acts while the robot executes the task.")}
+SECTIONS = [  # (phase, seat, Controller sub-type or None, title, description)
+    ("pre", "Designer", None, "Designer",
+     "Designs the learning problem: environments and scenes, simulation, rewards, tasks, curricula."),
+    ("pre", "Teacher", None, "Teacher",
+     "Executes the task itself; its verified demonstrations or experience become training targets for a policy or a "
+     "smaller model."),
+    ("pre", "Developer", None, "Developer",
+     "Modifies the system itself: training code, skill libraries, harnesses, planning domains, hardware and tools; keeps "
+     "or reverts by its own trials."),
+    ("run", "Controller", "orchestrator", "Controller · Orchestrators",
+     "Decides at each step by planning and calling skills, tools or VLAs-as-tools."),
+    ("run", "Controller", "direct", "Controller · Direct drivers",
+     "Writes the code, constraints or rewards executed now, or emits the actions itself."),
+    ("run", "Controller", "lifelong", "Controller · Lifelong / memory agents",
+     "Improves memory, skill libraries or harness across episodes while acting."),
+    ("run", "Supervisor", None, "Supervisor",
+     "Acts only on anomalies: failure detection, safety guardrails, recovery, asking for help."),
 ]
-LEGEND = """**Legend.** *Carrier* — **G** general model used as-is, **C** general model fine-tuned or distilled for an agent role, still acting through tools, skills, code or plans (→ marks migration, e.g. G→C). *Topology* — ×1 single agent, ×R role agents on one task, ×N one agent per robot, 1:N one decider for many robots, ×O agents owning branches of a campaign. *Loop* — **re-decide**: the model is called again with its own decisions and their consequences; **authored**: constraints or a program written by the model read live perception and adapt while the robot acts (e.g. ReKep re-solves its keypoint constraints and backtracks when one breaks); **none**: written once (kept for pioneers and for the two exceptions). *Closure* — evidence the loop uses: E execution, H human."""
+LEGEND = """**Legend.** *Carrier* — **G** general model used as-is (models the authors fine-tuned are no longer included). *Topology* — ×1 single agent, ×R role agents on one task, ×N one agent per robot, 1:N one decider for many robots, ×O agents owning branches of a campaign. *Loop* — **re-decide**: the model is called again with its own decisions and their consequences; **authored**: constraints or a program written by the model read live perception and adapt while the robot acts (e.g. ReKep re-solves its keypoint constraints and backtracks when one breaks); **none**: written once (open loop, included). *Closure* — evidence the loop uses: E execution, H human."""
 
 
 def norm_arxiv(a):
@@ -131,17 +136,17 @@ def main():
 
     out = ["# Awesome Agentic Embodiment", "",
            "> *Agentic Embodiment studies general-purpose foundation models — LLMs and VLMs, not embodied action models — "
-           "acting as agents that make explicit decisions and are connected to a robot body — through the policy, code "
-           "or plans they produce, or by acting on the environment directly. Its organizing question is where such an "
-           "agent sits relative to the body's "
-           "deployed policy — steering it, guarding it, teaching it, designing its learning problem, or building its "
-           "system (**Seat**).*", "",
+           "used as-is, acting as agents that make explicit decisions and are connected to a robot body — through the "
+           "policy, code or plans they produce, or by acting on the environment directly. Its organizing question is when "
+           "and where such an agent acts on the robot: **before execution** — designing its learning problem, teaching it, "
+           "or developing its system — or **at runtime** — controlling it or supervising it (**Seat**).*", "",
            "**Thesis (draft, under revision).** *Agency spreads around the body: general models, not embodied action "
            "models, fill seat after seat.*", "",
            f"Each seat is traced from its **{len(pio)} pioneers (2022–2025)** to **{len(core)} papers from 2026**, the year "
            f"most of the field's papers appeared; VLN / embodied navigation ({len(vln)} from 2026) has its own chapter and "
            f"the Real2Sim / Sim2Real sub-direction a short section ({len(r2s)}), plus **{len(res)} benchmarks and resources**. "
-           "Definition and inclusion rules: [docs/definition.md](docs/definition.md) (Chinese).", "",
+           "Definition and inclusion rules: [docs/definition.md](docs/definition.md); the judged list with evidence: "
+           "[docs/paper_list.md](docs/paper_list.md) (both in Chinese).", "",
            "## Scope and what counts as an agent", "",
            "**Scope.** General-purpose foundation models (LLMs / VLMs such as GPT, Gemini, Claude, Qwen-VL, GPT-6 Astra) "
            "doing embodied work as agents. They may plan, call skills, tools or VLAs, write code or constraints, or emit "
@@ -152,31 +157,30 @@ def main():
            "**Embodied foundation models that produce actions are not included** — VLAs (also with reasoning, memory or "
            "self-correction), hierarchical VLAs, world action models, robot foundation models (π0.5, ECoT, OneTwoVLA, "
            "Hi Robot, Gemini Robotics, PaLM-E); they appear here only as tools called by an agent.", "",
-           "**Agent tests**: (1) **a general model is the agent** and makes **explicit decisions** — plans, "
-           "skill/tool/VLA calls, code, constraints, verdicts, system edits, or actions; (2) **decision authority** — "
-           "the model writes its options, or picks among them with a control action (stop / retry / replan / ask / "
-           "keep-revert); (3) **it is connected to the body** — what it decides reaches the policy / code layer or the "
-           "environment, and the agent loop is the "
-           "paper's main contribution (data-generation platforms are not included). Closing the loop is **recorded, not "
-           "required**: *Loop* = re-decide (the model is called again with its earlier decisions and their consequences), "
-           "authored (the constraints or program it wrote read live perception and adapt, e.g. ReKep, VoxPoser, Code as "
-           "Policies) or none (open loop, e.g. ZS-Planners, CoPa). The share of closed-loop papers rises every year "
-           "(see `docs/core_stats.md`).", "",
+           "**Inclusion** (every paper judged from its full text): (1) a **general model used as-is** is the agent and "
+           "plays a real role — models the authors trained, fine-tuned or distilled do not count; (2) the agent is "
+           "**connected** to the policy / code layer or to the environment — closing the loop is recorded, not required "
+           "(*Loop* = re-decide, authored, or none); (3) at a glance the paper is **about the agent** — datasets, "
+           "data-generation platforms and asset pipelines with an LLM inside are not included, benchmarks of general "
+           "agents are listed as resources; (4) general models, not embodied foundation models.", "",
            "Also not included: scalar reward/value models, one-shot annotators, world-model foresight, game/text worlds, "
            "purely digital agents.", "",
            "## Seat by period", "",
-           "| Seat | Phase | Pioneers 2022–2025 | 2026 | of which fine-tuned (C) |", "|---|---|---|---|---|"]
-    for s_, ph in (("Controller", "runtime"), ("Supervisor", "runtime"), ("Teacher", "pre-deployment"),
-                   ("Designer", "pre-deployment"), ("Developer", "pre-deployment")):
+           "| Phase | Seat | Pioneers 2022–2025 | 2026 |", "|---|---|---|---|"]
+    for ph_, s_ in (("pre-execution", "Designer"), ("pre-execution", "Teacher"), ("pre-execution", "Developer"),
+                    ("runtime", "Controller"), ("runtime", "Supervisor")):
         n_p = sum(1 for r in pio if r["seat"] == s_)
         n_c = sum(1 for r in core if r["seat"] == s_)
-        n_ft = sum(1 for r in pio + core if r["seat"] == s_ and r["carrier"].split("→")[-1].strip() == "C")
-        out.append(f"| {s_} | {ph} | {n_p} | {n_c} | {n_ft or '·'} |")
+        out.append(f"| {ph_} | {s_} | {n_p} | {n_c} |")
     out += ["", "Counts include the papers of the Real2Sim / Sim2Real and VLN chapters under their seats.", "",
             LEGEND, "", "## Contents", ""]
     anchor = lambda t: "#" + re.sub(r"[^a-z0-9 -]", "", t.lower()).replace(" ", "-")
-    for _, _, title, _ in SECTIONS:
-        out.append(f"- [{title}]({anchor(title)})")
+    last = None
+    for ph, _, _, title, _ in SECTIONS:
+        if ph != last:
+            out.append(f"- [{PHASES[ph][0]}]({anchor(PHASES[ph][0])})")
+            last = ph
+        out.append(f"  - [{title}]({anchor(title)})")
     out += ["- [Sub-direction: Real2Sim / Sim2Real](#sub-direction-real2sim--sim2real)",
             "- [VLN and embodied navigation](#vln-and-embodied-navigation)",
             "- [Benchmarks and resources](#benchmarks-and-resources)"]
@@ -185,9 +189,13 @@ def main():
     if ext_pre:
         out.append(f"- [More papers from 2022–2025 ({len(ext_pre)})](#more-papers-from-20222025)")
     out.append("")
-    for seat, sub, title, desc in SECTIONS:
-        out += [f"## {title}", "", desc, ""] + lineage([r for r in pio if in_section(r, seat, sub)],
-                                                       [r for r in core if in_section(r, seat, sub)], head, row_md)
+    last = None
+    for ph, seat, sub, title, desc in SECTIONS:
+        if ph != last:
+            out += [f"## {PHASES[ph][0]}", "", PHASES[ph][1], ""]
+            last = ph
+        out += [f"### {title}", "", desc, ""] + lineage([r for r in pio if in_section(r, seat, sub)],
+                                                        [r for r in core if in_section(r, seat, sub)], head, row_md)
     out += ["## Sub-direction: Real2Sim / Sim2Real", "",
             "One sub-direction that cuts across Designer and Developer: agents that build or calibrate simulators from the "
             "real world (Real2Sim), transfer what they learned in simulation to the real robot (Sim2Real), or practise in a "
@@ -209,8 +217,8 @@ def main():
         pj, cd = links(r, m)
         out.append(f"| **{r['key']}** | [{title}](https://arxiv.org/abs/{a}){pj}{cd} | {(m.get('published') or r.get('date') or '')[:4]} | "
                    f"{venue_of(r, m)} | {r['seat']} | {r['body']} |")
-    groups = [(seat, sub, title) for seat, sub, title, _ in SECTIONS]
-    groups.insert(3, ("vln", None, "VLN and embodied navigation"))
+    groups = [(seat, sub, title) for _, seat, sub, title, _ in SECTIONS]
+    groups.append(("vln", None, "VLN and embodied navigation"))
     for xs_all, head_, what in ((ext, "More 2026 papers", "2026 papers"),
                                 (ext_pre, "More papers from 2022–2025", "papers from 2022–2025")):
         if not xs_all:

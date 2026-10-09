@@ -1,34 +1,36 @@
 #!/usr/bin/env python3
-"""Full-text judging against the user's agent-loop framework: shards in, review, apply.
+"""Full-text judging of the paper list: shards in, review, apply.
 
 The judging itself is done by subagents that follow screening/prompts/content_rejudge.txt (one agent per shard,
 INPUT = a shard .tsv, OUTPUT = <out_dir>/<shard>.txt, one line per paper:
-key|arxiv|decision_model|model_status|main_contribution|connection|verdict|layer|subtype|evidence|reason).
+key|arxiv|decision_model|model_status|main_contribution|connection|verdict|seat|role|evidence|reason).
+The 2026-10-09 run in data/judging_runs/content_rejudge/ used the earlier three-layer fields (layer|subtype) in those
+two columns; its results were mapped to seats by hand (data/core/paper_list.csv), so it is a record, never re-applied.
 
   shards  <source.csv> <text_dir> <shard_dir> [size]
-      source: data/core/layer_classification.csv, data/core/extended_2026.csv, extended_2022_2025.csv or any CSV with
+      source: data/core/paper_list.csv, data/core/extended_2026.csv, extended_2022_2025.csv or any CSV with
       arxiv + title and key (or id). Writes <shard_dir>/kNN.tsv (key, arxiv, title, text path) and
       <shard_dir>/ids.txt for scripts/judging/fetch_fulltext.sh. Rows without an arXiv id are listed and skipped.
   review  <out_dir> [changes|verdict|all]
-      Parse the outputs, check completeness, and compare with data/core/layer_classification.csv.
+      Parse the outputs, check completeness, and compare with data/core/paper_list.csv.
   apply   <out_dir> <shard_dir> [--update]
-      Write the verdicts into data/core/layer_classification.csv. New keys are appended; keys already in the CSV are
-      left alone unless --update is given (the core-table run of 2026-10-09 was applied with hand review, e.g.
-      EmbodiedSmith was restored after the user's question, so do not re-apply data/judging_runs/content_rejudge/
-      with --update). Then run scripts/build_layer_table.py.
+      Write the verdicts into data/core/paper_list.csv. New keys are appended; keys already in the CSV are left
+      alone unless --update is given. Then run scripts/build_paper_list.py.
 """
 import csv, glob, os, re, sys
 from collections import Counter
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-CSV = os.path.join(ROOT, "data/core/layer_classification.csv")
-FIELDS = "key arxiv model status contrib conn verdict layer subtype evidence reason".split()
+CSV = os.path.join(ROOT, "data/core/paper_list.csv")
+FIELDS = "key arxiv model status contrib conn verdict seat role evidence reason".split()
 VERDICTS = ["保留", "资源", "剔除"]
-LAYERS = ["L1", "L2", "L3", "-"]
-SUBS = ["环境/重建", "奖励/任务", "本体/工具", "系统/代码", "策略生产者", "编排者", "经验迁移", "运行时监控", "直接动作",
-        "评测L1", "评测L2", "评测L3", ""]
-COLS = ["verdict", "layer", "subtype", "key", "year", "tier", "title", "arxiv", "decision_model", "model_status",
-        "contribution", "connection", "arrows", "reason", "evidence", "note", "old_seat"]
+SEATS = ["Designer", "Teacher", "Developer", "Controller", "Supervisor", "-"]
+PHASE = {"Designer": "执行前", "Teacher": "执行前", "Developer": "执行前", "Controller": "运行时", "Supervisor": "运行时"}
+ROLES = {"Designer": ["环境/重建", "奖励/任务"], "Teacher": ["示范/蒸馏"], "Developer": ["系统/代码", "本体/工具"],
+         "Controller": ["编排", "写策略", "直接动作"], "Supervisor": ["监控/恢复"]}
+ROLE_ORDER = ["环境/重建", "奖励/任务", "示范/蒸馏", "系统/代码", "本体/工具", "编排", "写策略", "直接动作", "监控/恢复", "评测", ""]
+COLS = ["verdict", "phase", "seat", "role", "key", "year", "tier", "title", "arxiv", "decision_model", "model_status",
+        "contribution", "connection", "reason", "evidence", "note", "arrows"]
 clean = lambda s: " ".join((s or "").split())
 
 
@@ -59,13 +61,14 @@ def parse(out_dir):
                     bad.append((os.path.basename(p), line.strip()[:100]))
                 continue
             g = dict(zip(FIELDS, x))
-            layer, sub = (g["layer"].split() or ["-"])[0], g["subtype"].strip()  # agents sometimes write "L1 准备层"
-            if g["verdict"] == "资源":  # evaluated layer in `layer`, 评测Lx in `subtype`
-                ev = layer if layer.startswith("评测") else (sub if sub.startswith("评测") else "")
-                layer, sub = ev.replace("评测", "") or "-", ev
+            seat = (g["seat"].split() or ["-"])[0].strip("·")  # agents sometimes add words after the seat
+            seat = seat[:1].upper() + seat[1:].lower() if seat != "-" else seat
+            role = g["role"].strip()
+            if g["verdict"] == "资源":  # the evaluated seat, role 评测
+                role = "评测"
             elif g["verdict"] == "剔除":
-                layer, sub = "-", ""
-            g["layer"], g["subtype"] = layer, sub
+                seat, role = "-", ""
+            g["seat"], g["role"], g["phase"] = seat, role, PHASE.get(seat, "-")
             got[g["key"]] = g
     return got, bad
 
@@ -80,8 +83,8 @@ def review(out_dir, mode="changes"):
           Counter(g["verdict"] for g in got.values()))
     for k, g in got.items():
         c = cur.get(k, {})
-        old = (c.get("verdict"), c.get("layer"), c.get("subtype"))
-        new = (g["verdict"], g["layer"], g["subtype"])
+        old = (c.get("verdict"), c.get("seat"), c.get("role"))
+        new = (g["verdict"], g["seat"], g["role"])
         if mode == "all" or (mode == "changes" and old != new) or (mode == "verdict" and old[0] != new[0]):
             print(f"\n## {k}  {' '.join(x or '-' for x in old)}  ->  {' '.join(new)}")
             print(f"   model: {g['model']} | {g['status']} | {g['contrib']} | {g['conn']}")
@@ -100,16 +103,17 @@ def apply(out_dir, shard_dir, update=False):
     assert not bad, f"{len(bad)} malformed lines; fix them first"
     added = changed = 0
     for k, g in got.items():
-        bad_label = g["verdict"] not in VERDICTS or g["layer"] not in LAYERS or g["subtype"] not in SUBS
-        assert not bad_label, (k, g["verdict"], g["layer"], g["subtype"])
-        vals = dict(verdict=g["verdict"], layer=g["layer"], subtype=g["subtype"], decision_model=g["model"],
+        bad_label = g["verdict"] not in VERDICTS or g["seat"] not in SEATS or (
+            g["verdict"] == "保留" and g["role"] not in ROLES.get(g["seat"], []))
+        assert not bad_label, (k, g["verdict"], g["seat"], g["role"])
+        vals = dict(verdict=g["verdict"], phase=g["phase"], seat=g["seat"], role=g["role"], decision_model=g["model"],
                     model_status=g["status"], contribution=g["contrib"], connection=g["conn"], reason=g["reason"],
                     evidence=g["evidence"])
         if k in cur:
             if update:
                 r = cur[k]
-                if (r["verdict"], r["layer"], r["subtype"]) != (g["verdict"], g["layer"], g["subtype"]):
-                    vals["note"] = f"全文复核：原为 {r['verdict']} {r['layer']} {r['subtype']}".strip()
+                if (r["verdict"], r["seat"], r["role"]) != (g["verdict"], g["seat"], g["role"]):
+                    vals["note"] = f"全文复核：原为 {r['verdict']} {r['seat']} {r['role']}".strip()
                 r.update(vals)
                 changed += 1
             continue
@@ -117,9 +121,9 @@ def apply(out_dir, shard_dir, update=False):
         m = re.match(r"(\d{2})\d{2}\.\d{4,5}$", a)
         year = "20" + m.group(1) if m else ""
         rows.append(dict(vals, key=k, arxiv=a, title=t, year=year, tier="2026" if year == "2026" else "先驱",
-                         arrows="", note="", old_seat=""))
+                         arrows="", note=""))
         added += 1
-    rows.sort(key=lambda r: (VERDICTS.index(r["verdict"]), LAYERS.index(r["layer"]), SUBS.index(r["subtype"]),
+    rows.sort(key=lambda r: (VERDICTS.index(r["verdict"]), SEATS.index(r["seat"]), ROLE_ORDER.index(r["role"]),
                              r["tier"] != "先驱", r["year"], r["key"].lower()))
     with open(CSV, "w", encoding="utf-8-sig", newline="") as f:
         w = csv.DictWriter(f, fieldnames=COLS, extrasaction="ignore")

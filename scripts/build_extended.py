@@ -3,8 +3,8 @@
 not in the curated table, one file for 2026 and one for the pioneer years 2022-2025.
 
 Open-loop papers count since 2026-10-09: the agent only has to connect to the policy / code or to the environment
-(user's agent-loop diagram, docs/layer_classification.md); `loop` = none marks them. Papers the diagram judgement
-excluded (verdict 剔除 in data/core/layer_classification.csv) are left out.
+(user's agent-loop diagram, docs/paper_list.md); `loop` = none marks them. Papers the full-text judgement
+excluded (verdict 剔除 in data/core/paper_list.csv) are left out.
 
 The curated table (core_table.csv) is quota-driven (~100 rows). The awesome list also shows the rest
 of the papers that meet the definition, so coverage of a year does not depend on the quota.
@@ -45,7 +45,7 @@ def main():
     table = list(csv.DictReader(open(os.path.join(ROOT, "data/core/core_table.csv"))))
     taken = {norm_arxiv(r["arxiv"]) for r in table if r["arxiv"]} | {norm_title(r["title"]) for r in table}
     taken |= {r["id"] for r in table}
-    lp = os.path.join(ROOT, "data/core/layer_classification.csv")
+    lp = os.path.join(ROOT, "data/core/paper_list.csv")
     if os.path.exists(lp):  # excluded by the agent-loop judgement: keep them out of the extended lists too
         for r in csv.DictReader(open(lp, encoding="utf-8-sig")):
             if r["verdict"] == "剔除":
